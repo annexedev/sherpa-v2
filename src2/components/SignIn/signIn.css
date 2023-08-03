@@ -1,0 +1,94 @@
+.root {
+    display: grid;
+    gap: 10px;
+    justify-items: stretch;
+}
+
+.forgotPassword {
+    display: block;
+    text-decoration: underline;
+    color: rgb(var(--venia-global-color-error));
+    font-size: 0.8rem;
+}
+
+.form {
+    display: grid;
+    row-gap: 10px;
+    background: var(--primary-light-color);
+}
+.close {
+    cursor: pointer;
+}
+.modal {
+    visibility: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(var(--venia-global-color-gray));
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.modal_active {
+    visibility: visible;
+    composes: modal;
+    opacity: 0.9;
+}
+.button_wrap > button {
+    width: 100%;
+}
+.buttonsContainer {
+}
+
+.forgotPasswordButtonContainer {
+    text-align: center;
+    width: 100%;
+}
+
+.forgotPasswordButton {
+    padding: 0;
+}
+.forgotPasswordButton span {
+    display: inline-block;
+    transition: 0.3s all;
+    -webkit-transition: 0.3s all;
+    -moz-transition: 0.3s all;
+}
+.forgotPasswordButton span:hover {
+    text-decoration: underline !important;
+}
+.title {
+    font-family: 'Karla-Bold';
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+}
+.title_subtext {
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0 15px 0;
+    color: var(--primary-text-color);
+}
+.signup_button {
+    min-width: 100% !important;
+    border: 1px solid var(--primary-dark-color);
+    display: block !important;
+    border-radius: 3px;
+    max-width: 100%;
+    min-height: 41px;
+}
+.buttonsContainer button span {
+    font-size: 14px !important;
+    display: block;
+}
+.create_account_div {
+    border-top: 1px solid var(--primary-border-color);
+    padding: 20px 0 10px 0;
+    margin-top: 10px;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .root {
+        padding: 15px;
+        background: var(--primary-light-color);
+    }
+}

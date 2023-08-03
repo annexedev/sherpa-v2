@@ -1,0 +1,70 @@
+.root {
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: stretch;
+    position: relative;
+    padding: 20px 0;
+}
+.root:after {
+    content: '';
+    position: absolute;
+    width: 13px;
+    height: 15px;
+    background: var(--primary-icon-hover-color);
+    right: 50px;
+    top: -8px;
+    transform: rotate(45deg);
+    box-shadow: var(--primary-box-shadow);
+    z-index: -1;
+}
+.customer_mail {
+    display: block;
+    padding: 10px;
+    font-family: 'Karla-regular' !important;
+    color: var(--primary-slider-nav-color);
+}
+.link {
+    composes: root from '../LinkButton/linkButton.css';
+    color: var(--primary-dark-color);
+    justify-content: start;
+    text-decoration: none;
+    padding: 10px 10px;
+    transition: 0.3s all;
+    -webkit-transition: 0.3s all;
+    -moz-transition: 0.3s all;
+    text-align: left;
+}
+
+.link:hover {
+    font-family: 'Karla-medium' !important;
+}
+
+.signOut,
+.signOut:hover {
+    padding: 10px 10px 10px 10px;
+    color: var(--primary-error-color);
+    font-family: 'Karla-medium';
+    text-align: left;
+}
+.active span,
+.active svg,
+.active .nav_text {
+    color: var(--primary-base-color) !important;
+    stroke: var(--primary-base-color);
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .root {
+        padding: 10px 15px;
+    }
+    .root:after {
+        display: none;
+    }
+    .customer_mail,
+    .signOut {
+        display: none;
+    }
+    .link {
+        padding: 15px 0;
+    }
+}

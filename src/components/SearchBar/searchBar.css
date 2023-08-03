@@ -1,0 +1,78 @@
+.root {
+    align-items: center;
+    display: none;
+    justify-items: center;
+    background: var(--primary-light-color);
+    position: fixed !important;
+    top: 0 !important;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 99999;
+}
+
+.root_open {
+    composes: root;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+.search_header {
+    flex: 0 0 100%;
+    min-width: 100%;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.heading {
+    font-size: 20px;
+    font-family: 'Karla-Bold';
+    margin: 0;
+}
+.close {
+    cursor: pointer;
+}
+.form {
+    align-items: center;
+    display: grid;
+    justify-items: stretch;
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+.container {
+    display: inline-flex;
+    justify-content: center;
+    position: relative;
+    flex: 0 0 100%;
+    padding: 10px 0;
+    flex-wrap: wrap;
+}
+
+.search {
+    display: grid;
+    position: relative;
+}
+.search svg {
+    stroke: var(--primary-dark-color);
+    width: 20px;
+}
+.autocomplete {
+    display: grid;
+    position: relative;
+    z-index: 1;
+}
+
+/* rtl */
+body[class='rtl_view'] .search input {
+    padding-right: 40px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .root {
+        padding: 0 15px;
+    }
+}

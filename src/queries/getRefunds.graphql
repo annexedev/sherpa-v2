@@ -1,0 +1,30 @@
+query getRefunds($order_id: Int!) {
+    creditMemoDetails(order_id: $order_id) {
+        order_number
+        order_date
+        order_status
+        hasShipments
+        hasInvoices
+        hasCreditmemos
+        refunds {
+            increment_id
+            created_at
+            subtotal
+            grand_total
+            shipping_amount
+            item {
+                product_name
+                sku
+                qty_refunded
+                price
+                row_total
+                subtotal
+                discount
+                options {
+                    label
+                    value
+                }
+            }
+        }
+    }
+}

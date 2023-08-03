@@ -1,0 +1,33 @@
+.root {
+    border-bottom: 1px solid var(--ced-border-color);
+    display: grid;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.imageContainer {
+    justify-self: center;
+}
+
+.image {
+    padding: 0 2rem;
+}
+
+.productName {
+    font-size: 18px;
+    font-family: 'Karla-Bold' !important;
+    color: var(--ced-black-color);
+}
+
+.stockRow {
+    display: flex;
+    font-weight: 300;
+    font-size: 0.875rem;
+    justify-content: space-between;
+}
+.stockRow_status {
+    color: var(--ced-gray-color);
+}
+.price {
+    font-weight: 600;
+}

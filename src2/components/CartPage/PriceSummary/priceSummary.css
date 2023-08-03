@@ -1,0 +1,77 @@
+.root {
+    padding: 15px;
+}
+
+.errorText {
+    color: var(--ced-error-color);
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.lineItems {
+    display: grid;
+    grid-gap: 0.75rem;
+    grid-template-columns: 1fr auto;
+    line-height: 1.5rem;
+}
+
+.lineItemLabel {
+    justify-self: start;
+}
+
+.price {
+    justify-self: end;
+}
+
+.totalLabel {
+    composes: lineItemLabel;
+    font-family: 'Karla-medium' !important;
+    display: block;
+    color: var(--ced-black-color);
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.totalPrice {
+    composes: price;
+    margin-top: 20px;
+}
+.totalPrice span {
+    font-family: 'Karla-medium' !important;
+    display: inline-block;
+    color: var(--ced-black-color);
+    font-size: 18px;
+}
+.priceUpdating {
+    composes: price;
+    opacity: 0;
+}
+
+.checkoutButton_container {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 2rem;
+    width: 100%;
+}
+.checkoutButton_container button {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .checkoutButton_container {
+        width: 100%;
+        text-align: center;
+    }
+    .checkoutButton_container button {
+        max-width: 300px;
+        min-width: 300px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .totalLabel {
+        font-family: 'Karla-medium' !important;
+        display: block;
+        color: var(--ced-black-color);
+        font-size: 18px;
+    }
+}

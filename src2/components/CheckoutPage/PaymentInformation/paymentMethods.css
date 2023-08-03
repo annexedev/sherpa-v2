@@ -1,0 +1,23 @@
+.root {
+    display: grid;
+}
+
+.payment_method {
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    margin-bottom: 15px;
+}
+
+.payment_method:last-of-type {
+    margin-bottom: 0;
+}
+
+.radio_label {
+    justify-self: start;
+    cursor: pointer;
+}
+
+.payment_errors {
+    display: grid;
+    gap: 0.5em;
+    color: rgb(var(--venia-global-color-error));
+}

@@ -1,0 +1,60 @@
+.root {
+    --borderColor: var(--venia-global-color-border);
+
+    bottom: 0;
+    display: none;
+    grid-template-rows: 1fr 7rem;
+    /* max-width: 360px; */
+    width: 100%;
+    z-index: 3;
+
+    margin-top: 15px;
+}
+
+.body {
+    overflow: auto;
+    background-color: white;
+    box-shadow: var(--primary-box-shadow);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.25rem 1.25rem 0;
+}
+
+.headerTitle {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 0.875rem;
+    font-family: 'Karla-Medium';
+}
+.menu_root {
+    padding: 15px 15px;
+}
+.action {
+    padding: 1rem 1.25rem 0;
+}
+.reset_btn_wrap {
+    margin: 10px 0 10px 0;
+    text-align: right;
+}
+.action button {
+    font-size: var(--venia-typography-body-S-fontSize);
+    text-decoration: none;
+}
+
+.blocks {
+    padding: 10px 0;
+}
+
+.blocks > li:last-child {
+    border-bottom: 2px solid rgb(var(--borderColor));
+}
+
+@media (min-width: 1024px) {
+    .root {
+        display: grid;
+    }
+}

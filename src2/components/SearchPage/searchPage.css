@@ -1,0 +1,65 @@
+.root {
+    padding: 20px 0px;
+}
+.title {
+    margin-top: 20px;
+    flex-basis: 100%;
+}
+.categoryTop {
+    display: flex;
+    flex-wrap: wrap;
+    color: rgb(var(--venia-global-color-text-alt));
+    justify-content: center;
+    align-items: center;
+}
+
+.noResult {
+    display: flex;
+    border-bottom: 1px solid var(--primary-slider-nav-color);
+    padding: 10px;
+    color: var(--primary-slider-nav-color);
+    width: 100%;
+    align-items: center;
+}
+.noResult_icon svg,
+.noResult_text {
+    color: var(--primary-slider-nav-color);
+}
+.noResult_text {
+}
+.headerButtons {
+    display: flex;
+    justify-content: center;
+    flex-basis: 100%;
+}
+
+.filterButton {
+    composes: root_lowPriority from '../../components/Button/button.css';
+    min-width: 6.25rem;
+}
+
+.sortContainer {
+    font-size: 0.875rem;
+    padding: 1rem 0;
+}
+
+.sortText {
+    font-weight: 600;
+}
+
+.totalPages {
+}
+
+/* rtl */
+body[class='rtl_view'] .noResult_text {
+    margin: 0 10px;
+}
+body[class='rtl_view'] .categoryTitle {
+    text-align: right;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .root {
+        padding: 20px 0px;
+    }
+}

@@ -1,0 +1,23 @@
+.root {
+}
+
+.tree {
+    margin: 0;
+}
+
+.leaf {
+}
+
+.branch {
+}
+
+.inactive {
+    position: fixed;
+    visibility: hidden;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .tree {
+        border-bottom: 1px solid var(--primary-border-color);
+    }
+}

@@ -1,0 +1,27 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+}
+
+ul.root li {
+    background: var(--primary-base-color);
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    color: var(--primary-light-color);
+}
+ul.root li svg {
+    stroke: var(--primary-light-color);
+    width: 17px;
+}
+.root:empty {
+    display: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .menu_root {
+        margin: 20px;
+        padding: 15px 15px 10px 15px;
+    }
+}

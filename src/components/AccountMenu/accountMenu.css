@@ -1,0 +1,99 @@
+.overlay,
+.modal_Wrap {
+}
+.overlay {
+}
+.signedin_menu {
+    position: absolute;
+    z-index: 1;
+    top: 180%;
+    min-width: 210px;
+}
+.account_modal {
+    box-shadow: var(--primary-box-shadow);
+    background: var(--primary-light-color);
+    position: relative;
+}
+
+.root {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 9999999;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.root_open {
+    composes: root;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* new modal */
+.account_modal_form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999999;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    transition: 0.3s all;
+    background: unset;
+}
+.account_modal_form::before {
+    display: none;
+}
+/* end */
+.modal_Wrap {
+    overflow: auto;
+    z-index: 99;
+}
+.modal_inner {
+    background-color: var(--primary-light-color);
+    box-shadow: var(--primary-box-shadow);
+    width: 430px;
+    position: absolute;
+    z-index: 999999;
+    left: 50%;
+    margin-left: -215px;
+    margin-top: 2%;
+}
+.createAccount {
+    display: grid;
+    gap: 10px;
+    justify-items: stretch;
+}
+
+.forgotPassword {
+    padding: 2rem;
+}
+
+.loading {
+    padding: 2rem;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .account_modal {
+        display: none;
+    }
+    .modal_inner {
+        overflow: auto;
+        height: 100%;
+        bottom: -30px;
+        margin: 0;
+        left: 0;
+        transition: 0.3s all;
+        -moz-transition: 0.3s all;
+        -webkit-transition: 0.3s all;
+        width: 100%;
+    }
+    .root_open .modal_inner {
+        bottom: 0;
+    }
+}

@@ -1,0 +1,49 @@
+.root {
+    display: grid;
+    gap: 0.9375rem;
+    justify-items: stretch;
+}
+
+.message {
+    background-color: rgb(var(--venia-global-color-gray));
+    border-radius: 4px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 1rem;
+}
+
+.message:empty {
+    display: none;
+}
+
+.actions {
+    align-items: center;
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    text-align: center;
+}
+
+.submitButton {
+    composes: root_highPriority from '../Button/button.css';
+    min-width: 11rem;
+}
+.success_msg {
+    color: var(--primary-success-color);
+}
+.subscribe {
+    margin-left: -5px;
+}
+.subscribe span[class='checkbox-icon-1CV'] svg {
+    stroke: var(--primary-success-color);
+    vertical-align: bottom;
+}
+.subscribe span[class='checkbox-icon-1CV'] {
+    text-align: center;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .root {
+        padding: 0;
+    }
+}

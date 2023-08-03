@@ -1,0 +1,30 @@
+.root {
+    align-items: stretch;
+    background-color: white;
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-flow: column;
+    height: 4rem;
+}
+
+.contents {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.contents span {
+    color: var(--primary-light-color);
+    font-family: 'Karla-Medium';
+    display: inline-block;
+}
+.signIn {
+    composes: root from '../LinkButton/linkButton.css';
+}
+.icon svg {
+    stroke: var(--primary-light-color);
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .root {
+        height: auto;
+    }
+}

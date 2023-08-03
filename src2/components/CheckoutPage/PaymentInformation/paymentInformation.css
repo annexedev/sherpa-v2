@@ -1,0 +1,24 @@
+.root {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.payment_info_container {
+    border-radius: 3px;
+}
+
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.css';
+    text-align: center;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .heading {
+        border-width: 0;
+    }
+}

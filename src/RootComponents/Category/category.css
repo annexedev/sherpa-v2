@@ -1,0 +1,216 @@
+:root {
+    --category-sidebar-width: 325px;
+}
+
+.root {
+    padding: 0px 0px;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 0rem;
+    display: flex;
+    align-items: center;
+}
+
+.pagination {
+    position: relative;
+    bottom: 0;
+}
+
+.placeholder {
+    height: 100vh;
+}
+.categoyrpage_banner {
+    margin-bottom: 20px;
+    max-width: 200px;
+}
+.categoryTitle {
+    color: var(--primary-dark-color);
+    font-size: 30px;
+    text-align: left;
+    font-family: 'Karla-Medium' !important;
+}
+.specsheet {
+    color: var(--primary-base-color);
+}
+.specsheet:hover {
+    color: black;
+}
+.boxcategory {
+    border: 2px solid var(--primary-base-color);
+    margin: 10px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 18px;
+    /* min-height: 350px; */
+}
+
+.boxcategory p {
+    margin: 10px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.imgBox {
+    max-width: 100%;
+    max-height: 75px;
+    margin-top: 20px;
+}
+
+.containerImgBox {
+    min-height: 100px;
+}
+
+.downloadboxlink {
+    text-align: center;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+.downloadboxlink a {
+    width: 200px;
+    border: 2px solid var(--primary-base-color);
+    color: white;
+    padding: 10px 30px;
+    border-radius: 4px;
+    margin-top: 5px;
+    display: inline-block;
+    transition: 0.3s all;
+    -webkit-transition: 0.3s all;
+    -moz-transition: 0.3s all;
+    background: var(--primary-base-color);
+}
+
+.boxlink {
+    text-align: center;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+.emptyboxlink {
+    text-align: center;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 37px !important;
+    opacity: 0;
+}
+
+.boxlink a {
+    width: 200px;
+    border: 2px solid var(--primary-base-color);
+    color: white;
+    padding: 10px 30px;
+    border-radius: 4px;
+    margin-top: 5px;
+    display: inline-block;
+    transition: 0.3s all;
+    -webkit-transition: 0.3s all;
+    -moz-transition: 0.3s all;
+    background: var(--primary-base-color);
+}
+
+.heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+}
+
+.categoryInfo {
+    max-width: 75vw;
+    color: var(--primary-slider-nav-color);
+    font-size: 17px;
+    margin-left: 15px !important;
+}
+
+.headerButtons {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    padding-bottom: 1.5rem;
+}
+.categoryContent {
+    flex: 0 0 80%;
+    min-width: 80%;
+}
+.contentWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+/* mobiel filter and sort btn */
+.mobile_headerButtons {
+    width: 100%;
+    margin-bottom: 20px;
+    z-index: 9999;
+}
+.mobile_headerButtons_inner {
+    box-shadow: var(--primary-box-shadow);
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--primary-light-color);
+}
+.sort_btn_mobile {
+    flex: 0 0 50%;
+    min-width: 50%;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary-light-color);
+}
+@media (min-width: 1024px) {
+    .categoryHeader {
+        width: 100%;
+    }
+    .headerButtons {
+        justify-content: flex-end;
+    }
+
+    .heading {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding-bottom: 1.5rem;
+    }
+
+    .headerButtons {
+        padding-bottom: 0;
+    }
+
+    .categoryInfo {
+        margin: 0;
+        text-align: left;
+    }
+
+    .sidebar {
+        flex: 0 0 20%;
+        min-width: 20%;
+        padding-right: 15px;
+        align-self: flex-start;
+        position: sticky;
+        top: 170px;
+    }
+}
+@media (min-width: 320px) and (max-width: 767px) {
+    .categoryContent {
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+}

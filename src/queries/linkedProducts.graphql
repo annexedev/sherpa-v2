@@ -1,0 +1,86 @@
+query linkedProducts($sku: String!) {
+    linkedProducts(sku: $sku) {
+        upsell_products {
+            id
+            name
+            price
+            final_price
+            sku
+            image
+            description
+            urlkey
+            type
+            price_range {
+                minimum_price {
+                    regular_price {
+                        value
+                        currency
+                    }
+                    final_price {
+                        value
+                        currency
+                    }
+                    discount {
+                        amount_off
+                        percent_off
+                    }
+                }
+                maximum_price {
+                    regular_price {
+                        value
+                        currency
+                    }
+                    final_price {
+                        value
+                        currency
+                    }
+                    discount {
+                        amount_off
+                        percent_off
+                    }
+                }
+            }
+        }
+        related_product {
+            id
+            name
+            price
+            final_price
+            sku
+            image
+            description
+            urlkey
+            type
+            price_range {
+                minimum_price {
+                    regular_price {
+                        value
+                        currency
+                    }
+                    final_price {
+                        value
+                        currency
+                    }
+                    discount {
+                        amount_off
+                        percent_off
+                    }
+                }
+                maximum_price {
+                    regular_price {
+                        value
+                        currency
+                    }
+                    final_price {
+                        value
+                        currency
+                    }
+                    discount {
+                        amount_off
+                        percent_off
+                    }
+                }
+            }
+        }
+    }
+}

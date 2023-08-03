@@ -1,0 +1,28 @@
+.root {
+    align-items: center;
+    display: flex;
+    border-bottom: 1px dashed var(--primary-border-color);
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    color: var(--primary-dark-color);
+    background-color: var(--primary-light-color);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content svg {
+    stroke: var(--primary-light-color);
+    background: var(--primary-base-color);
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin-left: 10px;
+}
+.text {
+    text-align: left;
+    white-space: nowrap;
+}

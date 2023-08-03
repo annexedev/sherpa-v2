@@ -1,0 +1,116 @@
+.root {
+    background: var(--primary-bodybg-color);
+    position: relative;
+    z-index: 1;
+}
+
+.root_masked {
+    composes: root;
+}
+
+.page {
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--primary-bodybg-color);
+    padding-top: 174px;
+}
+
+.page_masked {
+    composes: page;
+}
+
+.bottom_toolbar {
+    position: fixed;
+    bottom: 0;
+    background: var(--primary-light-color);
+    box-shadow: var(--primary-box-shadow);
+    display: none;
+    border-top: 0.1px solid var(--primary-border-color);
+    left: 0;
+    width: 100%;
+    z-index: 9999999;
+}
+.bottom_tool_inner {
+}
+.bottom_tool_inner .toolbar_items {
+    width: 25%;
+    padding: 5px;
+    display: inline-block;
+    text-align: center;
+    height: 100%;
+    padding: 10px;
+    position: relative;
+    cursor: pointer;
+}
+.bottom_tool_inner .toolbar_items.active {
+    border-bottom: 2px solid var(--primary-base-color);
+}
+.toolbar_items.active .images_label {
+    color: var(--primary-base-color);
+}
+.bottom_tool_inner .toolbar_items::after {
+    content: '';
+    position: absolute;
+    border-right: 1px solid var(--primary-border-color);
+    width: 2px;
+    height: 30px;
+    right: 0;
+    top: 0;
+    transform: translate(0%, 50%);
+}
+.bottom_tool_inner .toolbar_items:last-child::after {
+    display: none;
+}
+.header_Actions_image {
+    display: inline-block !important;
+    margin: 0 auto;
+}
+.language_switch_image {
+    filter: unset !important;
+}
+.images_label {
+    color: var(--primary-dark-color);
+    font-size: 10px;
+    margin-bottom: 0;
+    text-align: center;
+    margin-top: 3px;
+}
+.wishlist_image {
+    position: relative;
+}
+.wishlist_image.header_Actions_image img {
+}
+
+/* rtl */
+body[class='rtl_view'] .bottom_tool_inner .toolbar_items::after {
+    left: 0;
+    right: unset;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .page {
+        padding-top: 205px;
+    }
+    body[class='rtl_view'] .page {
+        padding-top: 0px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .page {
+        padding-top: 116px;
+    }
+    .bottom_toolbar {
+        display: block;
+    }
+    .user_icon_image,
+    .wishlist_image,
+    .language_switch_image,
+    .marketplace {
+        min-height: 22px;
+    }
+    body[class='rtl_view'] .bottom_toolbar {
+        left: 0;
+        text-align: left;
+        width: 100%;
+    }
+}

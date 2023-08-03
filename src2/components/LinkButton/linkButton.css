@@ -1,0 +1,13 @@
+.root {
+    composes: root from '../clickable.css';
+    color: var(--ced-red-color);
+    text-decoration: underline;
+    line-height: 1.25rem;
+    max-width: 100%;
+}
+.root span {
+    font-family: 'Karla-medium' !important;
+}
+.root:hover {
+    color: var(--ced-black-color);
+}

@@ -1,0 +1,26 @@
+.heading span {
+    color: var(--primary-dark-color);
+    font-size: 17px;
+    padding-top: 20px;
+    border-top: 1px solid var(--primary-border-color);
+    display: block;
+    font-family: 'Karla-Bold' !important;
+}
+.suggestions a,
+.suggestions a:hover {
+    color: var(--primary-dark-color);
+}
+.view_more_button {
+    display: inline-block;
+    background: var(--primary-base-color);
+    color: var(--primary-light-color);
+    height: 41px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    margin: auto;
+    width: 25%;
+}
+.view_more_button:hover {
+    background: var(--primary-dark-color);
+}

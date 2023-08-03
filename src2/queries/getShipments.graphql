@@ -1,0 +1,27 @@
+query getShipmentDetails($order_id: Int!) {
+    shipmentDetails(order_id: $order_id) {
+        order_number
+        order_date
+        order_status
+        hasShipments
+        hasInvoices
+        hasCreditmemos
+        billing_address
+        shipping_address
+        shipping_method
+        payment
+        shipment {
+            shipment_number
+            shipment_date
+            item {
+                product_name
+                sku
+                qty_shipped
+                options {
+                    label
+                    value
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+.root,
+.root:hover {
+    display: flex;
+    color: var(--primary-dark-color);
+}
+
+.image {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    flex: 0 0 85px;
+    min-width: 85px;
+}
+
+.thumbnail {
+    height: 100px;
+    max-height: 100px;
+    object-fit: contain;
+    object-position: center;
+    border: 1px solid var(--primary-border-color);
+    width: 100%;
+}
+.product_details_Wrap {
+    padding-left: 20px;
+    flex: 0 0 calc(100% - 125px);
+    min-width: calc(100% - 125px);
+}
+.name {
+    word-break: break-word;
+    color: var(--primary-dark-color);
+    display: block;
+    margin: 0 0 5px 0;
+    font-size: 15px;
+}
+.price {
+    composes: price from '../CedHome/home.css';
+    text-align: left;
+}
+
+/* rtl */
+body[class='rtl_view'] .product_details_Wrap {
+    padding-right: 20px;
+}

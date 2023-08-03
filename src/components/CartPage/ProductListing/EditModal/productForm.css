@@ -1,0 +1,51 @@
+.optionRoot {
+    border-bottom: 1px solid var(--ced-border-color);
+    padding: 1rem 0;
+}
+
+.quantityLabel {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+}
+
+.quantityRoot {
+    composes: root from '../quantity.css';
+    grid-template-columns: auto 1fr auto;
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0rem;
+}
+
+.loading {
+    composes: root from '../../../LoadingIndicator/indicator.css';
+    height: unset;
+    text-align: center;
+}
+
+.dataError {
+    color: var(--ced-error-color);
+    display: inline-block;
+    padding-top: 1rem;
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.errorContainer {
+    padding-top: 1rem;
+}
+.submit button {
+    width: 100%;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .submit {
+        padding: 0rem;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+}

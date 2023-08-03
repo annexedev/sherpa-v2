@@ -1,0 +1,215 @@
+.root {
+    composes: root from '../CartPage/cartPage.css';
+}
+.checkoutContent_wrap {
+}
+.checkoutContent {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr;
+    margin-top: 30px;
+}
+
+.checkoutContent_hidden {
+    composes: checkoutContent;
+    display: none;
+}
+.checkoutContent_left_section {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.heading_container {
+    display: grid;
+    grid-column-end: span 2;
+    row-gap: 1rem;
+}
+
+.heading {
+    line-height: 1.25em;
+    font-size: 22px;
+    font-family: 'Karla-medium';
+    margin-bottom: 20px;
+}
+.base_wrap {
+    background-color: var(--primary-light-color);
+    padding: 15px;
+    margin-bottom: 25px;
+    box-shadow: var(--primary-box-shadow);
+}
+.active_step {
+}
+.cartLink {
+    composes: root from '../LinkButton/linkButton.css';
+    font-size: inherit;
+}
+
+.stepper_heading {
+    border-bottom: 1px solid var(--primary-border-color);
+    font-size: 1rem;
+    font-weight: 600;
+    padding-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.shipping_method_heading {
+    composes: stepper_heading;
+}
+
+.payment_information_heading {
+    composes: stepper_heading;
+}
+
+.signin_container {
+    grid-column: 1 / span 1;
+    border-bottom: 1px solid var(--primary-border-color);
+}
+
+.empty_cart_container {
+    margin-bottom: 1.5rem;
+}
+.empty_cart_container h3 {
+    font-size: 16px;
+}
+.shipping_information_container {
+    grid-column: 1 / span 1;
+}
+
+.shipping_method_container {
+    grid-column: 1 / span 1;
+}
+
+.payment_information_container {
+    grid-column: 1 / span 1;
+}
+
+.price_adjustments_container {
+    grid-column: 1 / span 1;
+}
+
+.items_review_container {
+    grid-column: 1 / span 1;
+    box-shadow: var(--primary-box-shadow);
+}
+
+.sign_in {
+    composes: root from '../LinkButton/linkButton.css';
+    margin-bottom: 1.5rem;
+}
+.sign_in span {
+    color: var(--primary-base-color);
+    display: block;
+    font-family: 'Karla-medium' !important;
+    font-size: 16px !important;
+}
+.order_summary_wrap {
+}
+.summaryContainer {
+    grid-column: 1 / span 1;
+    box-shadow: var(--primary-box-shadow);
+    background: var(--primary-light-color);
+}
+.summaryContainer_heading {
+    composes: cardTitle from './ShippingInformation/shippingInformation.css';
+    display: block;
+    padding: 10px;
+    margin: 0 10px;
+    border-bottom: 1px solid var(--primary-border-color);
+}
+
+@media (min-width: 961px) {
+    .summaryContainer {
+        grid-column: 2 / span 1;
+        grid-row: 2 / span 3;
+        position: sticky;
+        top: 170px;
+        height: min-content;
+        background: var(--primary-light-color);
+    }
+
+    .signin_container ~ .summaryContainer {
+        grid-row: 3 / span 3;
+    }
+}
+
+.review_order_button {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    margin: auto;
+    min-width: 200px;
+    margin-top: 25px;
+}
+
+.place_order_button {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    margin: auto;
+    min-width: 200px;
+    margin-top: 25px;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+.noResult_wrap {
+    background: var(--primary-light-color);
+    padding: 15px;
+    margin-top: 20px;
+}
+@media (max-width: 960px) {
+    .root {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .checkoutContent {
+        /* Only one column in mobile view. */
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .stepper_heading {
+        padding-bottom: 1rem;
+    }
+
+    .payment_information_heading {
+        composes: stepper_heading;
+        /* On mobile, order summary has a top border, so avoid doubling up. */
+        border-bottom-width: 0;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .place_order_button {
+        margin-bottom: 10px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .heading {
+        font-size: 18px;
+    }
+    .signin_container {
+        padding: 0 15px;
+    }
+    .heading_container {
+        grid-column-end: inherit;
+    }
+    .price_adjustments_container,
+    .items_review_container {
+        background: var(--primary-light-color);
+        padding: 15px;
+    }
+    .items_review_container {
+        margin-bottom: 15px;
+    }
+    .summaryContainer {
+        background: var(--primary-light-color);
+    }
+    .place_order_button {
+        width: calc(100% - 30px);
+        margin: 0 15px;
+    }
+    .review_order_button {
+        margin: 0 15px;
+    }
+}

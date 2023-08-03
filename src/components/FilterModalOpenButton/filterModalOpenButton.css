@@ -1,0 +1,15 @@
+.filterButton {
+    composes: root_lowPriority from '../Button/button.css';
+    flex: 0 0 50%;
+    min-width: 50%;
+    border: 0;
+    background: var(--primary-light-color);
+}
+.filterButton span {
+    font-family: 'karla-medium';
+}
+@media (min-width: 1024px) {
+    .filterButton {
+        display: none;
+    }
+}

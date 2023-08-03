@@ -1,0 +1,41 @@
+.root {
+    margin-bottom: 20px;
+}
+.title {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 6px;
+    color: var(--primary-dark-color);
+    display: inline-block;
+    font-family: 'Karla-Medium' !important;
+}
+.optionlabel {
+}
+.selectedoption {
+    font-family: 'Karla-Medium';
+    margin-left: 5px;
+}
+.selection {
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+}
+
+.selectionLabel {
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: unset;
+    color: var(--primary-text-color);
+}
+.selection dd {
+    font-family: 'Karla-Medium';
+    font-size: 14px;
+    color: var(--primary-dark-color);
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .root {
+        padding: 10px;
+        background-color: var(--primary-light-color);
+    }
+}

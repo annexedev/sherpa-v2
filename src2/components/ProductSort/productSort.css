@@ -1,0 +1,110 @@
+.root {
+    position: relative;
+    box-shadow: var(--primary-box-shadow);
+}
+
+.menu {
+    min-width: 10rem;
+    font-size: 1rem;
+    color: black;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+}
+
+.menuItem {
+    border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
+}
+
+.menuItem:last-child {
+    border-bottom: none;
+}
+
+.menuItem:hover {
+    background-color: rgb(var(--venia-global-color-gray));
+}
+.root_inner {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 0 10px 10px;
+    position: relative;
+    width: 100%;
+}
+.sort_title {
+    font-family: 'Karla-Medium' !important;
+    color: var(--primary-dark-color);
+    font-size: 15px;
+}
+.sorted_result {
+    color: var(--primary-text-color);
+    margin: 0 10px;
+    display: inline-flex;
+    flex: 0 0 calc(100% - 120px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    justify-content: center;
+}
+.sortButton {
+    composes: root_lowPriority from '../../components/Button/button.css';
+    width: 100%;
+    display: flex;
+    border: 0;
+    background: var(--primary-light-color);
+    justify-content: flex-start;
+    padding: 0 15px;
+}
+.sortButton > span {
+    width: 100%;
+    justify-content: flex-start;
+    display: flex;
+}
+.desktopText {
+    display: flex;
+    width: 100%;
+    padding: 0;
+    justify-content: space-between;
+}
+
+.sortText {
+    line-height: 24px;
+    font-size: var(--venia-global-fontSize-200);
+}
+
+.desktopIconWrapper {
+    composes: root from '../Icon/icon.css';
+    transform: translateX(10px);
+}
+
+.desktopIcon {
+    composes: icon from '../Icon/icon.css';
+    stroke: var(--primary-dark-color);
+}
+.menu ul {
+    margin-bottom: 0;
+}
+@media (max-width: 767px) {
+    .sortButton {
+        border-color: rgb(var(--venia-global-color-gray-500));
+        border-radius: 6px;
+        font-weight: var(--venia-global-fontWeight-normal);
+        text-transform: none;
+    }
+    .sortButton span {
+        justify-content: center !important;
+        font-family: 'karla-medium';
+    }
+    .root {
+        box-shadow: unset;
+        border-left: 1px solid var(--primary-border-color);
+    }
+    .menu {
+        position: absolute;
+        z-index: 9999;
+        left: 0;
+        width: 100%;
+        box-shadow: var(--primary-box-shadow);
+    }
+}

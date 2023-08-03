@@ -1,0 +1,33 @@
+query getInvoiceDetails($order_id: Int!) {
+    invoiceDetails(order_id: $order_id) {
+        order_number
+        order_date
+        order_status
+        hasShipments
+        hasInvoices
+        hasCreditmemos
+        billing_address
+        shipping_address
+        payment
+        shipping_method
+        invoices {
+            invoice_number
+            invoice_date
+            subtotal
+            tax
+            item {
+                product_name
+                sku
+                price
+                qty_invoiced
+                subtotal
+                tax_percent
+                tax_amount
+                options {
+                    value
+                    label
+                }
+            }
+        }
+    }
+}

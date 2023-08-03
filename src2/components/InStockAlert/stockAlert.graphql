@@ -1,0 +1,6 @@
+mutation stockAlert($product_id: Int!) {
+    stockAlert(product_id: $product_id) {
+        success
+        message
+    }
+}

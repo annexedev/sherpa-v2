@@ -1,0 +1,27 @@
+.newsletter_Wrap {
+    border: 1px solid var(--primary-border-color);
+    padding: 15px 15px 15px 15px;
+}
+.checkbox_wrapper {
+}
+.checkbox {
+    padding: 20px 0px;
+}
+.checkbox input {
+    vertical-align: middle;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.checkbox label {
+    font-size: 15px;
+    color: var(--primary-dark-color);
+    position: relative;
+    cursor: pointer;
+}
+.option {
+    background: var(--primary-bodybg-color);
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 3px;
+}

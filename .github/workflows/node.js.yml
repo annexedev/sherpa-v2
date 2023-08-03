@@ -1,0 +1,37 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: CI
+
+on:
+  push:
+    branches: [ develop11 ]
+  pull_request:
+    branches: [ develop11 ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.17.1]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - run: npm install yarn@1.15.2
+    - run: yarn install
+    - run: yarn buildpack create-env-file ./
+      env:
+       MAGENTO_BACKEND_URL: ${{ secrets.MAGENTO_BACKEND_URL }}
+       CHECKOUT_BRAINTREE_TOKEN: ${{ secrets.CHECKOUT_BRAINTREE_TOKEN }}
+    - run: yarn prettier:check
+    - run: yarn lint
+    - run: yarn build 

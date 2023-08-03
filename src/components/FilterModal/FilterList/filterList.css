@@ -1,0 +1,23 @@
+.items {
+    padding-bottom: 0.5rem;
+}
+
+.swatches {
+    composes: items;
+    grid-template-columns: repeat(auto-fit, 3rem);
+    display: flex;
+    flex-wrap: wrap;
+}
+.swatches li {
+    flex: 0 0 15% !important;
+    min-width: 15%;
+}
+.swatches li button {
+    margin-left: 0;
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+}
+.items li {
+    padding: 5px 0;
+}

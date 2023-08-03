@@ -1,0 +1,25 @@
+.items_review_container {
+    min-height: 2rem;
+    background: var(--primary-light-color);
+}
+
+.items_container {
+    display: grid;
+    padding: 15px;
+}
+
+.total_quantity {
+}
+
+.total_quantity_amount {
+    font-family: 'Karla-Bold' !important;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .items_review_container {
+        border: 0;
+    }
+    .items_container {
+        padding: 0;
+    }
+}
