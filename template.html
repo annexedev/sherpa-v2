@@ -8,10 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="manifest" href="/manifest.json" />
-  <link rel="shortcut icon" href="/cenia-static/favicon.ico" />
-
-  <title>Home Page - <%= STORE_NAME %></title>
-
+  <link rel="shortcut icon" href="/cenia-static/sherpa_fav.png" />
+  <title>Sherpa Technology Group - <%= STORE_NAME %></title>
+  <style>
+    .aa-Panel {
+      z-index: 1;
+    }
+  </style>
   <!--
             Apple Specific Tags
 
@@ -30,12 +33,150 @@
   <link rel="preload" href="/cenia-static/fonts/Jost-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/cenia-static/fonts/Jost-Medium.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/cenia-static/fonts/Jost-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="//code.tidio.co/lkmxnhgge8hf2csbej2fog3du6bcwvdq.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+  <style>
+    .popup-content {
+      padding: 0px !important;
+      border: 0px !important;
+    }
+    .team-page-heading{
+    margin:30px 0;
+    font-size:1.4em;
+    color:#7ab13d
+}
+section.team-page-section .team-item{
+    padding:15px 0;
+    cursor:pointer
+}
+.image-anchor{
+    overflow:hidden;
+    display:flex;
+    position:relative
+}
+.zoom{
+    cursor:pointer;
+    transition:all .5s ease;
+    transform-origin:center;
+    -webkit-backface-visibility:hidden
+}
+.image-anchor:hover .zoom{
+    transform:scale(1.2)
+}
+.image-anchor img{
+    width:100%;
+    height:100%;
+    object-fit:cover
+}
+.image-anchor .abs-plus-icon{
+    visibility:hidden;
+    color:#eee;
+    font-weight:bold;
+    font-size:3.25em;
+    position:absolute;
+    bottom:0px;
+    right:30px
+}
+.image-anchor:hover .abs-plus-icon{
+    visibility:visible;
+    z-index:2
+}
+.contact-details .grid-member-name,.modal-slide .member-name{
+    font-weight:bold;
+    font-size:1.2em;
+    padding:10px 0 0
+}
+.contact-details .grid-member-designation,.modal-slide .member-designation{
+    color:#aeaeae;
+    padding:5px 0
+}
+section.team-page-section .team-flex{
+    display:flex
+}
+section.team-page-section .w-100{
+    width:100%!important
+}
+.modal-slide{
+    width:100%;
+}
+.modal-inner-wrap .modal-content{
+    padding:0!important
+}
+.modal-body-content img.member-pic{
+    width:100%;
+    height:450px;
+    object-fit:cover
+}
+.modal-body-content .member-info-block{
+    padding:20px 30px
+}
+.modal-slide .modal-header{
+    padding:0!important
+}
+.modals-overlay{
+    backdrop-filter:blur(4px)
+}
+.contact-details span.email,.contact-details span.phone-number,.modal-slide .member-email,.modal-slide .member-phone,.modal-slide .member-about{
+    padding:5px 0
+}
+.team-page-section .linkedin,.modal-slide .linkedin{
+    padding:10px 0
+}
+.team-page-section a.fill,.modal-slide a.fill{
+    color:#7ab13d;
+    font-size:15px;
+    padding:0 5px;
+    letter-spacing:0.2px
+}
+.modal-slide span.back{
+    color:#212121;
+    padding:0 10px
+}
+.modal-slide a.close-button{
+    cursor:pointer
+}
+.modal-slide .member-about{
+    color:#212121;
+    font-size:1.1em;
+    padding-right:60px
+}
+@media only screen and (min-width: 992px){
+    section.team-page-section .team-item .team-flex{
+        height:700px
+    }
+    .p-0{
+        padding:0!important
+    }
+    .modal-body-content img.member-pic{
+        width:100%!important;
+        height:100%!important;
+        object-fit:cover
+    }
+}
+@media only screen and (max-width: 767px){
+    .modal-slide{
+        width:100%!important;
+        left:0!important
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 992px){
+    .modal-slide{
+        width:80%;
+        left:20%
+    }
+}
+@media only screen and (max-width: 1024px){
+    .team-page-heading{
+        margin:30px 15px
+    }
+}
 
+  </style>
 </head>
 
 <body>
+  
   <div id="root"></div>
-
   <!-- Fallback for when JavaScript is disabled. -->
   <noscript>
     <style>
@@ -53,6 +194,7 @@
       .fallback-closed {
         height: 40vh;
       }
+      
     </style>
     <div class="fallback-nojs">
       <img class="fallback-closed" alt="JavaScript is disabled" src="/cenia-static/ceniaClosed.png" />
@@ -63,6 +205,7 @@
       </div>
     </div>
   </noscript>
+   
 </body>
 
 </html>
