@@ -73,23 +73,88 @@ const Home = props => {
 
     const categoryBannerIdentifierHome = 'home_banners';
 
+    var arr = [];
+    while(arr.length < 3){
+        var r = Math.floor(Math.random() * 5) + 1;
+        if(arr.indexOf(r) === -1) arr.push(r);
+    }
+    console.log(arr[0]);
+
+    const desktopsliderIdentifier1 = 'homepage_desktop_banner_'+arr[0];
+    const desktopsliderIdentifier2 = 'homepage_desktop_banner_'+arr[1];
+    const desktopsliderIdentifier3 = 'homepage_desktop_banner_'+arr[2];
+
+    const mobilesliderIdentifier1 = 'homepage_mobile_banner_'+arr[0];
+    const mobilesliderIdentifier2 = 'homepage_mobile_banner_'+arr[1];
+    const mobilesliderIdentifier3 = 'homepage_mobile_banner_'+arr[2];
+
     return (
         <React.Fragment>
             <div>
-            <Carousel autoPlay>
-                <div>
-                    <img src="https://sherpagroupav.com/media/wysiwyg/Banners/WebBanner-WhySherpa2.jpg" />
-                    
-                </div>
-                <div>
-                    <img src="https://sherpagroupav.com/media/wysiwyg/Banners/WebBanner-WhySherpa2.jpg" />
-                    
-                </div>
-                <div>
-                    <img src="https://sherpagroupav.com/media/wysiwyg/Banners/WebBanner-WhySherpa2.jpg" />
-                    
-                </div>
-            </Carousel>
+
+            {!mobileView && (
+                <React.Suspense fallback={null}>
+                    <Carousel showThumbs={false} autoPlay={true}>
+                        <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={desktopsliderIdentifier1}
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                        </div>
+                        <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={desktopsliderIdentifier2}
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                        </div>
+                        <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={desktopsliderIdentifier3}
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                        </div>
+                    </Carousel>
+                </React.Suspense>
+            )}
+
+            {mobileView && (
+                <React.Suspense fallback={null}>
+                    <Carousel showThumbs={false} autoPlay={true}>
+                        <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={mobilesliderIdentifier1}
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                        </div>
+                        <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={mobilesliderIdentifier2}
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                        </div>
+                        <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={mobilesliderIdentifier3}
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                        </div>
+                    </Carousel>
+                </React.Suspense>
+            )}
+
+            
             
                 
                 
