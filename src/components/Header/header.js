@@ -31,6 +31,7 @@ import '@algolia/autocomplete-theme-classic';
 
 import { Autocomplete } from '../AutoComplete/autocomplete';
 import { ProductItem } from '../ProductItem';
+import { createRedirectUrlPlugin } from '@algolia/autocomplete-plugin-redirect-url';
 
 const heartIcon = <Icon src={HeartIcon} size={22} />;
 const SearchBar = React.lazy(() => import('../SearchBar'));
@@ -203,7 +204,10 @@ const Header = props => {
                   <div id="auto-complete" className={defaultClasses[`auto-complete-input`]+" "+classes.autocomplete_wrap}>
                       <Suspense fallback={null}>
                         <Autocomplete
-                          openOnFocus={true}
+                        
+                          onclick="console.log('Search button got clicked')"
+                          id="henlo"
+                          openOnFocus={false}
                           getSources={({ query }) => [
                             {
                               sourceId: 'products',        
@@ -215,7 +219,8 @@ const Header = props => {
                                       indexName: 'magento2_prod_default_products',
                                       query,
                                       params: {            
-                                        hitsPerPage: 15,                        
+                                        hitsPerPage: 15,    
+                                        ruleContexts: ['enable-redirect-url'],                    
                                         attributesToSnippet: ['name:10'],
                                         snippetEllipsisText: '…',
                                       },

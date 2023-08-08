@@ -11,7 +11,7 @@
   <link rel="shortcut icon" href="/cenia-static/sherpa_fav.png" />
   <title>Sherpa Technology Group - <%= STORE_NAME %></title>
   <style>
-    .aa-Panel {
+    .aa-Panel { 
       z-index: 1;
     }
   </style>
@@ -172,6 +172,7 @@ section.team-page-section .w-100{
 }
 
   </style>
+   
 </head>
 
 <body>
@@ -207,5 +208,23 @@ section.team-page-section .w-100{
   </noscript>
    
 </body>
+<script>
 
+$(document).on("keypress", "#henlo-input", function(e){
+    if(e.which == 13){
+        var inputVal = $(this).val();
+        //alert("You've entered: " + inputVal);
+        window.location.href="/search.html?query="+inputVal+"&page=1";
+    }
+});
+
+$("body").on("click", ".aa-SubmitIcon", function(e) {
+    var inputVal = $("#henlo-input").val();
+        //alert("You've entered: " + inputVal);
+        window.location.href="/search.html?query="+inputVal+"&page=1";
+});
+
+
+       
+      </script>
 </html>
