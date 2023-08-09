@@ -452,6 +452,7 @@ const CheckoutPage = props => {
 
                             {priceAdjustmentsSection}
                             {reviewOrderButton}
+                            {reviewOrderButton}
                             {itemsReview}
                             {placeOrderButton}
                         </div>
