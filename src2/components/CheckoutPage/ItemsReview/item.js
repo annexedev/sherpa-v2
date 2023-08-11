@@ -58,7 +58,7 @@ const Item = props => {
                 <FormattedMessage
                     id={'checkoutPage.quantity'}
                     defaultMessage={'Qty :'}
-                    values={{ quantity }}
+                    values={20}
                 />
             </span>
         </div>

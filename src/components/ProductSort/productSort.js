@@ -141,9 +141,9 @@ const ProductSort = props => {
                                 defaultMessage={'Sort by'}
                             />
                         </span>
-                        {/*<span className={classes.sorted_result}>
+                        <span className={classes.sorted_result}>
                             {currentSort.sortText}
-                        </span> */}
+                        </span> 
 
                         {/*<Icon
                             src={ArrowDown}
