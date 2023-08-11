@@ -92,6 +92,12 @@
     box-shadow: var(--primary-box-shadow);
 }
 
+.items_review_container_buttons {
+    grid-column: 1 / span 1;
+    box-shadow: var(--primary-box-shadow);
+    padding: 10px;
+}
+
 .sign_in {
     composes: root from '../LinkButton/linkButton.css';
     margin-bottom: 1.5rem;
@@ -138,6 +144,12 @@
     margin: auto;
     min-width: 200px;
     margin-top: 25px;
+    margin-bottom: 25px;
+    margin-right: 10px;
+    color: white;
+}
+.review_order_button:hover {
+    color: white;
 }
 
 .place_order_button {
@@ -210,6 +222,6 @@
         margin: 0 15px;
     }
     .review_order_button {
-        margin: 0 15px;
+        margin: 10px 15px;
     }
 }

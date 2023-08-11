@@ -289,17 +289,21 @@ const CheckoutPage = props => {
 
             const reviewOrderButton =
                 checkoutStep === CHECKOUT_STEP.PAYMENT ? (
-                    <Button
-                        onClick={handleReviewOrder}
-                        priority="high"
-                        className={classes.review_order_button}
-                        disabled={reviewOrderButtonClicked || isUpdating}
-                    >
-                        <FormattedMessage
-                            id={'checkoutPage.reviewOrder'}
-                            defaultMessage={'Review Order'}
-                        />
-                    </Button>
+                    <div className={classes.items_review_container_buttons}>
+                        <Button
+                            onClick={handleReviewOrder}
+                            priority="high"
+                            className={classes.review_order_button}
+                            disabled={reviewOrderButtonClicked || isUpdating}
+                        >
+                            <FormattedMessage
+                                id={'checkoutPage.reviewOrder'}
+                                defaultMessage={'Review Order'}
+                            />
+                        </Button>
+                        <Link to="/cart" className={classes.review_order_button}><span>Back to Cart</span></Link>
+                        <Link to="/brands" className={classes.review_order_button}><span>Continue Shopping</span></Link>
+                    </div>
                 ) : null;
 
             const itemsReview =
@@ -452,7 +456,7 @@ const CheckoutPage = props => {
 
                             {priceAdjustmentsSection}
                             {reviewOrderButton}
-                            {reviewOrderButton}
+                            
                             {itemsReview}
                             {placeOrderButton}
                         </div>

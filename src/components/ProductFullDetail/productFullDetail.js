@@ -1304,7 +1304,7 @@ const ProductFullDetail = (props) => {
             
             {scrollFlag && (
                 <>
-                    <p>Related</p>
+                    {/* <p>Related</p> */}
                     <div className={classes.h_products_wrap}>
                         <Suspense fallback={''}>
                             <LinkedProducts
