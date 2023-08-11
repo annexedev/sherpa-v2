@@ -287,7 +287,7 @@ div[class='mid-banner_image_Wrap'] img {
     overflow: hidden;
 }
 .noo_product_image img {
-    height: 300px;
+    height: 250px;
     object-fit: contain;
 }
 .wishlist_icon_wrap {

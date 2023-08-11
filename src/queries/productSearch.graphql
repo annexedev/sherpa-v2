@@ -20,6 +20,7 @@ query productSearch(
                 url
             }
             totalavailable
+            product_brand
             msrp_sherpa2
             url_key
             stock_status

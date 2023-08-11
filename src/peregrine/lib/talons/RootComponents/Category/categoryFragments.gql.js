@@ -54,6 +54,7 @@ export const ProductsFragment = gql`
             stock_status
             type_id
             totalavailable
+            product_brand
             msrp_sherpa2
             msrp_sherpa
             url_key
