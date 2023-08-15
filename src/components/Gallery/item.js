@@ -596,6 +596,17 @@ const GalleryItem = props => {
           );
       };
 
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }
+
     return (
         <div className={classes.root} aria-live="polite" aria-busy="false">
             <div className={classes.noo_product_image}>
@@ -936,7 +947,18 @@ const GalleryItem = props => {
                         </div>
                     ) : (
                         <>
-                        <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account</a></div>
+
+                        {activeLng == '-fr' && (
+                        <>
+                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Connectez-vous ou créez un compte</a></div>
+                        </>
+                        )}
+                        {activeLng == '' && (
+                        <>
+                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account</a></div>
+                        </>
+                        )}
+                        
                         
                         </>
                     )}

@@ -95,6 +95,17 @@ const Product = props => {
         document.getElementById('user_account').click();
     }
 
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }
+
     return (
         <div key={index} className="item">
             <div className={defaultClasses.products_grid_item}>
@@ -253,8 +264,17 @@ const Product = props => {
                                         </div>
                                     ) : (
                                         <>
-                                        <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account</a></div>
                                         
+                                        {activeLng == '-fr' && (
+                                        <>
+                                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Connectez-vous ou créez un compte</a></div>
+                                        </>
+                                        )}
+                                        {activeLng == '' && (
+                                        <>
+                                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account</a></div>
+                                        </>
+                                        )}
                                         </>
                                     )}
 

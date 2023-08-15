@@ -32,6 +32,7 @@ import '@algolia/autocomplete-theme-classic';
 import { Autocomplete } from '../AutoComplete/autocomplete';
 import { ProductItem } from '../ProductItem';
 import { createRedirectUrlPlugin } from '@algolia/autocomplete-plugin-redirect-url';
+import { act } from 'react-test-renderer';
 
 const heartIcon = <Icon src={HeartIcon} size={22} />;
 const SearchBar = React.lazy(() => import('../SearchBar'));
@@ -132,6 +133,17 @@ const Header = props => {
   const apiKey = 'f5171cf0ca4526d103a14ad056e5cef1';
   const searchClient = algoliasearch(appId, apiKey);
 
+  let lng = '';
+  if(document.getElementById("currentLng") != null){
+    lng = document.getElementById("currentLng").innerHTML;
+  }
+  let activeLng = '';
+  if(lng == 'Français') {
+      activeLng = '-fr';
+  } else {
+      activeLng = '';
+  }
+
   return (
     <Fragment>
       <header className={rootClass}>
@@ -151,12 +163,26 @@ const Header = props => {
                   <VisitorId />
                 </Suspense>
               </div>
-              
-                {currentUser.firstname ? (
-                  <p className={classes.offer_message_text}>Welcome {currentUser.firstname} {currentUser.lastname} | <a className={classes.contactus} href="/contact">Contact us</a></p>
-                ) : (
-                  <p className={classes.offer_message_text}><a className={classes.contactus} onClick={openLoginBox}>Login</a> | <a className={classes.contactus} href='/new-user-account'>Create your account to become a dealer</a> | <a className={classes.contactus} href="/contact">Contact us</a></p>
+                {activeLng == '-fr' && (
+                  <>
+                    {currentUser.firstname ? (
+                      <p className={classes.offer_message_text}>Bienvenue {currentUser.firstname} {currentUser.lastname} | <a className={classes.contactus} href="/contact">Nous joindre</a></p>
+                    ) : (
+                      <p className={classes.offer_message_text}><a className={classes.contactus} onClick={openLoginBox}>Connexion</a> | <a className={classes.contactus} href='/new-user-account'>Créez votre compte pour devenir revendeur</a> | <a className={classes.contactus} href="/contact">Nous joindre</a></p>
+                    )}
+                  </>
                 )}
+
+                {activeLng == '' && (
+                  <>
+                    {currentUser.firstname ? (
+                      <p className={classes.offer_message_text}>Welcome {currentUser.firstname} {currentUser.lastname} | <a className={classes.contactus} href="/contact">Contact us</a></p>
+                    ) : (
+                      <p className={classes.offer_message_text}><a className={classes.contactus} onClick={openLoginBox}>Login</a> | <a className={classes.contactus} href='/new-user-account'>Create your account to become a dealer</a> | <a className={classes.contactus} href="/contact">Contact us</a></p>
+                    )}
+                  </>
+                )}
+                
                 {/* <FormattedMessage
                   id={'header.offer_message_text'}
                   defaultMessage={

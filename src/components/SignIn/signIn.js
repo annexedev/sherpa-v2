@@ -71,7 +71,16 @@ const SignIn = props => {
         root: classes.forgotPasswordButton
     };
 
-    
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }
 
     return (
         <div>
@@ -103,13 +112,35 @@ const SignIn = props => {
                     <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us'>
                             
                             <h2 className={classes.title}>
-                                <FormattedMessage
-                                    id="signIn.titleMessage"
-                                    defaultMessage={`Sign-in to Your Account`}
-                                />
+                            {activeLng == '-fr' && (
+                            <FormattedMessage
+                                id="signIn.titleMessage"
+                                defaultMessage={`Connectez-vous à votre compte`}
+                            />
+                            )}
+                            {activeLng == '' && (
+                            <FormattedMessage
+                                id="signIn.titleMessage"
+                                defaultMessage={`Sign-in to Your Account`}
+                            />
+                            )}
                             </h2>
-                    
+                            {activeLng == '-fr' && (
                             <Field
+                                label={formatMessage({
+                                    id: 'signIn.EmailAddress',
+                                    defaultMessage: 'Adresse courriel'
+                                })}
+                            >
+                                <TextInput
+                                    autoComplete="email"
+                                    field="email"
+                                    validate={validateEmail}
+                                />
+                            </Field>
+                            )}
+                            {activeLng == '' && (
+                           <Field
                                 label={formatMessage({
                                     id: 'signIn.EmailAddress',
                                     defaultMessage: 'Email address'
@@ -121,6 +152,20 @@ const SignIn = props => {
                                     validate={validateEmail}
                                 />
                             </Field>
+                            )}
+                            {activeLng == '-fr' && (
+                            <Password
+                                fieldName="password"
+                                label={formatMessage({
+                                    id: 'signIn.Password',
+                                    defaultMessage: 'Mot de passe'
+                                })}
+                                validate={validatePassword}
+                                autoComplete="current-password"
+                                isToggleButtonHidden={false}
+                            />
+                            )}
+                            {activeLng == '' && (
                             <Password
                                 fieldName="password"
                                 label={formatMessage({
@@ -131,13 +176,26 @@ const SignIn = props => {
                                 autoComplete="current-password"
                                 isToggleButtonHidden={false}
                             />
+                            )}
+                            
+
+                            
                             <div className={'mt-3' + ' ' + classes.button_wrap}>
-                                <Button priority="high" type="submit">
-                                    <FormattedMessage
-                                        id="signIn.Submit"
-                                        defaultMessage={'Submit'}
-                                    />
-                                </Button>
+                                { activeLng == '-fr' ?
+                                    <Button priority="high" type="submit">
+                                        <FormattedMessage
+                                            id="signIn.Submit"
+                                            defaultMessage={'Soumettre'}
+                                        />
+                                    </Button>
+                                    :
+                                    <Button priority="high" type="submit">
+                                        <FormattedMessage
+                                            id="signIn.Submit"
+                                            defaultMessage={'Submit'}
+                                        />
+                                    </Button>
+                                }
                             </div>
                             <div className={classes.forgotPasswordButtonContainer}>
                                 <LinkButton
@@ -145,10 +203,18 @@ const SignIn = props => {
                                     type="button"
                                     onClick={handleForgotPassword}
                                 >
+                                    { activeLng == '-fr' ?
+                                    <FormattedMessage
+                                        id="signIn.forgotPasswordButton"
+                                        defaultMessage={'Mot de passe oublié?'}
+                                    />
+                                    :
                                     <FormattedMessage
                                         id="signIn.forgotPasswordButton"
                                         defaultMessage={'Forgot Password?'}
                                     />
+                                    }
+                                    
                                 </LinkButton>
                             </div>
                         </div>
@@ -156,21 +222,41 @@ const SignIn = props => {
                             <div>
                             
                                 <h2 className={classes.title}>
+                                    
+                                    { activeLng == '-fr' ?
+                                    <FormattedMessage
+                                        id="signIn.title"
+                                        defaultMessage={`Créer votre compte`}
+                                    />
+                                    :
                                     <FormattedMessage
                                         id="signIn.title"
                                         defaultMessage={`Sign Up`}
                                     />
+                                    }
                                 </h2>
                                 <p className={classes.title_subtext}>
+                                    { activeLng == '-fr' ?
+                                    <FormattedMessage
+                                        id="signIn.title_subtext"
+                                        defaultMessage="C'est simple et rapide de créer un compte"
+                                    />
+                                    :
                                     <FormattedMessage
                                         id="signIn.title_subtext"
                                         defaultMessage="Welcome! It's quick and easy to set up an account"
                                     />
+                                    }
+                                    
                                 </p>
                                 <div className={classes.buttonsContainer}>
                                 
-  
+                                    { activeLng == '-fr' ?
+                                    <a className={classes.signup_button + ' ' + classes.link_button} href="/new-user-account">Créer un compte</a>
+                                    :
                                     <a className={classes.signup_button + ' ' + classes.link_button} href="/new-user-account">Create an Account</a>
+                                    }
+                                    
                                     {/*<Button
                                         className={classes.signup_button}
                                         priority="normal"

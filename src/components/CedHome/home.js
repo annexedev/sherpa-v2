@@ -32,7 +32,10 @@ const Home = props => {
         query: GET_SLIDER_DATA
     });
 
-    const lng = document.getElementById("currentLng").innerHTML;
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
     let activeLng = '';
     if(lng == 'Français') {
         activeLng = '-fr';
@@ -86,7 +89,7 @@ const Home = props => {
         var r = Math.floor(Math.random() * 5) + 1;
         if(arr.indexOf(r) === -1) arr.push(r);
     }
-    console.log(arr[0]);
+    //console.log(arr[0]);
 
     const desktopsliderIdentifier1 = 'homepage_desktop_banner_'+arr[0];
     const desktopsliderIdentifier2 = 'homepage_desktop_banner_'+arr[1];
@@ -229,7 +232,17 @@ const Home = props => {
                         </Suspense>
                         <div className={defaultClasses.button_new}>
                             <div>
+                            {activeLng == '-fr' && (
+                            <>
+                                <a href="/brands">VOIR TOUS</a>
+                            </>
+                            )}
+                            {activeLng == '' && (
+                            <>
                                 <a href="/brands">SEE ALL</a>
+                            </>
+                            )}
+                                
                             </div>
                         </div>
                         
@@ -240,15 +253,33 @@ const Home = props => {
                 {/* Latest product section */}
                 {showLatestProducts && scrollFlag && (
                     <Suspense fallback={''}>
-                        <SliderProduct
-                            showLinkedProduct={showLatestProducts}
-                            type="Latest Product"
-                            name={formatMessage({
-                                id: 'home.latest',
-                                defaultMessage: 'INSTALLER ESSENTIALS'
-                            })}
-                            classes={classes}
-                        />
+                        {activeLng == '-fr' && (
+                            <>
+                                <SliderProduct
+                                    showLinkedProduct={showLatestProducts}
+                                    type="Latest Product"
+                                    name={formatMessage({
+                                        id: 'home.latest',
+                                        defaultMessage: 'INDISPENSABLES POUR L\'INSTALLATEUR'
+                                    })}
+                                    classes={classes}
+                                />
+                            </>
+                            )}
+                            {activeLng == '' && (
+                            <>
+                                <SliderProduct
+                                    showLinkedProduct={showLatestProducts}
+                                    type="Latest Product"
+                                    name={formatMessage({
+                                        id: 'home.latest',
+                                        defaultMessage: 'INSTALLER ESSENTIALS'
+                                    })}
+                                    classes={classes}
+                                />
+                            </>
+                            )}
+                        
                     </Suspense>
                 )}
 
