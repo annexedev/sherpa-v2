@@ -32,17 +32,20 @@ const Footer = props => {
     });
 
     const { HomeConfigData } = homepageData;
-    let footerIdentifier = 'ced-pwa-footer-x';
-    if (typeof HomeConfigData != 'undefined') {
-        for (var i = 0; i < HomeConfigData.length; i++) {
-            if (HomeConfigData[i]['name'] == 'ced_pwa_footer')
-                footerIdentifier = HomeConfigData[i]['value'];
-        }
+    let footerIdentifier = 'ced-pwa-footer-fr';
+
+    const lng = document.getElementById("currentLng").innerHTML;
+    let activeLng = '';
+
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
     }
 
     const footerDatas = useFooterData({
         footerQuery: GET_CMSBLOCK_QUERY,
-        footerIdentifiers: footerIdentifier
+        footerIdentifiers: 'ced-pwa-footer'+activeLng
     });
     const { footerData } = footerDatas;
 

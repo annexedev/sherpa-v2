@@ -32,6 +32,14 @@ const Home = props => {
         query: GET_SLIDER_DATA
     });
 
+    const lng = document.getElementById("currentLng").innerHTML;
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }
+
     const { HomepageConfig } = props;
 
     let showCategoryIcons = false;
@@ -98,7 +106,7 @@ const Home = props => {
                         <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={desktopsliderIdentifier1}
+                                        identifier={desktopsliderIdentifier1+activeLng}
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
@@ -106,7 +114,7 @@ const Home = props => {
                         <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={desktopsliderIdentifier2}
+                                        identifier={desktopsliderIdentifier2+activeLng}
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
@@ -114,7 +122,7 @@ const Home = props => {
                         <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={desktopsliderIdentifier3}
+                                        identifier={desktopsliderIdentifier3+activeLng}
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
@@ -129,7 +137,7 @@ const Home = props => {
                         <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={mobilesliderIdentifier1}
+                                        identifier={mobilesliderIdentifier1+activeLng}
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
@@ -137,7 +145,7 @@ const Home = props => {
                         <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={mobilesliderIdentifier2}
+                                        identifier={mobilesliderIdentifier2+activeLng}
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
@@ -145,7 +153,7 @@ const Home = props => {
                         <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={mobilesliderIdentifier3}
+                                        identifier={mobilesliderIdentifier3+activeLng}
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
@@ -169,7 +177,7 @@ const Home = props => {
                     >
                         <Suspense fallback={''}>
                             <Banner
-                                identifier={offerBannersIdentifier}
+                                identifier={offerBannersIdentifier+activeLng}
                                 showBanner={showOfferBanners}
                             />
                         </Suspense>
@@ -192,7 +200,7 @@ const Home = props => {
                     >
                         <Suspense fallback={''}>
                             <Banner
-                                identifier={categoryBannerIdentifierHome}
+                                identifier={categoryBannerIdentifierHome+activeLng}
                                 showBanner={showCategoryBanners}
                             />
                         </Suspense>
@@ -215,7 +223,7 @@ const Home = props => {
                     >
                         <Suspense fallback={bannerSkelton}>
                             <Banner
-                                identifier={catIconIdentifier}
+                                identifier={catIconIdentifier+activeLng}
                                 showBanner={showCategoryIcons}
                             />
                         </Suspense>
@@ -261,7 +269,7 @@ const Home = props => {
                     >
                         <Suspense fallback={''}>
                             <Banner
-                                identifier={categoryBannerIdentifier}
+                                identifier={categoryBannerIdentifier+activeLng}
                                 showBanner={showCategoryBanners}
                             />
                         </Suspense>

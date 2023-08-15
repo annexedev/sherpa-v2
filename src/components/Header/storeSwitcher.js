@@ -63,7 +63,7 @@ const StoreSwitcher = props => {
             >
                 <span className={classes.trigger}>
                     <Icon src={MapPin} />
-                    <span className={classes.label}>{currentStoreName}</span>
+                    <span className={classes.label} id={'currentLng'}>{currentStoreName}</span>
                     <span className={classes.select_img}>
                         <FontAwesomeIcon icon={faAngleDown} />
                     </span>

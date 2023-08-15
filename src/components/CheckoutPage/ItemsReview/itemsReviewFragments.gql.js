@@ -8,6 +8,7 @@ export const ItemsReviewFragment = gql`
             id
             product {
                 id
+                sku
                 name
                 thumbnail {
                     url

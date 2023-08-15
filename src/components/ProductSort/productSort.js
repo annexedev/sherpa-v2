@@ -21,8 +21,8 @@ const ProductSort = props => {
 
     useEffect(() => {
         // Update the document title using the browser API
-        if(currentSort && currentSort.sortText=='Position') {
-            document.getElementById('sortItem.sku').click();
+        if(currentSort && currentSort.sortText=='Relevance') {
+            //document.getElementById('sortItem.sku').click();
             //document.getElementById('skusku').click();
             //currentSort.sortText=='Positionx';
             //preventDefault();
@@ -141,9 +141,9 @@ const ProductSort = props => {
                                 defaultMessage={'Sort by'}
                             />
                         </span>
-                        <span className={classes.sorted_result}>
+                        {/*<span className={classes.sorted_result}>
                             {currentSort.sortText}
-                        </span> 
+                        </span> */}
 
                         {/*<Icon
                             src={ArrowDown}
@@ -182,6 +182,12 @@ ProductSort.propTypes = {
 
 ProductSort.defaultProps = {
     availableSortMethods: [
+        {
+            text: 'Relevance',
+            id: 'sortItem.position',
+            attribute: 'position',
+            sortDirection: 'ASC'
+        },
         {
             text: 'Part #: Ascending',
             id: 'sortItem.sku',

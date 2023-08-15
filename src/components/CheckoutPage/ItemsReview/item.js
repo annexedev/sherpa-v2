@@ -22,7 +22,7 @@ const Item = props => {
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
     const className = isHidden ? classes.root_hidden : classes.root;
-
+    //console.log(product);
     return (
         <div className={className}>
             <Image
@@ -60,6 +60,13 @@ const Item = props => {
                     defaultMessage={'Qty :'}
                     values={{ quantity }}
                 />
+            </span>
+            <span>
+                <FormattedMessage
+                    id={'checkoutPage.quantity'}
+                    defaultMessage={'Part # :'}
+                />
+                &nbsp;{product.sku}
             </span>
         </div>
     );
