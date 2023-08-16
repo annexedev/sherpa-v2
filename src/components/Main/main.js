@@ -85,6 +85,17 @@ const Main = props => {
 
     const [{ isSignedIn }] = useUserContext();
 
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }
+
     return (
         <main className={rootClass}>
             <Header />
@@ -870,9 +881,18 @@ const Main = props => {
                     </div>
                   )
               } else if (!isSignedIn && displayRegister) {
-                return(
-                    <JotformEmbed src="https://form.jotform.com/230886199517066" />
-                )
+
+               if(activeLng == '-fr') {
+                  return(
+                     <JotformEmbed src="https://form.jotform.com/232267921078258" />
+                 )
+               } else {
+                  return(
+                     <JotformEmbed src="https://form.jotform.com/230886199517066" />
+                 )
+               }
+
+                
 
               } else if (!isSignedIn && displayEducation) {
                 return(

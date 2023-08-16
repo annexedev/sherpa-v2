@@ -36,7 +36,6 @@ const Footer = props => {
 
     const lng = document.getElementById("currentLng").innerHTML;
     let activeLng = '';
-
     if(lng == 'Français') {
         activeLng = '-fr';
     } else {
