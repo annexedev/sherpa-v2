@@ -21,6 +21,17 @@ const MegaMenu = () => {
     if (typeof navdetails != 'undefined' && navdetails && !mobileView) {
         const elements = JSON.parse(navdetails).categories;
 
+        let lng = '';
+        if(document.getElementById("currentLng") != null){
+            lng = document.getElementById("currentLng").innerHTML;
+        }
+        let activeLng = '';
+        if(lng == 'Français') {
+            activeLng = '-fr';
+        } else {
+            activeLng = '';
+        }
+
         if (elements) {
 
             console.log('Elements');
@@ -36,7 +47,12 @@ const MegaMenu = () => {
                         defaultClasses.haschild
                     }
                 >
-                    <a href="/about">About us</a>
+                    { activeLng == '-fr' ?
+                        <a href="/a-propos">À propos</a>
+                        :
+                        <a href="/about">About us</a>
+                    }
+                    
                 </li>
                 <li
                     
@@ -46,7 +62,12 @@ const MegaMenu = () => {
                         defaultClasses.haschild
                     }
                 >
-                    <a href="/sherpa-our-team">Our team</a>
+                    { activeLng == '-fr' ?
+                        <a href="/sherpa-our-team">Notre équipe</a>
+                        :
+                        <a href="/sherpa-our-team">Our team</a>
+                    }
+                    
                 </li>
                 </>
             );
@@ -188,7 +209,12 @@ const MegaMenu = () => {
                         defaultClasses.haschild
                     }
                 >
-                    <a href="/promotions">Promotions</a>
+                    { activeLng == '-fr' ?
+                        <a href="/promotions">Promotions</a>
+                        :
+                        <a href="/promotions">Promotions</a>
+                    }
+                    
                 </li>
             );
 
