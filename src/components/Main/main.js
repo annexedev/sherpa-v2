@@ -27,11 +27,26 @@ import GET_CMSBLOCK_QUERY from '../../queries/getCmsBlocks.graphql';
 
 */
 function ServiceDetailsEmployeurs(props) {
+
+
+   let lng = '';
+   if(document.getElementById("currentLng") != null){
+      lng = document.getElementById("currentLng").innerHTML;
+   }
+   let activeLng = '';
+   if(lng == 'Français') {
+      activeLng = '-fr';
+   } else {
+      activeLng = '';
+   }
+
    const cmsBlockData = useCmsBlock({
       query: GET_CMSBLOCK_QUERY,
-      identifier: 'team_'+props.id,
+      identifier: 'team_'+props.id+activeLng,
       showBanner: true
       });
+
+      
 
       const { cmsBlock } = cmsBlockData;
       let cmsBlockHtml = '';
