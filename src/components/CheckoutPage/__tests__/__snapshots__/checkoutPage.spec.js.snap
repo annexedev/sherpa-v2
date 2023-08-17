@@ -424,7 +424,7 @@ exports[`CheckoutPage renders loading indicator 1`] = `
     className="message"
   >
     <mock-FormattedMessage
-      defaultMessage="Fetching Data..."
+      defaultMessage="Fetching Data"
       id="loadingIndicator.message"
     />
   </span>

@@ -72,7 +72,7 @@ exports[`renders a loading indicator when talon indicates 1`] = `
   <span
     className="message"
   >
-    Fetching Data...
+    Fetching Data
   </span>
 </div>
 `;

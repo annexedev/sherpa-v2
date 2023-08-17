@@ -103,6 +103,17 @@ const CategoryContent = props => {
     //     <SortedByContainerShimmer />
     // ) : null;
 
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }
+
     const categoryResultsHeading =
         totalCount > 0 ? (
             <FormattedMessage
@@ -303,14 +314,29 @@ const CategoryContent = props => {
                                 ) : (
                                     <></>
                                 )}
-                                <div className={classes.boxlink}><a href={"/"+s.url_path}>View products list</a></div> 
+                                <div className={classes.boxlink}><a href={"/"+s.url_path}>
+                                    <FormattedMessage
+                                        id={'categoryContent.viewProducts'}
+                                        defaultMessage={'View products list'}
+                                    />
+                                </a></div> 
                                 {categoryId==42 && s.manufacturer_link ? (
-                                   <div className={classes.boxlink}><a target="_blank" href={s.manufacturer_link}>Brand website</a></div>
+                                   <div className={classes.boxlink}><a target="_blank" href={s.manufacturer_link}>
+                                    <FormattedMessage
+                                        id={'categoryContent.brandWebsite'}
+                                        defaultMessage={'Brand Website'}
+                                    />
+                                    </a></div>
                                 ) : (
                                     <></>
                                 )}
                                 {categoryId==42 && s.description && isSignedIn ? (
-                                   <div className={classes.boxlink}><a target="_blank" href={"https://assets.sherpagroupav.com/pdf/"+s.description}>Price List</a></div>
+                                   <div className={classes.boxlink}><a target="_blank" href={"https://assets.sherpagroupav.com/pdf/"+s.description}>
+                                    <FormattedMessage
+                                        id={'categoryContent.priceList'}
+                                        defaultMessage={'Price List'}
+                                    />
+                                    </a></div>
                                 ) : (
                                     <></>
                                 )}

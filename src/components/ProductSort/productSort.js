@@ -180,39 +180,86 @@ ProductSort.propTypes = {
     sortProps: array
 };
 
+let lng = '';
+if(document.getElementById("currentLng") != null){
+    lng = document.getElementById("currentLng").innerHTML;
+}
+let activeLng = '';
+if(lng == 'Français') {
+    activeLng = '-fr';
+} else {
+    activeLng = '';
+} 
+if(activeLng == '-fr') {
 ProductSort.defaultProps = {
     availableSortMethods: [
         {
-            text: 'Relevance',
+            text: 'Pertinence',
             id: 'sortItem.position',
             attribute: 'position',
             sortDirection: 'ASC'
         },
         {
-            text: 'Part #: Ascending',
+            text: 'No. Article: Croissant',
             id: 'sortItem.sku',
             attribute: 'sku',
             sortDirection: 'ASC'
         },
         {
-            text: 'Part #: Descending',
+            text: 'No. Article: Décroissant',
             id: 'sortItem.sku2',
             attribute: 'sku',
             sortDirection: 'DESC'
         },
         {
             id: 'sortItem.priceAsc',
-            text: 'Price: Low to High',
+            text: 'Prix: Bas à élevé',
             attribute: 'price',
             sortDirection: 'ASC'
         },
         {
             id: 'sortItem.priceDesc',
-            text: 'Price: High to Low',
+            text: 'Prix: Élevé à bas',
             attribute: 'price',
             sortDirection: 'DESC'
         }
     ]
 };
+} else {
+    ProductSort.defaultProps = {
+        availableSortMethods: [
+            {
+                text: 'Relevance',
+                id: 'sortItem.position',
+                attribute: 'position',
+                sortDirection: 'ASC'
+            },
+            {
+                text: 'Part #: Ascending',
+                id: 'sortItem.sku',
+                attribute: 'sku',
+                sortDirection: 'ASC'
+            },
+            {
+                text: 'Part #: Descending',
+                id: 'sortItem.sku2',
+                attribute: 'sku',
+                sortDirection: 'DESC'
+            },
+            {
+                id: 'sortItem.priceAsc',
+                text: 'Price: Low to High',
+                attribute: 'price',
+                sortDirection: 'ASC'
+            },
+            {
+                id: 'sortItem.priceDesc',
+                text: 'Price: High to Low',
+                attribute: 'price',
+                sortDirection: 'DESC'
+            }
+        ]
+    };
+}
 
 export default ProductSort;

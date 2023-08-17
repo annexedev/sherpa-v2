@@ -666,7 +666,12 @@ const GalleryItem = props => {
                             
                             
                             
-                            <p className={classes.total_available}>Total available: {item.totalavailable}</p>
+                            <p className={classes.total_available}>
+                            <FormattedMessage
+                                id={'item.totalAvailable'}
+                                defaultMessage={'Total available:'}
+                            />
+                            {item.totalavailable}</p>
                             
                             
                             {final_minimum_price != final_regular_price && (
@@ -678,7 +683,10 @@ const GalleryItem = props => {
                                     {item.special_to_date && (
                                         <p>To: {item.special_to_date.slice(0, -8)}</p>
                                     )} */}
-                                    <b className={classes.total_available_b}>YOUR COST&nbsp;&nbsp;</b>
+                                    <b className={classes.total_available_b}><FormattedMessage
+                                        id={'item.yourCost'}
+                                        defaultMessage={'YOUR COST'}
+                                    />&nbsp;&nbsp;</b>
                                     <span className={classes.productPrice+ ' ' + classes.greenprice }>
                                         <Price
                                             value={(price_range.maximum_price.final_price.value)*1}
@@ -706,7 +714,10 @@ const GalleryItem = props => {
                             {final_minimum_price == final_regular_price && item.sku.substring(0, 3) != 'SA-' && (
                                 <>
                                     
-                                    <b className={classes.total_available_b}>YOUR COST&nbsp;&nbsp;</b>
+                                    <b className={classes.total_available_b}><FormattedMessage
+                                        id={'item.yourCost'}
+                                        defaultMessage={'YOUR COST'}
+                                    />&nbsp;&nbsp;</b>
                                     
                                         <Price
                                             value={price_range.maximum_price.final_price.value}
@@ -728,7 +739,10 @@ const GalleryItem = props => {
                             )}
                             {item.sku.substring(0, 3) != 'SA-' && (
                             <p>
-                                <b className={classes.total_available_b}>MSRP&nbsp;&nbsp;</b>
+                                <b className={classes.total_available_b}><FormattedMessage
+                                        id={'item.MSRP'}
+                                        defaultMessage={'MSRP'}
+                                    />&nbsp;&nbsp;</b>
                                 
                                 <Price
                                     value={item.msrp_sherpa2}

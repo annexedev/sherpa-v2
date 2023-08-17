@@ -112,7 +112,7 @@ exports[`renders loading indicator 1`] = `
   <span
     className="message"
   >
-    Fetching Data...
+    Fetching Data
   </span>
 </div>
 `;

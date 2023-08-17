@@ -48,7 +48,7 @@ const MegaMenu = () => {
                     }
                 >
                     { activeLng == '-fr' ?
-                        <a href="/a-propos">À propos</a>
+                        <a href="/about">À propos</a>
                         :
                         <a href="/about">About us</a>
                     }

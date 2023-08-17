@@ -69,10 +69,26 @@ const Breadcrumbs = props => {
         </Fragment>
     ) : null;
 
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }    
+
     return (
         <div className={classes.root}>
             <Link className={classes.link} to="/">
-                {'Home'}
+                    { activeLng == '-fr' ?
+                        <>Accueil</>
+                        :
+                        <>Home</>
+                    }
+                
             </Link>
             {links}
             <span className={classes.divider}>/</span>
