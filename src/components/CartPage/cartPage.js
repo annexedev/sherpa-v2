@@ -12,7 +12,7 @@ import PriceSummary from './PriceSummary';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 import searchClasses from '../SearchPage/searchPage.css';
-
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
@@ -125,6 +125,8 @@ const CartPage = props => {
                             >
                                 {priceAdjustments}
                             </div>
+                            <Link to="/checkout" className={classes.review_order_button}><span>Placer order</span></Link>
+                            <Link to="/brands" className={classes.review_order_button}><span>Continue Shopping</span></Link>
                         </div>
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>

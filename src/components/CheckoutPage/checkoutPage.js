@@ -254,6 +254,7 @@ const CheckoutPage = props => {
                 checkoutStep === CHECKOUT_STEP.PAYMENT ? (
                     <div className={classes.price_adjustments_container}>
                         <PriceAdjustments setPageIsUpdating={setIsUpdating} />
+                        
                     </div>
                 ) : null;
             const stepOneClass =
@@ -323,10 +324,10 @@ const CheckoutPage = props => {
                     <>
                         {selectedPaymentMethod.code == 'paypal_express' &&
                             paymentInformationSection && (
-                                <Button
+                                <div className={classes.items_review_container_buttons}><Button
                                     onClick={OrderPlace}
                                     priority="high"
-                                    className={classes.place_order_button}
+                                    className={classes.review_order_button}
                                     disabled={
                                         isUpdating ||
                                         placeOrderLoading ||
@@ -338,13 +339,17 @@ const CheckoutPage = props => {
                                         defaultMessage={'Place Order'}
                                     />
                                 </Button>
+                                <Link to="/cart" className={classes.review_order_button}><span>Back to Cart</span></Link>
+                                <Link to="/brands" className={classes.review_order_button}><span>Continue Shopping</span></Link>
+                                </div>
                             )}
 
                         {selectedPaymentMethod.code != 'paypal_express' && (
+                            <div className={classes.items_review_container_buttons}>
                             <Button
                                 onClick={handlePlaceOrder}
                                 priority="high"
-                                className={classes.place_order_button}
+                                className={classes.review_order_button}
                                 disabled={
                                     isUpdating ||
                                     placeOrderLoading ||
@@ -356,6 +361,9 @@ const CheckoutPage = props => {
                                     defaultMessage={'Place Order'}
                                 />
                             </Button>
+                            <Link to="/cart" className={classes.review_order_button}><span>Back to Cart</span></Link>
+                            <Link to="/brands" className={classes.review_order_button}><span>Continue Shopping</span></Link>
+                            </div>
                         )}
                     </>
                 ) : null;

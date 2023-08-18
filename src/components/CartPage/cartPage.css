@@ -12,7 +12,19 @@
         'items summary'
         'adjustments summary';
 }
-
+.review_order_button {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    margin: auto;
+    min-width: 200px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-right: 10px;
+    color: white;
+}
+.review_order_button:hover {
+    color: white;
+}
 .heading_container {
     display: grid;
     grid-template-columns: auto auto;

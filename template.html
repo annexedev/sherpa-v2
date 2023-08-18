@@ -36,9 +36,22 @@
   <script src="//code.tidio.co/lkmxnhgge8hf2csbej2fog3du6bcwvdq.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
   <style>
+    .team-page-section .container .row {
+        margin: 0px !important;
+    }
     .popup-content {
       padding: 0px !important;
       border: 0px !important;
+      overflow-y: auto;
+      height: 100%;
+    }
+    .popup-content .close {
+        float: right;
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #77c565;
+        margin-right: 10px;
     }
     .team-page-heading{
     margin:30px 0;
@@ -170,6 +183,9 @@ section.team-page-section .w-100{
     .modal-slide{
         width:100%!important;
         left:0!important
+    }
+    .popup-content {
+        width: 100% !important; 
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 992px){
