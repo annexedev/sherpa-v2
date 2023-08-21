@@ -30,6 +30,7 @@ const Contact = props => {
         }
         successMessage = responseData.message;
     }
+    
     const { t } = useTranslation();
     return (
         <div className={classes.contact_page_wrapper}>

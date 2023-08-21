@@ -65,8 +65,9 @@ const Item = props => {
                     id={'checkoutPage.partNumber'}
                     defaultMessage={'Part # :'}
                 />
-                &nbsp;{product.product_brand}
+                &nbsp;{product.sku}
             </span>
+            
         </div>
     );
 };

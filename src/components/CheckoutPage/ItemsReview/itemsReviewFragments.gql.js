@@ -6,6 +6,7 @@ export const ItemsReviewFragment = gql`
         total_quantity
         items {
             id
+            sku
             product {
                 id
                 sku
