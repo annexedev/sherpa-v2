@@ -240,7 +240,12 @@ const MegaMenu = () => {
                         defaultClasses.haschild
                     }
                 >
-                    <a href="/brands/clearance">Clearance</a>
+                    { activeLng == '-fr' ?
+                        <a href="/brands/clearance">Liquidation</a>
+                        :
+                        <a href="/brands/clearance">Clearance</a>
+                    }
+                    
                 </li>
             );
 
@@ -253,16 +258,35 @@ const MegaMenu = () => {
                         defaultClasses.haschild
                     }
                 >
-                    <a href="/education-landing">Education<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg></a>
-                    <ul id="id-main" className={
-                                    defaultClasses.sub_menu +
-                                    ' ' +
-                                    defaultClasses.lavel_1 + ' ' + defaultClasses.col1
-                                }>
-                        <li class="megaMenu-has_child-1b6"><a href="/events">Event Calendar</a></li>
-                        <li class="megaMenu-has_child-1b6"><a href="/sherpa-webinar-archive">Webinar Archive</a></li>
-                        <li class="megaMenu-has_child-1b6"><a href="/brand-youtube-links">Brand YouTube Pages</a></li>
-                    </ul>
+                    { activeLng == '-fr' ?
+                        <>
+                        <a href="/education-landing">Éducation<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg></a>
+                        <ul id="id-main" className={
+                                        defaultClasses.sub_menu +
+                                        ' ' +
+                                        defaultClasses.lavel_1 + ' ' + defaultClasses.col1
+                                    }>
+                            <li class="megaMenu-has_child-1b6"><a href="/events">Calendrier des événements</a></li>
+                            <li class="megaMenu-has_child-1b6"><a href="/sherpa-webinar-archive">Archives - formations</a></li>
+                            <li class="megaMenu-has_child-1b6"><a href="/brand-youtube-links">Page YouTube de nos marques</a></li>
+                        </ul>
+                        </>
+                        :
+                        <>
+                        <a href="/education-landing">Education<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg></a>
+                        <ul id="id-main" className={
+                                        defaultClasses.sub_menu +
+                                        ' ' +
+                                        defaultClasses.lavel_1 + ' ' + defaultClasses.col1
+                                    }>
+                            <li class="megaMenu-has_child-1b6"><a href="/events">Event Calendar</a></li>
+                            <li class="megaMenu-has_child-1b6"><a href="/sherpa-webinar-archive">Webinar Archive</a></li>
+                            <li class="megaMenu-has_child-1b6"><a href="/brand-youtube-links">Brand YouTube Pages</a></li>
+                        </ul>
+                        </>
+                    }
+
+                    
                 </li>
             );
 
@@ -290,7 +314,12 @@ const MegaMenu = () => {
                             defaultClasses.haschild
                         }
                     >
+                        { activeLng == '-fr' ?
+                        <a href="/education-landing">Éducation</a>
+                        :
                         <a href="/education-landing">Education</a>
+                        }
+                        
                         
                     </li>
                 );

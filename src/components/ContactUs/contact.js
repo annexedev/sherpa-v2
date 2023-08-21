@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, Suspense, Component } from 'react';
 import { mergeClasses } from '../../classify';
 import { useContactUs } from '../../../src/peregrine/lib/talons/Home/useHome';
 import contactClasses from './contact.css';
@@ -13,7 +13,8 @@ import combine from '../../util/combineValidators';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { Link, Meta, Title } from '../../components/Head';
-
+import JotformEmbed from 'react-jotform-embed';
+const Banner = React.lazy(() => import('/src/components/CedHome/banner'));
 const Contact = props => {
     const classes = mergeClasses(contactClasses, props.classes);
     const talonProps = useContactUs();
@@ -25,6 +26,16 @@ const Contact = props => {
     const { formRef, handleSubmit, responseData } = talonProps;
     let errorMessage = '';
     let successMessage = '';
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }
     if (typeof responseData != 'undefined') {
         if (!responseData.status) {
             errorMessage = responseData.message;
@@ -78,67 +89,12 @@ const Contact = props => {
                             'col-xs-12'
                         }
                     >
-                        <Form
-                            ref={formRef}
-                            id="contact-form"
-                            className={
-                                classes.root + ' ' + classes.contact_form
-                            }
-                            onSubmit={handleSubmit}
-                        >
-                            <div className={classes.input_field}>
-                                <Field label="Full Name" required={true}>
-                                    <TextInput
-                                        field="name"
-                                        autoComplete="given-name"
-                                        validate={isRequired}
-                                        validateOnBlur
-                                    />
-                                </Field>
-                            </div>
-                            <div className={classes.input_field}>
-                                <Field label="Email" required={true}>
-                                    <TextInput
-                                        field="email"
-                                        autoComplete="email"
-                                        validate={combine([
-                                            isRequired,
-                                            validateEmail
-                                        ])}
-                                        validateOnBlur
-                                    />
-                                </Field>
-                            </div>
-                            <div className={classes.input_field}>
-                                <Field label="Phone Number">
-                                    <TextInput field="telephone" />
-                                </Field>
-                            </div>
-                            <div className={classes.input_field}>
-                                <Field
-                                    label="What’s on your mind?"
-                                    required={true}
-                                >
-                                    <TextArea
-                                        field="comment"
-                                        validate={isRequired}
-                                        validateOnBlur
-                                    />
-                                </Field>
-                            </div>
-                            <div className={classes.error}>{errorMessage}</div>
-                            <div className={classes.success}>
-                                {successMessage}
-                            </div>
-                            <div className={classes.actions}>
-                                <Button type="submit" priority="high">
-                                    <FormattedMessage
-                                        id={'contact.submit'}
-                                        defaultMessage={'Submit'}
-                                    />
-                                </Button>
-                            </div>
-                        </Form>
+                        { activeLng == '-fr' ?
+                        <JotformEmbed src="https://form.jotform.com/232284757056260" />
+                        :
+                        <JotformEmbed src="https://form.jotform.com/232284967022256" />
+                        }
+                        
                     </div>
                     <div
                         className={
@@ -152,8 +108,14 @@ const Contact = props => {
                         }
                     >
                         <div className={classes.conatct_page}>
-                            <p className={classes.heading_content}>
-                            By choosing Sherpa Technology Group, you are making the sound business decision of equipping your company with a complete array of quality and reliable solutions backed up by our promise of best in-class knowledge & support.
+                            <p className={classes.heading_content}> 
+                            <Suspense fallback={''}>
+                                <Banner
+                                    identifier={'contactus_newsite'}
+                                    showBanner={true}
+                                />
+                            </Suspense>
+                            
                             </p>
                         </div>
                         <div className={classes.phone_mail_wrapp}>

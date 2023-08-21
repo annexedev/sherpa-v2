@@ -48,15 +48,15 @@ const PriceRange = props => {
                 <section className={classes.price_details_wrap}>
                     
                     <p className={classes.productPrice}>
-                        PART # <span>{product && product.sku}</span></p><br/>
+                        <FormattedMessage id={'item.partNo'} defaultMessage={'PART #'} /> : <span>{product && product.sku}</span></p><br/>
                         <p className={classes.productPrice}>
-                        BRAND : <span>{product && product.productbrand}</span></p><br/>    
+                        <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/>    
                     
 
                     {/* today.toISOString().split('T')[0] < specialDate.toISOString().split('T')[0] && */}
                     {final_minimum_price == final_regular_price &&  (
                         <>
-                            <p className={classes.productPrice}>YOUR COST&nbsp;&nbsp;&nbsp;
+                            <p className={classes.productPrice}><FormattedMessage id={'item.yourCost'} defaultMessage={'YOUR COST'} />&nbsp;&nbsp;&nbsp;
                                 <Price
                                     currencyCode={
                                         price.minimum_price.final_price.currency
@@ -68,7 +68,7 @@ const PriceRange = props => {
                     )}
                     {final_minimum_price != final_regular_price &&  (
                         <>
-                            <p className={classes.productPrice + ' ' + priceClasses.greenprice }>YOUR COST&nbsp;&nbsp;&nbsp;
+                            <p className={classes.productPrice + ' ' + priceClasses.greenprice }><FormattedMessage id={'item.yourCost'} defaultMessage={'YOUR COST'} />&nbsp;&nbsp;&nbsp;
                                 <Price
                                     currencyCode={
                                         price.minimum_price.final_price.currency

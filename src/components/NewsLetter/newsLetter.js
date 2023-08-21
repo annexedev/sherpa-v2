@@ -62,6 +62,17 @@ const NewsLetter = props => {
         setSuccessMsg
     ]);
 
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let activeLng = '';
+    if(lng == 'Français') {
+        activeLng = '-fr';
+    } else {
+        activeLng = '';
+    }
+
     return (
         <div className={classes.newsletter_Wrap}>
             <div className={'container'}>
@@ -69,7 +80,12 @@ const NewsLetter = props => {
                     <div className={'col-lg-6 col-md-6 col-12'}>
                         <div className={classes.newsletter_content}>
                             <p className={classes.newsletter_content_head}>
-                                <img className={classes.newsletter_img} src="https://sherpagroupav.com/media/wysiwyg/Guide_to_the_Exceptional-w-logo-wht.png"/><br/>
+                            { activeLng == '-fr' ?
+                                <img className={classes.newsletter_img} src="https://sherpagroupav.com/media/wysiwyg/Guide_to_the_Exceptional-w-logo-wht-FR.png"/>
+                                :
+                                <img className={classes.newsletter_img} src="https://sherpagroupav.com/media/wysiwyg/Guide_to_the_Exceptional-w-logo-wht.png"/>
+                                }
+                                <br/>
                                 <FormattedMessage
                                     id="newsLetter.newsletter_content_head"
                                     defaultMessage=" "

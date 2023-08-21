@@ -695,7 +695,7 @@ const ProductFullDetail = (props) => {
         <Fragment>
             <div className={'container' + ' ' + classes.product_page_container}>
                 {breadcrumbs}
-                <a className={classes.stepback} onClick={stepBack} href='#'>Return to previous page</a>
+                <a className={classes.stepback} onClick={stepBack} href='#'><FormattedMessage id={'item.back'} defaultMessage={'Return to previous page'} /></a>
                 <Form className={classes.root}>
                     {/* product image carousel section */}
                     <section
@@ -742,9 +742,7 @@ const ProductFullDetail = (props) => {
                                 {email ? (
                                     <>
 
-                                    {product.sku.substring(0, 3) == 'SA-' ? (
-                                        <p>See Price List</p>
-                                    ) : (
+                                   
                                         <>
                                         <PriceRange
                                             price={productDetails.price}
@@ -764,15 +762,23 @@ const ProductFullDetail = (props) => {
                                                 customPercCheckbox
                                             }
                                             />
-                                        <p>MSRP&nbsp;&nbsp;<b>${(Math.round(product.msrp_sherpa2 * 100) / 100).toFixed(2)}</b></p>
+                                        <p><FormattedMessage id={'item.MSRP'} defaultMessage={'MSRP'} />&nbsp;&nbsp;<b>${(Math.round(product.msrp_sherpa2 * 100) / 100).toFixed(2)}</b></p>
                                         </>
-                                    )}
-
                                     
-                                    <p className={classes.total_available}>Total available : {product.totalavailable}</p><p>Montreal inventory : {product.mtl_inventory}<br/>Montreal hub inventory : {product.mtlhub}<br/>Toronto inventory : {product.tor_inventory}<br/>Toronto hub inventory : {product.torhub}</p>
-                                    </>
+
+
+                                    <p className={classes.total_available}>
+                                    <FormattedMessage id={'item.totalAvailable'} defaultMessage={'Total available'} /> {product.totalavailable}</p>
+                                    <p><FormattedMessage id={'item.totalMtl1'} defaultMessage={'Montreal inventory'} /> {product.mtl_inventory}
+                                    <br/>
+                                    <FormattedMessage id={'item.totalMtl2'} defaultMessage={'Montreal hub inventory'} /> {product.mtlhub}
+                                    <br/>
+                                    <FormattedMessage id={'item.totalTor1'} defaultMessage={'Toronto inventory'} /> {product.tor_inventory}
+                                    <br/>
+                                    <FormattedMessage id={'item.totalTor2'} defaultMessage={'Toronto hub inventory'} /> {product.torhub}</p>
+                                    </> 
                                 ) : (
-                                    <p><a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account</a></p>
+                                    <p><a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} /></a></p>
                                 )}
 
                                 

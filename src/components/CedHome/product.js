@@ -272,7 +272,7 @@ const Product = props => {
                                         )}
                                         {activeLng == '' && (
                                         <>
-                                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account</a></div>
+                                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} /></a></div>
                                         </>
                                         )}
                                         </>

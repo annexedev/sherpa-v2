@@ -406,7 +406,7 @@ const CategoryContent = props => {
                                 <div>
                                     <img src="https://sherpagroupav.com/media/wysiwyg/Sherpamotions_Logo_w-tag-icons.png" width="600" height="134"></img>
                                     <h2>Get access to our promotions</h2>
-                                    <a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account</a>
+                                    <a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} />t</a>
                                 </div>
                             : ''}
                             

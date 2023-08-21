@@ -711,7 +711,7 @@ const GalleryItem = props => {
                                     </span>
                                 </>
                             )}
-                            {final_minimum_price == final_regular_price && item.sku.substring(0, 3) != 'SA-' && (
+                            {final_minimum_price == final_regular_price && (
                                 <>
                                     
                                     <b className={classes.total_available_b}><FormattedMessage
@@ -728,16 +728,9 @@ const GalleryItem = props => {
                                     
                                 </>
                             )}
-                            {item.sku.substring(0, 3) == 'SA-' && (
-                                <>
-                                    
-                                    <b className={classes.total_available_b}>YOUR COST : See Price List</b>
-                                    
-                                        
-                                    
-                                </>
-                            )}
-                            {item.sku.substring(0, 3) != 'SA-' && (
+                            
+                           
+                            
                             <p>
                                 <b className={classes.total_available_b}><FormattedMessage
                                         id={'item.MSRP'}
@@ -751,7 +744,7 @@ const GalleryItem = props => {
                                     }
                                 />
                             </p>
-                            )}
+                           
                         </div>
                     ) : (
                         <div>
@@ -969,7 +962,7 @@ const GalleryItem = props => {
                         )}
                         {activeLng == '' && (
                         <>
-                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account</a></div>
+                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} /></a></div>
                         </>
                         )}
                         
