@@ -241,7 +241,7 @@ const Main = props => {
     }
 
     if(window.location.href.indexOf("/events") != -1) {
-        displayLogin = true;
+        displayLogin = false;
     }
 
     if(window.location.href.indexOf("/sherpa-webinar-archive") != -1) {

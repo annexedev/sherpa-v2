@@ -71,7 +71,7 @@ const OrderConfirmationPage = props => {
 
     const nameString = `${firstname} ${lastname}`;
     const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;
-
+    
     return (
         <div
             className={'container' + ' ' + classes.orderconfirmation_container}
@@ -98,7 +98,7 @@ const OrderConfirmationPage = props => {
                             id={'checkoutPage.orderNumber'}
                             defaultMessage={'Order Number'}
                             values={{ orderNumber }}
-                        />
+                        />: { orderNumber }
                     </div>
                     <div className={classes.shippingInfoHeading}>
                         <FormattedMessage

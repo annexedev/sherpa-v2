@@ -6,16 +6,45 @@ export const ItemsReviewFragment = gql`
         total_quantity
         items {
             id
-            sku
             product {
                 id
                 sku
-                product_brand
                 name
                 thumbnail {
                     url
                 }
+                price_range {
+                    minimum_price {
+                        regular_price {
+                            value
+                            currency
+                        }
+                        final_price {
+                            value
+                            currency
+                        }
+                        discount {
+                            amount_off
+                            percent_off
+                        }
+                    }
+                    maximum_price {
+                        regular_price {
+                            value
+                            currency
+                        }
+                        final_price {
+                            value
+                            currency
+                        }
+                        discount {
+                            amount_off
+                            percent_off
+                        }
+                    }
+                }
             }
+            
             quantity
             ... on SimpleCartItem {
                 customizable_options {

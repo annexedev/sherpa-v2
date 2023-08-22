@@ -131,7 +131,7 @@ const Contact = props => {
                                     />
                                 </span>
                             </p>
-                            <a href="/">
+                            <a href="mailto:info@sherpagroupav.com">
                                 <span className={classes.icons}>
                                     <FontAwesomeIcon icon={faEnvelope} />
                                 </span>
@@ -139,7 +139,7 @@ const Contact = props => {
                                     <FormattedMessage
                                         id={'contact.email'}
                                         defaultMessage={
-                                            ' info@sherpa-group.net'
+                                            'info@sherpagroupav.com'
                                         }
                                     />
                                 </span>

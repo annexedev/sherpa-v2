@@ -16,7 +16,7 @@ export const useItemsReview = props => {
         fetchItemsInCart,
         { data: queryData, error, loading }
     ] = useLazyQuery(getItemsInCart, {
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'network-only'
     });
 
     // If static data was provided, use that instead of query data.

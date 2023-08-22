@@ -23,6 +23,7 @@
     white-space: nowrap;
     color: var(--primary-dark-color);
     font-family: 'Karla-regular';
+    font-weight: 900;
 }
 .icon svg {
     color: var(--primary-dark-color);

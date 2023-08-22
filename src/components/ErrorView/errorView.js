@@ -3,7 +3,7 @@ import defaultClasses from './error.css';
 import PropTypes, { shape, string } from 'prop-types';
 import { Title } from '../Head';
 import { Link } from 'src/drivers';
-
+import { FormattedMessage } from 'react-intl';
 const ErrorView = () => {
     return (
         <div className={defaultClasses.page_not_find}>
@@ -28,9 +28,8 @@ const ErrorView = () => {
                                     alt="noProductsFound"
                                 /></p> */}
                                 <p><img src="https://sherpagroupav.com/pub/media/pwa-theme/404-ScottRun-1loop.gif"/></p>
-                                <h3>Well, that doesn't look right, does it?</h3>
-                            
-                                <Link to="/">Back to HomePage</Link>
+                                <h3><FormattedMessage id={'404.title'} defaultMessage={'Well, that doesn\'t look right, does it?'} /></h3>
+                                <Link to="/"><FormattedMessage id={'404.link'} defaultMessage={'Back to HomePage'} /></Link>
                             </div>
                             
                         </div>
