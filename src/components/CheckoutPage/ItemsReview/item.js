@@ -68,18 +68,21 @@ const Item = props => {
                     defaultMessage={'Qty :'}
                 />{quantity}
             </span>
-            <span>
-                <FormattedMessage
-                    id={'checkoutPage.partNumber'}
-                    defaultMessage={'Part # :'}
-                />
-                &nbsp;{product.sku}<br></br>
-                <FormattedMessage
-                    id={'checkoutPage.partNumber'}
-                    defaultMessage={'Price :'}
-                />&nbsp;
-               
-            </span>
+            {product.price_range.minimum_price.final_price.value && product.sku && (
+                <span>
+                    <FormattedMessage
+                        id={'checkoutPage.partNumber'}
+                        defaultMessage={'Part # :'}
+                    />
+                    &nbsp;{product.sku}<br></br>
+                    <FormattedMessage
+                        id={'checkoutPage.partNumber'}
+                        defaultMessage={'Price :'}
+                    />&nbsp;{formatter.format(product.price_range.minimum_price.final_price.value)}
+                
+                </span>
+            )}
+            
             
         </div>
     );
