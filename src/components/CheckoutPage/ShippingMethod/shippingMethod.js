@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
-import { Form } from 'informed';
+import { Form } from 'informed'; 
 
 import {
     displayStates,
