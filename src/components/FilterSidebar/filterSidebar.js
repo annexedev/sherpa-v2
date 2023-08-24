@@ -52,8 +52,18 @@ const FilterSidebar = props => {
         () =>
             Array.from(filterItems, ([group, items], iteration) => {
                 const blockState = filterState.get(group);
-                const groupName = filterNames.get(group);
-                
+                let groupName = filterNames.get(group);
+                let lng = '';
+                if(document.getElementById("currentLng") != null){
+                    lng = document.getElementById("currentLng").innerHTML;
+                }
+                let activeLng = '';
+                if(lng == 'Français' && groupName == 'Price') {
+                    groupName = 'Prix';
+                } 
+                if(lng == 'Français' && groupName == 'Brands') {
+                    groupName = 'Marques';
+                } 
                 return (
                     <FilterBlock
                         key={group}

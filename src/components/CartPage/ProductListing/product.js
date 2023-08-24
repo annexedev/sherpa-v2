@@ -127,7 +127,7 @@ const Product = props => {
                         />
                     )}
                     <span>
-                        Part # s{product.sku}
+                        Part # {product.sku}
                     </span>
                     <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />

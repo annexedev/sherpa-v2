@@ -643,7 +643,7 @@ const GalleryItem = props => {
                         to={productLink}
                         className={classes.name}
                     > 
-                        Part # {item.sku}
+                        <b><FormattedMessage id={'item.partNo'} defaultMessage={'Part #'}/></b> {item.sku}
                     </Link>
                 </p>
                 <p className={classes.product_name}>
