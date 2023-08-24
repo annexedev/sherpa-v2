@@ -157,11 +157,12 @@
     }
     .menu {
         transform: translate3d(0, 0px, 0);
-        bottom: 0 !important;
+        top: 0 !important;
         position: fixed;
         width: 100%;
         left: 0 !important;
         box-shadow: unset !important;
+        margin-top: 53px;
     }
     .drop_down_ing {
         filter: unset;
