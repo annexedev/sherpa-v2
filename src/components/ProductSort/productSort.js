@@ -16,13 +16,14 @@ const ProductSort = props => {
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
-
     
 
     useEffect(() => {
         // Update the document title using the browser API
+        //document.getElementById('setSort').click();
+        if(!mobileView) { setExpanded(true); }
         if(currentSort && currentSort.sortText=='Relevance') {
-            //document.getElementById('sortItem.sku').click();
+            //document.getElementById('setSort').click();
             //document.getElementById('skusku').click();
             //currentSort.sortText=='Positionx';
             //preventDefault();
@@ -46,10 +47,8 @@ const ProductSort = props => {
     const sortElements = useMemo(() => {
         // should be not render item in collapsed mode.
         if (!expanded) {
-            //return null;
+            return null;
         }
-
-        
 
         const itemElements = Array.from(availableSortMethods, sortItem => {
             const { attribute, sortDirection } = sortItem;
@@ -58,9 +57,6 @@ const ProductSort = props => {
                 currentSort.sortDirection === sortDirection;
 
             const key = `${attribute}--${sortDirection}`;
-
-            
-
             return (
                 <li key={key} className={classes.menuItem}>
                     <SortItem
