@@ -165,7 +165,7 @@
     "main.Profile": "Profil",
     "miniCart.priceClassName": "Total: ",
     "miniCart.emptyMessage": "Il n'y a aucun objet dans votre panier.",
-    "miniCart.CHECKOUT": "VÉRIFIER",
+    "miniCart.CHECKOUT": "Passez à la caisse",
     "miniCart.editCartButton": "Modifier le panier",
     "account.is_subscribed": "Vous êtes abonné à 'l'abonnement général'. ",
     "account.is_not_subscribed": "Vous n'êtes pas abonné à notre newsletter.",
@@ -456,11 +456,13 @@
     "checkoutPage.shippingMethodStep": "2. Méthode d'expédition",
     "checkoutPage.paymentInformationStep": "3. Informations de paiement",
     "checkoutPage.reviewOrder": "Réviser la commande",
+    "checkoutPage.btc": "Retour au panier",
+    "checkoutPage.cs": "Continuer à magasiner",
     "checkoutPage.placeOrder": "Passer la commande",
     "checkoutPage.returnToCart": "Retourner au panier",
     "checkoutPage.errorSubmit": "Oops! ",
-    "checkoutPage.checkout": "Vérifier",
-    "checkoutPage.titleCheckout": "Vérifier",
+    "checkoutPage.checkout": "Passez à la caisse",
+    "checkoutPage.titleCheckout": "Passez à la caisse",
     "completedView.errorLoading": "Erreur lors du chargement de la méthode d'expédition sélectionnée. ",
     "global.free": "Gratuit",
     "completedView.shippingMethod": "Mode de livraison",
@@ -524,5 +526,9 @@
     "shipping.useMethod": "Utiliser la méthode",
     "shipping.cancel": "Annuler",
     "checkoutPage.orderSummary": "Récapitulatif de la commande",
-    "forgotPassword.email": "Adresse e-mail"
+    "forgotPassword.email": "Adresse e-mail",
+    "item.rebate": "rabais",
+    "item.until": "jusqu'au",
+    "checkoutPage.billingAddressSame": "L'adresse de la facture est identique à l'adresse d'expédition"
+    
   }

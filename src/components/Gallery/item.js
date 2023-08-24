@@ -611,7 +611,7 @@ const GalleryItem = props => {
         <div className={classes.root} aria-live="polite" aria-busy="false">
             <div className={classes.noo_product_image}>
                 {discount_percent > 0 && email && (
-                    <div className={classes.priceTag}><b>{discount_percent}% Off{item.special_to_date && (<> until {(discount_date.toDateString().split(' ').slice(1).join(' '))}</>)}</b></div>
+                    <div className={classes.priceTag}><b>{discount_percent}% <FormattedMessage id={'item.rebate'} defaultMessage={'Off'} />{item.special_to_date && (<> <FormattedMessage id={'item.until'} defaultMessage={'until'} /> {(discount_date.toDateString().split(' ').slice(1).join(' '))}</>)}</b></div>
                 )}
 
 
