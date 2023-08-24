@@ -778,7 +778,13 @@ const ProductFullDetail = (props) => {
                                     <FormattedMessage id={'item.totalTor2'} defaultMessage={'Toronto hub inventory'} /> {product.torhub}</p>
                                     </> 
                                 ) : (
-                                    <p><a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} /></a></p>
+                                    <>
+                                        <p className={classes.productPrice}>
+                                        <FormattedMessage id={'item.partNo'} defaultMessage={'PART #'} /> : <span>{product && product.sku}</span></p><br/>
+                                        <p className={classes.productPrice}>
+                                        <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/><br/>    
+                                        <p><a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} /></a></p>
+                                    </>
                                 )}
 
                                 
