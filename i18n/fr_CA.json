@@ -69,7 +69,7 @@
     "My Reviews": "Mes avis",
     "SIGN OUT": "SE DÉCONNECTER",
     "checkoutPage.quantity": "Qté : ",
-    "checkoutPage.orderNumber": "Numéro de commande : {orderNumber}",
+    "checkoutPage.orderNumber": "Numéro de commande : ",
     "authBar.signout_btn": "se déconnecter",
     "authBar.userAccount": "Bonjour, {name} !",
     "authBar.signin_text": "Se connecter",
