@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useMemo, useState, useEffect } from 'react';
+import React, { Fragment, Suspense, useMemo, Component, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
 import { useCategoryContent } from '../../peregrine/lib/talons/RootComponents/Category';
@@ -25,6 +25,48 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { gql } from '@apollo/client';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import cart from '@magento/peregrine/lib/context/cart';
+
+class OrderTotal extends Component{
+    constructor () {
+        super()
+        this.state = {
+            pageData: []
+        }
+    }
+
+    componentDidMount() {
+        let orderNumber = this.props.cid;
+        let email = this.props.email;
+        let dataURL = "https://sherpagroupav.com/get_permissions.php?email="+email+"&cid="+orderNumber;
+        console.log("DATA URL");
+        console.log(dataURL);
+        fetch(dataURL)
+          .then(res => res.json())
+          .then(res => {
+            this.setState({
+                pageData: res
+            })
+          });        
+    }
+
+    render(){
+
+        let projectname = this.state.pageData.pname && this.state.pageData.pname;
+        console.log("STATUS REQUEST :: "+projectname+" "+this.props.cid)
+        if(projectname==0) {
+            window.location.href = "/brand-access";
+            return (
+                <>Exiting</>
+            )
+        } else {
+            return (
+                <></>
+            )
+        }
+    }
+}
+
+//const { email } = useDashboard();
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 const FilterSidebar = React.lazy(() =>
@@ -296,10 +338,12 @@ const CategoryContent = props => {
         } else {
             exclude = 0;
         }
-
+        const { email } = useDashboard();
+        console.log("EMAIL :: "+email);
         return (
             
             <div className="App">
+              <OrderTotal cid={catId} email={email} />    
               {exclude == 0 && data.categoryList && data.categoryList.map((e) => {
                 return (
                     <div className='row'>
@@ -370,7 +414,8 @@ const CategoryContent = props => {
     
     return (
         
-        <Fragment>
+        <Fragment> 
+            
             <div className={'container'}>
                 <Breadcrumbs categoryId={categoryId} />
                 <StoreTitle>{categoryName}</StoreTitle>
@@ -419,8 +464,6 @@ const CategoryContent = props => {
                         
                     </div>
                     <LinkList />
-                    
-                        
                     {catId != 42 && catId != 382 && exclude == 0 ? (
 
                     <div className={classes.contentWrapper} >
