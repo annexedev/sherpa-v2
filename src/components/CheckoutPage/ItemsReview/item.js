@@ -68,7 +68,7 @@ const Item = props => {
                     defaultMessage={'Qty :'}
                 />{quantity}
             </span>
-            {product.price_range.minimum_price.final_price.value && product.sku && product.sku != 'undefined' && (
+            
                 <span>
                     <FormattedMessage
                         id={'checkoutPage.partNumber'}
@@ -81,7 +81,7 @@ const Item = props => {
                     />&nbsp;
                 
                 </span>
-            )}
+           
             
             
         </div>
