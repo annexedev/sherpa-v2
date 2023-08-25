@@ -80,7 +80,7 @@ const Item = props => {
                     <FormattedMessage
                         id={'checkoutPage.partNumber'}
                         defaultMessage={'Price :'}
-                    />&nbsp; ${productPrice.toFixed(2)}
+                    />&nbsp;
                 
                 </span>
            
