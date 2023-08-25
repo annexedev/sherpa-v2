@@ -31,8 +31,8 @@ const Item = props => {
         //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
       });
       
-      let productPrice = product.price_range.minimum_price.final_price.value;
-
+      //let productPrice = product.price_range.minimum_price.final_price.value;
+      console.log(product);
     return (
         <div className={className}>
             <Image

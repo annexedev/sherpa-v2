@@ -1345,7 +1345,7 @@ const ProductFullDetail = (props) => {
                             />
                         </Suspense>
                     </div>
-                    <div className={classes.h_products_wrap}>
+                    {/* <div className={classes.h_products_wrap}>
                         <Suspense fallback={''}>
                             <RecentProducts
                                 product={product}
@@ -1355,7 +1355,7 @@ const ProductFullDetail = (props) => {
                                 type={'Recent'}
                             />
                         </Suspense>
-                    </div>
+                    </div> */}
                 </>
             )}
         </Fragment>
