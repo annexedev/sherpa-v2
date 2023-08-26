@@ -343,7 +343,12 @@ const CategoryContent = props => {
         return (
             
             <div className="App">
-              <OrderTotal cid={catId} email={email} />    
+                {isSignedIn ? (
+                    <OrderTotal cid={catId} email={email} /> 
+                ) : (
+                    <></>
+                )}
+                 
               {exclude == 0 && data.categoryList && data.categoryList.map((e) => {
                 return (
                     <div className='row'>

@@ -137,6 +137,16 @@ const AddressBook = props => {
                         defaultMessage={'Change Shipping Information'}
                     />
                 </h1>
+                <div className={classes.noticeshipping} >
+                <FormattedMessage
+                    id={
+                        'addressBook.changeBillingAddress'
+                    }
+                    defaultMessage={
+                        'Please contact your account manager to update your billing and/or shipping address'
+                    }
+                />
+                </div>
                 <div className={classes.buttonContainer}>
                     <Button
                         disabled={isLoading}
