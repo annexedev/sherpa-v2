@@ -782,7 +782,7 @@ const GalleryItem = props => {
                 >
                     {email ? (
                         <div>
-                    <div className={'c'+item.id+' '+classes.qty_selector}><QuantityPicker min={1} value={1} width='65%'/></div>      
+                    <div className={'c'+item.id+' '+classes.qty_selector}><QuantityPicker min={1} value={1} /></div>      
                     <div className={classes.add_to_cart_btn}>
                         {item.__typename == 'SimpleProduct' &&
                             stock_status == 'IN_STOCK' &&
