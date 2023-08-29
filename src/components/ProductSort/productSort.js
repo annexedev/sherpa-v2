@@ -26,7 +26,6 @@ const ProductSort = props => {
             //document.getElementById('setSort').click();
             //document.getElementById('skusku').click();
             //currentSort.sortText=='Positionx';
-            //preventDefault();
         }
       });
 
@@ -191,9 +190,9 @@ ProductSort.defaultProps = {
     availableSortMethods: [
         {
             text: 'Pertinence',
-            id: 'sortItem.position',
-            attribute: 'position',
-            sortDirection: 'ASC'
+            id: 'sortItem.relevance',
+            attribute: 'relevance',
+            sortDirection: 'DESC'
         },
         {
             text: 'No. Article: Croissant',
@@ -226,9 +225,9 @@ ProductSort.defaultProps = {
         availableSortMethods: [
             {
                 text: 'Relevance',
-                id: 'sortItem.position',
-                attribute: 'position',
-                sortDirection: 'ASC'
+                id: 'sortItem.relevance',
+                attribute: 'relevance',
+                sortDirection: 'DESC'
             },
             {
                 text: 'Part #: Ascending',

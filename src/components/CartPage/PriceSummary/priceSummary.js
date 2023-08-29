@@ -157,7 +157,7 @@ const PriceSummary = props => {
                 </span>
             </div>
             {proceedToCheckoutButton}
-            <p className={classes.checkoutNotice}>Make sure the quantity of your products is right before checkout.</p>
+            {/* <p className={classes.checkoutNotice}>Make sure the quantity of your products is right before checkout.</p> */}
         </div>
     );
 };
