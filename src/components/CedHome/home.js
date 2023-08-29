@@ -253,22 +253,7 @@ const Home = props => {
                 {/* Latest product section */}
                 {showLatestProducts && scrollFlag && (
                     <Suspense fallback={''}>
-                        {activeLng == '-fr' && (
-                            <>
-                                <SliderProduct
-                                    showLinkedProduct={showLatestProducts}
-                                    type="Latest Product"
-                                    name={formatMessage({
-                                        id: 'home.latest',
-                                        defaultMessage: 'INDISPENSABLES POUR L\'INSTALLATEUR'
-                                    })}
-                                    classes={classes}
-                                />
-                            </>
-                            )}
-                            {activeLng == '' && (
-                            <>
-                                <SliderProduct
+                        <SliderProduct
                                     showLinkedProduct={showLatestProducts}
                                     type="Latest Product"
                                     name={formatMessage({
@@ -277,8 +262,6 @@ const Home = props => {
                                     })}
                                     classes={classes}
                                 />
-                            </>
-                            )}
                         
                     </Suspense>
                 )}

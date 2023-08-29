@@ -39,14 +39,14 @@ const getDiscount = (discounts = []) => {
 const DiscountSummary = props => {
     const classes = mergeClasses({}, props.classes);
     const discount = getDiscount(props.data);
-
+    console.log(discount);
     return discount.value ? (
         <Fragment>
             <span className={classes.lineItemLabel}>
                 <FormattedMessage
                     id={'discountSummary.lineItemLabel'}
                     defaultMessage={'Discounts applied'}
-                />
+                /> {discount.label}
             </span>
             <span className={classes.price}>
                 <FormattedMessage

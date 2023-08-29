@@ -380,15 +380,19 @@ const CheckoutPage = props => {
             );
 
             const orderSummary = shouldRenderPriceSummary ? (
-                <div className={classes.summaryContainer}>
-                    <strong className={classes.summaryContainer_heading}>
-                        {formatMessage({
-                            id: 'checkoutPage.orderSummary',
-                            defaultMessage: ' Order summary'
-                        })}
-                    </strong>
-                    <OrderSummary isUpdating={isUpdating} />
-                </div>
+                <>
+                    <div className={classes.summaryContainer}>
+                        <strong className={classes.summaryContainer_heading}>
+                            {formatMessage({
+                                id: 'checkoutPage.orderSummary',
+                                defaultMessage: ' Order summary'
+                            })}
+                        </strong>
+                        <OrderSummary isUpdating={isUpdating} />
+                        
+                    </div>
+                    
+                </>
             ) : null;
 
             let headerText;
@@ -401,7 +405,7 @@ const CheckoutPage = props => {
             } else if (customer.default_shipping) {
                 headerText = formatMessage({
                     id: 'checkoutPage.reviewAndPlaceOrder',
-                    defaultMessage: 'Checkout'
+                    defaultMessage: 'Finalise Order Details'
                 });
             } else {
                 headerText = formatMessage(

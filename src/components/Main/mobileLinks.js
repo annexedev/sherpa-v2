@@ -76,6 +76,9 @@ const MobileLinks = props => {
     const handleHome = () => {
         history.push('/');
     };
+    const handleContact = () => {
+        history.push('/contact');
+    };
     return (
         <div className={defaultClasses.bottom_toolbar}>
             <div className={defaultClasses.bottom_tool_inner}>
@@ -107,7 +110,9 @@ const MobileLinks = props => {
                     </p>
                 </button>
                 <button
-                    onClick={handleOpenNavigation}
+                    onClick={() => {
+                        handleContact();
+                    }}
                     className={defaultClasses.toolbar_items}
                 >
                     <span

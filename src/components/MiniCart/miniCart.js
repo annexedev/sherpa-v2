@@ -177,7 +177,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     />
                     <FormattedMessage
                         id={'miniCart.CHECKOUT'}
-                        defaultMessage={'CHECKOUT'}
+                        defaultMessage={'FINALIZE ORDER DETAILS'}
                     />
                 </Button>
                 <Button
