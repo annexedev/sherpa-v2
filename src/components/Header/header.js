@@ -304,7 +304,7 @@ const Header = props => {
                     height="20"
                   />
                 </span>
-                <span
+                {/*<span
                   className={
                     classes.search_image +
                     ' ' +
@@ -316,7 +316,7 @@ const Header = props => {
                     active={searchOpen}
                     onClick={handleSearchTriggerClick}
                   />
-                </span> 
+                </span> */}
                 <span
                   className={
                     classes.user_icon_image +

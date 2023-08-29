@@ -16,7 +16,7 @@ const LoadingIndicator = props => {
                 size={64}
                 classes={{ icon: classes.indicator }}
             />
-            <span className={classes.message}>{props.children}</span>
+            {/* <span className={classes.message}>{props.children}</span> */}
         </div>
     );
 };
