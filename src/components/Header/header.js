@@ -138,10 +138,13 @@ const Header = props => {
     lng = document.getElementById("currentLng").innerHTML;
   }
   let activeLng = '';
+  let indexname = 'magento2_prod_default_products';
   if(lng == 'Français') {
       activeLng = '-fr';
+      indexname = 'magento2_prod_fr_products';
   } else {
       activeLng = '';
+      indexname = 'magento2_prod_default_products';
   }
 
   return (
@@ -242,7 +245,7 @@ const Header = props => {
                                   searchClient,
                                   queries: [
                                     {
-                                      indexName: 'magento2_prod_default_products',
+                                      indexName: indexname,
                                       query,
                                       params: {            
                                         hitsPerPage: 15,    
