@@ -233,7 +233,7 @@ const Header = props => {
                   <div id="auto-complete" className={defaultClasses[`auto-complete-input`]+" "+classes.autocomplete_wrap}>
                       <Suspense fallback={null}>
                         <Autocomplete
-                        
+                          
                           onclick="console.log('Search button got clicked')"
                           id="henlo"
                           openOnFocus={false}
@@ -261,7 +261,13 @@ const Header = props => {
                                 header() {
                                   return (
                                     <Fragment>
-                                      <span className="aa-SourceHeaderTitle">Products</span>
+                                      {activeLng == '-fr' && (
+                                        <span className="aa-SourceHeaderTitle">Produits</span>
+                                      )}
+                                      {activeLng == '' && (
+                                        <span className="aa-SourceHeaderTitle">Products</span>
+                                      )}
+                                      
                                       <div className="aa-SourceHeaderLine" />
                                     </Fragment>
                                   );

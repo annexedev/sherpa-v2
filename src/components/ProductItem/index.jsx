@@ -9,6 +9,19 @@ export function ProductItem({ hit, components }) {
       currencyDisplay: 'narrowSymbol'
   });
 
+  let lng = '';
+  if(document.getElementById("currentLng") != null){
+      lng = document.getElementById("currentLng").innerHTML;
+  }
+  let activeLng = '';
+  if(lng == 'Français') {
+      activeLng = '-fr';
+      sherpaurl = hit.url.replace("sherpagroupav.com/fr", "staging.sherpagroupav.com");
+  } else {
+      activeLng = '';
+      sherpaurl = hit.url.replace("sherpagroupav.com/default", "staging.sherpagroupav.com");
+  }
+
   return (
     <a href={sherpaurl} className="aa-ItemLink">
         <div className="aa-ItemContent">
@@ -25,11 +38,24 @@ export function ProductItem({ hit, components }) {
             </div>
             <div className="aa-ItemContentDescription">
               {/* From <strong>{hit.brand}</strong> in{' '} */}
-              <strong>Part # {hit.sku}</strong>
+              
+              <div className="aa-ItemContentDescription" style={{ color: '#000' }}>
+              { activeLng == '-fr' ?
+                  <strong>No. article {hit.sku}</strong>
+                  :
+                  <strong>Part # {hit.sku}</strong>
+              }
+              
+            </div>
             </div>
            
             <div className="aa-ItemContentDescription" style={{ color: '#000' }}>
-              <strong>MSRP {CADDollar.format(hit.msrp)}</strong>
+              { activeLng == '-fr' ?
+                  <strong>PDSF {CADDollar.format(hit.msrp)}</strong>
+                  :
+                  <strong>MSRP {CADDollar.format(hit.msrp)}</strong>
+              }
+              
             </div>
           </div>
         </div>

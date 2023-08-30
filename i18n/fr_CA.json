@@ -1,6 +1,7 @@
 {
     "404.title": "Eh bien, cela ne semble pas correct, n'est-ce pas ?",
     "404.link": "Retour à l'accueil",
+    "algolia.products": "Produits",
     "categoryContent.resultCount": "{count} Résultats",
     "categoryContent.viewProducts": "Liste des produits",
     "categoryContent.brandWebsite": "Site Internet du détaillant",
