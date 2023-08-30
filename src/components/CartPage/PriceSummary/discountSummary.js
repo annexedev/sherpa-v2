@@ -21,6 +21,7 @@ const getDiscount = (discounts = []) => {
         return DEFAULT_AMOUNT;
     } else {
         return {
+            label: discounts[0].label,
             currency: discounts[0].amount.currency,
             value: discounts.reduce(
                 (acc, discount) => acc + discount.amount.value,
@@ -29,6 +30,7 @@ const getDiscount = (discounts = []) => {
         };
     }
 };
+
 
 /**
  * A component that renders the discount summary line item.
@@ -39,14 +41,16 @@ const getDiscount = (discounts = []) => {
 const DiscountSummary = props => {
     const classes = mergeClasses({}, props.classes);
     const discount = getDiscount(props.data);
-    console.log(discount);
+    //let discountLabel = props.data[0].label;
+    //console.log(props.data);
     return discount.value ? (
         <Fragment>
             <span className={classes.lineItemLabel}>
-                <FormattedMessage
+                {/*<FormattedMessage
                     id={'discountSummary.lineItemLabel'}
                     defaultMessage={'Discounts applied'}
-                /> {discount.label}
+                /> */}
+                {discount.label}
             </span>
             <span className={classes.price}>
                 <FormattedMessage

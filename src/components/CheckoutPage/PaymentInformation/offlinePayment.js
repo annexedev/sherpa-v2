@@ -145,7 +145,7 @@ const OfflinePayment = props => {
                         })}
                         initialValue={initialValues.isBillingAddressSame}
                     />
-                </div>
+                    </div> 
                 <div className={billingAddressFieldsClassName}>
                     <Field
                         id="firstName"

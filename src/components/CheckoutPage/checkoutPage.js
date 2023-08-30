@@ -290,7 +290,8 @@ const CheckoutPage = props => {
 
             const reviewOrderButton =
                 checkoutStep === CHECKOUT_STEP.PAYMENT ? (
-                    <div className={classes.items_review_container_buttons}>
+                    <>
+                    {/*<div className={classes.items_review_container_buttons}>
                         <Button
                             onClick={handleReviewOrder}
                             priority="high"
@@ -301,7 +302,7 @@ const CheckoutPage = props => {
                         </Button>
                         <Link to="/cart" className={classes.review_order_button}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Back to Cart'} /></span></Link>
                         <Link to="/brands" className={classes.review_order_button}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
-                    </div>
+                </div> */} </>
                 ) : null;
 
             const itemsReview =
@@ -309,7 +310,9 @@ const CheckoutPage = props => {
                     <div className={classes.items_review_container}>
                         <ItemsReview />
                     </div>
-                ) : null;
+                ) : <div className={classes.items_review_container}>
+                <ItemsReview />
+            </div>;
             const OrderPlace = async () => {
                 setIsSubmitting(true);
                 handleCreateToken({ cart_id });
@@ -321,7 +324,8 @@ const CheckoutPage = props => {
                     <>
                         {selectedPaymentMethod.code == 'paypal_express' &&
                             paymentInformationSection && (
-                                <div className={classes.items_review_container_buttons}><Button
+                                <>
+                                    {/*<div className={classes.items_review_container_buttons}><Button
                                     onClick={OrderPlace}
                                     priority="high"
                                     className={classes.review_order_button}
@@ -338,7 +342,9 @@ const CheckoutPage = props => {
                                 </Button>
                                 <Link to="/cart" className={classes.review_order_button}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Back to Cart'} /></span></Link>
                                 <Link to="/brands" className={classes.review_order_button}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
-                                </div>
+                                </div> */}
+                                </>
+                                
                             )}
 
                         {selectedPaymentMethod.code != 'paypal_express' && (
@@ -358,8 +364,7 @@ const CheckoutPage = props => {
                                     defaultMessage={'Place Order'}
                                 />
                             </Button>
-                                <Link to="/cart" className={classes.review_order_button}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Back to Cart'} /></span></Link>
-                                <Link to="/brands" className={classes.review_order_button}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
+                                <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
                             </div>
                         )}
                     </>
@@ -389,11 +394,58 @@ const CheckoutPage = props => {
                             })}
                         </strong>
                         <OrderSummary isUpdating={isUpdating} />
-                        
+                        <div className={classes.items_review_container_buttons}>
+                            <Button
+                                onClick={handlePlaceOrder}
+                                priority="high"
+                                className={classes.review_order_button}
+                                disabled={
+                                    isUpdating ||
+                                    placeOrderLoading ||
+                                    orderDetailsLoading
+                                }
+                            >
+                                <FormattedMessage
+                                    id={'checkoutPage.placeOrder'}
+                                    defaultMessage={'Place Order'}
+                                />
+                            </Button><br/>
+                                <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
+                            </div> 
                     </div>
                     
                 </>
-            ) : null;
+            ) : <>
+            <div className={classes.summaryContainer}>
+                <strong className={classes.summaryContainer_heading}>
+                    {formatMessage({
+                        id: 'checkoutPage.orderSummary',
+                        defaultMessage: ' Order summary'
+                    })}
+                </strong>
+                <OrderSummary isUpdating={isUpdating} />
+                <div className={classes.items_review_container_buttons}>
+                    <Button
+                        onClick={handlePlaceOrder}
+                        priority="high"
+                        className={classes.review_order_button}
+                        disabled={
+                            isUpdating ||
+                            placeOrderLoading ||
+                            orderDetailsLoading
+                        }
+                    >
+                        <FormattedMessage
+                            id={'checkoutPage.placeOrder'}
+                            defaultMessage={'Place Order'}
+                        />
+                    </Button>
+                    <br/>
+                        <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
+                    </div> 
+            </div>
+            
+        </>;
 
             let headerText;
 

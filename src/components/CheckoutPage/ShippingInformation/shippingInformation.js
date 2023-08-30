@@ -63,7 +63,7 @@ const ShippingInformation = props => {
                         defaultMessage={'Shipping Information'}
                     />
                 </h5>
-                <LinkButton
+                {/*<LinkButton
                     onClick={handleEditShipping}
                     className={classes.editButton}
                 >
@@ -78,9 +78,19 @@ const ShippingInformation = props => {
                             defaultMessage={'Edit'}
                         />
                     </span>
-                </LinkButton>
+            </LinkButton> */}
             </div>
             <Card shippingData={shippingData} />
+            <div className={classes.noticeshipping} >
+                <FormattedMessage
+                    id={
+                        'addressBook.changeBillingAddress'
+                    }
+                    defaultMessage={
+                        'Please contact your account manager to update your billing and/or shipping address'
+                    }
+                />
+                </div>
             {editModal}
         </Fragment>
     ) : (

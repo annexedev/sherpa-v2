@@ -137,7 +137,9 @@
         grid-row: 3 / span 3;
     }
 }
-
+.items_review_container_buttons {
+    text-align: center;
+}
 .review_order_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
