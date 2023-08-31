@@ -414,7 +414,7 @@ const CheckoutPage = props => {
                             <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
                             &nbsp;&nbsp;
                             |&nbsp;&nbsp;
-                            <Link to="/cart" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Back to Cart'} /></span></Link>
+                            <Link to="/cart" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Edit Cart'} /></span></Link>
                             
                             </div> 
                     </div>
@@ -449,7 +449,7 @@ const CheckoutPage = props => {
                             <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
                             &nbsp;&nbsp;
                             |&nbsp;&nbsp;
-                            <Link to="/cart" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Back to Cart'} /></span></Link>
+                            <Link to="/cart" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Edit Cart'} /></span></Link>
                             </div> 
             </div>
             

@@ -11,6 +11,7 @@ import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 import { PriceSummaryFragment } from './priceSummaryFragments';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
 
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
@@ -82,6 +83,7 @@ const PriceSummary = props => {
         : classes.totalPrice;
 
     const proceedToCheckoutButton = !isCheckout ? (
+        <>
         <div className={classes.checkoutButton_container}>
             <Button
                 disabled={isPriceUpdating}
@@ -93,7 +95,13 @@ const PriceSummary = props => {
                     defaultMessage={'FINALISE ORDER DETAILS'}
                 />
             </Button>
+                           
         </div>
+        <br/>
+        <div className={classes.checkoutButton_containerlink}>
+            <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
+        </div>
+        </>
     ) : null;
 
     return (

@@ -49,7 +49,7 @@ const Overview = props => {
 
     const itemCountText = `${numItems} Items`;
     const submitButtonText = 'Confirm Order';
-    const cancelButtonText = 'Back to Cart';
+    const cancelButtonText = 'Edit cart';
     return (
         <Fragment>
             <div className={classes.body}>

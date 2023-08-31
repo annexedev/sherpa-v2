@@ -125,8 +125,7 @@ const CartPage = props => {
                             >
                                 {priceAdjustments}
                             </div>
-                            <Link to="/checkout" className={classes.review_order_button}><span>Placer order</span></Link>
-                            <Link to="/brands" className={classes.review_order_button}><span>Continue Shopping</span></Link>
+                            
                         </div>
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>

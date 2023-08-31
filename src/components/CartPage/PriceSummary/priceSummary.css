@@ -47,7 +47,9 @@
     composes: price;
     opacity: 0;
 }
-
+.checkoutButton_containerlink {
+    text-align: center;
+}
 .checkoutButton_container {
     align-items: center;
     display: inline-flex;
