@@ -364,6 +364,14 @@ const CheckoutPage = props => {
                                     defaultMessage={'Place Order'}
                                 />
                             </Button>
+                            <Button
+                            onClick={handleReviewOrder}
+                            priority="high"
+                            className={classes.review_order_button}
+                            disabled={reviewOrderButtonClicked || isUpdating}
+                        >
+                            <FormattedMessage id={'checkoutPage.reviewOrder'} defaultMessage={'Review Order'} />
+                        </Button>
                                 <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
                             </div>
                         )}
@@ -384,6 +392,13 @@ const CheckoutPage = props => {
                 isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
             );
 
+            function doOrder() {
+                console.log('Moo');
+                document.getElementById('placeOrderBtn').click();
+                setTimeout(function() { document.getElementById('placeOrderBtn2').click(); }, 3000);
+                
+            }
+
             const orderSummary = shouldRenderPriceSummary ? (
                 <>
                     <div className={classes.summaryContainer}>
@@ -396,9 +411,26 @@ const CheckoutPage = props => {
                         <OrderSummary isUpdating={isUpdating} />
                         <div className={classes.items_review_container_buttons}>
                             <Button
-                                onClick={handlePlaceOrder}
+                                onClick={doOrder}
                                 priority="high"
                                 className={classes.review_order_button}
+                                disabled={
+                                    isUpdating ||
+                                    placeOrderLoading ||
+                                    orderDetailsLoading || reviewOrderButtonClicked
+                                }
+                            >
+                                <FormattedMessage
+                                    id={'checkoutPage.placeOrder'}
+                                    defaultMessage={'Place Order'}
+                                />
+                            </Button>
+                            <br/>
+                            <Button
+                                id="placeOrderBtn2"
+                                onClick={handlePlaceOrder}
+                                priority="high"
+                                className={classes.dnone}
                                 disabled={
                                     isUpdating ||
                                     placeOrderLoading ||
@@ -410,6 +442,15 @@ const CheckoutPage = props => {
                                     defaultMessage={'Place Order'}
                                 />
                             </Button>
+                            <Button
+                            id="placeOrderBtn"
+                            onClick={handleReviewOrder}
+                            priority="high"
+                            className={classes.dnone}
+                            disabled={reviewOrderButtonClicked || isUpdating}
+                        >
+                            <FormattedMessage id={'checkoutPage.reviewOrder'} defaultMessage={'Review Order'} />
+                        </Button>
                             <br/>
                             <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
                             &nbsp;&nbsp;

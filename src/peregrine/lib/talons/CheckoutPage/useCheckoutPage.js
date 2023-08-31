@@ -152,6 +152,7 @@ export const useCheckoutPage = props => {
     }, [checkoutStep, setCheckoutStep]);
 
     const handlePlaceOrder = useCallback(async () => {
+
         // Fetch order details and then use an effect to actually place the
         // order. If/when Apollo returns promises for invokers from useLazyQuery
         // we can just await this function and then perform the rest of order
