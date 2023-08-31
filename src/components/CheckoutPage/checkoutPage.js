@@ -411,7 +411,7 @@ const CheckoutPage = props => {
                             <Button
                             onClick={handlePlaceOrder}
                             priority="high"
-                            className={classes.review_order_button}
+                            className={classes.review_order_button_place}
                             disabled={
                                 isUpdating ||
                                 placeOrderLoading ||
@@ -433,7 +433,7 @@ const CheckoutPage = props => {
                             className={classes.review_order_button}
                             disabled={reviewOrderButtonClicked || isUpdating}
                         >
-                            <FormattedMessage id={'checkoutPage.reviewOrder'} defaultMessage={'Review Order'} />
+                            <FormattedMessage id={'checkoutPage.reviewOrder'} defaultMessage={'This is Correct'} />
                         </Button>
                         )}
 
@@ -461,7 +461,7 @@ const CheckoutPage = props => {
                             <Button
                             onClick={handlePlaceOrder}
                             priority="high"
-                            className={classes.review_order_button}
+                            className={classes.review_order_button_place}
                             disabled={
                                 isUpdating ||
                                 placeOrderLoading ||
@@ -483,7 +483,7 @@ const CheckoutPage = props => {
                             className={classes.review_order_button}
                             disabled={reviewOrderButtonClicked || isUpdating}
                         >
-                            <FormattedMessage id={'checkoutPage.reviewOrder'} defaultMessage={'Review Order'} />
+                            <FormattedMessage id={'checkoutPage.reviewOrder'} defaultMessage={'This is Correct'} />
                         </Button>
                         )}
                     <br/>

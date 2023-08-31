@@ -22,21 +22,13 @@ const PriceAdjustments = props => {
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
-                <Section
-                    id={'coupon_code'}
-                    title={formatMessage({
-                        id: 'checkoutPage.couponCode',
-                        defaultMessage: 'Enter Coupon Code'
-                    })}
-                >
-                    <CouponCode setIsCartUpdating={setPageIsUpdating} />
-                </Section>
+                
                 
                 <Section
                     id={'cardMessage'}
                     title={formatMessage({
                         id: 'checkoutPage.cardMessage',
-                        defaultMessage: 'Comment/Purchase Order'
+                        defaultMessage: 'Enter your P.O. number, project name, and order comments here'
                     })}
                 >
                     <TextArea
@@ -54,6 +46,16 @@ const PriceAdjustments = props => {
                             localStorage.setItem('cardMessage', textValue);
                         }}
                     />
+                </Section>
+
+                <Section
+                    id={'coupon_code'}
+                    title={formatMessage({
+                        id: 'checkoutPage.couponCode',
+                        defaultMessage: 'Enter Coupon Code'
+                    })}
+                >
+                    <CouponCode setIsCartUpdating={setPageIsUpdating} />
                 </Section>
             </Accordion>
         </div>

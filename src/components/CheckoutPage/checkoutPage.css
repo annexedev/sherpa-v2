@@ -157,6 +157,26 @@
     color: white;
 }
 
+.review_order_button_place {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    margin: auto;
+    min-width: 200px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-right: 10px;
+    color: white;
+    background-color: red !important;
+    border: 1px solid black !important;
+}
+.review_order_button_place:hover {
+    color: white;
+}
+
+.review_order_button_place span {
+    color: white !important;
+}
+
 .place_order_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
@@ -227,6 +247,9 @@
         margin: 0 15px;
     }
     .review_order_button {
+        margin: 10px 15px;
+    }
+    .review_order_button_place {
         margin: 10px 15px;
     }
 }

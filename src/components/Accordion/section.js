@@ -24,7 +24,7 @@ const Section = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const contentsContainerClass = isOpen
         ? classes.contents_container
-        : classes.contents_container_closed;
+        : classes.contents_container;
 
     return (
         <div className={classes.root}>
@@ -35,7 +35,7 @@ const Section = props => {
             >
                 <span className={classes.title_wrapper}>
                     <span className={classes.title}>{title}</span>
-                    {titleIcon}
+                    {/* {titleIcon} */}
                 </span>
             </button>
             <div className={contentsContainerClass}>{children}</div>
