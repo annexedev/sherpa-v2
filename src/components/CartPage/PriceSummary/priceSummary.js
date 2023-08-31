@@ -90,7 +90,7 @@ const PriceSummary = props => {
             >
                 <FormattedMessage
                     id={'priceSummary.checkoutButton_container'}
-                    defaultMessage={'FINALIZE ORDER DETAILS'}
+                    defaultMessage={'FINALISE ORDER DETAILS'}
                 />
             </Button>
         </div>

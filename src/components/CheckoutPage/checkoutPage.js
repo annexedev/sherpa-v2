@@ -409,8 +409,13 @@ const CheckoutPage = props => {
                                     id={'checkoutPage.placeOrder'}
                                     defaultMessage={'Place Order'}
                                 />
-                            </Button><br/>
-                                <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
+                            </Button>
+                            <br/>
+                            <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
+                            &nbsp;&nbsp;
+                            |&nbsp;&nbsp;
+                            <Link to="/cart" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Back to Cart'} /></span></Link>
+                            
                             </div> 
                     </div>
                     
@@ -441,8 +446,11 @@ const CheckoutPage = props => {
                         />
                     </Button>
                     <br/>
-                        <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
-                    </div> 
+                            <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
+                            &nbsp;&nbsp;
+                            |&nbsp;&nbsp;
+                            <Link to="/cart" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.btc'} defaultMessage={'Back to Cart'} /></span></Link>
+                            </div> 
             </div>
             
         </>;

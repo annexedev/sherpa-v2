@@ -206,7 +206,7 @@
     "addressBook.page_title": "Carnet d'adresses",
     "addressBook.block_title": "Adresses par défaut",
     "addressBook.billingAddress": "Adresses de facturation par défaut",
-    "addressBook.changeBillingAddress": "Modifier l'adresse de facturation",
+    "addressBook.changeBillingAddress": "Pour modifier l'adresse de facturation ou d'expédition, contacter votre représentant",
     "addressBook.noBillingAddress": "Aucune adresse de facturation enregistrée !",
     "addressBook.defaultShippingAddress": "Adresse de livraison par défaut",
     "addressBook.changeShippingAddress": "Changer l'adresse de livraison",

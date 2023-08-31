@@ -215,7 +215,7 @@ const Product = props => {
                                     {email ? (
 
                                         <div> 
-                                        <div className={'c'+value.id+' '+classes.qty_selector}><QuantityPicker min={1} value={1} width='65%'/></div> 
+                                        <div className={'c'+value.id+' '+classes.qty_selector}><QuantityPicker min={1} value={1} /></div> 
                                     <button
                                         aria-label="Addtocart"
                                         className={classes.add_to_cart_btn}
