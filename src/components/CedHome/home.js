@@ -105,7 +105,7 @@ const Home = props => {
 
             {!mobileView && (
                 <React.Suspense fallback={null}>
-                    <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true}>
+                    <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true} interval={6000}>
                         <div>
                                 <Suspense fallback={''}>
                                     <Banner
@@ -136,7 +136,7 @@ const Home = props => {
 
             {mobileView && (
                 <React.Suspense fallback={null}>
-                    <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true}>
+                    <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true} interval={6000}>
                         <div>
                                 <Suspense fallback={''}>
                                     <Banner

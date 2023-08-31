@@ -256,7 +256,10 @@ const CheckoutPage = props => {
                         <PriceAdjustments setPageIsUpdating={setIsUpdating} />
                         
                     </div>
-                ) : null;
+                ) : <div className={classes.price_adjustments_container}>
+                <PriceAdjustments setPageIsUpdating={setIsUpdating} />
+                
+            </div>;
             const stepOneClass =
                 checkoutStep == 1
                     ? classes.shipping_information_container +
