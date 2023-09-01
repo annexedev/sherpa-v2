@@ -37,7 +37,7 @@ class OrderTotal extends Component{
     componentDidMount() {
         let orderNumber = this.props.cid;
         let email = this.props.email;
-        let dataURL = "https://sherpagroupav.com/get_permissions.php?email="+email+"&cid="+orderNumber;
+        let dataURL = "https://data.sherpagroupav.com/get_permissions.php?email="+email+"&cid="+orderNumber;
         console.log("DATA URL");
         console.log(dataURL);
         fetch(dataURL)
@@ -454,7 +454,7 @@ const CategoryContent = props => {
                             : ''}
                             {!isSignedIn && catId == 135 ?
                                 <div>
-                                    <img src="https://sherpagroupav.com/media/wysiwyg/Sherpamotions_Logo_w-tag-icons.png" width="600" height="134"></img>
+                                    <img src="https://data.sherpagroupav.com/media/wysiwyg/Sherpamotions_Logo_w-tag-icons.png" width="600" height="134"></img>
                                     <h2>Get access to our promotions</h2>
                                     <a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} />t</a>
                                 </div>

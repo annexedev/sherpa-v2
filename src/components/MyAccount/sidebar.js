@@ -21,7 +21,7 @@ class ProjectList extends Component{
 
     componentDidMount() {
         let pid = this.props.pid;
-        let dataURL = "https://sherpagroupav.com/get_projects.php?email="+pid;
+        let dataURL = "https://data.sherpagroupav.com/get_projects.php?email="+pid;
         fetch(dataURL)
           .then(res => res.json())
           .then(res => {

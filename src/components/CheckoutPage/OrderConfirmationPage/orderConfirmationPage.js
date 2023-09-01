@@ -19,7 +19,7 @@ class OrderTotal extends Component{
 
     componentDidMount() {
         let orderNumber = this.props.cid;
-        let dataURL = "https://sherpagroupav.com/get_order.php?cid="+orderNumber;
+        let dataURL = "https://data.sherpagroupav.com/get_order.php?cid="+orderNumber;
         console.log(dataURL);
         fetch(dataURL)
           .then(res => res.json())

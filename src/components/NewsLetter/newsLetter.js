@@ -81,9 +81,9 @@ const NewsLetter = props => {
                         <div className={classes.newsletter_content}>
                             <p className={classes.newsletter_content_head}>
                             { activeLng == '-fr' ?
-                                <img className={classes.newsletter_img} src="https://sherpagroupav.com/media/wysiwyg/Guide_to_the_Exceptional-w-logo-wht-FR.png"/>
+                                <img className={classes.newsletter_img} src="https://data.sherpagroupav.com/media/wysiwyg/Guide_to_the_Exceptional-w-logo-wht-FR.png"/>
                                 :
-                                <img className={classes.newsletter_img} src="https://sherpagroupav.com/media/wysiwyg/Guide_to_the_Exceptional-w-logo-wht.png"/>
+                                <img className={classes.newsletter_img} src="https://data.sherpagroupav.com/media/wysiwyg/Guide_to_the_Exceptional-w-logo-wht.png"/>
                                 }
                                 <br/>
                                 
@@ -107,13 +107,13 @@ const NewsLetter = props => {
                                 <div className={classes.newsletter_Wrap_inner}>
                                     <p className={classes.newsletter_content_head}>
                                         <a className={classes.newsletter_social} href="https://www.linkedin.com/company/sherpatechgroup/" target="_blank" rel="noopener">
-                                            <img src="https://sherpagroupav.com/media/wysiwyg/LinkedIn_Icon-50px.png" />
+                                            <img src="https://data.sherpagroupav.com/media/wysiwyg/LinkedIn_Icon-50px.png" />
                                         </a>
                                         <a className={classes.newsletter_social} href="https://www.facebook.com/SherpaTechGroup" target="_blank" rel="noopener">
-                                            <img src="https://sherpagroupav.com/media/wysiwyg/Facebook_icon-50px.png" />
+                                            <img src="https://data.sherpagroupav.com/media/wysiwyg/Facebook_icon-50px.png" />
                                         </a>
                                         <a className={classes.newsletter_social} href="https://www.instagram.com/sherpatechgroup/" target="_blank" rel="noopener">
-                                            <img src="https://sherpagroupav.com/media/wysiwyg/instagram-logo_50px.png" />
+                                            <img src="https://data.sherpagroupav.com/media/wysiwyg/instagram-logo_50px.png" />
                                         </a>
                                         <br/>
                                         <FormattedMessage

@@ -50,7 +50,7 @@ class ProjectName extends Component{
 
     componentDidMount() {
         let cid = this.props.cid;
-        let dataURL = "https://sherpagroupav.com/get_projectname.php?cid="+cid;
+        let dataURL = "https://data.sherpagroupav.com/get_projectname.php?cid="+cid;
         fetch(dataURL)
           .then(res => res.json())
           .then(res => {
@@ -457,7 +457,7 @@ const MyWishList = props => {
 
                                                     function belongToProject(pid,cid) {
 
-                                                        let dataURL = "https://sherpagroupav.com/get_belongs.php?pid="+pid+"&cid="+cid;
+                                                        let dataURL = "https://data.sherpagroupav.com/get_belongs.php?pid="+pid+"&cid="+cid;
                                                         fetch(dataURL)
                                                         .then(res => res.json())
                                                         .then(res => {

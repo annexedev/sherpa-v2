@@ -27,7 +27,7 @@ const ErrorView = () => {
                                     src="/SherpaTech-Horz-644x_web-ed6.png"
                                     alt="noProductsFound"
                                 /></p> */}
-                                <p><img src="https://sherpagroupav.com/pub/media/pwa-theme/404-ScottRun-1loop.gif"/></p>
+                                <p><img src="https://data.sherpagroupav.com/pub/media/pwa-theme/404-ScottRun-1loop.gif"/></p>
                                 <h3><FormattedMessage id={'404.title'} defaultMessage={'Well, that doesn\'t look right, does it?'} /></h3>
                                 <Link to="/"><FormattedMessage id={'404.link'} defaultMessage={'Back to HomePage'} /></Link>
                             </div>
