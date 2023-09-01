@@ -458,7 +458,7 @@ const CategoryContent = props => {
                                     <h2>Get access to our promotions</h2>
                                     <a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} />t</a>
                                 </div>
-                            : ''}
+                            : ''} 
                             
                             
 
