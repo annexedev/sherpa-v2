@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function ProductItem({ hit, components }) {
-  let sherpaurl = hit.url.replace("sherpagroupav.com/default", "staging.sherpagroupav.com");
+  let sherpaurl = hit.url.replace("data.sherpagroupav.com/default", "sherpagroupav.com");
 
   let CADDollar = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -16,10 +16,10 @@ export function ProductItem({ hit, components }) {
   let activeLng = '';
   if(lng == 'Français') {
       activeLng = '-fr';
-      sherpaurl = hit.url.replace("sherpagroupav.com/fr", "staging.sherpagroupav.com");
+      sherpaurl = hit.url.replace("data.sherpagroupav.com/fr", "sherpagroupav.com");
   } else {
       activeLng = '';
-      sherpaurl = hit.url.replace("sherpagroupav.com/default", "staging.sherpagroupav.com");
+      sherpaurl = hit.url.replace("data.sherpagroupav.com/default", "sherpagroupav.com");
   }
 
   return (
