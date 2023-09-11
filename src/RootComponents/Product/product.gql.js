@@ -26,6 +26,7 @@ export const GET_PRODUCT_DETAIL_QUERY = gql`
                 msrp_sherpa2
                 product_brand
                 productbrand
+                soldin
                 mtl_inventory
                 tor_inventory
                 mtlhub

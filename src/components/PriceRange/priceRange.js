@@ -50,7 +50,9 @@ const PriceRange = props => {
                     <p className={classes.productPrice}>
                         <FormattedMessage id={'item.partNo'} defaultMessage={'PART #'} /> : <span>{product && product.sku}</span></p><br/>
                         <p className={classes.productPrice}>
-                        <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/>    
+                        <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/>
+                        <p className={classes.productPrice}>
+                        <FormattedMessage id={'item.soldIn'} defaultMessage={'Sold in: '} /> : <span>{product && product.productbrand}</span></p><br/>     
                     
 
                     {/* today.toISOString().split('T')[0] < specialDate.toISOString().split('T')[0] && */}

@@ -637,6 +637,7 @@ const GalleryItem = props => {
             </div>
             <div className={classes.noo_details_wrapper}>
                 <p className={classes.product_brand_name}>{item.product_brand}</p>
+                
                 <p className={classes.product_name}>
                     <Link
                         onClick={handleLinkClick}
@@ -655,6 +656,9 @@ const GalleryItem = props => {
                         <span>{name.length > 55 ? name.substring(0, 52) + " [...]" : name}</span>
                     </Link>
                 </p>
+                {item.soldin && (
+                    <p className={classes.product_name}><b><FormattedMessage id={'item.soldIn'} defaultMessage={'Sold in: '}/></b> {item.soldin}</p>
+                )}
 
                 
                 

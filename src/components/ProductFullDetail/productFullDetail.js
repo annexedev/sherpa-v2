@@ -782,7 +782,10 @@ const ProductFullDetail = (props) => {
                                         <p className={classes.productPrice}>
                                         <FormattedMessage id={'item.partNo'} defaultMessage={'PART #'} /> : <span>{product && product.sku}</span></p><br/>
                                         <p className={classes.productPrice}>
-                                        <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/><br/>    
+                                        <FormattedMessage id={'item.soldIn'} defaultMessage={'Sold in: '} /> <span>{product && product.soldin}</span></p><br/>
+                                        <p className={classes.productPrice}>
+                                        <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/>
+                                        <br/>    
                                         <p><a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} /></a></p>
                                     </>
                                 )}
