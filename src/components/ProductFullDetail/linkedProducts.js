@@ -279,6 +279,7 @@ const LinkedProducts = props => {
                                                                                     </span>
                                                                                 </div> */}
                                                                             </div>
+                                                                            
                                                                             <div
                                                                                 className={
                                                                                     defaultClasses.add_to_cart_Wrap

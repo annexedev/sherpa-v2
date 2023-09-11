@@ -28,9 +28,9 @@ const Home = props => {
             document.removeEventListener('scroll', handleClick);
         };
     });
-    const talonProps = useSlider({
+    /*const talonProps = useSlider({
         query: GET_SLIDER_DATA
-    });
+    });*/
 
     let lng = '';
     if(document.getElementById("currentLng") != null){
@@ -73,7 +73,7 @@ const Home = props => {
             
     }
 
-    const { sliderData } = talonProps;
+    //const { sliderData } = talonProps;
     const { mobileView } = useMobile();
     let sliderImgWidth = 1351;
     if (mobileView) {
@@ -171,43 +171,47 @@ const Home = props => {
                 
                 {/* features block */}
                 {showOfferBanners != 0 && (
-                    <section
-                        className={
-                            defaultClasses.homepage_sections +
-                            ' ' +
-                            defaultClasses.feature_block
-                        }
-                    >
-                        <Suspense fallback={''}>
-                            <Banner
-                                identifier={offerBannersIdentifier+activeLng}
-                                showBanner={showOfferBanners}
-                            />
-                        </Suspense>
-                    </section>
+                    <React.Suspense fallback={null}>
+                        <section
+                            className={
+                                defaultClasses.homepage_sections +
+                                ' ' +
+                                defaultClasses.feature_block
+                            }
+                        >
+                            <Suspense fallback={''}>
+                                <Banner
+                                    identifier={offerBannersIdentifier+activeLng}
+                                    showBanner={showOfferBanners}
+                                />
+                            </Suspense>
+                        </section>
+                    </React.Suspense>
                 )}
                 {/* features block end */}
 
                 {/* mid banner section start */}
                 {showCategoryBanners != 0 && (
-                    <section
-                        className={
-                            defaultClasses.homepage_sections +
-                            ' ' +
-                            defaultClasses.static_blocks +
-                            ' ' +
-                            defaultClasses.mid_banner_sec_wrap +
-                            ' ' +
-                            defaultClasses.homepage_widget_container
-                        }
-                    >
-                        <Suspense fallback={''}>
-                            <Banner
-                                identifier={categoryBannerIdentifierHome+activeLng}
-                                showBanner={showCategoryBanners}
-                            />
-                        </Suspense>
-                    </section>
+                    <React.Suspense fallback={null}>
+                        <section
+                            className={
+                                defaultClasses.homepage_sections +
+                                ' ' +
+                                defaultClasses.static_blocks +
+                                ' ' +
+                                defaultClasses.mid_banner_sec_wrap +
+                                ' ' +
+                                defaultClasses.homepage_widget_container
+                            }
+                        >
+                            <Suspense fallback={''}>
+                                <Banner
+                                    identifier={categoryBannerIdentifierHome+activeLng}
+                                    showBanner={showCategoryBanners}
+                                />
+                            </Suspense>
+                        </section>
+                    </React.Suspense>
                 )}
                 {/* mid banner section END */}
 

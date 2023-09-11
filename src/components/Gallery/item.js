@@ -441,7 +441,7 @@ const GalleryItem = props => {
         customPrice +
         customPricePercent * price_range.maximum_price.regular_price.value; 
 
-    const discount_percent = ((1 - (final_minimum_price/final_regular_price)).toFixed(1)) * 100;
+    const discount_percent = Math.round((((1 - (final_minimum_price/final_regular_price)).toFixed(2)) * 100) * 100) / 100;
 
     function openLoginBox() {
         document.getElementById('user_account').click();

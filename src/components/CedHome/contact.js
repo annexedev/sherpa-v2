@@ -142,7 +142,7 @@ const Contact = props => {
                                     <FontAwesomeIcon icon={faPhoneAlt} />
                                 </span>
                                 <span className={classes.phone_number}>
-                                T: 866-767-6584 / F: 514 366 4265
+                                T: 1-866-767-6584 / F: 514-366-4265
                                 </span>
                             </p>
                             <a href="/">

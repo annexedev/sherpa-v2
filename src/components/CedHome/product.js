@@ -106,6 +106,8 @@ const Product = props => {
         activeLng = '';
     }
 
+    //console.log(value);
+
     return (
         <div key={index} className="item">
             <div className={defaultClasses.products_grid_item}>
@@ -129,6 +131,7 @@ const Product = props => {
 
                             
                         </div>
+                        <p className={classes.product_brand_name}>{value.product_brand}</p>
                         <div className={defaultClasses.noo_details_wrapper}>
                             <h3 className={defaultClasses.product_name} style={{"min-height":"50px"}}>
                                 <Link

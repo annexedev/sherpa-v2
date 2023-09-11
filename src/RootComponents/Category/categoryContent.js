@@ -414,6 +414,7 @@ const CategoryContent = props => {
 
     const Banner = React.lazy(() => import('/src/components/CedHome/banner'));
     const categoryBannerIdentifierHome = 'banner_'+catId;
+    const categoryBannerIdentifierPromotion = 'promotion-register'+activeLng;
     let showCategoryBanners = true;
     
     
@@ -427,7 +428,7 @@ const CategoryContent = props => {
                 <article className={classes.root}>
 
                     <div className='row'>
-                        <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                        <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
                             <h1 className={classes.title}>
                                 <div className={classes.categoryTitle}>
                                     {categoryTitle}
@@ -437,7 +438,7 @@ const CategoryContent = props => {
                                 </div>
                                 
                             </h1>
-                            <Suspense fallback={''}>
+                                <Suspense fallback={''}>
                                     <Banner
                                         identifier={categoryBannerIdentifierHome}
                                         showBanner={showCategoryBanners}
@@ -454,9 +455,17 @@ const CategoryContent = props => {
                             : ''}
                             {!isSignedIn && catId == 135 ?
                                 <div>
-                                    <img src="https://data.sherpagroupav.com/media/wysiwyg/Sherpamotions_Logo_w-tag-icons.png" width="600" height="134"></img>
-                                    <h2>Get access to our promotions</h2>
-                                    <a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} />t</a>
+                                    <Suspense fallback={''}>
+                                        <Banner
+                                            identifier={categoryBannerIdentifierPromotion}
+                                            showBanner={showCategoryBanners}
+                                        />
+                                    </Suspense>
+                                    <div className={classes.boxlinkCustom}>
+                                        <a style={{cursor:'pointer'}} onClick={openLoginBox}>
+                                            <FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} />
+                                        </a>
+                                    </div>
                                 </div>
                             : ''} 
                             

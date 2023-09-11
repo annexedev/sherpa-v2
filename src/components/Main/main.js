@@ -237,7 +237,7 @@ const Main = props => {
 
     if(window.location.href.indexOf("/education-landing") != -1) {
         
-        displayEducation = true;
+        displayEducation = false;
     }
 
     if(window.location.href.indexOf("/events") != -1) {

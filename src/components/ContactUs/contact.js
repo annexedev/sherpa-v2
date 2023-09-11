@@ -127,7 +127,7 @@ const Contact = props => {
                                 <span className={classes.phone_number}>
                                     <FormattedMessage
                                         id={'contact.phone_number'}
-                                        defaultMessage={' T: 866-767-6584 / F: 514 366 4265'}
+                                        defaultMessage={' T: 1-866-767-6584 / F: 514-366-4265'}
                                     />
                                 </span>
                             </p>

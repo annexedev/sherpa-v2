@@ -79,7 +79,7 @@ export default function SliderProduct(props) {
                                             defaultClasses.homepage_section_heading
                                         }
                                     >
-                                        {name}
+                                        {name} 
                                     </h3>
                                 </div>
                                 <React.Fragment>
