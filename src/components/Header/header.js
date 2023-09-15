@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, Component } from 'react';
 import { shape, string } from 'prop-types';
 import Logo from '../Logo';
 import { Link, resourceUrl, Route } from 'src/drivers';
@@ -33,6 +33,76 @@ import { Autocomplete } from '../AutoComplete/autocomplete';
 import { ProductItem } from '../ProductItem';
 import { createRedirectUrlPlugin } from '@algolia/autocomplete-plugin-redirect-url';
 import { act } from 'react-test-renderer';
+
+class ProjectLink extends Component{
+
+  constructor () {
+      super()
+      this.state = {
+          pageDataAccess: [],
+          name: "React Component reload sample",
+          reload: false
+      }
+  }
+
+  componentDidMount() {
+      let pid = this.props.pid; 
+        
+        let grantAccess = "https://data.sherpagroupav.com/get_projectaccess.php?email="+pid;
+        console.log(grantAccess);
+        fetch(grantAccess)
+          .then(res => res.json())
+          .then(res => {
+            this.setState({
+                pageDataAccess: res
+            })
+          });       
+  }
+
+  render(){
+
+      const classes = mergeClasses(
+          defaultClasses
+      );
+
+      const ProjectItems = props => {
+
+          if(this.state.pageDataAccess["access"] == 1) {
+              
+          return (
+            <Link
+              className={
+                classes.wishlist_image +
+                ' ' +
+                classes.header_Actions_image
+              }
+              to="/wishlist"
+            >
+              <span aria-hidden="true">
+                <FormattedMessage
+                  id={'header.Wishlist'}
+                  defaultMessage={'Wishlist'}
+                />
+              </span>
+              <span title="Wishlist">
+                {heartIcon}
+            </span>
+            </Link>
+          );
+
+          } else {
+              return (<></>);
+          }
+
+        }; 
+
+      return(
+          <React.Fragment>
+              <ProjectItems/>
+          </React.Fragment>
+      )
+  }
+}
 
 const heartIcon = <Icon src={HeartIcon} size={22} />;
 const SearchBar = React.lazy(() => import('../SearchBar'));
@@ -101,8 +171,10 @@ const Header = props => {
   };
 
   const { group_id } = useDashboard();
+
+  const { email } = useDashboard();
   
-  async function getUser() {
+  /* async function getUser() {
     try { const response = await fetch('https://sherpagroupav.com/is_approved.php?email=mcharbonneau@annexe-d.com', { method: 'GET',
     
     headers: { accept: 'application/json' }, });
@@ -123,7 +195,7 @@ const Header = props => {
 
   if(is_approved==1) {
 
-  } 
+  } */
 
   function openLoginBox() {
     document.getElementById('user_account').click();
@@ -361,26 +433,8 @@ const Header = props => {
                 {!isSignedIn && (
                   <></>
                 )} 
-                {isSignedIn && (
-                  <Link
-                    className={
-                      classes.wishlist_image +
-                      ' ' +
-                      classes.header_Actions_image
-                    }
-                    to="/wishlist"
-                  >
-                    <span aria-hidden="true">
-                      <FormattedMessage
-                        id={'header.Wishlist'}
-                        defaultMessage={'Wishlist'}
-                      />
-                    </span>
-                    {/*<span title="Wishlist">
-                      {heartIcon}
-                      
-                  </span>*/}
-                  </Link>
+                {isSignedIn && email && (
+                    <ProjectLink pid={email} />
                 )}
                  {isSignedIn && (
                 <span

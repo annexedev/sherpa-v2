@@ -14,6 +14,7 @@ class ProjectList extends Component{
         super()
         this.state = {
             pageData: [],
+            pageDataAccess: [],
             name: "React Component reload sample",
             reload: false
         }
@@ -21,6 +22,7 @@ class ProjectList extends Component{
 
     componentDidMount() {
         let pid = this.props.pid;
+
         let dataURL = "https://data.sherpagroupav.com/get_projects.php?email="+pid;
         fetch(dataURL)
           .then(res => res.json())
@@ -28,7 +30,16 @@ class ProjectList extends Component{
             this.setState({
                 pageData: res
             })
-          });        
+          });      
+          
+          let grantAccess = "https://data.sherpagroupav.com/get_projectaccess.php?email="+pid;
+          fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+              this.setState({
+                  pageDataAccess: res
+              })
+            });       
     }
 
     render(){
@@ -43,12 +54,76 @@ class ProjectList extends Component{
         const queryParameters = new URLSearchParams(window.location.search)
 
         const projectId = queryParameters.get("id");
+        
+        //console.log('Access ::::::: ');
+        //console.log(this.state.pageDataAccess["access"]);
 
-        console.log('Prou'+projectId);
+        const ProjectItems = props => {
 
-        const ProjectItems = () => {
+            const { onClose } = props;
+            let path = '';
+            if (typeof props.activePath != 'undefined') {
+                path = props.activePath;
+            } else if (typeof props.history != 'undefined') {
+                path = props.history.location.pathname;
+            }
+
+            if(this.state.pageDataAccess["access"] == 1) {
+                console.log(this.props.archive);
             return (
               <>
+                    {!this.props.archive ? (
+                     <li
+                        className={
+                            path == '/wishlist'
+                                ? defaultClasses.item + ' ' + defaultClasses.active
+                                : defaultClasses.item
+                        }
+                    >
+                        {' '}
+                        <span className={defaultClasses.dashboard_links_images}>
+                            <img
+                                src="/cenia-static/images/myprojects.png"
+                                alt="wishlist"
+                                width="20"
+                                height="20"
+                            />
+                        </span>
+                        <Link to="/wishlist" onClick={onClose}>
+                            <FormattedMessage
+                                id={'sidebar.MyWishlist'}
+                                defaultMessage={'My projects'}
+                            />
+                        </Link>
+                        
+                    </li> 
+                    ) : (
+                        <li
+                        className={
+                            path == '/wishlist'
+                                ? defaultClasses.item + ' ' + defaultClasses.active
+                                : defaultClasses.item
+                        }
+                    >
+                        {' '}
+                        <span className={defaultClasses.dashboard_links_images}>
+                            <img
+                                src="/cenia-static/images/myprojects.png"
+                                alt="wishlist"
+                                width="20"
+                                height="20"
+                            />
+                        </span>
+                        <Link to="/wishlist" onClick={onClose}>
+                            <FormattedMessage
+                                id={'sidebar.MyWishlist'}
+                                defaultMessage={'Archive projects'}
+                            />
+                        </Link>
+                        
+                    </li>
+                        )}
+                    
                     {this.state.pageData && this.state.pageData.map((e) => {
                     if(e.category_name.startsWith('ARCHIVE') && this.props.archive && projectId == e.category_id) {
                         return (
@@ -70,8 +145,16 @@ class ProjectList extends Component{
                     }
                     
                 })}
+
+                 
+
               </>
             );
+
+            } else {
+                return (<></>);
+            }
+
           }; 
 
         return(
@@ -144,30 +227,7 @@ const Sidebar = props => {
                         />
                     </Link>
                 </li>
-                {/*<li
-                    className={
-                        path == '/wishlist'
-                            ? defaultClasses.item + ' ' + defaultClasses.active
-                            : defaultClasses.item
-                    }
-                >
-                    {' '}
-                    <span className={defaultClasses.dashboard_links_images}>
-                        <img
-                            src="/cenia-static/images/myprojects.png"
-                            alt="wishlist"
-                            width="20"
-                            height="20"
-                        />
-                    </span>
-                    <Link to="/wishlist" onClick={onClose}>
-                        <FormattedMessage
-                            id={'sidebar.MyWishlist'}
-                            defaultMessage={'My projects'}
-                        />
-                    </Link>
-                    
-                </li> 
+               
                 {email ? (
                     <ProjectList pid={email} archive={false} />
                 ) : (
@@ -175,30 +235,7 @@ const Sidebar = props => {
                         <p>Loading projects</p>
                         </>
                     )}
-                <li
-                    className={
-                        path == '/wishlist'
-                            ? defaultClasses.item + ' ' + defaultClasses.active
-                            : defaultClasses.item
-                    }
-                >
-                    {' '}
-                    <span className={defaultClasses.dashboard_links_images}>
-                        <img
-                            src="/cenia-static/images/myprojects.png"
-                            alt="wishlist"
-                            width="20"
-                            height="20"
-                        />
-                    </span>
-                    <Link to="/wishlist" onClick={onClose}>
-                        <FormattedMessage
-                            id={'sidebar.MyWishlist'}
-                            defaultMessage={'Archive projects'}
-                        />
-                    </Link>
-                    
-                </li>
+               
                 {email ? (
                     <ProjectList pid={email} archive={true} />
                 ) : (
@@ -228,7 +265,7 @@ const Sidebar = props => {
                             defaultMessage={'Address Book'}
                         />
                     </Link>
-                </li> */}
+                </li> 
                 <li
                     className={
                         path == '/accountinformation'

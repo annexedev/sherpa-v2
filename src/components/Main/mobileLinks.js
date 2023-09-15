@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Component } from 'react';
 import { useScrollLock, useToasts } from '@magento/peregrine';
 import { FormattedMessage } from 'react-intl';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -14,6 +14,96 @@ import {
     Heart as HeartIcon
 } from 'react-feather';
 import Icon from '@magento/venia-ui/lib/components/Icon';
+import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
+
+class ProjectLink extends Component{
+
+    constructor () {
+        super()
+        this.state = {
+            pageDataAccess: [],
+            name: "React Component reload sample",
+            reload: false
+        }
+    }
+
+    componentDidMount() {
+        let pid = this.props.pid; 
+          
+          let grantAccess = "https://data.sherpagroupav.com/get_projectaccess.php?email="+pid;
+          console.log(grantAccess);
+          fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+              this.setState({
+                  pageDataAccess: res
+              })
+            });       
+    }
+
+    render(){
+
+        const classes = mergeClasses(
+            defaultClasses
+        );
+
+        
+
+        const ProjectItems = props => {
+
+            const [activeClass, setActiveClass] = useState('home');
+
+            console.log('ACCESSS ::::::::: ');
+            console.log(this.state.pageDataAccess["access"]);
+
+            if(this.state.pageDataAccess["access"] == 1) {
+                
+            return (
+                <button
+                    onClick={() => {
+                        setWishlistRender(true);
+
+                        handleWishlist();
+                    }}
+                    className={
+                        defaultClasses.toolbar_items +
+                        ' ' +
+                        (activeClass == 'wishlist' ? defaultClasses.active : '')
+                    }
+                >
+                    <span
+                        className={
+                            defaultClasses.wishlist_image +
+                            ' ' +
+                            classes.header_Actions_image
+                        }
+                        title="My projects"
+                    >
+                        {heartIcon}
+                    
+                    </span>
+                    <p className={defaultClasses.images_label}>
+                        <FormattedMessage
+                            id={'main.Wishlist'}
+                            defaultMessage={'My projects'}
+                        />
+                    </p>
+                </button>
+            );
+
+            } else {
+                return (<></>);
+            }
+
+          }; 
+
+        return(
+            <React.Fragment>
+                <ProjectItems/>
+            </React.Fragment>
+        )
+    }
+}
 
 const homeIcon = <Icon src={HomeIcon} size={18} />;
 const userIcon = <Icon src={UserIcon} size={18} />;
@@ -21,6 +111,7 @@ const heartIcon = <Icon src={HeartIcon} size={18} />;
 const mappinIcon = <Icon src={MapPinIcon} size={18} />;
 
 const MobileLinks = props => {
+    const { email } = useDashboard();
     const [activeClass, setActiveClass] = useState('home');
     const [{ currentUser, isSignedIn }] = useUserContext();
     const [scrollFlag, setScrollFlag] = useState(false);
@@ -79,6 +170,7 @@ const MobileLinks = props => {
     const handleContact = () => {
         history.push('/contact');
     };
+
     return (
         <div className={defaultClasses.bottom_toolbar}>
             <div className={defaultClasses.bottom_tool_inner}>
@@ -132,36 +224,11 @@ const MobileLinks = props => {
                         />
                     </p>
                 </button>
-                {/*<button
-                    onClick={() => {
-                        setWishlistRender(true);
-
-                        handleWishlist();
-                    }}
-                    className={
-                        defaultClasses.toolbar_items +
-                        ' ' +
-                        (activeClass == 'wishlist' ? defaultClasses.active : '')
-                    }
-                >
-                    <span
-                        className={
-                            defaultClasses.wishlist_image +
-                            ' ' +
-                            classes.header_Actions_image
-                        }
-                        title="My projects"
-                    >
-                        {heartIcon}
-                       
-                    </span>
-                    <p className={defaultClasses.images_label}>
-                        <FormattedMessage
-                            id={'main.Wishlist'}
-                            defaultMessage={'My projects'}
-                        />
-                    </p>
-                </button> */}
+                {email ? (
+                    <ProjectLink pid={email} />
+                ) : (
+                    <></>
+                )}
                 <button
                     onClick={() => {
                         handleProfile();
