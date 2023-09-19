@@ -123,8 +123,12 @@ class ServiceDetailsEmployeurs extends Component{
                     if(returnVal(uid) == 0 || returnVal(uid) == 1) {
                         window.alert('Please choose or create a project.');
                     } else {
+                        var loopProject = document.getElementsByClassName("c"+item_id)[0].querySelector('input').value;
+                        console.log('loop '+loopProject);
+                        for (let i = 0; i < loopProject; i++) {
+                            addTodo({ variables: { category_id: returnVal(uid) , product_id: item_id} });
+                        }
                         
-                        addTodo({ variables: { category_id: returnVal(uid) , product_id: item_id} });
                         window.alert('Product added to project '+pname(uid));
                     }
                 }}

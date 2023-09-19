@@ -195,7 +195,11 @@ const ProductFullDetail = (props) => {
                                     window.alert('Please choose or create a project.');
                                     
                                 } else {
-                                    addTodo({ variables: { category_id: returnVal(uid) , product_id: item_id} });
+                                    var loopProject = document.getElementById('qty').value;
+
+                                    for (let i = 0; i < loopProject; i++) {
+                                        addTodo({ variables: { category_id: returnVal(uid) , product_id: item_id} });
+                                    }
                                     window.alert('Product added to project '+pname(uid));
                                 }
                                 

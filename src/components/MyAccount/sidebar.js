@@ -117,7 +117,7 @@ class ProjectList extends Component{
                         <Link to="/wishlist" onClick={onClose}>
                             <FormattedMessage
                                 id={'sidebar.MyWishlist'}
-                                defaultMessage={'Archive projects'}
+                                defaultMessage={'Project Archives'}
                             />
                         </Link>
                         
@@ -240,7 +240,7 @@ const Sidebar = props => {
                     <ProjectList pid={email} archive={true} />
                 ) : (
                         <>
-                        <p>Loading archive projects</p>
+                        <p>Loading projects</p>
                         </>
                     )}
                 <li
