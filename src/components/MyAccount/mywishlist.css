@@ -17,10 +17,10 @@
     flex-wrap: wrap;
 }
 .product_tiles {
-    flex: 0 0 20%;
+    flex: 0 0 25%;
     padding: 0px 10px 10px 0px;
     border-radius: 3px;
-    min-width: 20%;
+    min-width: 25%;
     display: none;
 }
 .project_dropdown {
@@ -85,6 +85,9 @@
 .product_name {
     min-height: 100px;
     composes: product_name from '../CedHome/home.css';
+}
+.product_name a {
+    font-size: 17px !important;
 }
 .inner:hover .product_name a {
     color: var(--primary-base-color);

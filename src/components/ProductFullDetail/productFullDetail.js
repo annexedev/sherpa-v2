@@ -103,6 +103,7 @@ const ProductFullDetail = (props) => {
             super()
             this.state = {
                 pageData: [],
+                pageDataAccess: [],
                 name: "React Component reload sample",
                 reload: false
             }
@@ -133,7 +134,17 @@ const ProductFullDetail = (props) => {
                 this.setState({
                     pageData: res
                 })
-              });        
+              });   
+              
+              
+              let grantAccess = "https://data.sherpagroupav.com/get_projectaccess.php?email="+pid;
+                fetch(grantAccess)
+                    .then(res => res.json())
+                    .then(res => {
+                    this.setState({
+                        pageDataAccess: res
+                    })
+                    });   
         }
     
     
@@ -151,6 +162,8 @@ const ProductFullDetail = (props) => {
             
     
             function AddToProject({item_id,uid}) {
+
+                {/* get_projectaccess */}
     
                 let input;
     
@@ -307,10 +320,10 @@ const ProductFullDetail = (props) => {
                 }
                   
                 var uniqueId = makeid(15);
-    
+                if(this.state.pageDataAccess["access"] == 1) {
                 return (
                   <div>
-                    {/*}
+                    
                     <AddToProject item_id={this.props.item_id} uid={uniqueId} />
                     <select onChange={onChange} className={classes.project_dropdown} id={uniqueId}>
                         <option defaultValue value="0">
@@ -330,9 +343,12 @@ const ProductFullDetail = (props) => {
                         <div id={"hidden_div"}>
                             <AddTodo uid={uniqueId}/>
                         </div>
-                        )} */}
+                        )} 
                   </div>
                 );
+                } else {
+                    return(<></>)
+                }
               };  
     
             //const classes = useStyle(defaultClasses);

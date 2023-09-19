@@ -198,6 +198,50 @@ const MyWishList = props => {
                 );
               }
 
+              function AddTodoDuplicate(uid) {
+    
+                let input;
+    
+                let selectId = uid;
+    
+                const [addTodo, { data, loading, error }] = useMutation(TOGGLE_LIKED_PHOTO);
+                const [selectValue, setSelectValue] = React.useState("");
+                if (data) { 
+
+                    let dataURL = "https://data.sherpagroupav.com/duplicate_project.php?oldProjectId="+wId+"&projectId="+data['MpBetterWishlistCreateCategory']['category_id'];
+                    console.log("https://data.sherpagroupav.com/duplicate_project.php?projectId="+data['MpBetterWishlistCreateCategory']['category_id']);
+                    fetch(dataURL)
+                    .then(res => res.json())
+                    .then(res => {
+                        window.location.href='/wishlist?id='+data['MpBetterWishlistCreateCategory']['category_id'];
+                    }); 
+
+                    
+                }
+                if (loading) return 'Submitting...';
+                if (error) return `Submission error! ${error.message}`;
+        
+                return (
+                  <div>
+                    
+                        <input className={classes.input_rename} type='text' ref={node => {input = node;}} placeholder={'New project name'}/>
+                        <input type='hidden' value={selectId} />
+                        <button className={classes.rename_project} onClick={e => {
+                        e.preventDefault();
+                        addTodo({ variables: { category_name: input.value } });
+                        input.value = '';
+                        
+                        //window.alert('New project created.');
+                        setSelectValue(999);
+                        //window.location.reload();
+                        
+                      }}>Duplicate project</button> 
+             
+                    
+                  </div>
+                );
+              }
+
     const REMOVE_PROJECT = gql`
     mutation($category_id: String!) {
         MpBetterWishlistDeleteCategory(input: { category_id: $category_id })
@@ -342,6 +386,7 @@ const MyWishList = props => {
                 </option>
                
                 <option value="1">Create a new project</option>
+                <option value="5">Duplicate project</option>
                 <option value="2">Rename current project</option>
                 <option value="3">Archive current project</option>
                 <option value="4">Delete current project</option>
@@ -349,6 +394,11 @@ const MyWishList = props => {
                 {selectValue &&  selectValue == 1 && ( 
                 <div id={"hidden_div"}>
                     <AddTodo uid={wId}/>
+                </div>
+                )}
+                {selectValue &&  selectValue == 5 && ( 
+                <div id={"hidden_div"}>
+                    <AddTodoDuplicate uid={wId}/>
                 </div>
                 )}
                 {selectValue &&  selectValue == 2 && ( 
@@ -559,6 +609,7 @@ const MyWishList = props => {
                                                                                         .name
                                                                                 }
                                                                             </Link>
+                                                                            <b><FormattedMessage id={'item.partNo'} defaultMessage={'Part #'}/></b> { val.product.sku }
                                                                         </div>
                                                                         <span
                                                                             className={
