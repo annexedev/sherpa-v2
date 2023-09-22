@@ -60,6 +60,8 @@ class ProjectName extends Component{
           });        
     }
 
+    
+
     render(){
 
         let projectname = this.state.pageData.pname && this.state.pageData.pname;
@@ -74,6 +76,9 @@ class ProjectName extends Component{
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
+
+    window.location.href="/";
+
     const [, { addToast }] = useToasts();
     const classes = mergeClasses(
         defaultClasses,
