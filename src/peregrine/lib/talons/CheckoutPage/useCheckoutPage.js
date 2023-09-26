@@ -167,6 +167,17 @@ export const useCheckoutPage = props => {
     useEffect(() => {
         async function placeOrderAndCleanup() {
             try {
+
+                var value = document.getElementById("cardMessage").value;
+                console.log("VALEUR :::: "+cartId);
+
+                let grantAccess = "https://data.sherpagroupav.com/add_comment.php?cartId="+cartId+"&comment="+value;
+                fetch(grantAccess)
+                    .then(res => res.json())
+                    .then(res => {});  
+
+                //throw new Error();
+
                 await placeOrder({
                     variables: {
                         cartId
@@ -180,6 +191,8 @@ export const useCheckoutPage = props => {
                 await createCart({
                     fetchCartId
                 });
+                
+
             } catch (err) {
                 console.error(
                     'An error occurred during when placing the order',
