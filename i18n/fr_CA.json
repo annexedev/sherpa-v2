@@ -468,6 +468,7 @@
     "completedView.errorLoading": "Erreur lors du chargement de la méthode d'expédition sélectionnée. ",
     "global.free": "Gratuit",
     "completedView.shippingMethod": "Mode de livraison",
+    "completedView.shippingMethodSelection": "Veuillez sélectionner un mode de livraison",
     "shippingMethod.loading": "Chargement des méthodes d'expédition...",
     "shippingMethod.continueToNextStep": "Continuer vers les informations de paiement",
     "shippingMethod.heading": "Mode de livraison",

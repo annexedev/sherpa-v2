@@ -25,6 +25,12 @@ export class RadioOption extends Component {
         const { props } = this;
         const { classes, id, label, value, ...rest } = props;
 
+        function setShipping() {
+            setTimeout(() => {
+                document.getElementById('btnsubmit').click();
+            }, 1000);
+        }
+
         return (
             <label className={classes.root} htmlFor={id}>
                 <Radio
@@ -32,6 +38,7 @@ export class RadioOption extends Component {
                     className={classes.input}
                     id={id}
                     value={value}
+                    onClick={setShipping}
                 />
                 <span className={classes.icon}>
                     <Circle />

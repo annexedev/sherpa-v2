@@ -35,8 +35,8 @@
 
     /* Its contents are centered horizontally and vertically. */
     display: grid;
-    justify-content: center;
-    align-content: center;
+    /*justify-content: center;
+    align-content: center;*/
 }
 
 .mask {
@@ -54,18 +54,18 @@
 
 /* The dialog is the only item in the form grid. */
 .dialog {
-    background-color: var(--primary-light-color);
-    box-shadow: var(--primary-box-shadow);
+    /*background-color: var(--primary-light-color);
+    box-shadow: var(--primary-box-shadow);*/
 
     /* It sets maximum sizes so its body can handle overflow. */
-    height: 100%;
-    max-height: 90vh;
+    /* height: 100%;
+    max-height: 90vh; */
     /* Minimum keeps a 16:9 aspect ratio and is 40rem x 22.5rem.  */
-    min-height: 360px;
-    width: 640px;
+    /*min-height: 360px;
+    width: 640px;*/
 
     /* Nothing is allowed to overflow container itself. */
-    overflow: hidden;
+    /* overflow: hidden; */
 
     /* Container is itself a grid container for its children. */
     display: grid;
@@ -123,13 +123,13 @@
 }
 
 .contents {
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 0rem;
 }
 
 .buttons {
-    padding: 2.5rem;
+    /*padding: 2.5rem; */
 
-    display: grid;
+    display: none;
     grid-auto-flow: column;
     gap: 1rem;
     justify-content: center;

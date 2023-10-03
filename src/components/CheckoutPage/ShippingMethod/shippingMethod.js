@@ -16,7 +16,6 @@ import CompletedView from './completedView';
 import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
 import defaultClasses from './shippingMethod.css';
-
 import shippingMethodOperations from './shippingMethod.gql';
 
 const initializingContents = (
@@ -30,7 +29,6 @@ const initializingContents = (
 
 const ShippingMethod = props => {
     const { onSave, pageIsUpdating, setPageIsUpdating } = props;
-
     const talonProps = useShippingMethod({
         onSave,
         setPageIsUpdating,
@@ -64,7 +62,7 @@ const ShippingMethod = props => {
                     <CompletedView
                         selectedShippingMethod={selectedShippingMethod}
                         showUpdateMode={showUpdateMode}
-                    />
+                    /> 
                 </div>
                 <UpdateModal
                     formErrors={Array.from(errors.values())}
@@ -72,7 +70,7 @@ const ShippingMethod = props => {
                     handleCancel={handleCancelUpdate}
                     handleSubmit={handleSubmit}
                     isLoading={isLoading}
-                    isOpen={isUpdateMode}
+                    isOpen={true}
                     pageIsUpdating={pageIsUpdating}
                     shippingMethods={shippingMethods}
                 />

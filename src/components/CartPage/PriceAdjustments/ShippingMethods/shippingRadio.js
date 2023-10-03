@@ -14,9 +14,15 @@ const ShippingRadio = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    function setShipping() {
+        setTimeout(() => {
+            document.getElementById('btnsubmit').click();
+        }, 1000);
+    }
+
     return (
         <Fragment>
-            <span>{props.name}</span>
+            <span onClick={setShipping}>{props.name}</span>
             <div className={classes.price}>{priceElement}</div>
         </Fragment>
     );

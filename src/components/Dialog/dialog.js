@@ -49,7 +49,7 @@ const Dialog = props => {
 
     // Prevent the page from scrolling in the background
     // when the Dialog is open.
-    useScrollLock(isOpen);
+    //useScrollLock(isOpen);
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
@@ -73,43 +73,42 @@ const Dialog = props => {
     ) : null;
 
     return (
-        <Portal>
-            <aside className={rootClass}>
-                <Form
+        <Form
                     className={classes.form}
                     {...formProps}
                     onSubmit={onConfirm}
                 >
                     {/* The Mask. */}
-                    <button
+                    {/*<button
                         className={classes.mask}
                         disabled={isMaskDisabled}
                         onClick={onCancel}
                         type="reset"
-                    />
+                    />*/}
 
                     {/* The Dialog. */}
                     <div className={classes.dialog}>
-                        <div className={classes.header}>
-                            <span className={classes.headerText}>{title}</span>
-                            {maybeCloseXButton}
-                        </div>
+                        {/* <div className={classes.header}>
+                            <span className={classes.headerText}>{title} X</span>
+                             {maybeCloseXButton} 
+                        </div>*/}
                         <div className={classes.body}>
                             <div className={classes.contents}>{children}</div>
                             <div className={classes.buttons}>
-                                <Button
+                                {/* <Button
                                     disabled={shouldDisableAllButtons}
                                     onClick={onCancel}
                                     priority="low"
                                     type="reset"
                                 >
                                     {cancelText}
-                                </Button>
+                                </Button>*/}
                                 <Button
                                     classes={confirmButtonClasses}
                                     disabled={confirmButtonDisabled}
                                     priority="high"
                                     type="submit"
+                                    id='btnsubmit'
                                 >
                                     {confirmText}
                                 </Button>
@@ -117,8 +116,6 @@ const Dialog = props => {
                         </div>
                     </div>
                 </Form>
-            </aside>
-        </Portal>
     );
 };
 

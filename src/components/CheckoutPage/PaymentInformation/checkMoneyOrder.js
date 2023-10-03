@@ -176,7 +176,7 @@ const CreditCard = props => {
                         label={formatMessage({
                             id: 'checkoutPage.billingAddressSame',
                             defaultMessage:
-                                'Billing address same as shipping address'
+                                'Billing address same as shipping address.'
                         })}
                         initialValue={initialValues.isBillingAddressSame}
                     />

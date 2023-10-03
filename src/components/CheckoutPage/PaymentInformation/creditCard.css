@@ -54,6 +54,7 @@
 }
 .address_check {
     margin: 10px 0 10px 5px;
+    display: none;
 }
 /*
  * Mobile-specific styles.

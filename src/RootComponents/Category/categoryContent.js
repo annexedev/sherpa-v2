@@ -51,18 +51,19 @@ class OrderTotal extends Component{
 
     render(){
 
-        let projectname = this.state.pageData.pname && this.state.pageData.pname;
-        console.log("STATUS REQUEST :: "+projectname+" "+this.props.cid)
-        if(projectname==0) {
-            window.location.href = "/brand-access";
-            return (
-                <>Exiting</>
-            )
-        } else {
-            return (
-                <></>
-            )
-        }
+            let projectname = this.state.pageData.pname && this.state.pageData.pname;
+
+            if(this.props.email && projectname==0) {
+                window.location.href = "/brand-access";
+                return (
+                    <>Exiting</>
+                )
+            } else {
+                return (
+                    <></>
+                )
+            }
+        
     }
 }
 
@@ -339,7 +340,7 @@ const CategoryContent = props => {
             exclude = 0;
         }
         const { email } = useDashboard();
-        console.log("EMAIL :: "+email);
+        
         return (
             
             <div className="App">

@@ -61,7 +61,8 @@ const CompletedView = props => {
                         />
                     </h5>
                     
-                    <LinkButton
+                    
+                    {/* <LinkButton
                         className={classes.editButton}
                         onClick={showUpdateMode}
                     >
@@ -76,9 +77,16 @@ const CompletedView = props => {
                                 defaultMessage={'Edit'}
                             />
                         </span>
-                    </LinkButton>
+                    </LinkButton> */}
                 </span>
-                {contents}
+                <p>
+                    <FormattedMessage
+                        id={'completedView.shippingMethodSelection'}
+                        defaultMessage={'Please select one'}
+                    />
+                </p>
+                {showUpdateMode}
+                {/* {contents} */}
             </div>
         </div>
     );
