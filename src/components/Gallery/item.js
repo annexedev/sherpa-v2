@@ -271,7 +271,7 @@ class ServiceDetailsEmployeurs extends Component{
 
             return (
               <div>
-                {/* <AddToProject item_id={this.props.item_id} uid={uniqueId} /> 
+                <AddToProject item_id={this.props.item_id} uid={uniqueId} /> 
                 <select onChange={onChange} className={classes.project_dropdown} id={uniqueId}>
                     <option defaultValue value="0">
                     Choose a project.
@@ -291,7 +291,7 @@ class ServiceDetailsEmployeurs extends Component{
                     <div id={"hidden_div"}>
                         <AddTodo uid={uniqueId}/>
                     </div>
-                    )}  */}
+                    )}  
               </div>
             );
           };  
@@ -951,13 +951,27 @@ const GalleryItem = props => {
                     {/* <CompareButton id={id} /> */}
                 </div>
 
+                
+
                     {email ? (
+
                         <div> 
-                            <Select /> 
-                            <ServiceDetailsEmployeurs pid={email} item_id={item.id}/>
-                            <BWL /> 
+
+                        {email == 'kroussel@sherpagroupav.com' || email == 'prayes@sherpagroupav.com' || email == 'bnddbl07@gmail.com' || email == 'mcharbonneau@annexe-d.com' && (
+                                <div>
+                                    
+                                    <Select /> 
+                                    <ServiceDetailsEmployeurs pid={email} item_id={item.id}/>
+                                   
+                                    
+                                </div>
+                                
+                        )}
+                         <BWL /> 
                             
                         </div>
+
+                        
                     ) : (
                         <>
 
@@ -976,7 +990,8 @@ const GalleryItem = props => {
                         </>
                     )}
 
-               
+               {/*    {(email == 'kroussel@sherpagroupav.com' || email == 'prayes@sherpagroupav.com' || email == 'bnddbl07@gmail.com')  ? (
+ */}
             </div>
         </div>
     );

@@ -77,7 +77,7 @@ const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
 
-    window.location.href="/";
+    //window.location.href="/";
 
     const [, { addToast }] = useToasts();
     const classes = mergeClasses(
