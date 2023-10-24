@@ -49,15 +49,25 @@ const PriceRange = props => {
                     
                     <p className={classes.productPrice}>
                         <FormattedMessage id={'item.partNo'} defaultMessage={'PART #'} /> : <span>{product && product.sku}</span></p><br/>
-                        <p className={classes.productPrice}>
-                        <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/>
-                        <p className={classes.productPrice}>
-                        <FormattedMessage id={'item.soldIn'} defaultMessage={'Sold in: '} /> : <span>{product && product.productbrand}</span></p><br/>     
+                        {product && product.productbrand &&  (
+                        <>
+                            <p className={classes.productPrice}>
+                            <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/>
+                        </>
+                        )}
+                        {product && product.soldin &&  (
+                        <>
+                            <p className={classes.productPrice}>
+                            <FormattedMessage id={'item.soldIn'} defaultMessage={'Sold in: '} /> : <span>{product && product.soldin}</span></p><br/>
+                        </>
+                        )}
+                             
                     
 
                     {/* today.toISOString().split('T')[0] < specialDate.toISOString().split('T')[0] && */}
                     {final_minimum_price == final_regular_price &&  (
                         <>
+                            
                             <p className={classes.productPrice}><FormattedMessage id={'item.yourCost'} defaultMessage={'YOUR COST'} />&nbsp;&nbsp;&nbsp;
                                 <Price
                                     currencyCode={

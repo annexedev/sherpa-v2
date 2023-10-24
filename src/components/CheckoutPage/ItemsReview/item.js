@@ -10,6 +10,8 @@ import { mergeClasses } from '../../../classify';
 
 import defaultClasses from './item.css';
 
+import Price from '@magento/venia-ui/lib/components/Price';
+
 const Item = props => {
     const {
         classes: propClasses,
@@ -80,7 +82,11 @@ const Item = props => {
                     <FormattedMessage
                         id={'checkoutPage.partNumber'}
                         defaultMessage={'Price :'}
-                    />&nbsp;${product.price_range.minimum_price.final_price.value.toFixed(2)}
+                    />
+                    <Price
+                        value={product.price_range.minimum_price.final_price.value.toFixed(2)}
+                        currencyCode="CAD"
+                    />
                 
                 </span>
            

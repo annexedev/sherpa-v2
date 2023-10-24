@@ -610,7 +610,12 @@ const GalleryItem = props => {
         activeLng = '';
     }
 
+    if(item.sku.endsWith("-PROMO") && email=='') {
+        return (<></>)
+    } else {
     return (
+        <>
+   
         <div className={classes.root} aria-live="polite" aria-busy="false">
             <div className={classes.noo_product_image}>
                 {discount_percent > 0 && email && (
@@ -990,11 +995,13 @@ const GalleryItem = props => {
                         </>
                     )}
 
-               {/*    {(email == 'kroussel@sherpagroupav.com' || email == 'prayes@sherpagroupav.com' || email == 'bnddbl07@gmail.com')  ? (
- */}
             </div>
         </div>
+       
+        </>
     );
+
+    }
     
 };
 

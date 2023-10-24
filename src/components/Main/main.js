@@ -213,15 +213,7 @@ const Main = props => {
     const rootClass = isMasked ? classes.root_masked : classes.root;
     const pageClass = isMasked ? classes.page_masked : classes.page;
     const token = localStorage.getItem('notification-token');
-
-    if (window.location.href.indexOf("/events") != -1) {
-        window.eventCalId=13099;
-        var integrationScript = document.createElement("script");
-        integrationScript.async = 1;
-        integrationScript.setAttribute("src", "https://api.eventcalendarapp.com/integration-script.js");
-        document.head.appendChild(integrationScript);
-    }
-
+    const [{ isSignedIn }] = useUserContext();
     const Banner = React.lazy(() => import('/src/components/CedHome/banner'));
     const categoryBannerIdentifierHome = 'education_landing';
     let showCategoryBanners = true;
@@ -230,6 +222,14 @@ const Main = props => {
     var displayRegister = false;
     var displayTeam = false;
     var displayEducation = false;
+
+    if (isSignedIn && window.location.href.indexOf("/events") != -1) {
+        window.eventCalId=13099;
+        var integrationScript = document.createElement("script");
+        integrationScript.async = 1;
+        integrationScript.setAttribute("src", "https://api.eventcalendarapp.com/integration-script.js");
+        document.head.appendChild(integrationScript);
+    }
 
     if(window.location.href.indexOf("/myprojects") != -1) {
         window.location.replace("/wishlist");
@@ -264,7 +264,7 @@ const Main = props => {
         document.getElementById('user_account').click();
     }  
 
-    const [{ isSignedIn }] = useUserContext();
+    
 
     let lng = '';
     if(document.getElementById("currentLng") != null){

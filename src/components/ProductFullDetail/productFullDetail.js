@@ -710,6 +710,17 @@ const ProductFullDetail = (props) => {
         const value = event.target.value;
         setSelectValue(value);
     };
+
+    let lng = '';
+    if(document.getElementById("currentLng") != null){
+        lng = document.getElementById("currentLng").innerHTML;
+    }
+    let currencyCde = '';
+    if(lng == 'Français') {
+        currencyCde = 'CAD';
+    } else {
+        currencyCde = 'CAD';
+    }
  
     return (
         <Fragment>
@@ -782,7 +793,11 @@ const ProductFullDetail = (props) => {
                                                 customPercCheckbox
                                             }
                                             />
-                                        <p><FormattedMessage id={'item.MSRP'} defaultMessage={'MSRP'} />&nbsp;&nbsp;<b>${(Math.round(product.msrp_sherpa2 * 100) / 100).toFixed(2)}</b></p>
+                                        <p><FormattedMessage id={'item.MSRP'} defaultMessage={'MSRP'} />&nbsp;&nbsp;<b><Price
+                                            value={(Math.round(product.msrp_sherpa2 * 100) / 100).toFixed(2)}
+                                            currencyCode={currencyCde}
+                                        /></b></p>
+                                        
                                         </>
                                     
 

@@ -3,7 +3,7 @@ import React from 'react';
 export function ProductItem({ hit, components }) {
   let sherpaurl = hit.url.replace("data.sherpagroupav.com/default", "sherpagroupav.com");
 
-  let CADDollar = new Intl.NumberFormat('en-US', {
+  let CADDollar = new Intl.NumberFormat('en-CA', {
       style: 'currency',
       currency: 'CAD',
       currencyDisplay: 'narrowSymbol'
@@ -51,7 +51,7 @@ export function ProductItem({ hit, components }) {
            
             <div className="aa-ItemContentDescription" style={{ color: '#000' }}>
               { activeLng == '-fr' ?
-                  <strong>PDSF {CADDollar.format(hit.msrp)}</strong>
+                  <strong>PDSF {hit.msrp} $</strong>
                   :
                   <strong>MSRP {CADDollar.format(hit.msrp)}</strong>
               }
