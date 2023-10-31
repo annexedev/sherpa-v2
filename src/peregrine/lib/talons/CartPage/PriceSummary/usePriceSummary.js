@@ -54,8 +54,8 @@ export const usePriceSummary = props => {
     const isCheckout = !!match;
 
     const { error, loading, data } = useQuery(getPriceSummary, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
+        fetchPolicy: 'network-onlye',
+        nextFetchPolicy: 'network-only',
         skip: !cartId,
         variables: {
             cartId

@@ -96,7 +96,10 @@ export const useSearchPage = props => {
     const [
         runQuery,
         { called: searchCalled, loading: searchLoading, error, data }
-    ] = useLazyQuery(productSearch);
+    ] = useLazyQuery(productSearch, {
+        fetchPolicy: 'network-only',
+        nextFetchPolicy: 'network-only'
+    });
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.

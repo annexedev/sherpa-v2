@@ -392,6 +392,17 @@ const GalleryItem = props => {
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
     let colorSwatchLength = 0;
     let itemElements;
+
+    /* Get file path for french images */
+
+    let frenchImagePath = smallImageURL.substring(smallImageURL.lastIndexOf('/')+1);
+    let fileName = frenchImagePath.substr(0, frenchImagePath.lastIndexOf('.'));
+
+    let pathArray = smallImageURL.split("/");
+    let ext = frenchImagePath.substr(frenchImagePath.lastIndexOf('.') + 1);
+
+    var finalFrenchPath = "https://data.sherpagroupav.com/"+pathArray[3]+"/"+pathArray[4]+"/"+pathArray[5]+"/"+pathArray[8]+"/"+pathArray[9]+"/"+fileName+"-fr."+ext;
+ 
     if (item.configurable_options) {
         item.configurable_options.forEach(configOptions => {
             if (configOptions.attribute_code == 'color') {
@@ -610,25 +621,51 @@ const GalleryItem = props => {
         activeLng = '';
     }
 
+    // Check if the default placeholder image exist and if FR assign new default image
+
+    const substring = "image_not_available_1";
+
+    let finalImage = smallImageURL;
+
+    if(smallImageURL.includes(substring) && activeLng == '-fr') {
+        finalImage = "https://data.sherpagroupav.com/media/catalog/product/placeholder/stores/2/image_non_disponible_2.png";
+    }
+
+    //console.log(item);
+
     if(item.sku.endsWith("-PROMO") && email=='') {
         return (<></>)
     } else {
     return (
         <>
    
-        <div className={classes.root} aria-live="polite" aria-busy="false">
+        <div className={classes.root} aria-live="polite" aria-busy="false" id="ribbonPosition">
+            {/* <div className="ribbon ribbon-top-left"><span><FormattedMessage id={'item.ribbon'} defaultMessage={'New'} /></span></div> */}
             <div className={classes.noo_product_image}>
                 {discount_percent > 0 && email && (
                     <div className={classes.priceTag}><b>{discount_percent}% <FormattedMessage id={'item.rebate'} defaultMessage={'Off'} />{item.special_to_date && (<> <FormattedMessage id={'item.until'} defaultMessage={'until'} /> {(discount_date.toDateString().split(' ').slice(1).join(' '))}</>)}</b></div>
                 )}
-
-
 
                 <Link
                     onClick={handleLinkClick}
                     to={productLink}
                     className={classes.images}
                 >
+                    {item.sku.endsWith("-PROMO") && activeLng == '-fr' ? (
+                    <Image
+                        alt={name}
+                        classes={{
+                            image: classes.image,
+                            loaded: classes.imageLoaded,
+                            notLoaded: classes.imageNotLoaded,
+                            root: classes.imageContainer
+                        }}
+                        height={IMAGE_HEIGHT}
+                        resource={finalFrenchPath}
+                        widths={IMAGE_WIDTHS}
+                    />
+                    ) : (
+
                     <Image
                         alt={name}
                         classes={{
@@ -641,6 +678,10 @@ const GalleryItem = props => {
                         resource={smallImageURL}
                         widths={IMAGE_WIDTHS}
                     />
+                    
+                    )}
+                    
+                    
                 </Link>
             </div>
             <div className={classes.noo_details_wrapper}>
@@ -684,7 +725,6 @@ const GalleryItem = props => {
                                 defaultMessage={'Total available:'}
                             />
                             {item.totalavailable}</p>
-                            
                             
                             {final_minimum_price != final_regular_price && (
                                 <>

@@ -16,7 +16,6 @@ export const ProductsFragment = gql`
             id
             name
             special_from_date
-            special_to_date
             price_range {
                 minimum_price {
                     regular_price {

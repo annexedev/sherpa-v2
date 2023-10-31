@@ -67,7 +67,20 @@ class OrderTotal extends Component{
     }
 }
 
-//const { email } = useDashboard();
+class TriggerOpen extends Component{
+    constructor () {
+        super()
+        this.state = {
+            pageData: []
+        }
+    }
+    componentDidMount() {
+        document.getElementById('user_account').click(); 
+    }
+    render(){
+        return (<></>)
+    }
+}
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 const FilterSidebar = React.lazy(() =>
@@ -404,10 +417,11 @@ const CategoryContent = props => {
       };
 
     function openLoginBox() {
+        console.log('Open the shit');
         document.getElementById('user_account').click();
     }  
 
-    if(catId == 135 && !isSignedIn) {
+    if(catId == 135 && !isSignedIn && !isLoading) {
         exclude = 1;
     } else {
         exclude = 0;
@@ -417,7 +431,6 @@ const CategoryContent = props => {
     const categoryBannerIdentifierHome = 'banner_'+catId;
     const categoryBannerIdentifierPromotion = 'promotion-register'+activeLng;
     let showCategoryBanners = true;
-    
     
     return (
         
@@ -456,6 +469,7 @@ const CategoryContent = props => {
                             : ''}
                             {!isSignedIn && catId == 135 ?
                                 <div>
+                                    <TriggerOpen/>
                                     <Suspense fallback={''}>
                                         <Banner
                                             identifier={categoryBannerIdentifierPromotion}
@@ -467,6 +481,7 @@ const CategoryContent = props => {
                                             <FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} />
                                         </a>
                                     </div>
+                                    
                                 </div>
                             : ''} 
                             

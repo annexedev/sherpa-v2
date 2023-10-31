@@ -13,6 +13,8 @@ query productSearch(
         sort: $sort
     ) {
         items {
+            special_to_date
+            special_from_date
             id
             name
             sku

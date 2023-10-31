@@ -21,7 +21,7 @@ export const useProduct = props => {
     const { mapProduct, queries, urlKey } = props;
 
     const { error, loading, data } = useQuery(queries.getProductQuery, {
-        fetchPolicy: 'cache-and-network',
+        fetchPolicy: 'network-only',
         nextFetchPolicy: 'cache-first',
         variables: {
             urlKey

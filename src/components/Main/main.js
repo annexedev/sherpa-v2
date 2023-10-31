@@ -26,6 +26,23 @@ import GET_CMSBLOCK_QUERY from '../../queries/getCmsBlocks.graphql';
 <div id="region" value=""></div>
 
 */
+
+class TriggerOpen extends Component{
+    constructor () {
+        super()
+        this.state = {
+            pageData: []
+        }
+    }
+    componentDidMount() {
+        setTimeout(function(){ document.getElementById('user_account').click();  }, 1500);
+        
+    }
+    render(){
+        return (<></>)
+    }
+}
+
 function ServiceDetailsEmployeurs(props) {
 
 
@@ -218,7 +235,7 @@ const Main = props => {
     const categoryBannerIdentifierHome = 'education_landing';
     let showCategoryBanners = true;
 
-    var displayLogin = false;
+    var displayLogin = false; 
     var displayRegister = false;
     var displayTeam = false;
     var displayEducation = false;
@@ -323,6 +340,7 @@ const Main = props => {
               if (!isSignedIn && displayLogin){
                   return (
                     <div>
+                    <TriggerOpen/>
                     <br/><br/><br/>
                     <a style={{cursor:'pointer'}} onClick={openLoginBox}>Login or Register for an Account to view this page</a>
                     </div>
