@@ -350,9 +350,20 @@ const CategoryContent = props => {
         if(catId == 135 && !isSignedIn) {
             exclude = 1;
         } else {
-            exclude = 0;
+            exclude = 0; 
         }
         const { email } = useDashboard();
+
+        let lng = '';
+        if(document.getElementById("currentLng") != null){
+            lng = document.getElementById("currentLng").innerHTML;
+        }
+        let activeLng = '';
+        if(lng == 'Français') {
+            activeLng = '-fr';
+        } else {
+            activeLng = '';
+        }
         
         return (
             
@@ -383,7 +394,7 @@ const CategoryContent = props => {
                                         defaultMessage={'View products list'}
                                     />
                                 </a></div> 
-                                {categoryId==42 && s.manufacturer_link ? (
+                                {categoryId==42 && s.manufacturer_link && activeLng == '' ? (
                                    <div className={classes.boxlink}><a target="_blank" href={s.manufacturer_link}>
                                     <FormattedMessage
                                         id={'categoryContent.brandWebsite'}
