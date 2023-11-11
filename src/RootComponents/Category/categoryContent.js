@@ -338,6 +338,7 @@ const CategoryContent = props => {
                   in: categoryId,
                 },
             },
+            fetchPolicy: 'network-only',
             }});
 
         if (loading) {
