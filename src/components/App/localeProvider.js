@@ -25,7 +25,7 @@ const LocaleProvider = props => {
             : STORE_VIEW_LOCALE;
     }, [data]);
     const locale = fromReactIntl(language);
-    
+
     useEffect(() => {
         if (language && !loading) {
             import(`../../i18n/${locale}.json`)

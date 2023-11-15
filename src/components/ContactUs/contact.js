@@ -27,16 +27,16 @@ const Contact = props => {
     let errorMessage = '';
     let successMessage = '';
     let lng = '';
-    if(document.getElementById("currentLng") != null){
-        lng = document.getElementById("currentLng").innerHTML;
+    if (document.getElementById('currentLng') != null) {
+        lng = document.getElementById('currentLng').innerHTML;
     }
     let activeLng = '';
-    if(lng == 'Français') {
+    if (lng == 'Français') {
         activeLng = '-fr';
     } else {
         activeLng = '';
     }
-    let contactid = 'contactus_newsite'+activeLng;
+    let contactid = 'contactus_newsite' + activeLng;
     if (typeof responseData != 'undefined') {
         if (!responseData.status) {
             errorMessage = responseData.message;
@@ -90,12 +90,11 @@ const Contact = props => {
                             'col-xs-12'
                         }
                     >
-                        { activeLng == '-fr' ?
-                        <JotformEmbed src="https://form.jotform.com/232284757056260" />
-                        :
-                        <JotformEmbed src="https://form.jotform.com/232284967022256" />
-                        }
-                        
+                        {activeLng == '-fr' ? (
+                            <JotformEmbed src="https://form.jotform.com/232284757056260" />
+                        ) : (
+                            <JotformEmbed src="https://form.jotform.com/232284967022256" />
+                        )}
                     </div>
                     <div
                         className={
@@ -109,14 +108,13 @@ const Contact = props => {
                         }
                     >
                         <div className={classes.conatct_page}>
-                            <p className={classes.heading_content}> 
-                            <Suspense fallback={''}>
-                                <Banner
-                                    identifier={contactid}
-                                    showBanner={true}
-                                />
-                            </Suspense>
-                            
+                            <p className={classes.heading_content}>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={contactid}
+                                        showBanner={true}
+                                    />
+                                </Suspense>
                             </p>
                         </div>
                         <div className={classes.phone_mail_wrapp}>
@@ -127,7 +125,9 @@ const Contact = props => {
                                 <span className={classes.phone_number}>
                                     <FormattedMessage
                                         id={'contact.phone_number'}
-                                        defaultMessage={' T: 1-866-767-6584 / F: 514-366-4265'}
+                                        defaultMessage={
+                                            ' T: 1-866-767-6584 / F: 514-366-4265'
+                                        }
                                     />
                                 </span>
                             </p>
@@ -146,116 +146,161 @@ const Contact = props => {
                             </a>
                         </div>
                     </div>
-                    { activeLng == '-fr' ?
+                    {activeLng == '-fr' ? (
                         <>
-                        <div
-                        className={
-                            'col-lg-6' +
-                            ' ' +
-                            'col-md-6' +
-                            ' ' +
-                            'col-sm-6' +
-                            ' ' +
-                            'col-xs-12'
-                        }
-                    >
-
-                        <h3 className={classes.content_page_heading}><br/><br/>
-                            <FormattedMessage
-                                id={'contact.content_page_heading'}
-                                defaultMessage={'BUREAU RÉGIONAL QC'}
-                            />
-                        </h3>
-                        <p className={classes.heading_content}>
-                            80 Avenue Lindsay,<br/>Dorval, QC H9P 2T8<br/>T: 514-366-9822 / 1-866-767-6584<br/>F: 514-366-4265
-                        </p>
-                        <p className={classes.heading_content}>
-                        De 8 h à 16 h 30 du lundi au vendredi.
-                        </p>
-                        <iframe width="100%" height="450" src="https://www.openstreetmap.org/export/embed.html?bbox=-74.18106079101564%2C45.25072145953108%2C-73.26919555664064%2C45.659167483312785&amp;layer=mapnik&amp;marker=45.4553258%2C-73.7250693"></iframe>
-                    </div>
-                    <div
-                        className={
-                            'col-lg-6' +
-                            ' ' +
-                            'col-md-6' +
-                            ' ' +
-                            'col-sm-6' +
-                            ' ' +
-                            'col-xs-12'
-                        }
-                    >
-                        <h3 className={classes.content_page_heading}><br/><br/>
-                            <FormattedMessage
-                                id={'contact.content_page_heading'}
-                                defaultMessage={'BUREAU RÉGIONAL ON'}
-                            />
-                        </h3>
-                        <p className={classes.heading_content}>
-                            335 Admiral Blvd, #13<br/>Mississauga, ON L5T 2N2<br/>T: 905-565-9028 / 1-866-767-6584<br/>F: 866-670-5052
-                        </p>
-                        <p className={classes.heading_content}>
-                        De 8 h à 16 h 30 du lundi au vendredi.
-                        </p>
-                        <iframe width="100%" height="450" src="https://www.openstreetmap.org/export/embed.html?bbox=-80.60531616210938%2C43.22819449883485%2C-78.78158569335938%2C44.07081379264681&amp;layer=mapnik&amp;marker=43.650981839898684%2C-79.69413757324219"></iframe>
-                    </div>
+                            <div
+                                className={
+                                    'col-lg-6' +
+                                    ' ' +
+                                    'col-md-6' +
+                                    ' ' +
+                                    'col-sm-6' +
+                                    ' ' +
+                                    'col-xs-12'
+                                }
+                            >
+                                <h3 className={classes.content_page_heading}>
+                                    <br />
+                                    <br />
+                                    <FormattedMessage
+                                        id={'contact.content_page_heading'}
+                                        defaultMessage={'BUREAU RÉGIONAL QC'}
+                                    />
+                                </h3>
+                                <p className={classes.heading_content}>
+                                    80 Avenue Lindsay,
+                                    <br />
+                                    Dorval, QC H9P 2T8
+                                    <br />
+                                    T: 514-366-9822 / 1-866-767-6584
+                                    <br />
+                                    F: 514-366-4265
+                                </p>
+                                <p className={classes.heading_content}>
+                                    De 8 h à 16 h 30 du lundi au vendredi.
+                                </p>
+                                <iframe
+                                    width="100%"
+                                    height="450"
+                                    src="https://www.openstreetmap.org/export/embed.html?bbox=-74.18106079101564%2C45.25072145953108%2C-73.26919555664064%2C45.659167483312785&amp;layer=mapnik&amp;marker=45.4553258%2C-73.7250693"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    'col-lg-6' +
+                                    ' ' +
+                                    'col-md-6' +
+                                    ' ' +
+                                    'col-sm-6' +
+                                    ' ' +
+                                    'col-xs-12'
+                                }
+                            >
+                                <h3 className={classes.content_page_heading}>
+                                    <br />
+                                    <br />
+                                    <FormattedMessage
+                                        id={'contact.content_page_heading'}
+                                        defaultMessage={'BUREAU RÉGIONAL ON'}
+                                    />
+                                </h3>
+                                <p className={classes.heading_content}>
+                                    335 Admiral Blvd, #13
+                                    <br />
+                                    Mississauga, ON L5T 2N2
+                                    <br />
+                                    T: 905-565-9028 / 1-866-767-6584
+                                    <br />
+                                    F: 866-670-5052
+                                </p>
+                                <p className={classes.heading_content}>
+                                    De 8 h à 16 h 30 du lundi au vendredi.
+                                </p>
+                                <iframe
+                                    width="100%"
+                                    height="450"
+                                    src="https://www.openstreetmap.org/export/embed.html?bbox=-80.60531616210938%2C43.22819449883485%2C-78.78158569335938%2C44.07081379264681&amp;layer=mapnik&amp;marker=43.650981839898684%2C-79.69413757324219"
+                                />
+                            </div>
                         </>
-                        :
+                    ) : (
                         <>
-                        <div
-                        className={
-                            'col-lg-6' +
-                            ' ' +
-                            'col-md-6' +
-                            ' ' +
-                            'col-sm-6' +
-                            ' ' +
-                            'col-xs-12'
-                        }
-                    >
-
-                        <h3 className={classes.content_page_heading}><br/><br/>
-                            <FormattedMessage
-                                id={'contact.content_page_heading'}
-                                defaultMessage={'Montreal Head Office'}
-                            />
-                        </h3>
-                        <p className={classes.heading_content}>
-                            80 Avenue Lindsay,<br/>Dorval, QC H9P 2T8<br/>T: 514-366-9822 / 1-866-767-6584<br/>F: 514-366-4265
-                        </p>
-                        <p className={classes.heading_content}>
-                            8:00am - 4:30pm M-F
-                        </p>
-                        <iframe width="100%" height="450" src="https://www.openstreetmap.org/export/embed.html?bbox=-74.18106079101564%2C45.25072145953108%2C-73.26919555664064%2C45.659167483312785&amp;layer=mapnik&amp;marker=45.4553258%2C-73.7250693"></iframe>
-                    </div>
-                    <div
-                        className={
-                            'col-lg-6' +
-                            ' ' +
-                            'col-md-6' +
-                            ' ' +
-                            'col-sm-6' +
-                            ' ' +
-                            'col-xs-12'
-                        }
-                    >
-                        <h3 className={classes.content_page_heading}><br/><br/>
-                            <FormattedMessage
-                                id={'contact.content_page_heading'}
-                                defaultMessage={'Mississauga Office'}
-                            />
-                        </h3>
-                        <p className={classes.heading_content}>
-                            335 Admiral Blvd, #13<br/>Mississauga, ON L5T 2N2<br/>T: 905-565-9028 / 1-866-767-6584<br/>F: 866-670-5052
-                        </p>
-                        <p className={classes.heading_content}>
-                            8:00am - 4:30pm M-F
-                        </p>
-                        <iframe width="100%" height="450" src="https://www.openstreetmap.org/export/embed.html?bbox=-80.60531616210938%2C43.22819449883485%2C-78.78158569335938%2C44.07081379264681&amp;layer=mapnik&amp;marker=43.650981839898684%2C-79.69413757324219"></iframe>
-                    </div>
+                            <div
+                                className={
+                                    'col-lg-6' +
+                                    ' ' +
+                                    'col-md-6' +
+                                    ' ' +
+                                    'col-sm-6' +
+                                    ' ' +
+                                    'col-xs-12'
+                                }
+                            >
+                                <h3 className={classes.content_page_heading}>
+                                    <br />
+                                    <br />
+                                    <FormattedMessage
+                                        id={'contact.content_page_heading'}
+                                        defaultMessage={'Montreal Head Office'}
+                                    />
+                                </h3>
+                                <p className={classes.heading_content}>
+                                    80 Avenue Lindsay,
+                                    <br />
+                                    Dorval, QC H9P 2T8
+                                    <br />
+                                    T: 514-366-9822 / 1-866-767-6584
+                                    <br />
+                                    F: 514-366-4265
+                                </p>
+                                <p className={classes.heading_content}>
+                                    8:00am - 4:30pm M-F
+                                </p>
+                                <iframe
+                                    width="100%"
+                                    height="450"
+                                    src="https://www.openstreetmap.org/export/embed.html?bbox=-74.18106079101564%2C45.25072145953108%2C-73.26919555664064%2C45.659167483312785&amp;layer=mapnik&amp;marker=45.4553258%2C-73.7250693"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    'col-lg-6' +
+                                    ' ' +
+                                    'col-md-6' +
+                                    ' ' +
+                                    'col-sm-6' +
+                                    ' ' +
+                                    'col-xs-12'
+                                }
+                            >
+                                <h3 className={classes.content_page_heading}>
+                                    <br />
+                                    <br />
+                                    <FormattedMessage
+                                        id={'contact.content_page_heading'}
+                                        defaultMessage={'Mississauga Office'}
+                                    />
+                                </h3>
+                                <p className={classes.heading_content}>
+                                    335 Admiral Blvd, #13
+                                    <br />
+                                    Mississauga, ON L5T 2N2
+                                    <br />
+                                    T: 905-565-9028 / 1-866-767-6584
+                                    <br />
+                                    F: 866-670-5052
+                                </p>
+                                <p className={classes.heading_content}>
+                                    8:00am - 4:30pm M-F
+                                </p>
+                                <iframe
+                                    width="100%"
+                                    height="450"
+                                    src="https://www.openstreetmap.org/export/embed.html?bbox=-80.60531616210938%2C43.22819449883485%2C-78.78158569335938%2C44.07081379264681&amp;layer=mapnik&amp;marker=43.650981839898684%2C-79.69413757324219"
+                                />
+                            </div>
                         </>
-                        }
-                    
+                    )}
                 </div>
             </div>
         </div>

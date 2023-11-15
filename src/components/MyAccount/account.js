@@ -16,7 +16,7 @@ import { Title } from '@magento/venia-ui/lib/components/Head';
 
 const MyAccount = props => {
     const { formatMessage } = useIntl();
-    const talonProps = useDashboard(); 
+    const talonProps = useDashboard();
     const {
         name,
         email,
@@ -358,16 +358,13 @@ const MyAccount = props => {
                                                         >
                                                             {billingAddress &&
                                                                 billingAddress.id && (
-                                                                    
                                                                     <Link
                                                                         className={
                                                                             defaultClasses.action +
                                                                             ' ' +
                                                                             defaultClasses.change_password
                                                                         }
-                                                                        to={
-                                                                            '#'
-                                                                        }
+                                                                        to={'#'}
                                                                         data-ui-id="default-billing-edit-link"
                                                                     >
                                                                         <FormattedMessage
@@ -378,7 +375,7 @@ const MyAccount = props => {
                                                                                 'Please contact your account manager to update your billing address'
                                                                             }
                                                                         />
-                                                                        </Link> 
+                                                                    </Link>
                                                                 )}
                                                         </div>
                                                     </div>
@@ -515,9 +512,7 @@ const MyAccount = props => {
                                                                             ' ' +
                                                                             defaultClasses.change_password
                                                                         }
-                                                                        to={
-                                                                            '#'
-                                                                        }
+                                                                        to={'#'}
                                                                         data-ui-id="default-shipping-edit-link"
                                                                     >
                                                                         <FormattedMessage

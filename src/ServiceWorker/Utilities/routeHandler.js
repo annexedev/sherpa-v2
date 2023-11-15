@@ -6,13 +6,9 @@
  * @returns {boolean}
  */
 export const isHomeRoute = url => {
-
-    
-
     if (url.pathname === '/home') {
         console.log('home redirect');
         return true;
-        
     }
 
     // If store code is in the url, the home route will be url.com/view_code.
@@ -24,7 +20,7 @@ export const isHomeRoute = url => {
         );
     }
 };
-console.log('URL : '+url);
+console.log('URL : ' + url);
 /**
  * Checks if the given URL object belongs to the home route `/`
  * or has a `.html` extension.

@@ -141,7 +141,9 @@
     text-align: center;
 }
 
-.dnone { display: none;}
+.dnone {
+    display: none;
+}
 
 .review_order_button {
     composes: root_highPriority from '../Button/button.css';

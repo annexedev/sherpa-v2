@@ -7,10 +7,10 @@
 .autocomplete_wrap {
     width: 500px;
 }
-@media screen and (min-width: 320px) and (max-width: 767px) { 
-.autocomplete_wrap {
-    width: 100%;
-}  
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .autocomplete_wrap {
+        width: 100%;
+    }
 }
 .switcher_offer_Wrap {
     display: flex;
@@ -28,7 +28,7 @@
     font-size: 14px;
 }
 .contactus {
-    color:white;
+    color: white;
     cursor: pointer;
 }
 .contactus:hover {

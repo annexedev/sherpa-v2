@@ -9,35 +9,36 @@ import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
 import defaultClasses from './orderConfirmationPage.css';
 
-class OrderTotal extends Component{
-    constructor () {
-        super()
+class OrderTotal extends Component {
+    constructor() {
+        super();
         this.state = {
             pageData: []
-        }
+        };
     }
 
     componentDidMount() {
         let orderNumber = this.props.cid;
-        let dataURL = "https://data.sherpagroupav.com/get_order.php?cid="+orderNumber;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_order.php?cid=' + orderNumber;
         console.log(dataURL);
         fetch(dataURL)
-          .then(res => res.json())
-          .then(res => {
-            this.setState({
-                pageData: res
-            })
-          });        
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
     }
 
-    render(){
-
-        let projectname = this.state.pageData.pname && this.state.pageData.pname;
-        return(
+    render() {
+        let projectname =
+            this.state.pageData.pname && this.state.pageData.pname;
+        return (
             <React.Fragment>
-                <b>Total: ${projectname}</b>  
+                <b>Total: ${projectname}</b>
             </React.Fragment>
-        )
+        );
     }
 }
 
@@ -104,11 +105,7 @@ const OrderConfirmationPage = props => {
     const nameString = `${firstname} ${lastname}`;
     const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;
 
-    
-
     console.log(orderNumber);
-
-    
 
     return (
         <div
@@ -135,7 +132,8 @@ const OrderConfirmationPage = props => {
                         <FormattedMessage
                             id={'checkoutPage.orderNumber'}
                             defaultMessage={'Order Number'}
-                        />: { orderNumber }
+                        />
+                        : {orderNumber}
                     </div>
                     <OrderTotal cid={orderNumber} />
                     <div className={classes.shippingInfoHeading}>

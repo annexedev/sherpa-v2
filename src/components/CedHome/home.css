@@ -24,7 +24,7 @@
     border-radius: 7px !important;
 }
 .thumbs.animated {
-    display:none !important;
+    display: none !important;
 }
 .section_banner img {
     width: 100%;
@@ -82,7 +82,7 @@ div[class='carousel-item active'] div {
 
 .button_new {
     text-align: center;
-    margin-top:40px;
+    margin-top: 40px;
     border-bottom: 2px solid #8dc74c;
     border-right: 2px solid #8dc74c;
     border-left: 2px solid #8dc74c;
@@ -96,7 +96,6 @@ div[class='carousel-item active'] div {
     padding: 30px 0px 0;
     margin-bottom: 80px;
 }
-
 
 .button_new a {
     width: 200px;

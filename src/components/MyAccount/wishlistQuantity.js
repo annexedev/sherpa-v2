@@ -9,7 +9,7 @@ const Quantity = props => {
     const { initialValue, classes: propClasses } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
     const [quantityInstance, setQuantityInstance] = useState(1);
-    
+
     const handleDecreaseClick = () => {
         let qty = 1;
         if (quantityInstance - 1 < 1) {
@@ -48,7 +48,7 @@ const Quantity = props => {
         props.onValueChange(initialValue);
         setQuantityInstance(qty);
     }
-    
+
     return (
         <div className={classes.wishlist_qyanty_wrap}>
             <div className={classes.qty_control_wrap + ' ' + 'clearfix'}>

@@ -47,8 +47,12 @@ export default function Wishlist(props) {
     } = addItemToWishlistTalonProps;
 
     const addtowishlist = async product_id => {
-
-        console.log('QTY : '+document.querySelector('.c'+product_id).querySelector('.quantity-display').value);
+        console.log(
+            'QTY : ' +
+                document
+                    .querySelector('.c' + product_id)
+                    .querySelector('.quantity-display').value
+        );
 
         await addItemToWishlist({
             product_id: product_id
@@ -131,12 +135,14 @@ export default function Wishlist(props) {
                         {!addedToWishlist || removeWishlistMsg ? (
                             <>
                                 <button
-                                role="button"
-                                className={classes.add_to_project}
-                                onClick={() => addtowishlist(value.id)}
-                                onKeyDown={() => addtowishlist(value.id)}
-                                tabIndex={0}
-                                >ADD TO PROJECT</button>
+                                    role="button"
+                                    className={classes.add_to_project}
+                                    onClick={() => addtowishlist(value.id)}
+                                    onKeyDown={() => addtowishlist(value.id)}
+                                    tabIndex={0}
+                                >
+                                    ADD TO PROJECT
+                                </button>
                                 {/* <span
                                     role="button"
                                     className={classes.wishlist_icon_wrap}
@@ -153,12 +159,14 @@ export default function Wishlist(props) {
                         ) : (
                             <>
                                 <button
-                                role="button"
-                                className={classes.add_to_project}
-                                onClick={() => addtowishlist(value.id)}
-                                onKeyDown={() => addtowishlist(value.id)}
-                                tabIndex={0}
-                                >ADD TO PROJECT</button>
+                                    role="button"
+                                    className={classes.add_to_project}
+                                    onClick={() => addtowishlist(value.id)}
+                                    onKeyDown={() => addtowishlist(value.id)}
+                                    tabIndex={0}
+                                >
+                                    ADD TO PROJECT
+                                </button>
                                 {/*<button
                                 role="button"
                                 className={classes.add_to_project}

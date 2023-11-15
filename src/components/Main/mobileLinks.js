@@ -16,92 +16,84 @@ import {
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 
-class ProjectLink extends Component{
-
-    constructor () {
-        super()
+class ProjectLink extends Component {
+    constructor() {
+        super();
         this.state = {
             pageDataAccess: [],
-            name: "React Component reload sample",
+            name: 'React Component reload sample',
             reload: false
-        }
+        };
     }
 
     componentDidMount() {
-        let pid = this.props.pid; 
-          
-          let grantAccess = "https://data.sherpagroupav.com/get_projectaccess.php?email="+pid;
-          console.log(grantAccess);
-          fetch(grantAccess)
+        let pid = this.props.pid;
+
+        let grantAccess =
+            'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
+        console.log(grantAccess);
+        fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
-              this.setState({
-                  pageDataAccess: res
-              })
-            });       
+                this.setState({
+                    pageDataAccess: res
+                });
+            });
     }
 
-    render(){
-
-        const classes = mergeClasses(
-            defaultClasses
-        );
-
-        
+    render() {
+        const classes = mergeClasses(defaultClasses);
 
         const ProjectItems = props => {
-
             const [activeClass, setActiveClass] = useState('home');
 
             console.log('ACCESSS ::::::::: ');
-            console.log(this.state.pageDataAccess["access"]);
+            console.log(this.state.pageDataAccess['access']);
 
-            if(this.state.pageDataAccess["access"] == 1) {
-                
-            return (
-                <button
-                    onClick={() => {
-                        setWishlistRender(true);
+            if (this.state.pageDataAccess['access'] == 1) {
+                return (
+                    <button
+                        onClick={() => {
+                            setWishlistRender(true);
 
-                        handleWishlist();
-                    }}
-                    className={
-                        defaultClasses.toolbar_items +
-                        ' ' +
-                        (activeClass == 'wishlist' ? defaultClasses.active : '')
-                    }
-                >
-                    <span
+                            handleWishlist();
+                        }}
                         className={
-                            defaultClasses.wishlist_image +
+                            defaultClasses.toolbar_items +
                             ' ' +
-                            classes.header_Actions_image
+                            (activeClass == 'wishlist'
+                                ? defaultClasses.active
+                                : '')
                         }
-                        title="My projects"
                     >
-                        {heartIcon}
-                    
-                    </span>
-                    <p className={defaultClasses.images_label}>
-                        <FormattedMessage
-                            id={'main.Wishlist'}
-                            defaultMessage={'My projects'}
-                        />
-                    </p>
-                </button>
-            );
-
+                        <span
+                            className={
+                                defaultClasses.wishlist_image +
+                                ' ' +
+                                classes.header_Actions_image
+                            }
+                            title="My projects"
+                        >
+                            {heartIcon}
+                        </span>
+                        <p className={defaultClasses.images_label}>
+                            <FormattedMessage
+                                id={'main.Wishlist'}
+                                defaultMessage={'My projects'}
+                            />
+                        </p>
+                    </button>
+                );
             } else {
-                return (<></>);
+                return <></>;
             }
+        };
 
-          }; 
-
-        return(
+        return (
             <React.Fragment>
-                <ProjectItems/>
+                <ProjectItems />
             </React.Fragment>
-        )
+        );
     }
 }
 
@@ -224,11 +216,7 @@ const MobileLinks = props => {
                         />
                     </p>
                 </button>
-                {email ? (
-                    <ProjectLink pid={email} />
-                ) : (
-                    <></>
-                )}
+                {email ? <ProjectLink pid={email} /> : <></>}
                 <button
                     onClick={() => {
                         handleProfile();

@@ -152,7 +152,6 @@ export const useCheckoutPage = props => {
     }, [checkoutStep, setCheckoutStep]);
 
     const handlePlaceOrder = useCallback(async () => {
-
         // Fetch order details and then use an effect to actually place the
         // order. If/when Apollo returns promises for invokers from useLazyQuery
         // we can just await this function and then perform the rest of order
@@ -167,14 +166,17 @@ export const useCheckoutPage = props => {
     useEffect(() => {
         async function placeOrderAndCleanup() {
             try {
+                var value = document.getElementById('cardMessage').value;
+                console.log('VALEUR :::: ' + cartId);
 
-                var value = document.getElementById("cardMessage").value;
-                console.log("VALEUR :::: "+cartId);
-
-                let grantAccess = "https://data.sherpagroupav.com/add_comment.php?cartId="+cartId+"&comment="+value;
+                let grantAccess =
+                    'https://data.sherpagroupav.com/add_comment.php?cartId=' +
+                    cartId +
+                    '&comment=' +
+                    value;
                 fetch(grantAccess)
                     .then(res => res.json())
-                    .then(res => {});  
+                    .then(res => {});
 
                 //throw new Error();
 
@@ -191,8 +193,6 @@ export const useCheckoutPage = props => {
                 await createCart({
                     fetchCartId
                 });
-                
-
             } catch (err) {
                 console.error(
                     'An error occurred during when placing the order',

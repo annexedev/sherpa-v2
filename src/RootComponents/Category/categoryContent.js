@@ -1,4 +1,10 @@
-import React, { Fragment, Suspense, useMemo, Component, useEffect } from 'react';
+import React, {
+    Fragment,
+    Suspense,
+    useMemo,
+    Component,
+    useEffect
+} from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
 import { useCategoryContent } from '../../peregrine/lib/talons/RootComponents/Category';
@@ -20,65 +26,64 @@ import NoProductsFound from './NoProductsFound';
 import { useFeaturedProducts } from '../../peregrine/lib/talons/FeaturedProduct/useFeaturedProduct';
 import FeaturedQuery from '../../queries/featuredProducts.graphql';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
-import axios from "axios";
+import axios from 'axios';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { gql } from '@apollo/client';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import cart from '@magento/peregrine/lib/context/cart';
 
-class OrderTotal extends Component{
-    constructor () {
-        super()
+class OrderTotal extends Component {
+    constructor() {
+        super();
         this.state = {
             pageData: []
-        }
+        };
     }
 
     componentDidMount() {
         let orderNumber = this.props.cid;
         let email = this.props.email;
-        let dataURL = "https://data.sherpagroupav.com/get_permissions.php?email="+email+"&cid="+orderNumber;
-        console.log("DATA URL");
+        let dataURL =
+            'https://data.sherpagroupav.com/get_permissions.php?email=' +
+            email +
+            '&cid=' +
+            orderNumber;
+        console.log('DATA URL');
         console.log(dataURL);
         fetch(dataURL)
-          .then(res => res.json())
-          .then(res => {
-            this.setState({
-                pageData: res
-            })
-          });        
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
     }
 
-    render(){
+    render() {
+        let projectname =
+            this.state.pageData.pname && this.state.pageData.pname;
 
-            let projectname = this.state.pageData.pname && this.state.pageData.pname;
-
-            if(this.props.email && projectname==0) {
-                window.location.href = "/brand-access";
-                return (
-                    <>Exiting</>
-                )
-            } else {
-                return (
-                    <></>
-                )
-            }
-        
+        if (this.props.email && projectname == 0) {
+            window.location.href = '/brand-access';
+            return <>Exiting</>;
+        } else {
+            return <></>;
+        }
     }
 }
 
-class TriggerOpen extends Component{
-    constructor () {
-        super()
+class TriggerOpen extends Component {
+    constructor() {
+        super();
         this.state = {
             pageData: []
-        }
+        };
     }
     componentDidMount() {
-        document.getElementById('user_account').click(); 
+        document.getElementById('user_account').click();
     }
-    render(){
-        return (<></>)
+    render() {
+        return <></>;
     }
 }
 
@@ -160,11 +165,11 @@ const CategoryContent = props => {
     // ) : null;
 
     let lng = '';
-    if(document.getElementById("currentLng") != null){
-        lng = document.getElementById("currentLng").innerHTML;
+    if (document.getElementById('currentLng') != null) {
+        lng = document.getElementById('currentLng').innerHTML;
     }
     let activeLng = '';
-    if(lng == 'Français') {
+    if (lng == 'Français') {
         activeLng = '-fr';
     } else {
         activeLng = '';
@@ -197,7 +202,7 @@ const CategoryContent = props => {
         ) : (
             <GalleryShimmer items={items} />
         );
-        
+
         const pagination = totalPagesFromData ? (
             <Pagination pageControl={pageControl} />
         ) : null;
@@ -240,7 +245,8 @@ const CategoryContent = props => {
             ''
         );
 
-    const catId = data && data.category && data.category.id ? data.category.id : 0;
+    const catId =
+        data && data.category && data.category.id ? data.category.id : 0;
 
     const [{ isSignedIn }] = useUserContext();
 
@@ -303,8 +309,8 @@ const CategoryContent = props => {
 */
 
     const GET_PAGE_SIZE = gql`
-    query ($filter: CategoryFilterInput) {
-        categoryList(filters: $filter) {
+        query($filter: CategoryFilterInput) {
+            categoryList(filters: $filter) {
                 children_count
                 children {
                     id
@@ -317,144 +323,194 @@ const CategoryContent = props => {
                     description
                     manufacturer_link
                 }
-                }
-          }
-        `;
-        
+            }
+        }
+    `;
+
     let exclude = 1;
 
-
-        
     const LinkList = () => {
-
         let categoryId = catId.toString();
 
-        console.log('categoryId: '+categoryId);
+        console.log('categoryId: ' + categoryId);
 
         const { data, loading } = useQuery(GET_PAGE_SIZE, {
             variables: {
                 filter: {
-                ids: {
-                  in: categoryId,
+                    ids: {
+                        in: categoryId
+                    }
                 },
-            },
-            fetchPolicy: 'network-only',
-            }});
+                fetchPolicy: 'no-cache'
+            }
+        });
 
         if (loading) {
-            return <p>Loading ...</p>
+            return <p>Loading ...</p>;
         }
 
         let childrenCount = data.categoryList.length;
-        
 
-        if(catId == 135 && !isSignedIn) {
+        if (catId == 135 && !isSignedIn) {
             exclude = 1;
         } else {
-            exclude = 0; 
+            exclude = 0;
         }
         const { email } = useDashboard();
 
         let lng = '';
-        if(document.getElementById("currentLng") != null){
-            lng = document.getElementById("currentLng").innerHTML;
+        if (document.getElementById('currentLng') != null) {
+            lng = document.getElementById('currentLng').innerHTML;
         }
         let activeLng = '';
-        if(lng == 'Français') {
+        if (lng == 'Français') {
             activeLng = '-fr';
         } else {
             activeLng = '';
         }
-        
+
         return (
-            
             <div className="App">
-                {isSignedIn ? (
-                    <OrderTotal cid={catId} email={email} /> 
-                ) : (
-                    <></>
-                )}
-                 
-              {exclude == 0 && data.categoryList && data.categoryList.map((e) => {
-                return (
-                    <div className='row'>
-                    {e.children.map((s) => {
-                      return (
-                        
-                          <div className='col-lg-3 col-md-6 col-sm-6 col-xs-12'>
-                            <div className={classes.boxcategory}>
-                                <p>{s.name}</p>
-                                {categoryId==42 ? (
-                                    <div className={classes.containerImgBox}><a href={"/"+s.url_path}><img className={classes.imgBox} src={s.image}/></a></div>
-                                ) : (
-                                    <></>
-                                )}
-                                <div className={classes.boxlink}><a href={"/"+s.url_path}>
-                                    <FormattedMessage
-                                        id={'categoryContent.viewProducts'}
-                                        defaultMessage={'View products list'}
-                                    />
-                                </a></div> 
-                                {categoryId==42 && s.manufacturer_link && activeLng == '' ? (
-                                   <div className={classes.boxlink}><a target="_blank" href={s.manufacturer_link}>
-                                    <FormattedMessage
-                                        id={'categoryContent.brandWebsite'}
-                                        defaultMessage={'Brand Website'}
-                                    />
-                                    </a></div>
-                                ) : (
-                                    <></>
-                                )}
-                                {categoryId==42 && s.description && isSignedIn ? (
-                                   <div className={classes.boxlink}><a target="_blank" href={"https://assets.sherpagroupav.com/pdf/"+s.description}>
-                                    <FormattedMessage
-                                        id={'categoryContent.priceList'}
-                                        defaultMessage={'Price List'}
-                                    />
-                                    </a></div>
-                                ) : (
-                                    <></>
-                                )}
+                {isSignedIn ? <OrderTotal cid={catId} email={email} /> : <></>}
+
+                {exclude == 0 &&
+                    data.categoryList &&
+                    data.categoryList.map(e => {
+                        return (
+                            <div className="row">
+                                {e.children.map(s => {
+                                    return (
+                                        <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                            <div
+                                                className={classes.boxcategory}
+                                            >
+                                                <p>{s.name}</p>
+                                                {categoryId == 42 ? (
+                                                    <div
+                                                        className={
+                                                            classes.containerImgBox
+                                                        }
+                                                    >
+                                                        <a
+                                                            href={
+                                                                '/' + s.url_path
+                                                            }
+                                                        >
+                                                            <img
+                                                                className={
+                                                                    classes.imgBox
+                                                                }
+                                                                src={s.image}
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                                <div
+                                                    className={classes.boxlink}
+                                                >
+                                                    <a href={'/' + s.url_path}>
+                                                        <FormattedMessage
+                                                            id={
+                                                                'categoryContent.viewProducts'
+                                                            }
+                                                            defaultMessage={
+                                                                'View products list'
+                                                            }
+                                                        />
+                                                    </a>
+                                                </div>
+                                                {categoryId == 42 &&
+                                                s.manufacturer_link &&
+                                                activeLng == '' ? (
+                                                    <div
+                                                        className={
+                                                            classes.boxlink
+                                                        }
+                                                    >
+                                                        <a
+                                                            target="_blank"
+                                                            href={
+                                                                s.manufacturer_link
+                                                            }
+                                                        >
+                                                            <FormattedMessage
+                                                                id={
+                                                                    'categoryContent.brandWebsite'
+                                                                }
+                                                                defaultMessage={
+                                                                    'Brand Website'
+                                                                }
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                                {categoryId == 42 &&
+                                                s.description &&
+                                                isSignedIn ? (
+                                                    <div
+                                                        className={
+                                                            classes.boxlink
+                                                        }
+                                                    >
+                                                        <a
+                                                            target="_blank"
+                                                            href={
+                                                                'https://assets.sherpagroupav.com/pdf/' +
+                                                                s.description
+                                                            }
+                                                        >
+                                                            <FormattedMessage
+                                                                id={
+                                                                    'categoryContent.priceList'
+                                                                }
+                                                                defaultMessage={
+                                                                    'Price List'
+                                                                }
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
-                          </div>
-                         
-                        
-                      );
+                        );
                     })}
-                  </div>
-                );
-              })}
             </div>
-          );
-      };
+        );
+    };
 
     function openLoginBox() {
         console.log('Open the shit');
         document.getElementById('user_account').click();
-    }  
+    }
 
-    if(catId == 135 && !isSignedIn && !isLoading) {
+    if (catId == 135 && !isSignedIn && !isLoading) {
         exclude = 1;
     } else {
         exclude = 0;
     }
 
     const Banner = React.lazy(() => import('/src/components/CedHome/banner'));
-    const categoryBannerIdentifierHome = 'banner_'+catId;
-    const categoryBannerIdentifierPromotion = 'promotion-register'+activeLng;
+    const categoryBannerIdentifierHome = 'banner_' + catId;
+    const categoryBannerIdentifierPromotion = 'promotion-register' + activeLng;
     let showCategoryBanners = true;
-    
+
     return (
-        
-        <Fragment> 
-            
+        <Fragment>
             <div className={'container'}>
                 <Breadcrumbs categoryId={categoryId} />
                 <StoreTitle>{categoryName}</StoreTitle>
                 <article className={classes.root}>
-
-                    <div className='row'>
-                        <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+                    <div className="row">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <h1 className={classes.title}>
                                 <div className={classes.categoryTitle}>
                                     {categoryTitle}
@@ -462,100 +518,112 @@ const CategoryContent = props => {
                                 <div className={classes.categoryInfo}>
                                     ({categoryResultsHeading})
                                 </div>
-                                
                             </h1>
-                                <Suspense fallback={''}>
-                                    <Banner
-                                        identifier={categoryBannerIdentifierHome}
-                                        showBanner={showCategoryBanners}
-                                    />
-                                </Suspense>
-                            {isSignedIn && categoryDescription != null ?
+                            <Suspense fallback={''}>
+                                <Banner
+                                    identifier={categoryBannerIdentifierHome}
+                                    showBanner={showCategoryBanners}
+                                />
+                            </Suspense>
+                            {isSignedIn && categoryDescription != null ? (
                                 <div className={classes.downloadboxlink}>
                                     <a
-                                        
                                         href={`https://assets.sherpagroupav.com/pdf/${categoryDescription}`}
                                         target="_blank"
-                                    >Download price list</a>
+                                    >
+                                        Download price list
+                                    </a>
                                 </div>
-                            : ''}
-                            {!isSignedIn && catId == 135 ?
+                            ) : (
+                                ''
+                            )}
+                            {!isSignedIn && catId == 135 ? (
                                 <div>
-                                    <TriggerOpen/>
+                                    <TriggerOpen />
                                     <Suspense fallback={''}>
                                         <Banner
-                                            identifier={categoryBannerIdentifierPromotion}
+                                            identifier={
+                                                categoryBannerIdentifierPromotion
+                                            }
                                             showBanner={showCategoryBanners}
                                         />
                                     </Suspense>
                                     <div className={classes.boxlinkCustom}>
-                                        <a style={{cursor:'pointer'}} onClick={openLoginBox}>
-                                            <FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} />
+                                        <a
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={openLoginBox}
+                                        >
+                                            <FormattedMessage
+                                                id={'item.loginMessage'}
+                                                defaultMessage={
+                                                    'Login or Register for an Account'
+                                                }
+                                            />
                                         </a>
                                     </div>
-                                    
                                 </div>
-                            : ''} 
-                            
-                            
-
+                            ) : (
+                                ''
+                            )}
                         </div>
-                        <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right'>
+                        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
                             {banner}
                         </div>
-                        
                     </div>
                     <LinkList />
                     {catId != 42 && catId != 382 && exclude == 0 ? (
-
-                    <div className={classes.contentWrapper} >
-                        {!mobileView && (
-                            <div className={classes.sidebar}>
-                                {maybeSortButton}
-                                <Suspense fallback={<FilterSidebarShimmer />}>
-                                    {sidebar}
-                                </Suspense>
-                            </div>
-                        )}
-                        <div className={classes.categoryContent}>
+                        <div className={classes.contentWrapper}>
                             {!mobileView && (
-                                <div>
-                                    <div className={classes.headerButtons}>
-                                        {maybeFilterButtons}
-                                        {/* {maybeSortButton} */}
-                                    </div>
-                                    {/* {maybeSortContainer} */}
+                                <div className={classes.sidebar}>
+                                    {maybeSortButton}
+                                    <Suspense
+                                        fallback={<FilterSidebarShimmer />}
+                                    >
+                                        {sidebar}
+                                    </Suspense>
                                 </div>
                             )}
-                            {mobileView && (
-                                <div className={classes.mobile_headerButtons}>
+                            <div className={classes.categoryContent}>
+                                {!mobileView && (
+                                    <div>
+                                        <div className={classes.headerButtons}>
+                                            {maybeFilterButtons}
+                                            {/* {maybeSortButton} */}
+                                        </div>
+                                        {/* {maybeSortContainer} */}
+                                    </div>
+                                )}
+                                {mobileView && (
                                     <div
-                                        className={
-                                            classes.mobile_headerButtons_inner
-                                        }
+                                        className={classes.mobile_headerButtons}
                                     >
-                                        {maybeFilterButtons}
                                         <div
-                                            className={classes.sort_btn_mobile}
+                                            className={
+                                                classes.mobile_headerButtons_inner
+                                            }
                                         >
-                                            {maybeSortButton}
+                                            {maybeFilterButtons}
+                                            <div
+                                                className={
+                                                    classes.sort_btn_mobile
+                                                }
+                                            >
+                                                {maybeSortButton}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
-                            
-                            {content}
-                            
-                            <Suspense fallback={null}>{filtersModal}</Suspense>
+                                )}
+
+                                {content}
+
+                                <Suspense fallback={null}>
+                                    {filtersModal}
+                                </Suspense>
+                            </div>
                         </div>
-                    </div>
-
                     ) : (
-
                         <></>
-                                            
                     )}
-                   
                 </article>
             </div>
         </Fragment>

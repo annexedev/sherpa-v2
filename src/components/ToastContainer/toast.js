@@ -26,7 +26,7 @@ const Toast = props => {
     const controls =
         onDismiss || dismissable ? (
             <button className={classes.dismissButton} onClick={handleDismiss}>
-                <Icon src={CloseIcon} attrs={{ width: 18 }} color='white' />
+                <Icon src={CloseIcon} attrs={{ width: 18 }} color="white" />
             </button>
         ) : null;
 

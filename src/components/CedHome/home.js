@@ -10,7 +10,7 @@ import Image from '../Image';
 import { useIntl } from 'react-intl';
 import BannerSkelton from './bannerSkeleton';
 import ReactDOM from 'react-dom';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 
 const Banner = React.lazy(() => import('./banner'));
@@ -33,11 +33,11 @@ const Home = props => {
     });*/
 
     let lng = '';
-    if(document.getElementById("currentLng") != null){
-        lng = document.getElementById("currentLng").innerHTML;
+    if (document.getElementById('currentLng') != null) {
+        lng = document.getElementById('currentLng').innerHTML;
     }
     let activeLng = '';
-    if(lng == 'Français') {
+    if (lng == 'Français') {
         activeLng = '-fr';
     } else {
         activeLng = '';
@@ -70,7 +70,6 @@ const Home = props => {
             showOfferBanners = parseInt(HomepageConfig[i]['value']);
         if (HomepageConfig[i]['name'] == 'show_home_slider')
             showHomeSlider = parseInt(HomepageConfig[i]['value']);
-            
     }
 
     //const { sliderData } = talonProps;
@@ -85,90 +84,109 @@ const Home = props => {
     const categoryBannerIdentifierHome = 'home_banners';
 
     var arr = [];
-    while(arr.length < 3){
+    while (arr.length < 3) {
         var r = Math.floor(Math.random() * 5) + 1;
-        if(arr.indexOf(r) === -1) arr.push(r);
+        if (arr.indexOf(r) === -1) arr.push(r);
     }
     //console.log(arr[0]);
 
-    const desktopsliderIdentifier1 = 'homepage_desktop_banner_'+arr[0];
-    const desktopsliderIdentifier2 = 'homepage_desktop_banner_'+arr[1];
-    const desktopsliderIdentifier3 = 'homepage_desktop_banner_'+arr[2];
+    const desktopsliderIdentifier1 = 'homepage_desktop_banner_' + arr[0];
+    const desktopsliderIdentifier2 = 'homepage_desktop_banner_' + arr[1];
+    const desktopsliderIdentifier3 = 'homepage_desktop_banner_' + arr[2];
 
-    const mobilesliderIdentifier1 = 'homepage_mobile_banner_'+arr[0];
-    const mobilesliderIdentifier2 = 'homepage_mobile_banner_'+arr[1];
-    const mobilesliderIdentifier3 = 'homepage_mobile_banner_'+arr[2];
+    const mobilesliderIdentifier1 = 'homepage_mobile_banner_' + arr[0];
+    const mobilesliderIdentifier2 = 'homepage_mobile_banner_' + arr[1];
+    const mobilesliderIdentifier3 = 'homepage_mobile_banner_' + arr[2];
 
     return (
         <React.Fragment>
             <div>
+                {!mobileView && (
+                    <React.Suspense fallback={null}>
+                        <Carousel
+                            showThumbs={false}
+                            autoPlay={true}
+                            showStatus={false}
+                            infiniteLoop={true}
+                            interval={6000}
+                        >
+                            <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={
+                                            desktopsliderIdentifier1 + activeLng
+                                        }
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                            </div>
+                            <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={
+                                            desktopsliderIdentifier2 + activeLng
+                                        }
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                            </div>
+                            <div>
+                                <Suspense fallback={''}>
+                                    <Banner
+                                        identifier={
+                                            desktopsliderIdentifier3 + activeLng
+                                        }
+                                        showBanner={showOfferBanners}
+                                    />
+                                </Suspense>
+                            </div>
+                        </Carousel>
+                    </React.Suspense>
+                )}
 
-            {!mobileView && (
-                <React.Suspense fallback={null}>
-                    <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true} interval={6000}>
-                        <div>
+                {mobileView && (
+                    <React.Suspense fallback={null}>
+                        <Carousel
+                            showThumbs={false}
+                            autoPlay={true}
+                            showStatus={false}
+                            infiniteLoop={true}
+                            interval={6000}
+                        >
+                            <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={desktopsliderIdentifier1+activeLng}
+                                        identifier={
+                                            mobilesliderIdentifier1 + activeLng
+                                        }
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
-                        </div>
-                        <div>
+                            </div>
+                            <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={desktopsliderIdentifier2+activeLng}
+                                        identifier={
+                                            mobilesliderIdentifier2 + activeLng
+                                        }
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
-                        </div>
-                        <div>
+                            </div>
+                            <div>
                                 <Suspense fallback={''}>
                                     <Banner
-                                        identifier={desktopsliderIdentifier3+activeLng}
+                                        identifier={
+                                            mobilesliderIdentifier3 + activeLng
+                                        }
                                         showBanner={showOfferBanners}
                                     />
                                 </Suspense>
-                        </div>
-                    </Carousel>
-                </React.Suspense>
-            )}
+                            </div>
+                        </Carousel>
+                    </React.Suspense>
+                )}
 
-            {mobileView && (
-                <React.Suspense fallback={null}>
-                    <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true} interval={6000}>
-                        <div>
-                                <Suspense fallback={''}>
-                                    <Banner
-                                        identifier={mobilesliderIdentifier1+activeLng}
-                                        showBanner={showOfferBanners}
-                                    />
-                                </Suspense>
-                        </div>
-                        <div>
-                                <Suspense fallback={''}>
-                                    <Banner
-                                        identifier={mobilesliderIdentifier2+activeLng}
-                                        showBanner={showOfferBanners}
-                                    />
-                                </Suspense>
-                        </div>
-                        <div>
-                                <Suspense fallback={''}>
-                                    <Banner
-                                        identifier={mobilesliderIdentifier3+activeLng}
-                                        showBanner={showOfferBanners}
-                                    />
-                                </Suspense>
-                        </div>
-                    </Carousel>
-                </React.Suspense>
-            )}
-
-            
-            
-                
-                
                 {/* features block */}
                 {showOfferBanners != 0 && (
                     <React.Suspense fallback={null}>
@@ -181,7 +199,9 @@ const Home = props => {
                         >
                             <Suspense fallback={''}>
                                 <Banner
-                                    identifier={offerBannersIdentifier+activeLng}
+                                    identifier={
+                                        offerBannersIdentifier + activeLng
+                                    }
                                     showBanner={showOfferBanners}
                                 />
                             </Suspense>
@@ -206,7 +226,9 @@ const Home = props => {
                         >
                             <Suspense fallback={''}>
                                 <Banner
-                                    identifier={categoryBannerIdentifierHome+activeLng}
+                                    identifier={
+                                        categoryBannerIdentifierHome + activeLng
+                                    }
                                     showBanner={showCategoryBanners}
                                 />
                             </Suspense>
@@ -215,8 +237,6 @@ const Home = props => {
                 )}
                 {/* mid banner section END */}
 
-                
-                
                 {/* top category section */}
                 {showCategoryIcons != 0 && (
                     <div
@@ -230,26 +250,24 @@ const Home = props => {
                     >
                         <Suspense fallback={bannerSkelton}>
                             <Banner
-                                identifier={catIconIdentifier+activeLng}
+                                identifier={catIconIdentifier + activeLng}
                                 showBanner={showCategoryIcons}
                             />
                         </Suspense>
                         <div className={defaultClasses.button_new}>
                             <div>
-                            {activeLng == '-fr' && (
-                            <>
-                                <a href="/brands">VOIR TOUS</a>
-                            </>
-                            )}
-                            {activeLng == '' && (
-                            <>
-                                <a href="/brands">SEE ALL</a>
-                            </>
-                            )}
-                                
+                                {activeLng == '-fr' && (
+                                    <>
+                                        <a href="/brands">VOIR TOUS</a>
+                                    </>
+                                )}
+                                {activeLng == '' && (
+                                    <>
+                                        <a href="/brands">SEE ALL</a>
+                                    </>
+                                )}
                             </div>
                         </div>
-                        
                     </div>
                 )}
                 {/* top category section end */}
@@ -258,20 +276,19 @@ const Home = props => {
                 {showLatestProducts && scrollFlag && (
                     <Suspense fallback={''}>
                         <SliderProduct
-                                    showLinkedProduct={showLatestProducts}
-                                    type="Latest Product"
-                                    name={formatMessage({
-                                        id: 'home.latest',
-                                        defaultMessage: 'INSTALLER ESSENTIALS'
-                                    })}
-                                    classes={classes}
-                                />
-                        
+                            showLinkedProduct={showLatestProducts}
+                            type="Latest Product"
+                            name={formatMessage({
+                                id: 'home.latest',
+                                defaultMessage: 'INSTALLER ESSENTIALS'
+                            })}
+                            classes={classes}
+                        />
                     </Suspense>
                 )}
 
                 {/* Latest product section end */}
-                            
+
                 {/* mid banner section start */}
                 {showCategoryBanners != 0 && scrollFlag && (
                     <section
@@ -287,7 +304,9 @@ const Home = props => {
                     >
                         <Suspense fallback={''}>
                             <Banner
-                                identifier={categoryBannerIdentifier+activeLng}
+                                identifier={
+                                    categoryBannerIdentifier + activeLng
+                                }
                                 showBanner={showCategoryBanners}
                             />
                         </Suspense>
@@ -311,8 +330,6 @@ const Home = props => {
                 )} */}
 
                 {/* Trending product section end */}
-                            
-                
             </div>
         </React.Fragment>
     );

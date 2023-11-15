@@ -84,8 +84,8 @@ const Product = props => {
         productUrlSuffix = config.product_url_suffix;
     }
 
-    const [selectValue, setSelectValue] = React.useState("");
-    const onChange = (event) => {
+    const [selectValue, setSelectValue] = React.useState('');
+    const onChange = event => {
         const value = event.target.value;
         setSelectValue(value);
     };
@@ -96,11 +96,11 @@ const Product = props => {
     }
 
     let lng = '';
-    if(document.getElementById("currentLng") != null){
-        lng = document.getElementById("currentLng").innerHTML;
+    if (document.getElementById('currentLng') != null) {
+        lng = document.getElementById('currentLng').innerHTML;
     }
     let activeLng = '';
-    if(lng == 'Français') {
+    if (lng == 'Français') {
         activeLng = '-fr';
     } else {
         activeLng = '';
@@ -128,19 +128,26 @@ const Product = props => {
                                     width="300"
                                 />
                             </Link>
-
-                            
                         </div>
-                        <p className={classes.product_brand_name}>{value.product_brand}</p>
+                        <p className={classes.product_brand_name}>
+                            {value.product_brand}
+                        </p>
                         <div className={defaultClasses.noo_details_wrapper}>
-                            <h3 className={defaultClasses.product_name} style={{"min-height":"50px"}}>
+                            <h3
+                                className={defaultClasses.product_name}
+                                style={{ 'min-height': '50px' }}
+                            >
                                 <Link
                                     to={resourceUrl(
                                         value['urlkey'] + productUrlSuffix
                                     )}
                                 >
-                                    <span>{value.name.length > 55 ? value.name.substring(0, 52) + " [...]" : value.name}</span>
-                                    
+                                    <span>
+                                        {value.name.length > 55
+                                            ? value.name.substring(0, 52) +
+                                              ' [...]'
+                                            : value.name}
+                                    </span>
                                 </Link>
                             </h3>
                             {/* <p className={defaultClasses.vendor_price_wrap}>
@@ -148,16 +155,18 @@ const Product = props => {
               </p> */}
 
                             {email && (
-                            <div className={defaultClasses.vendor_price_wrap}>
-                                <div className={defaultClasses.price}>
-                                    <PriceRange
-                                        price={value.price_range}
-                                        optionFlag={false}
-                                        product={value}
-                                        type={value.type}
-                                    />
+                                <div
+                                    className={defaultClasses.vendor_price_wrap}
+                                >
+                                    <div className={defaultClasses.price}>
+                                        <PriceRange
+                                            price={value.price_range}
+                                            optionFlag={false}
+                                            product={value}
+                                            type={value.type}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
                             )}
                             {false && (
                                 <div
@@ -213,28 +222,45 @@ const Product = props => {
                             <div className={defaultClasses.add_to_cart_Wrap}>
                                 {value.type == 'simple' && (
                                     <>
-                                    
-                                    
-                                    {email ? (
+                                        {email ? (
+                                            <div>
+                                                <div
+                                                    className={
+                                                        'c' +
+                                                        value.id +
+                                                        ' ' +
+                                                        classes.qty_selector
+                                                    }
+                                                >
+                                                    <QuantityPicker
+                                                        min={1}
+                                                        value={1}
+                                                    />
+                                                </div>
+                                                <button
+                                                    aria-label="Addtocart"
+                                                    className={
+                                                        classes.add_to_cart_btn
+                                                    }
+                                                    onClick={() => {
+                                                        handleAddToCart(value);
+                                                        setShowAlertMsg(true);
+                                                        setLoaderName(
+                                                            value.name
+                                                        );
+                                                    }}
+                                                >
+                                                    <FormattedMessage
+                                                        id={
+                                                            'home.add_to_cart_btn'
+                                                        }
+                                                        defaultMessage={
+                                                            'ADD TO CART'
+                                                        }
+                                                    />
+                                                </button>
 
-                                        <div> 
-                                        <div className={'c'+value.id+' '+classes.qty_selector}><QuantityPicker min={1} value={1} /></div> 
-                                    <button
-                                        aria-label="Addtocart"
-                                        className={classes.add_to_cart_btn}
-                                        onClick={() => {
-                                            handleAddToCart(value);
-                                            setShowAlertMsg(true);
-                                            setLoaderName(value.name);
-                                        }}
-                                    >
-                                        <FormattedMessage
-                                            id={'home.add_to_cart_btn'}
-                                            defaultMessage={'ADD TO CART'}
-                                        />
-                                    </button>
-                                        
-                                    {/*<button
+                                                {/*<button
                                         aria-label="Addtocart"
                                         className={classes.add_to_cart_btn}
                                         onClick={() => {
@@ -249,8 +275,8 @@ const Product = props => {
                                         />
                                     </button> */}
 
-                                            {/* wishlist section */}
-                                            {/*<Suspense fallback={''}>
+                                                {/* wishlist section */}
+                                                {/*<Suspense fallback={''}>
                                                 <Wishlist value={value} />
                                             </Suspense>
 
@@ -264,23 +290,62 @@ const Product = props => {
                                                     <input className={classes.project_input} type='text'/><button className={classes.project_button}>OK</button>
                                                 </div>
                                             )} */}
-                                        </div>
-                                    ) : (
-                                        <>
-                                        
-                                        {activeLng == '-fr' && (
-                                        <>
-                                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}>Connectez-vous ou créez un compte</a></div>
-                                        </>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                {activeLng == '-fr' && (
+                                                    <>
+                                                        <div
+                                                            className={
+                                                                classes.boxlink
+                                                            }
+                                                        >
+                                                            <a
+                                                                style={{
+                                                                    cursor:
+                                                                        'pointer'
+                                                                }}
+                                                                onClick={
+                                                                    openLoginBox
+                                                                }
+                                                            >
+                                                                Connectez-vous
+                                                                ou créez un
+                                                                compte
+                                                            </a>
+                                                        </div>
+                                                    </>
+                                                )}
+                                                {activeLng == '' && (
+                                                    <>
+                                                        <div
+                                                            className={
+                                                                classes.boxlink
+                                                            }
+                                                        >
+                                                            <a
+                                                                style={{
+                                                                    cursor:
+                                                                        'pointer'
+                                                                }}
+                                                                onClick={
+                                                                    openLoginBox
+                                                                }
+                                                            >
+                                                                <FormattedMessage
+                                                                    id={
+                                                                        'item.loginMessage'
+                                                                    }
+                                                                    defaultMessage={
+                                                                        'Login or Register for an Account'
+                                                                    }
+                                                                />
+                                                            </a>
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </>
                                         )}
-                                        {activeLng == '' && (
-                                        <>
-                                            <div className={classes.boxlink}><a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} /></a></div>
-                                        </>
-                                        )}
-                                        </>
-                                    )}
-
                                     </>
                                 )}
                                 {value.type != 'simple' && (

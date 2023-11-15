@@ -68,7 +68,6 @@
     background: var(--primary-base-color);
 }
 
-
 span[class='quantity-picker'] {
     margin-bottom: 5px;
 }
@@ -108,7 +107,7 @@ button[class='quantity-modifier modifier-right']:hover {
     margin-bottom: 5px;
     border: 2px solid #e1e1e1;
 }
-.add_to_project{
+.add_to_project {
     background: #007637;
     border-radius: 5px;
     padding: 10px 10px;
@@ -137,7 +136,7 @@ button[class='quantity-modifier modifier-right']:hover {
     color: #8cc650;
 }
 
-.discountedprice span{
+.discountedprice span {
     color: red;
 }
 

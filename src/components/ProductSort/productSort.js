@@ -16,18 +16,19 @@ const ProductSort = props => {
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
-    
 
     useEffect(() => {
         // Update the document title using the browser API
         //document.getElementById('setSort').click();
-        if(!mobileView) { setExpanded(true); }
-        if(currentSort && currentSort.sortText=='Relevance') {
+        if (!mobileView) {
+            setExpanded(true);
+        }
+        if (currentSort && currentSort.sortText == 'Relevance') {
             //document.getElementById('setSort').click();
             //document.getElementById('skusku').click();
             //currentSort.sortText=='Positionx';
         }
-      });
+    });
 
     // click event for menu items
     const handleItemClick = useCallback(
@@ -86,8 +87,6 @@ const ProductSort = props => {
     const handleSortClick = () => {
         setExpanded(!expanded);
     };
-
-    
 
     return (
         <div
@@ -176,50 +175,50 @@ ProductSort.propTypes = {
 };
 
 let lng = '';
-if(document.getElementById("currentLng") != null){
-    lng = document.getElementById("currentLng").innerHTML;
+if (document.getElementById('currentLng') != null) {
+    lng = document.getElementById('currentLng').innerHTML;
 }
 let activeLng = '';
-if(lng == 'Français') {
+if (lng == 'Français') {
     activeLng = '-fr';
 } else {
     activeLng = '';
-} 
-if(activeLng == '-fr') {
-ProductSort.defaultProps = {
-    availableSortMethods: [
-        {
-            text: 'Pertinence',
-            id: 'sortItem.relevance',
-            attribute: 'relevance',
-            sortDirection: 'DESC'
-        },
-        {
-            text: 'No. Article: Croissant',
-            id: 'sortItem.sku',
-            attribute: 'sku',
-            sortDirection: 'ASC'
-        },
-        {
-            text: 'No. Article: Décroissant',
-            id: 'sortItem.sku2',
-            attribute: 'sku',
-            sortDirection: 'DESC'
-        },
-        {
-            id: 'sortItem.priceAsc',
-            text: 'Prix: Bas à élevé',
-            attribute: 'price',
-            sortDirection: 'ASC'
-        },
-        {
-            id: 'sortItem.priceDesc',
-            text: 'Prix: Élevé à bas',
-            attribute: 'price',
-            sortDirection: 'DESC'
-        }
-    ]
-};
+}
+if (activeLng == '-fr') {
+    ProductSort.defaultProps = {
+        availableSortMethods: [
+            {
+                text: 'Pertinence',
+                id: 'sortItem.relevance',
+                attribute: 'relevance',
+                sortDirection: 'DESC'
+            },
+            {
+                text: 'No. Article: Croissant',
+                id: 'sortItem.sku',
+                attribute: 'sku',
+                sortDirection: 'ASC'
+            },
+            {
+                text: 'No. Article: Décroissant',
+                id: 'sortItem.sku2',
+                attribute: 'sku',
+                sortDirection: 'DESC'
+            },
+            {
+                id: 'sortItem.priceAsc',
+                text: 'Prix: Bas à élevé',
+                attribute: 'price',
+                sortDirection: 'ASC'
+            },
+            {
+                id: 'sortItem.priceDesc',
+                text: 'Prix: Élevé à bas',
+                attribute: 'price',
+                sortDirection: 'DESC'
+            }
+        ]
+    };
 } else {
     ProductSort.defaultProps = {
         availableSortMethods: [

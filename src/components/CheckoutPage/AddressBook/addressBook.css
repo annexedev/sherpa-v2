@@ -1,16 +1,15 @@
 .root {
     display: none;
 }
-.noticeshipping 
-    {
-        display: inline-block;
-        border: 1px solid black;
-        border-radius: 3px;
-        padding: 9px 20px;
-        background: #ffeb3b !important;
-        color: black !important;
-        transition: 0.3s all;
-    }
+.noticeshipping {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 9px 20px;
+    background: #ffeb3b !important;
+    color: black !important;
+    transition: 0.3s all;
+}
 .root_active {
     composes: root;
     align-items: center;

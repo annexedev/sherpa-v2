@@ -78,7 +78,7 @@ export const useSignIn = props => {
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
 
-                console.log('TOKEN:'+token);
+                console.log('TOKEN:' + token);
 
                 await setToken(token);
 

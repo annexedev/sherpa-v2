@@ -1,4 +1,6 @@
-.root {padding:0px !important;}
+.root {
+    padding: 0px !important;
+}
 .root h1,
 .root h2,
 .root h3,
@@ -108,7 +110,6 @@
 }
 
 @media only screen and (min-width: 769px) {
-    
     .root h1 {
         font-size: 3rem;
         margin-top: 0.75em;

@@ -32,7 +32,6 @@ import { X as ClearIcon } from 'react-feather';
 const clearIcon = <Icon src={ClearIcon} size={30} />;
 
 const CreateAccount = props => {
-
     const { handleTriggerClick, onCancel } = props;
     const [isChecked, setIsChecked] = useState(false);
     const { formatMessage } = useIntl();
@@ -82,17 +81,13 @@ const CreateAccount = props => {
         </Button>
     );
 
-    var source = document.getElementById("formJot");
-    document.getElementById("newJot").appendChild(source);
-
-    
-
-    
+    var source = document.getElementById('formJot');
+    document.getElementById('newJot').appendChild(source);
 
     return (
         <div className={signClasses.root}>
-             <div className='row'>
-                <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us'>
+            <div className="row">
+                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us">
                     <h2 className={signClasses.title}>
                         <FormattedMessage
                             id={'createAccount.title'}
@@ -100,7 +95,7 @@ const CreateAccount = props => {
                         />
                     </h2>
                 </div>
-                <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us'>
+                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us">
                     <div className={'text-right'}>
                         <span
                             role="button"
@@ -113,20 +108,15 @@ const CreateAccount = props => {
                         </span>
                     </div>
                 </div>
-             </div>
-            <div className='row'>
-            <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 about-us'>
-            
-                <div id='newJot'></div>
-
             </div>
+            <div className="row">
+                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 about-us">
+                    <div id="newJot" />
+                </div>
             </div>
-            <div className='row'>
-            <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us'>
-              
-               
-                   
-                 {/* <Form
+            <div className="row">
+                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us">
+                    {/* <Form
                     className={classes.root}
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
@@ -228,11 +218,9 @@ const CreateAccount = props => {
                     </div>
                     
                 </Form> */}
-                
-            </div>
-            <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us'>
-                
-                {/*<Form
+                </div>
+                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 about-us">
+                    {/*<Form
                     className={classes.root}
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
@@ -332,12 +320,10 @@ const CreateAccount = props => {
                     </div>
                     <div className={classes.actions}>{submitButton}</div>
                 </Form> */}
-                
-                
+                </div>
             </div>
-            </div>
-            <div className='row'>
-                <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 about-us'>
+            <div className="row">
+                <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 about-us">
                     <div className={signClasses.create_account_div}>
                         <h2 className={signClasses.title}>
                             <FormattedMessage
@@ -345,7 +331,11 @@ const CreateAccount = props => {
                                 defaultMessage={`Already a Member?`}
                             />
                         </h2>
-                        <div className={signClasses.buttonsContainer + ' ' + 'mt-3'}>
+                        <div
+                            className={
+                                signClasses.buttonsContainer + ' ' + 'mt-3'
+                            }
+                        >
                             <Button
                                 className={signClasses.signup_button}
                                 priority="normal"

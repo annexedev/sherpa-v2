@@ -36,11 +36,9 @@ const ItemsReview = props => {
         isLoading
     } = talonProps;
 
-    
-
     const items = itemsInCart.map((item, index) => (
         <Item key={item.id} {...item} isHidden={!showAllItems && index >= 10} />
-    ));    
+    ));
 
     const showAllItemsFooter = !showAllItems ? (
         <ShowAllButton onClick={setShowAllItems} />

@@ -8,58 +8,54 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import wishlistClasses from './mywishlist.css';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 
-class ProjectList extends Component{
-
-    constructor () {
-        super()
+class ProjectList extends Component {
+    constructor() {
+        super();
         this.state = {
             pageData: [],
             pageDataAccess: [],
-            name: "React Component reload sample",
+            name: 'React Component reload sample',
             reload: false
-        }
+        };
     }
 
     componentDidMount() {
         let pid = this.props.pid;
 
-        let dataURL = "https://data.sherpagroupav.com/get_projects.php?email="+pid;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_projects.php?email=' + pid;
         fetch(dataURL)
-          .then(res => res.json())
-          .then(res => {
-            this.setState({
-                pageData: res
-            })
-          });      
-          
-          let grantAccess = "https://data.sherpagroupav.com/get_projectaccess.php?email="+pid;
-          fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
-              this.setState({
-                  pageDataAccess: res
-              })
-            });       
+                this.setState({
+                    pageData: res
+                });
+            });
+
+        let grantAccess =
+            'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
+        fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageDataAccess: res
+                });
+            });
     }
 
-    render(){
-
+    render() {
         let archive = this.props.archive;
 
-        const classes = mergeClasses(
-            defaultClasses,
-            wishlistClasses
-        );
+        const classes = mergeClasses(defaultClasses, wishlistClasses);
 
-        const queryParameters = new URLSearchParams(window.location.search)
+        const queryParameters = new URLSearchParams(window.location.search);
 
-        const projectId = queryParameters.get("id");
-        
+        const projectId = queryParameters.get('id');
+
         //console.log('Access ::::::: ');
         //console.log(this.state.pageDataAccess["access"]);
 
         const ProjectItems = props => {
-
             const { onClose } = props;
             let path = '';
             if (typeof props.activePath != 'undefined') {
@@ -68,102 +64,167 @@ class ProjectList extends Component{
                 path = props.history.location.pathname;
             }
 
-            if(this.state.pageDataAccess["access"] == 1) {
+            if (this.state.pageDataAccess['access'] == 1) {
                 console.log(this.props.archive);
-            return (
-              <>
-                    {!this.props.archive ? (
-                     <li
-                        className={
-                            path == '/wishlist'
-                                ? defaultClasses.item + ' ' + defaultClasses.active
-                                : defaultClasses.item
-                        }
-                    >
-                        {' '}
-                        <span className={defaultClasses.dashboard_links_images}>
-                            <img
-                                src="/cenia-static/images/myprojects.png"
-                                alt="wishlist"
-                                width="20"
-                                height="20"
-                            />
-                        </span>
-                        <Link to="/wishlist" onClick={onClose}>
-                            <FormattedMessage
-                                id={'sidebar.MyWishlist'}
-                                defaultMessage={'My projects'}
-                            />
-                        </Link>
-                        
-                    </li> 
-                    ) : (
-                        <li
-                        className={
-                            path == '/wishlist'
-                                ? defaultClasses.item + ' ' + defaultClasses.active
-                                : defaultClasses.item
-                        }
-                    >
-                        {' '}
-                        <span className={defaultClasses.dashboard_links_images}>
-                            <img
-                                src="/cenia-static/images/myprojects.png"
-                                alt="wishlist"
-                                width="20"
-                                height="20"
-                            />
-                        </span>
-                        <Link to="/wishlist" onClick={onClose}>
-                            <FormattedMessage
-                                id={'sidebar.MyWishlist'}
-                                defaultMessage={'Project Archives'}
-                            />
-                        </Link>
-                        
-                    </li>
+                return (
+                    <>
+                        {!this.props.archive ? (
+                            <li
+                                className={
+                                    path == '/wishlist'
+                                        ? defaultClasses.item +
+                                          ' ' +
+                                          defaultClasses.active
+                                        : defaultClasses.item
+                                }
+                            >
+                                {' '}
+                                <span
+                                    className={
+                                        defaultClasses.dashboard_links_images
+                                    }
+                                >
+                                    <img
+                                        src="/cenia-static/images/myprojects.png"
+                                        alt="wishlist"
+                                        width="20"
+                                        height="20"
+                                    />
+                                </span>
+                                <Link to="/wishlist" onClick={onClose}>
+                                    <FormattedMessage
+                                        id={'sidebar.MyWishlist'}
+                                        defaultMessage={'My projects'}
+                                    />
+                                </Link>
+                            </li>
+                        ) : (
+                            <li
+                                className={
+                                    path == '/wishlist'
+                                        ? defaultClasses.item +
+                                          ' ' +
+                                          defaultClasses.active
+                                        : defaultClasses.item
+                                }
+                            >
+                                {' '}
+                                <span
+                                    className={
+                                        defaultClasses.dashboard_links_images
+                                    }
+                                >
+                                    <img
+                                        src="/cenia-static/images/myprojects.png"
+                                        alt="wishlist"
+                                        width="20"
+                                        height="20"
+                                    />
+                                </span>
+                                <Link to="/wishlist" onClick={onClose}>
+                                    <FormattedMessage
+                                        id={'sidebar.MyWishlist'}
+                                        defaultMessage={'Project Archives'}
+                                    />
+                                </Link>
+                            </li>
                         )}
-                    
-                    {this.state.pageData && this.state.pageData.map((e) => {
-                    if(e.category_name.startsWith('ARCHIVE') && this.props.archive && projectId == e.category_id) {
-                        return (
-                            <li className={classes.projectlist+' '+classes.projectlistactive}><a href={"/wishlist?id="+e.category_id}>{e.category_name}</a></li>
-                        );
-                    } else if (e.category_name.startsWith('ARCHIVE') && this.props.archive) {
-                        return (
-                            <li className={classes.projectlist}><a href={"/wishlist?id="+e.category_id}>{e.category_name}</a></li>
-                        );
-                    }
-                    if(!e.category_name.startsWith('ARCHIVE') && !this.props.archive && projectId == e.category_id) {
-                        return (
-                            <li className={classes.projectlist+' '+classes.projectlistactive}><a href={"/wishlist?id="+e.category_id}>{e.category_name}</a></li>
-                        );
-                    } else if (!e.category_name.startsWith('ARCHIVE') && !this.props.archive) {
-                        return (
-                            <li className={classes.projectlist}><a href={"/wishlist?id="+e.category_id}>{e.category_name}</a></li>
-                        );
-                    }
-                    
-                })}
 
-                 
-
-              </>
-            );
-
+                        {this.state.pageData &&
+                            this.state.pageData.map(e => {
+                                if (
+                                    e.category_name.startsWith('ARCHIVE') &&
+                                    this.props.archive &&
+                                    projectId == e.category_id
+                                ) {
+                                    return (
+                                        <li
+                                            className={
+                                                classes.projectlist +
+                                                ' ' +
+                                                classes.projectlistactive
+                                            }
+                                        >
+                                            <a
+                                                href={
+                                                    '/wishlist?id=' +
+                                                    e.category_id
+                                                }
+                                            >
+                                                {e.category_name}
+                                            </a>
+                                        </li>
+                                    );
+                                } else if (
+                                    e.category_name.startsWith('ARCHIVE') &&
+                                    this.props.archive
+                                ) {
+                                    return (
+                                        <li className={classes.projectlist}>
+                                            <a
+                                                href={
+                                                    '/wishlist?id=' +
+                                                    e.category_id
+                                                }
+                                            >
+                                                {e.category_name}
+                                            </a>
+                                        </li>
+                                    );
+                                }
+                                if (
+                                    !e.category_name.startsWith('ARCHIVE') &&
+                                    !this.props.archive &&
+                                    projectId == e.category_id
+                                ) {
+                                    return (
+                                        <li
+                                            className={
+                                                classes.projectlist +
+                                                ' ' +
+                                                classes.projectlistactive
+                                            }
+                                        >
+                                            <a
+                                                href={
+                                                    '/wishlist?id=' +
+                                                    e.category_id
+                                                }
+                                            >
+                                                {e.category_name}
+                                            </a>
+                                        </li>
+                                    );
+                                } else if (
+                                    !e.category_name.startsWith('ARCHIVE') &&
+                                    !this.props.archive
+                                ) {
+                                    return (
+                                        <li className={classes.projectlist}>
+                                            <a
+                                                href={
+                                                    '/wishlist?id=' +
+                                                    e.category_id
+                                                }
+                                            >
+                                                {e.category_name}
+                                            </a>
+                                        </li>
+                                    );
+                                }
+                            })}
+                    </>
+                );
             } else {
-                return (<></>);
+                return <></>;
             }
+        };
 
-          }; 
-
-        return(
+        return (
             <React.Fragment>
-                
-                <ProjectItems/>
-
+                <ProjectItems />
             </React.Fragment>
-        )
+        );
     }
 }
 
@@ -227,22 +288,22 @@ const Sidebar = props => {
                         />
                     </Link>
                 </li>
-               
+
                 {email ? (
                     <ProjectList pid={email} archive={false} />
                 ) : (
-                        <>
+                    <>
                         <p>Loading projects</p>
-                        </>
-                    )}
-               
+                    </>
+                )}
+
                 {email ? (
                     <ProjectList pid={email} archive={true} />
                 ) : (
-                        <>
+                    <>
                         <p>Loading projects</p>
-                        </>
-                    )}
+                    </>
+                )}
                 <li
                     className={
                         path == '/addresses'
@@ -265,7 +326,7 @@ const Sidebar = props => {
                             defaultMessage={'Address Book'}
                         />
                     </Link>
-                </li> 
+                </li>
                 <li
                     className={
                         path == '/accountinformation'

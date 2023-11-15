@@ -1,4 +1,11 @@
-import React, { Fragment, Suspense, useEffect, useRef, useState, Component } from 'react';
+import React, {
+    Fragment,
+    Suspense,
+    useEffect,
+    useRef,
+    useState,
+    Component
+} from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
@@ -89,89 +96,91 @@ let data_value = 'A';
 
 function updateDataValue(valeur) {
     data_value = valeur;
-    console.log('UPDATE: '+data_value);
+    console.log('UPDATE: ' + data_value);
 }
 
-
-
-
-const ProductFullDetail = (props) => {
-
-    class ServiceDetailsEmployeurs extends Component{
-
-        constructor () {
-            super()
+const ProductFullDetail = props => {
+    class ServiceDetailsEmployeurs extends Component {
+        constructor() {
+            super();
             this.state = {
                 pageData: [],
                 pageDataAccess: [],
-                name: "React Component reload sample",
+                name: 'React Component reload sample',
                 reload: false
-            }
+            };
         }
-    
+
         refreshPage = () => {
-            this.setState(
-              {reload: true},
-              () => this.setState({reload: false})
-            )
-          }
-    
+            this.setState({ reload: true }, () =>
+                this.setState({ reload: false })
+            );
+        };
+
         submit() {
-            this.setState({ name: "React Component Updated - " + new Date() });
-         }
-    
-        onToggleLoop = (event) => {
-            this.setState({loopActive: !this.state.loopActive})
-            this.props.onToggleLoop()
-        } 
-    
+            this.setState({ name: 'React Component Updated - ' + new Date() });
+        }
+
+        onToggleLoop = event => {
+            this.setState({ loopActive: !this.state.loopActive });
+            this.props.onToggleLoop();
+        };
+
         componentDidMount() {
             let pid = this.props.pid;
-            let dataURL = "https://data.sherpagroupav.com/get_projects.php?email="+pid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_projects.php?email=' + pid;
             fetch(dataURL)
-              .then(res => res.json())
-              .then(res => {
-                this.setState({
-                    pageData: res
-                })
-              });   
-              
-              
-              let grantAccess = "https://data.sherpagroupav.com/get_projectaccess.php?email="+pid;
-                fetch(grantAccess)
-                    .then(res => res.json())
-                    .then(res => {
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+
+            let grantAccess =
+                'https://data.sherpagroupav.com/get_projectaccess.php?email=' +
+                pid;
+            fetch(grantAccess)
+                .then(res => res.json())
+                .then(res => {
                     this.setState({
                         pageDataAccess: res
-                    })
-                    });   
+                    });
+                });
         }
-    
-    
-    
-        render(){
-    
-            const ADD_TO_CUSTOM_PROJECT = gql`
-            mutation($category_id: String!, $product_id: Int!) {
-                MpBetterWishlistAddItem(
-                    input: { category_id: $category_id, product_id: $product_id }
-                )
-            }
-            `;
-    
-            
-    
-            function AddToProject({item_id,uid}) {
 
-                {/* get_projectaccess */}
-    
+        render() {
+            const ADD_TO_CUSTOM_PROJECT = gql`
+                mutation($category_id: String!, $product_id: Int!) {
+                    MpBetterWishlistAddItem(
+                        input: {
+                            category_id: $category_id
+                            product_id: $product_id
+                        }
+                    )
+                }
+            `;
+
+            function AddToProject({ item_id, uid }) {
+                {
+                    /* get_projectaccess */
+                }
+
                 let input;
-    
-                const [addTodo, { data, loading, error }] = useMutation(ADD_TO_CUSTOM_PROJECT);
-            
-                if (loading) return (<button type="" className={classes.add_to_project}>ADDING TO PROJECT</button>);
+
+                const [addTodo, { data, loading, error }] = useMutation(
+                    ADD_TO_CUSTOM_PROJECT
+                );
+
+                if (loading)
+                    return (
+                        <button type="" className={classes.add_to_project}>
+                            ADDING TO PROJECT
+                        </button>
+                    );
                 if (error) return `Submission error! ${error.message}`;
-    
+
                 function returnVal(sid) {
                     var e = document.getElementById(sid);
                     var value = e.options[e.selectedIndex].value;
@@ -185,63 +194,75 @@ const ProductFullDetail = (props) => {
                     var text = e.options[e.selectedIndex].text;
                     return text;
                 }
-                
-               
-                    return (
-                        <div>
-                            <button onClick={e => {
+
+                return (
+                    <div>
+                        <button
+                            onClick={e => {
                                 e.preventDefault();
-                                if(returnVal(uid) == 0 || returnVal(uid) == 1) {
-                                    window.alert('Please choose or create a project.');
-                                    
+                                if (
+                                    returnVal(uid) == 0 ||
+                                    returnVal(uid) == 1
+                                ) {
+                                    window.alert(
+                                        'Please choose or create a project.'
+                                    );
                                 } else {
-                                    var loopProject = document.getElementById('qty').value;
+                                    var loopProject = document.getElementById(
+                                        'qty'
+                                    ).value;
 
                                     for (let i = 0; i < loopProject; i++) {
-                                        addTodo({ variables: { category_id: returnVal(uid) , product_id: item_id} });
+                                        addTodo({
+                                            variables: {
+                                                category_id: returnVal(uid),
+                                                product_id: item_id
+                                            }
+                                        });
                                     }
-                                    window.alert('Product added to project '+pname(uid));
+                                    window.alert(
+                                        'Product added to project ' + pname(uid)
+                                    );
                                 }
-                                
-                            }} className={classes.add_to_project}>ADD TO PROJECT</button>  
-                        </div>
-                        
-                        );
-                
-                
+                            }}
+                            className={classes.add_to_project}
+                        >
+                            ADD TO PROJECT
+                        </button>
+                    </div>
+                );
             }
-    
+
             const TOGGLE_LIKED_PHOTO = gql`
-            mutation($category_name: String!) {
-                MpBetterWishlistCreateCategory(input: { category_name: $category_name }) {
-                    category_id
-                    category_name
-                    is_default
-                    items {
-                        added_at
-                        description
-                        product_id
-                        qty
-                        store_id
-                        wishlist_item_id
+                mutation($category_name: String!) {
+                    MpBetterWishlistCreateCategory(
+                        input: { category_name: $category_name }
+                    ) {
+                        category_id
+                        category_name
+                        is_default
+                        items {
+                            added_at
+                            description
+                            product_id
+                            qty
+                            store_id
+                            wishlist_item_id
+                        }
                     }
                 }
-            }
             `;
-    
-    
-            function AddTodo(uid) {
-    
-                let input;
-    
-                let selectId = uid;
-    
-                
-        
-                const [addTodo, { data, loading, error }] = useMutation(TOGGLE_LIKED_PHOTO);
-                const [selectValue, setSelectValue] = React.useState("");
-                if (data) { 
 
+            function AddTodo(uid) {
+                let input;
+
+                let selectId = uid;
+
+                const [addTodo, { data, loading, error }] = useMutation(
+                    TOGGLE_LIKED_PHOTO
+                );
+                const [selectValue, setSelectValue] = React.useState('');
+                if (data) {
                     /*const newOption = document.createElement('option');
                     const optionText = document.createTextNode(data.MpBetterWishlistCreateCategory.category_name);
                     newOption.appendChild(optionText);
@@ -257,116 +278,153 @@ const ProductFullDetail = (props) => {
                         break;
                     }
                     }*/
-    
-                    document.getElementById('hidden_div').style.display='none';
-    
+
+                    document.getElementById('hidden_div').style.display =
+                        'none';
+
                     var inputs, index;
-    
+
                     inputs = document.getElementsByTagName('select');
                     for (index = 0; index < inputs.length; ++index) {
                         console.log(inputs[index].id);
-                        
-                        var daySelect = document.getElementById(inputs[index].id);
-    
-                        if(inputs[index].id == inputs[index].id) {
-                            daySelect.options[daySelect.options.length] = new Option(data.MpBetterWishlistCreateCategory.category_name,data.MpBetterWishlistCreateCategory.category_id,true,true);
+
+                        var daySelect = document.getElementById(
+                            inputs[index].id
+                        );
+
+                        if (inputs[index].id == inputs[index].id) {
+                            daySelect.options[
+                                daySelect.options.length
+                            ] = new Option(
+                                data.MpBetterWishlistCreateCategory.category_name,
+                                data.MpBetterWishlistCreateCategory.category_id,
+                                true,
+                                true
+                            );
                         } else {
-                            daySelect.options[daySelect.options.length] = new Option(data.MpBetterWishlistCreateCategory.category_name,data.MpBetterWishlistCreateCategory.category_id,false,false);
+                            daySelect.options[
+                                daySelect.options.length
+                            ] = new Option(
+                                data.MpBetterWishlistCreateCategory.category_name,
+                                data.MpBetterWishlistCreateCategory.category_id,
+                                false,
+                                false
+                            );
                         }
-    
+
                         //sortOptions(inputs[index].id);
-    
                     }
-    
+
                     //console.log(data.MpBetterWishlistCreateCategory.category_id)
-    
                 }
                 if (loading) return 'Submitting...';
                 if (error) return `Submission error! ${error.message}`;
-        
+
                 return (
-                  <div>
-                    
-                        <input className={classes.project_input} type='text' ref={node => {input = node;}}/>
-                        <input type='hidden' value={selectId} />
-                        <button className={classes.project_button} onClick={e => {
-                        e.preventDefault();
-                        addTodo({ variables: { category_name: input.value } });
-                        input.value = '';
-                        
-                        window.alert('New category created.');
-                        setSelectValue(999);
-                        
-                      }}>OK</button> 
-                    
-                  </div>
+                    <div>
+                        <input
+                            className={classes.project_input}
+                            type="text"
+                            ref={node => {
+                                input = node;
+                            }}
+                        />
+                        <input type="hidden" value={selectId} />
+                        <button
+                            className={classes.project_button}
+                            onClick={e => {
+                                e.preventDefault();
+                                addTodo({
+                                    variables: { category_name: input.value }
+                                });
+                                input.value = '';
+
+                                window.alert('New category created.');
+                                setSelectValue(999);
+                            }}
+                        >
+                            OK
+                        </button>
+                    </div>
                 );
-              }
-    
-              const Select = () => {
-                const [selectValue, setSelectValue] = React.useState("");
-                const onChange = (event) => {
-                  const value = event.target.value;
-                  setSelectValue(value);
-                  updateDataValue(value);
-                }; 
-    
+            }
+
+            const Select = () => {
+                const [selectValue, setSelectValue] = React.useState('');
+                const onChange = event => {
+                    const value = event.target.value;
+                    setSelectValue(value);
+                    updateDataValue(value);
+                };
+
                 function makeid(length) {
                     let result = '';
-                    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                    const characters =
+                        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
                     const charactersLength = characters.length;
                     let counter = 0;
                     while (counter < length) {
-                      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-                      counter += 1;
+                        result += characters.charAt(
+                            Math.floor(Math.random() * charactersLength)
+                        );
+                        counter += 1;
                     }
                     return result;
                 }
-                  
+
                 var uniqueId = makeid(15);
-                if(this.state.pageDataAccess["access"] == 1) {
-                return (
-                  <div>
-                    
-                    <AddToProject item_id={this.props.item_id} uid={uniqueId} />
-                    <select onChange={onChange} className={classes.project_dropdown} id={uniqueId}>
-                        <option defaultValue value="0">
-                        Choose a project.
-                        </option>
-                        {this.state.pageData && this.state.pageData.map((e) => {
-                        if(!e.category_name.startsWith('ARCHIVE')) {
-                            return (
-                                <option value={e.category_id}>{e.category_name}</option>
-                            );
-                        }
-                    
-                    })}
-                        <option value="1">Create a new project</option>
-                        </select>
-                        {selectValue &&  selectValue == 1 && ( 
-                        <div id={"hidden_div"}>
-                            <AddTodo uid={uniqueId}/>
+                if (this.state.pageDataAccess['access'] == 1) {
+                    return (
+                        <div>
+                            <AddToProject
+                                item_id={this.props.item_id}
+                                uid={uniqueId}
+                            />
+                            <select
+                                onChange={onChange}
+                                className={classes.project_dropdown}
+                                id={uniqueId}
+                            >
+                                <option defaultValue value="0">
+                                    Choose a project.
+                                </option>
+                                {this.state.pageData &&
+                                    this.state.pageData.map(e => {
+                                        if (
+                                            !e.category_name.startsWith(
+                                                'ARCHIVE'
+                                            )
+                                        ) {
+                                            return (
+                                                <option value={e.category_id}>
+                                                    {e.category_name}
+                                                </option>
+                                            );
+                                        }
+                                    })}
+                                <option value="1">Create a new project</option>
+                            </select>
+                            {selectValue && selectValue == 1 && (
+                                <div id={'hidden_div'}>
+                                    <AddTodo uid={uniqueId} />
+                                </div>
+                            )}
                         </div>
-                        )} 
-                  </div>
-                );
+                    );
                 } else {
-                    return(<></>)
+                    return <></>;
                 }
-              };  
-    
+            };
+
             //const classes = useStyle(defaultClasses);
-    
-            return(
+
+            return (
                 <React.Fragment>
-    
                     <div>
-                        
-                        <Select/>                    
+                        <Select />
                     </div>
-    
                 </React.Fragment>
-            )
+            );
         }
     }
 
@@ -408,7 +466,7 @@ const ProductFullDetail = (props) => {
     const { data, refetch } = wishlistProps;
     let addedToWishlist = false;
     if (typeof data != 'undefined') {
-        data.forEach(function (value) {
+        data.forEach(function(value) {
             if (value.product.id == product.id) {
                 addedToWishlist = true;
             }
@@ -438,7 +496,7 @@ const ProductFullDetail = (props) => {
     const [showBundleOptions, setShowBundleOptions] = useState(false);
     const customArrayVar = [];
     customOptionArray &&
-        customOptionArray.map((ele) => {
+        customOptionArray.map(ele => {
             customArrayVar.push(Object.values(ele)[0]);
         });
 
@@ -518,7 +576,7 @@ const ProductFullDetail = (props) => {
     // Fill a map with field/section -> error.
     const errors = new Map();
     if (errorMessage) {
-        Object.keys(ERROR_MESSAGE_TO_FIELD_MAPPING).forEach((key) => {
+        Object.keys(ERROR_MESSAGE_TO_FIELD_MAPPING).forEach(key => {
             if (errorMessage.includes(key)) {
                 const target = ERROR_MESSAGE_TO_FIELD_MAPPING[key];
                 const message = ERROR_FIELD_TO_MESSAGE_MAPPING[target];
@@ -557,10 +615,11 @@ const ProductFullDetail = (props) => {
         }
     }
 
-  
-    const addtowishlist = async (product) => {
+    const addtowishlist = async product => {
         await addItemToWishlist({
-            product_id: parseInt(product.id+'00'+document.querySelector('#qty').value)
+            product_id: parseInt(
+                product.id + '00' + document.querySelector('#qty').value
+            )
             // document.querySelector('#qty').value
         });
         setAddedWishlistMsg(true);
@@ -570,7 +629,7 @@ const ProductFullDetail = (props) => {
         customerQuery: GET_CUSTOMER_QUERY
     });
     const { handleRemoveItem, removeResponse } = deleteData;
-    const removeFromWishlist = async (product) => {
+    const removeFromWishlist = async product => {
         await handleRemoveItem({
             product_id: product.id
         });
@@ -705,28 +764,33 @@ const ProductFullDetail = (props) => {
         window.history.go(-1);
     }
 
-    const [selectValue, setSelectValue] = React.useState("");
-    const onChange = (event) => {
+    const [selectValue, setSelectValue] = React.useState('');
+    const onChange = event => {
         const value = event.target.value;
         setSelectValue(value);
     };
 
     let lng = '';
-    if(document.getElementById("currentLng") != null){
-        lng = document.getElementById("currentLng").innerHTML;
+    if (document.getElementById('currentLng') != null) {
+        lng = document.getElementById('currentLng').innerHTML;
     }
     let currencyCde = '';
-    if(lng == 'Français') {
+    if (lng == 'Français') {
         currencyCde = 'CAD';
     } else {
         currencyCde = 'CAD';
     }
- 
+
     return (
         <Fragment>
             <div className={'container' + ' ' + classes.product_page_container}>
                 {breadcrumbs}
-                <a className={classes.stepback} onClick={stepBack} href='#'><FormattedMessage id={'item.back'} defaultMessage={'Return to previous page'} /></a>
+                <a className={classes.stepback} onClick={stepBack} href="#">
+                    <FormattedMessage
+                        id={'item.back'}
+                        defaultMessage={'Return to previous page'}
+                    />
+                </a>
                 <Form className={classes.root}>
                     {/* product image carousel section */}
                     <section
@@ -736,7 +800,6 @@ const ProductFullDetail = (props) => {
                     >
                         <div className={classes.imageCarousel_inner}>
                             <Carousel images={mediaGalleryEntries} />
-                            
                         </div>
                     </section>
                     {/* product right section */}
@@ -750,7 +813,7 @@ const ProductFullDetail = (props) => {
                                 <h1 className={classes.productName}>
                                     {productDetails.name}
                                 </h1>
-                                
+
                                 {/* <p className={classes.productPrice}>
                   <Price currencyCode={productDetails.price.currency} value={productDetails.price.value} />
                 </p> */}
@@ -765,69 +828,146 @@ const ProductFullDetail = (props) => {
                                     </span>
                                     <span><strong>{product && product.sku}</strong></span>*/}
                                 </div>
-                                
-                                
-
-                                
 
                                 {email ? (
                                     <>
-
-                                   
                                         <>
-                                        <PriceRange
-                                            price={productDetails.price}
-                                            optionFlag={productDetails.optionFlag}
-                                            product={product}
-                                            customPrice={
-                                                customPrice +
-                                                customPriceRadio +
-                                                customPriceMultiple +
-                                                customPriceDropdown +
-                                                customField +
-                                                customArea
-                                            }
-                                            customPricePercent={
-                                                customPricePercentRadio +
-                                                customPercDropDown +
-                                                customPercCheckbox
-                                            }
+                                            <PriceRange
+                                                price={productDetails.price}
+                                                optionFlag={
+                                                    productDetails.optionFlag
+                                                }
+                                                product={product}
+                                                customPrice={
+                                                    customPrice +
+                                                    customPriceRadio +
+                                                    customPriceMultiple +
+                                                    customPriceDropdown +
+                                                    customField +
+                                                    customArea
+                                                }
+                                                customPricePercent={
+                                                    customPricePercentRadio +
+                                                    customPercDropDown +
+                                                    customPercCheckbox
+                                                }
                                             />
-                                        <p><FormattedMessage id={'item.MSRP'} defaultMessage={'MSRP'} />&nbsp;&nbsp;<b><Price
-                                            value={(Math.round(product.msrp_sherpa2 * 100) / 100).toFixed(2)}
-                                            currencyCode={currencyCde}
-                                        /></b></p>
-                                        
+                                            <p>
+                                                <FormattedMessage
+                                                    id={'item.MSRP'}
+                                                    defaultMessage={'MSRP'}
+                                                />
+                                                &nbsp;&nbsp;
+                                                <b>
+                                                    <Price
+                                                        value={(
+                                                            Math.round(
+                                                                product.msrp_sherpa2 *
+                                                                    100
+                                                            ) / 100
+                                                        ).toFixed(2)}
+                                                        currencyCode={
+                                                            currencyCde
+                                                        }
+                                                    />
+                                                </b>
+                                            </p>
                                         </>
-                                    
 
-
-                                    <p className={classes.total_available}>
-                                    <FormattedMessage id={'item.totalAvailable'} defaultMessage={'Total available'} /> {product.totalavailable}</p>
-                                    <p><FormattedMessage id={'item.totalMtl1'} defaultMessage={'Montreal inventory'} /> {product.mtl_inventory}
-                                    <br/>
-                                    <FormattedMessage id={'item.totalMtl2'} defaultMessage={'Montreal hub inventory'} /> {product.mtlhub}
-                                    <br/>
-                                    <FormattedMessage id={'item.totalTor1'} defaultMessage={'Toronto inventory'} /> {product.tor_inventory}
-                                    <br/>
-                                    <FormattedMessage id={'item.totalTor2'} defaultMessage={'Toronto hub inventory'} /> {product.torhub}</p>
-                                    </> 
+                                        <p className={classes.total_available}>
+                                            <FormattedMessage
+                                                id={'item.totalAvailable'}
+                                                defaultMessage={
+                                                    'Total available'
+                                                }
+                                            />{' '}
+                                            {product.totalavailable}
+                                        </p>
+                                        <p>
+                                            <FormattedMessage
+                                                id={'item.totalMtl1'}
+                                                defaultMessage={
+                                                    'Montreal inventory'
+                                                }
+                                            />{' '}
+                                            {product.mtl_inventory}
+                                            <br />
+                                            <FormattedMessage
+                                                id={'item.totalMtl2'}
+                                                defaultMessage={
+                                                    'Montreal hub inventory'
+                                                }
+                                            />{' '}
+                                            {product.mtlhub}
+                                            <br />
+                                            <FormattedMessage
+                                                id={'item.totalTor1'}
+                                                defaultMessage={
+                                                    'Toronto inventory'
+                                                }
+                                            />{' '}
+                                            {product.tor_inventory}
+                                            <br />
+                                            <FormattedMessage
+                                                id={'item.totalTor2'}
+                                                defaultMessage={
+                                                    'Toronto hub inventory'
+                                                }
+                                            />{' '}
+                                            {product.torhub}
+                                        </p>
+                                    </>
                                 ) : (
                                     <>
                                         <p className={classes.productPrice}>
-                                        <FormattedMessage id={'item.partNo'} defaultMessage={'PART #'} /> : <span>{product && product.sku}</span></p><br/>
+                                            <FormattedMessage
+                                                id={'item.partNo'}
+                                                defaultMessage={'PART #'}
+                                            />{' '}
+                                            :{' '}
+                                            <span>
+                                                {product && product.sku}
+                                            </span>
+                                        </p>
+                                        <br />
                                         <p className={classes.productPrice}>
-                                        <FormattedMessage id={'item.soldIn'} defaultMessage={'Sold in: '} /> <span>{product && product.soldin}</span></p><br/>
+                                            <FormattedMessage
+                                                id={'item.soldIn'}
+                                                defaultMessage={'Sold in: '}
+                                            />{' '}
+                                            <span>
+                                                {product && product.soldin}
+                                            </span>
+                                        </p>
+                                        <br />
                                         <p className={classes.productPrice}>
-                                        <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/>
-                                        <br/>    
-                                        <p><a style={{cursor:'pointer'}} onClick={openLoginBox}><FormattedMessage id={'item.loginMessage'} defaultMessage={'Login or Register for an Account'} /></a></p>
+                                            <FormattedMessage
+                                                id={'item.brand'}
+                                                defaultMessage={'BRAND'}
+                                            />{' '}
+                                            :{' '}
+                                            <span>
+                                                {product &&
+                                                    product.productbrand}
+                                            </span>
+                                        </p>
+                                        <br />
+                                        <br />
+                                        <p>
+                                            <a
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={openLoginBox}
+                                            >
+                                                <FormattedMessage
+                                                    id={'item.loginMessage'}
+                                                    defaultMessage={
+                                                        'Login or Register for an Account'
+                                                    }
+                                                />
+                                            </a>
+                                        </p>
                                     </>
                                 )}
-
-                                
-                               
-                               
 
                                 {/* <div
                                     className={
@@ -897,9 +1037,6 @@ const ProductFullDetail = (props) => {
                                         <span>{stockStatus}</span>
                                     </div>
                                 </div>  */}
-                                
-                                
-                                
                             </section>
                             <div
                                 className={
@@ -981,7 +1118,7 @@ const ProductFullDetail = (props) => {
                                     </section>
                                 )}
                             </div>
-                            
+
                             {product.__typename != 'BundleProduct' && email && (
                                 <div
                                     className={
@@ -990,15 +1127,13 @@ const ProductFullDetail = (props) => {
                                         classes.shadow_section
                                     }
                                 >
-                                    
-                                    
                                     <section
                                         className={
                                             classes.cartActions +
                                             ' ' +
                                             classes.loader_case_wrapp
                                         }
-                                    > 
+                                    >
                                         <QuantityFields
                                             itemId={'qty'}
                                             classes={{
@@ -1010,41 +1145,42 @@ const ProductFullDetail = (props) => {
                                         {product &&
                                             product.stock_status ==
                                                 'IN_STOCK' && (
-                                                    <>
-                                                <Button
-                                                    priority="high"
-                                                    type="submit"
-                                                    onClick={() => {
-                                                        handleAddToCart({
-                                                            quantity: document.getElementById(
-                                                                'qty'
-                                                            ).value,
-                                                            customOptionId,
-                                                            customOptionString,
-                                                            customArrayVar
-                                                        });
-                                                    }}
-                                                    disabled={
-                                                        isAddToCartDisabled
-                                                    }
-                                                >
-                                                    <FormattedMessage
-                                                        id={
-                                                            'ProductFullDetail.addToCart'
+                                                <>
+                                                    <Button
+                                                        priority="high"
+                                                        type="submit"
+                                                        onClick={() => {
+                                                            handleAddToCart({
+                                                                quantity: document.getElementById(
+                                                                    'qty'
+                                                                ).value,
+                                                                customOptionId,
+                                                                customOptionString,
+                                                                customArrayVar
+                                                            });
+                                                        }}
+                                                        disabled={
+                                                            isAddToCartDisabled
                                                         }
-                                                        defaultMessage={
-                                                            'ADD TO CART'
-                                                        }
-                                                    />
-                                                </Button>
+                                                    >
+                                                        <FormattedMessage
+                                                            id={
+                                                                'ProductFullDetail.addToCart'
+                                                            }
+                                                            defaultMessage={
+                                                                'ADD TO CART'
+                                                            }
+                                                        />
+                                                    </Button>
 
-                                                {/* wishlist section */}
-                                                
-                                                {isSignedIn && (
-                                                    <ServiceDetailsEmployeurs pid={email} item_id={product.id}/>
-                                                    
-                                                )}
-                                                
+                                                    {/* wishlist section */}
+
+                                                    {isSignedIn && (
+                                                        <ServiceDetailsEmployeurs
+                                                            pid={email}
+                                                            item_id={product.id}
+                                                        />
+                                                    )}
                                                 </>
                                             )}
 
@@ -1100,7 +1236,6 @@ const ProductFullDetail = (props) => {
                                                 </div>
                                             </div>
                                         )}
-                                        
                                     </section>
 
                                     {/* <Suspense fallback={''}>
@@ -1147,22 +1282,17 @@ const ProductFullDetail = (props) => {
                                                     }
                                                 />
                                             </Button>
-                                            
                                         )}
                                 </section>
                             )}
 
-
-
                             {product && product.short_description && (
-                                    <div>
-                                        <RichText
-                                            content={
-                                                product.short_description.html
-                                            }
-                                        />
-                                    </div>
-                                        )} 
+                                <div>
+                                    <RichText
+                                        content={product.short_description.html}
+                                    />
+                                </div>
+                            )}
                             {/* tabs structure */}
                             <div
                                 className={
@@ -1343,15 +1473,13 @@ const ProductFullDetail = (props) => {
                                                 })}
                                         </div>
                                     </div>
-                                   
                                 </div>
                             </div>
                         </div>
                     </section>
                 </Form>
-                
             </div>
-            
+
             {scrollFlag && (
                 <>
                     {/* <p>Related</p> */}

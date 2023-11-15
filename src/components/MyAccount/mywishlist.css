@@ -24,7 +24,6 @@
     display: none;
 }
 .project_dropdown {
-
     width: 200px;
     margin-top: 20px;
     border-radius: 3px;
@@ -53,7 +52,7 @@
     -webkit-transition: 0.3s all;
     -moz-transition: 0.3s all;
 }
-.add_to_project{
+.add_to_project {
     background: #007637;
     border-radius: 5px;
     padding: 10px 10px;
@@ -64,7 +63,7 @@
     color: white;
     margin-top: 30px;
 }
-.add_to_project:hover{
+.add_to_project:hover {
     background: #000;
     transition: 0.3s all;
     -webkit-transition: 0.3s all;

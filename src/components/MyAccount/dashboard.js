@@ -73,7 +73,6 @@ const Dashboard = props => {
                                                 id={'dashboard.title'}
                                                 defaultMessage={'My Account'}
                                             />
-                                            
                                         </span>
                                     </h1>
                                 </div>

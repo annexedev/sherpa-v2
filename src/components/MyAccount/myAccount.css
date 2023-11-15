@@ -253,7 +253,6 @@ form.root input:focus {
     margin-right: 20px;
 }
 
-
 .action {
     display: inline-block;
     border: 1px solid var(--primary-base-color);

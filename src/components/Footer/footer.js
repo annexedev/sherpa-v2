@@ -34,9 +34,9 @@ const Footer = props => {
     const { HomeConfigData } = homepageData;
     let footerIdentifier = 'ced-pwa-footer-fr';
 
-    const lng = document.getElementById("currentLng").innerHTML;
+    const lng = document.getElementById('currentLng').innerHTML;
     let activeLng = '';
-    if(lng == 'Français') {
+    if (lng == 'Français') {
         activeLng = '-fr';
     } else {
         activeLng = '';
@@ -44,7 +44,7 @@ const Footer = props => {
 
     const footerDatas = useFooterData({
         footerQuery: GET_CMSBLOCK_QUERY,
-        footerIdentifiers: 'ced-pwa-footer'+activeLng
+        footerIdentifiers: 'ced-pwa-footer' + activeLng
     });
     const { footerData } = footerDatas;
 
@@ -65,7 +65,8 @@ const Footer = props => {
                         <div className={'row'}>
                             <div className={'col-12'}>
                                 <p className={classes.copyright}>
-                                Copyright © {new Date().getFullYear()} SherpaGroup. All rights reserved.
+                                    Copyright © {new Date().getFullYear()}{' '}
+                                    SherpaGroup. All rights reserved.
                                 </p>
                             </div>
                         </div>
@@ -75,7 +76,6 @@ const Footer = props => {
         );
     }
 
-
     return (
         <footer className={classes.root}>
             <NewsLetter />
@@ -84,13 +84,16 @@ const Footer = props => {
                 <div className={'container'}>
                     <div className={'row'}>
                         <div className={'col-12'}>
-                            <p className={classes.copyright}>Copyright © {new Date().getFullYear()} SherpaGroup. All rights reserved.</p>
+                            <p className={classes.copyright}>
+                                Copyright © {new Date().getFullYear()}{' '}
+                                SherpaGroup. All rights reserved.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
             {cookie}
-            <script src="//code.tidio.co/lkmxnhgge8hf2csbej2fog3du6bcwvdq.js"></script>
+            <script src="//code.tidio.co/lkmxnhgge8hf2csbej2fog3du6bcwvdq.js" />
         </footer>
     );
 };

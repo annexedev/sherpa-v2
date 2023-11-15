@@ -125,7 +125,6 @@ const CartPage = props => {
                             >
                                 {priceAdjustments}
                             </div>
-                            
                         </div>
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>

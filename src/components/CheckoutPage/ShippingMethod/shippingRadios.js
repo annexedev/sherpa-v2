@@ -30,15 +30,11 @@ const ShippingRadios = props => {
     };
 
     const shippingRadios = shippingMethods.map(method => {
-
-       
-
         const label = (
             <ShippingRadio
                 currency={method.amount.currency}
                 name={method.method_title}
                 price={method.amount.value}
-                
             />
         );
         const value = method.serializedValue;

@@ -13,19 +13,20 @@ import { X as ClearIcon } from 'react-feather';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-hooks-web';
 
-const searchClient = algoliasearch('EQYYQ1VIVL', 'f5171cf0ca4526d103a14ad056e5cef1');
+const searchClient = algoliasearch(
+    'EQYYQ1VIVL',
+    'f5171cf0ca4526d103a14ad056e5cef1'
+);
 
 function Hit({ hit }) {
-  return (
-    <article>
-      <img src={hit.image_url} alt={hit.name} />
-      <p>{hit.categories[0]}</p>
-      <h1>{hit.name}</h1>
-    </article>
-  );
+    return (
+        <article>
+            <img src={hit.image_url} alt={hit.name} />
+            <p>{hit.categories[0]}</p>
+            <h1>{hit.name}</h1>
+        </article>
+    );
 }
-
-
 
 const clearIcon = <Icon src={ClearIcon} size={24} />;
 const SearchBar = props => {
@@ -67,11 +68,12 @@ const SearchBar = props => {
                         {clearIcon}
                     </button>
                 </div>
-                <InstantSearch indexName="magento2_prod_default_products" searchClient={searchClient}>
-                  
-                  <SearchBox />
-                  <Hits hitComponent={Hit} />
-                 
+                <InstantSearch
+                    indexName="magento2_prod_default_products"
+                    searchClient={searchClient}
+                >
+                    <SearchBox />
+                    <Hits hitComponent={Hit} />
                 </InstantSearch>
                 <Form
                     autoComplete="off"

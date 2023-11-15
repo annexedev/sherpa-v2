@@ -22,13 +22,12 @@ const PriceAdjustments = props => {
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
-                
-                
                 <Section
                     id={'cardMessage'}
                     title={formatMessage({
                         id: 'checkoutPage.cardMessage',
-                        defaultMessage: 'Enter your P.O. number, project name, and order comments here'
+                        defaultMessage:
+                            'Enter your P.O. number, project name, and order comments here'
                     })}
                 >
                     <TextArea

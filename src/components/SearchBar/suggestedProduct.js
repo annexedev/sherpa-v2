@@ -51,8 +51,10 @@ const SuggestedProduct = props => {
                 width={IMAGE_WIDTH}
             />
             <div className={classes.product_details_Wrap}>
-            <span className={classes.name}>{name}</span>
-            <span className={classes.name}><strong>Part # {sku}</strong></span>
+                <span className={classes.name}>{name}</span>
+                <span className={classes.name}>
+                    <strong>Part # {sku}</strong>
+                </span>
                 <span className={classes.price}>
                     <Price
                         currencyCode={price.regularPrice.amount.currency}

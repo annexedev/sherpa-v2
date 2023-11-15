@@ -60,8 +60,7 @@ const CompletedView = props => {
                             defaultMessage={'Shipping Methods'}
                         />
                     </h5>
-                    
-                    
+
                     {/* <LinkButton
                         className={classes.editButton}
                         onClick={showUpdateMode}

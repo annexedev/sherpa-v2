@@ -84,23 +84,29 @@ const PriceSummary = props => {
 
     const proceedToCheckoutButton = !isCheckout ? (
         <>
-        <div className={classes.checkoutButton_container}>
-            <Button
-                disabled={isPriceUpdating}
-                priority={'high'}
-                onClick={handleProceedToCheckout}
-            >
-                <FormattedMessage
-                    id={'priceSummary.checkoutButton_container'}
-                    defaultMessage={'FINALISE ORDER DETAILS'}
-                />
-            </Button>
-                           
-        </div>
-        <br/>
-        <div className={classes.checkoutButton_containerlink}>
-            <Link to="/brands" className={classes.review_order_button_link}><span><FormattedMessage id={'checkoutPage.cs'} defaultMessage={'Continue Shopping'} /></span></Link>
-        </div>
+            <div className={classes.checkoutButton_container}>
+                <Button
+                    disabled={isPriceUpdating}
+                    priority={'high'}
+                    onClick={handleProceedToCheckout}
+                >
+                    <FormattedMessage
+                        id={'priceSummary.checkoutButton_container'}
+                        defaultMessage={'FINALISE ORDER DETAILS'}
+                    />
+                </Button>
+            </div>
+            <br />
+            <div className={classes.checkoutButton_containerlink}>
+                <Link to="/brands" className={classes.review_order_button_link}>
+                    <span>
+                        <FormattedMessage
+                            id={'checkoutPage.cs'}
+                            defaultMessage={'Continue Shopping'}
+                        />
+                    </span>
+                </Link>
+            </div>
         </>
     ) : null;
 

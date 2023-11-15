@@ -12,7 +12,7 @@ class RichText extends Component {
         return (
             <div
                 id="sherpaRoot"
-                style={{"padding":"0px"}}
+                style={{ padding: '0px' }}
                 className={classes.root}
                 dangerouslySetInnerHTML={toHTML(content)}
             />

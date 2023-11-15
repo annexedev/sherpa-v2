@@ -27,7 +27,7 @@ const FilterSidebar = props => {
         handleApply,
         handleReset
     } = talonProps;
-    
+
     const filterRef = useRef();
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -54,16 +54,16 @@ const FilterSidebar = props => {
                 const blockState = filterState.get(group);
                 let groupName = filterNames.get(group);
                 let lng = '';
-                if(document.getElementById("currentLng") != null){
-                    lng = document.getElementById("currentLng").innerHTML;
+                if (document.getElementById('currentLng') != null) {
+                    lng = document.getElementById('currentLng').innerHTML;
                 }
                 let activeLng = '';
-                if(lng == 'Français' && groupName == 'Price') {
+                if (lng == 'Français' && groupName == 'Price') {
                     groupName = 'Prix';
-                } 
-                if(lng == 'Français' && groupName == 'Brands') {
+                }
+                if (lng == 'Français' && groupName == 'Brands') {
                     groupName = 'Marques';
-                } 
+                }
                 return (
                     <FilterBlock
                         key={group}

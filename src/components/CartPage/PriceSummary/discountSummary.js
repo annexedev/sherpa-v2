@@ -31,7 +31,6 @@ const getDiscount = (discounts = []) => {
     }
 };
 
-
 /**
  * A component that renders the discount summary line item.
  *

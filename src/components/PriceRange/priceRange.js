@@ -5,7 +5,6 @@ import priceClasses from './priceRange.css';
 import { FormattedMessage } from 'react-intl';
 
 const PriceRange = props => {
-
     var today = new Date();
 
     const {
@@ -37,7 +36,7 @@ const PriceRange = props => {
         customPrice +
         customPricePercent * price.maximum_price.regular_price.value;
 
-    let specialDate = new Date(product.special_to_date)
+    let specialDate = new Date(product.special_to_date);
 
     if (
         (price && product.__typename == 'SimpleProduct') ||
@@ -46,29 +45,48 @@ const PriceRange = props => {
         return (
             <>
                 <section className={classes.price_details_wrap}>
-                    
                     <p className={classes.productPrice}>
-                        <FormattedMessage id={'item.partNo'} defaultMessage={'PART #'} /> : <span>{product && product.sku}</span></p><br/>
-                        {product && product.productbrand &&  (
+                        <FormattedMessage
+                            id={'item.partNo'}
+                            defaultMessage={'PART #'}
+                        />{' '}
+                        : <span>{product && product.sku}</span>
+                    </p>
+                    <br />
+                    {product && product.productbrand && (
                         <>
                             <p className={classes.productPrice}>
-                            <FormattedMessage id={'item.brand'} defaultMessage={'BRAND'} /> : <span>{product && product.productbrand}</span></p><br/>
+                                <FormattedMessage
+                                    id={'item.brand'}
+                                    defaultMessage={'BRAND'}
+                                />{' '}
+                                : <span>{product && product.productbrand}</span>
+                            </p>
+                            <br />
                         </>
-                        )}
-                        {product && product.soldin &&  (
+                    )}
+                    {product && product.soldin && (
                         <>
                             <p className={classes.productPrice}>
-                            <FormattedMessage id={'item.soldIn'} defaultMessage={'Sold in: '} /> : <span>{product && product.soldin}</span></p><br/>
+                                <FormattedMessage
+                                    id={'item.soldIn'}
+                                    defaultMessage={'Sold in: '}
+                                />{' '}
+                                : <span>{product && product.soldin}</span>
+                            </p>
+                            <br />
                         </>
-                        )}
-                             
-                    
+                    )}
 
                     {/* today.toISOString().split('T')[0] < specialDate.toISOString().split('T')[0] && */}
-                    {final_minimum_price == final_regular_price &&  (
+                    {final_minimum_price == final_regular_price && (
                         <>
-                            
-                            <p className={classes.productPrice}><FormattedMessage id={'item.yourCost'} defaultMessage={'YOUR COST'} />&nbsp;&nbsp;&nbsp;
+                            <p className={classes.productPrice}>
+                                <FormattedMessage
+                                    id={'item.yourCost'}
+                                    defaultMessage={'YOUR COST'}
+                                />
+                                &nbsp;&nbsp;&nbsp;
                                 <Price
                                     currencyCode={
                                         price.minimum_price.final_price.currency
@@ -78,9 +96,20 @@ const PriceRange = props => {
                             </p>
                         </>
                     )}
-                    {final_minimum_price != final_regular_price &&  (
+                    {final_minimum_price != final_regular_price && (
                         <>
-                            <p className={classes.productPrice + ' ' + priceClasses.greenprice }><FormattedMessage id={'item.yourCost'} defaultMessage={'YOUR COST'} />&nbsp;&nbsp;&nbsp;
+                            <p
+                                className={
+                                    classes.productPrice +
+                                    ' ' +
+                                    priceClasses.greenprice
+                                }
+                            >
+                                <FormattedMessage
+                                    id={'item.yourCost'}
+                                    defaultMessage={'YOUR COST'}
+                                />
+                                &nbsp;&nbsp;&nbsp;
                                 <Price
                                     currencyCode={
                                         price.minimum_price.final_price.currency
@@ -92,19 +121,21 @@ const PriceRange = props => {
                                 className={
                                     classes.productPrice +
                                     ' ' +
-                                    priceClasses.regularprice + ' ' + priceClasses.discountedprice
+                                    priceClasses.regularprice +
+                                    ' ' +
+                                    priceClasses.discountedprice
                                 }
                             >
                                 <Price
                                     currencyCode={
-                                        price.minimum_price.regular_price.currency
+                                        price.minimum_price.regular_price
+                                            .currency
                                     }
                                     value={final_regular_price}
                                 />
                             </p>
                         </>
                     )}
-                            
                 </section>
             </>
         );

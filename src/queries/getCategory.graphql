@@ -19,7 +19,7 @@ query category(
         pageSize: $pageSize
         currentPage: $currentPage
         filter: $filters
-        sort: $sort 
+        sort: $sort
     ) {
         items {
             # id is always required, even if the fragment includes it.

@@ -8,7 +8,6 @@ import { useCallback } from 'react';
  * @returns {Function}  result.handleSignOut - The function to handle sign out actions.
  */
 export const useAccountMenuItems = props => {
-
     const { onSignOut } = props;
 
     const handleSignOut = useCallback(() => {
@@ -19,24 +18,24 @@ export const useAccountMenuItems = props => {
 
     var pid = 'mcharbonneau@annexe-d.com';
 
-    let grantAccess = "https://data.sherpagroupav.com/get_projectaccess.php?email="+pid;
+    let grantAccess =
+        'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
     fetch(grantAccess)
-    .then(res => res.json())
-    .then(res => {
-        if(res["access"]==1) {
-            is_granted = 1;
-            console.log('YEAH !!!');
-        } else {
-            is_granted = 0;
-        }
-    }); 
+        .then(res => res.json())
+        .then(res => {
+            if (res['access'] == 1) {
+                is_granted = 1;
+                console.log('YEAH !!!');
+            } else {
+                is_granted = 0;
+            }
+        });
 
-    console.log('IS GRANTED :::::: '+is_granted);
+    console.log('IS GRANTED :::::: ' + is_granted);
 
     let MENU_ITEMS = [];
 
-    if(is_granted==1) {
-
+    if (is_granted == 1) {
         MENU_ITEMS = [
             {
                 name: 'My Account',
@@ -64,9 +63,7 @@ export const useAccountMenuItems = props => {
                 url: '/profile'
             }
         ];
-
     } else {
-
         MENU_ITEMS = [
             {
                 name: 'My Account',
@@ -94,10 +91,7 @@ export const useAccountMenuItems = props => {
                 url: '/profile'
             }
         ];
-
     }
-
-    
 
     return {
         handleSignOut,

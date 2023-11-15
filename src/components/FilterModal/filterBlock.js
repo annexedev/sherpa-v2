@@ -57,7 +57,6 @@ const FilterBlock = props => {
                         items={items}
                         name={name}
                     />
-                    
                 ) : (
                     <FilterList
                         filterApi={filterApi}

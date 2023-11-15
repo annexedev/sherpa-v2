@@ -70,25 +70,20 @@ const Breadcrumbs = props => {
     ) : null;
 
     let lng = '';
-    if(document.getElementById("currentLng") != null){
-        lng = document.getElementById("currentLng").innerHTML;
+    if (document.getElementById('currentLng') != null) {
+        lng = document.getElementById('currentLng').innerHTML;
     }
     let activeLng = '';
-    if(lng == 'Français') {
+    if (lng == 'Français') {
         activeLng = '-fr';
     } else {
         activeLng = '';
-    }    
+    }
 
     return (
         <div className={classes.root}>
             <Link className={classes.link} to="/">
-                    { activeLng == '-fr' ?
-                        <>Accueil</>
-                        :
-                        <>Home</>
-                    }
-                
+                {activeLng == '-fr' ? <>Accueil</> : <>Home</>}
             </Link>
             {links}
             <span className={classes.divider}>/</span>

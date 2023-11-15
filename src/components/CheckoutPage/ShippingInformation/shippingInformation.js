@@ -78,7 +78,7 @@ const ShippingInformation = props => {
                             defaultMessage={'Edit'}
                         />
                     </span>
-            </LinkButton>
+                </LinkButton>
             </div>
             <Card shippingData={shippingData} />
             {/*<div className={classes.noticeshipping} >

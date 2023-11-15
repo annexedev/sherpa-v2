@@ -21,7 +21,7 @@ const CMSPage = props => {
         }
     });
 
-    console.log('Data: '+data);
+    console.log('Data: ' + data);
 
     const homepageData = useHome({
         query: GET_HOMEPAGECONFIG_DATA
@@ -31,8 +31,6 @@ const CMSPage = props => {
     let licenseValidate = '';
     let homePage = 'home';
     const c_url = window.location.href;
-
-  
 
     if (typeof HomeConfigData != 'undefined') {
         for (var i = 0; i < HomeConfigData.length; i++) {

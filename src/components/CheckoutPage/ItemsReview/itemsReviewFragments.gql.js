@@ -14,7 +14,7 @@ export const ItemsReviewFragment = gql`
                     url
                 }
                 price_range {
-                    minimum_price { 
+                    minimum_price {
                         regular_price {
                             value
                             currency
@@ -44,7 +44,7 @@ export const ItemsReviewFragment = gql`
                     }
                 }
             }
-            
+
             quantity
             ... on SimpleCartItem {
                 customizable_options {

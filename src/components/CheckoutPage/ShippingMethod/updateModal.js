@@ -30,8 +30,7 @@ const UpdateModal = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     return (
-        
-        <Dialog 
+        <Dialog
             confirmText={'Update'}
             confirmTranslationId={'global.updateButton'}
             formProps={dialogFormProps}
@@ -52,7 +51,6 @@ const UpdateModal = props => {
             <ShippingRadios
                 disabled={dialogButtonsDisabled}
                 shippingMethods={shippingMethods}
-                
             />
         </Dialog>
     );

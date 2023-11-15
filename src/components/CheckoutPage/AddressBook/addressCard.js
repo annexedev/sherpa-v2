@@ -54,7 +54,7 @@ const AddressCard = props => {
 
     const editButton = isSelected ? (
         <>
-        {/* <button className={classes.editButton} onClick={handleEditAddress}>
+            {/* <button className={classes.editButton} onClick={handleEditAddress}>
             <Icon
                 classes={{
                     icon: classes.editIcon
@@ -88,7 +88,7 @@ const AddressCard = props => {
         >
             {/* {editButton} */}
             {defaultBadge}
-            
+
             <span className={classes.name}>{nameString}</span>
             {streetRows}
             <span>{additionalAddressString}</span>

@@ -50,11 +50,11 @@ const ForgotPasswordForm = props => {
     };
 
     let lng = '';
-    if(document.getElementById("currentLng") != null){
-        lng = document.getElementById("currentLng").innerHTML;
+    if (document.getElementById('currentLng') != null) {
+        lng = document.getElementById('currentLng').innerHTML;
     }
     let activeLng = '';
-    if(lng == 'Français') {
+    if (lng == 'Français') {
         activeLng = '-fr';
     } else {
         activeLng = '';
@@ -103,18 +103,17 @@ const ForgotPasswordForm = props => {
                     </span>
                 </div>
                 <h2 className={defaultClasses.title}>
-                { activeLng == '-fr' ?
-                <FormattedMessage
-                    id={'forgotPasswordForm.titleSuccess'}
-                    defaultMessage={'Réinitialisation du mot de passe'}
-                />
-                :
-                <FormattedMessage
-                        id={'forgotPasswordForm.titleSuccess'}
-                        defaultMessage={'Password Reset'}
-                    />
-                }
-                    
+                    {activeLng == '-fr' ? (
+                        <FormattedMessage
+                            id={'forgotPasswordForm.titleSuccess'}
+                            defaultMessage={'Réinitialisation du mot de passe'}
+                        />
+                    ) : (
+                        <FormattedMessage
+                            id={'forgotPasswordForm.titleSuccess'}
+                            defaultMessage={'Password Reset'}
+                        />
+                    )}
                 </h2>
                 <div className={classes.form_field}>
                     <Field label="OTP" required={true}>
@@ -210,35 +209,34 @@ const ForgotPasswordForm = props => {
                     </span>
                 </div>
                 <h2 className={defaultClasses.title}>
-                { activeLng == '-fr' ?
-                <FormattedMessage
-                    id={'forgotPasswordForm.titleSuccess'}
-                    defaultMessage={'Réinitialisation du mot de passe'}
-                />
-                :
-                <FormattedMessage
-                        id={'forgotPasswordForm.titleSuccess'}
-                        defaultMessage={'Password Reset'}
-                    />
-                }
+                    {activeLng == '-fr' ? (
+                        <FormattedMessage
+                            id={'forgotPasswordForm.titleSuccess'}
+                            defaultMessage={'Réinitialisation du mot de passe'}
+                        />
+                    ) : (
+                        <FormattedMessage
+                            id={'forgotPasswordForm.titleSuccess'}
+                            defaultMessage={'Password Reset'}
+                        />
+                    )}
                 </h2>
                 <p className={defaultClasses.title_message}>
-                { activeLng == '-fr' ?
-                <FormattedMessage
-                id={'forgotPasswordForm.title_message'}
-                defaultMessage={
-                    'Entrez votre courriel ci-dessous pour réinitialiser votre mot de passe.'
-                }
-            />
-                :
-                <FormattedMessage
-                        id={'forgotPasswordForm.title_message'}
-                        defaultMessage={
-                            'Enter your email below to receive OTP.'
-                        }
-                    />
-                }
-                    
+                    {activeLng == '-fr' ? (
+                        <FormattedMessage
+                            id={'forgotPasswordForm.title_message'}
+                            defaultMessage={
+                                'Entrez votre courriel ci-dessous pour réinitialiser votre mot de passe.'
+                            }
+                        />
+                    ) : (
+                        <FormattedMessage
+                            id={'forgotPasswordForm.title_message'}
+                            defaultMessage={
+                                'Enter your email below to receive OTP.'
+                            }
+                        />
+                    )}
                 </p>
                 <Form className={classes.root} onSubmit={handleSubmitEmail}>
                     <div className={defaultClasses.form_field}>

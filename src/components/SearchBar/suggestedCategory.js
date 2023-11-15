@@ -32,7 +32,7 @@ const SuggestedCategory = props => {
                 <strong className={classes.value}>{value}</strong>
                 <span className={classes.label}>
                     <FormattedMessage
-                        id={' in '+label}
+                        id={' in ' + label}
                         values={{ label: label }}
                     />
                 </span>

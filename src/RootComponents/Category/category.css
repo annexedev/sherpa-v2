@@ -88,7 +88,8 @@
     background: var(--primary-base-color);
 }
 
-.boxlink, .boxlinkCustom {
+.boxlink,
+.boxlinkCustom {
     text-align: center;
     margin-top: 40px;
     display: flex;
