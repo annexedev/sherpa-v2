@@ -37,6 +37,8 @@ const PriceRange = props => {
         customPricePercent * price.maximum_price.regular_price.value;
 
     let specialDate = new Date(product.special_to_date);
+    console.log('TIER');
+    console.log(price);
 
     if (
         (price && product.__typename == 'SimpleProduct') ||

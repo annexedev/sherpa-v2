@@ -423,7 +423,7 @@ const CategoryContent = props => {
                                                 </div>
                                                 {categoryId == 42 &&
                                                 s.manufacturer_link &&
-                                                activeLng == '' ? (
+                                                activeLng == '' && isSignedIn ? (
                                                     <div
                                                         className={
                                                             classes.boxlink
