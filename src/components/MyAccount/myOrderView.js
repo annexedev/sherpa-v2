@@ -356,6 +356,7 @@ const MyOrderView = props => {
                                             </strong>
                                         </li>
                                     </ul>
+                                    
                                     <div
                                         className={
                                             defaultClasses.order_details_items +
@@ -950,6 +951,38 @@ const MyOrderView = props => {
                                             defaultClasses.block_order_details_view
                                         }
                                     >
+
+                                        <div
+                                            className={
+                                                defaultClasses.block_title
+                                            }
+                                        >
+                                            <strong>
+                                                <FormattedMessage
+                                                    id={
+                                                        'myOrderView.OrderInformation'
+                                                    }
+                                                    defaultMessage={
+                                                        'Order PO / comments'
+                                                    }
+                                                />
+                                            </strong>
+                                        </div>
+
+                                        <div
+                                            className={
+                                                defaultClasses.address_wrap
+                                            }
+                                        >
+                                                    <div
+                                                        className={
+                                                            defaultClasses.order_view_columns
+                                                        }
+                                                    >
+                                                        PO 123456
+                                                    </div>
+                                        </div>
+
                                         <div
                                             className={
                                                 defaultClasses.block_title
@@ -966,6 +999,7 @@ const MyOrderView = props => {
                                                 />
                                             </strong>
                                         </div>
+                                        
                                         <div
                                             className={
                                                 defaultClasses.address_wrap

@@ -55,6 +55,8 @@ export const ProductsFragment = gql`
             type_id
             totalavailable
             product_brand
+            productbrand
+            search_data
             soldin
             msrp_sherpa2
             msrp_sherpa

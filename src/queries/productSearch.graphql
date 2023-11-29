@@ -23,6 +23,8 @@ query productSearch(
             }
             totalavailable
             product_brand
+            productbrand
+            search_data
             soldin
             msrp_sherpa2
             url_key

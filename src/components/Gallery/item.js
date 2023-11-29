@@ -27,6 +27,7 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import Iframe from 'react-iframe';
+import Quantity from './quantity';
 
 let data_value = 'A';
 
@@ -708,7 +709,16 @@ const GalleryItem = props => {
             'https://data.sherpagroupav.com/media/catalog/product/placeholder/stores/2/image_non_disponible_2.png';
     }
 
-    //console.log(item);
+    function onTodoChange(value){
+        this.setState({
+             name: value
+        });
+    }
+
+    const handleChange = (e) => {
+        //e.preventDefault(); // prevent the default action
+        setName(e.target.value); // set name to e.target.value (event)
+      };
 
     if (item.sku.endsWith('-PROMO') && email == '') {
         return <></>;
@@ -786,7 +796,7 @@ const GalleryItem = props => {
                     </div>
                     <div className={classes.noo_details_wrapper}>
                         <p className={classes.product_brand_name}>
-                            {item.product_brand}
+                            {item.productbrand}
                         </p>
 
                         <p className={classes.product_name}>
@@ -996,7 +1006,8 @@ const GalleryItem = props => {
                                             classes.qty_selector
                                         }
                                     >
-                                        <QuantityPicker min={1} value={1} />
+                                        <QuantityPicker min={1} value={1} onChange={handleChange}/>
+                                        
                                     </div>
                                     <div className={classes.add_to_cart_btn}>
                                         {item.__typename == 'SimpleProduct' &&

@@ -38,7 +38,7 @@ const PriceRange = props => {
 
     let specialDate = new Date(product.special_to_date);
     console.log('TIER');
-    console.log(price);
+    console.log(product.productbrand);
 
     if (
         (price && product.__typename == 'SimpleProduct') ||
@@ -89,6 +89,30 @@ const PriceRange = props => {
                                     defaultMessage={'YOUR COST'}
                                 />
                                 &nbsp;&nbsp;&nbsp;
+                                {product && product.productbrand && (
+                                    <>
+                                        <p className={classes.productPrice}>
+                                            <FormattedMessage
+                                                id={'item.brand'}
+                                                defaultMessage={'BRAND'}
+                                            />{' '}
+                                            : <span>{product && product.productbrand}</span>
+                                        </p>
+                                        <br />
+                                    </>
+                                )}
+                                {product && product.soldin && (
+                                    <>
+                                        <p className={classes.productPrice}>
+                                            <FormattedMessage
+                                                id={'item.soldIn'}
+                                                defaultMessage={'Sold in: '}
+                                            />{' '}
+                                            : <span>{product && product.soldin}</span>
+                                        </p>
+                                        <br />
+                                    </>
+                                )}
                                 <Price
                                     currencyCode={
                                         price.minimum_price.final_price.currency
