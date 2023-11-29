@@ -130,7 +130,7 @@ const Product = props => {
                             </Link>
                         </div>
                         <p className={classes.product_brand_name}>
-                            {value.productbrand}
+                            {value.product_brand}
                         </p>
                         <div className={defaultClasses.noo_details_wrapper}>
                             <h3

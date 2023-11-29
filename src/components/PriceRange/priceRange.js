@@ -55,14 +55,14 @@ const PriceRange = props => {
                         : <span>{product && product.sku}</span>
                     </p>
                     <br />
-                    {product && product.productbrand && (
+                    {product && product.product_brand && (
                         <>
                             <p className={classes.productPrice}>
                                 <FormattedMessage
                                     id={'item.brand'}
                                     defaultMessage={'BRAND'}
                                 />{' '}
-                                : <span>{product && product.productbrand}</span>
+                                : <span>{product && product.product_brand}</span>
                             </p>
                             <br />
                         </>
@@ -89,14 +89,14 @@ const PriceRange = props => {
                                     defaultMessage={'YOUR COST'}
                                 />
                                 &nbsp;&nbsp;&nbsp;
-                                {product && product.productbrand && (
+                                {product && product.product_brand && (
                                     <>
                                         <p className={classes.productPrice}>
                                             <FormattedMessage
                                                 id={'item.brand'}
                                                 defaultMessage={'BRAND'}
                                             />{' '}
-                                            : <span>{product && product.productbrand}</span>
+                                            : <span>{product && product.product_brand}</span>
                                         </p>
                                         <br />
                                     </>

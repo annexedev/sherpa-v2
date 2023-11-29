@@ -796,7 +796,7 @@ const GalleryItem = props => {
                     </div>
                     <div className={classes.noo_details_wrapper}>
                         <p className={classes.product_brand_name}>
-                            {item.productbrand}
+                            {item.product_brand}
                         </p>
 
                         <p className={classes.product_name}>
