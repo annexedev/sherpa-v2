@@ -948,7 +948,7 @@ const ProductFullDetail = props => {
                                             :{' '}
                                             <span>
                                                 {product &&
-                                                    product.productbrand}
+                                                    product.product_brand}
                                             </span>
                                         </p>
                                         <br />
