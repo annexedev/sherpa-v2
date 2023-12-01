@@ -389,6 +389,7 @@ const Main = props => {
     var displayRegister = false;
     var displayTeam = false;
     var displayEducation = false;
+    var display12Days = false;
 
     if (isSignedIn && window.location.href.indexOf('/events') != -1) {
         window.eventCalId = 13099;
@@ -429,6 +430,10 @@ const Main = props => {
         displayTeam = true;
     }
 
+    if (window.location.href.indexOf('/12-days-of-sherpa') != -1) {
+        display12Days = true;
+    }
+
     function openLoginBox() {
         document.getElementById('user_account').click();
     }
@@ -454,6 +459,19 @@ const Main = props => {
             <Header />
             <div className={pageClass}>
                 {(() => {
+
+                    if(display12Days) {
+                        return (
+                        <Suspense fallback={''}>
+                            <Banner
+                                identifier={'sherpa12dys'}
+                                showBanner={showCategoryBanners}
+                            />
+                        </Suspense>
+                        )
+                    }
+
+
                     if (displayTeam) {
                         //return(children)
                         return (
