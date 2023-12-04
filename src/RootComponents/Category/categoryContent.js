@@ -341,7 +341,7 @@ const CategoryContent = props => {
                         in: categoryId
                     }
                 },
-                fetchPolicy: 'no-cache'
+                fetchPolicy: 'network-only'
             }
         });
 
