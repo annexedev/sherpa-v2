@@ -477,7 +477,7 @@ const Main = props => {
                             <TriggerOpen />
                             <Suspense fallback={''}>
                                 <Banner
-                                    identifier={'sherpa12dys'}
+                                    identifier={'12daysnot'}
                                     showBanner={showCategoryBanners}
                                 />
                             </Suspense>
