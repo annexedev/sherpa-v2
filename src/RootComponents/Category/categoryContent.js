@@ -340,9 +340,9 @@ const CategoryContent = props => {
                     ids: {
                         in: categoryId
                     }
-                },
-                fetchPolicy: 'network-only'
-            }
+                }
+            },
+            fetchPolicy: 'no-cache'
         });
 
         if (loading) {
