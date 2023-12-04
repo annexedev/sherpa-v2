@@ -460,7 +460,18 @@ const Main = props => {
             <div className={pageClass}>
                 {(() => {
 
-                    if(display12Days) {
+                    if(display12Days && activeLng == '-fr') {
+                        return (
+                        <Suspense fallback={''}>
+                            <Banner
+                                identifier={'sherpa12dys'}
+                                showBanner={showCategoryBanners}
+                            />
+                        </Suspense>
+                        )
+                    }
+
+                    if(display12Days && activeLng == '') {
                         return (
                         <Suspense fallback={''}>
                             <Banner
