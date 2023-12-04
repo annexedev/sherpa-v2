@@ -118,7 +118,7 @@ class ProjectList extends Component {
                                         height="20"
                                     />
                                 </span>
-                                <Link to="/wishlist" onClick={onClose}>
+                                <Link onClick={onClose}>
                                     <FormattedMessage
                                         id={'sidebar.MyWishlist'}
                                         defaultMessage={'My projects'}
@@ -149,7 +149,7 @@ class ProjectList extends Component {
                                         height="20"
                                     />
                                 </span>
-                                <Link to="/wishlist" onClick={onClose}>
+                                <Link onClick={onClose}>
                                     <FormattedMessage
                                         id={'sidebar.MyWishlist'}
                                         defaultMessage={'Project Archives'}
