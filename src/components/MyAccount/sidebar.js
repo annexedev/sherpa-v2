@@ -15,7 +15,10 @@ class ProjectList extends Component {
             pageData: [],
             pageDataAccess: [],
             name: 'React Component reload sample',
-            reload: false
+            reload: false,
+            myProjectsVisible: false,
+            myArchiveVisible: false,
+            showAll: false,
         };
     }
 
@@ -43,8 +46,31 @@ class ProjectList extends Component {
             });
     }
 
+    /* ----- HIDE/SHOW ---------- */
+
+
+    alternateVisibilityArchive = () => {
+        this.setState((prevState) => ({
+
+            myArchiveVisible: !prevState.myArchiveVisible,
+        }));
+    }
+
+    alternateVisibilityProjects = () => {
+        this.setState((prevState) => ({
+
+            myProjectsVisible: !prevState.myProjectsVisible,
+        }));
+    }
+
+    handleShowMoreClick = () => {
+        this.setState({ showAll: true });
+    }
+
+
     render() {
         let archive = this.props.archive;
+        const { showAll } = this.state;
 
         const classes = mergeClasses(defaultClasses, wishlistClasses);
 
@@ -73,10 +99,11 @@ class ProjectList extends Component {
                                 className={
                                     path == '/wishlist'
                                         ? defaultClasses.item +
-                                          ' ' +
-                                          defaultClasses.active
+                                        ' ' +
+                                        defaultClasses.active
                                         : defaultClasses.item
                                 }
+                                onClick={this.alternateVisibilityProjects}
                             >
                                 {' '}
                                 <span
@@ -103,10 +130,11 @@ class ProjectList extends Component {
                                 className={
                                     path == '/wishlist'
                                         ? defaultClasses.item +
-                                          ' ' +
-                                          defaultClasses.active
+                                        ' ' +
+                                        defaultClasses.active
                                         : defaultClasses.item
                                 }
+                                onClick={this.alternateVisibilityArchive}
                             >
                                 {' '}
                                 <span
@@ -129,90 +157,118 @@ class ProjectList extends Component {
                                 </Link>
                             </li>
                         )}
-
                         {this.state.pageData &&
-                            this.state.pageData.map(e => {
+                            this.state.pageData.map((e, index) => {
+                                // --------------- PROJECT ARCHIVES ------------
+
                                 if (
                                     e.category_name.startsWith('ARCHIVE') &&
                                     this.props.archive &&
                                     projectId == e.category_id
                                 ) {
                                     return (
-                                        <li
-                                            className={
-                                                classes.projectlist +
-                                                ' ' +
-                                                classes.projectlistactive
-                                            }
-                                        >
-                                            <a
-                                                href={
-                                                    '/wishlist?id=' +
-                                                    e.category_id
-                                                }
-                                            >
-                                                {e.category_name}
-                                            </a>
-                                        </li>
+                                        <>
+                                            {this.state.myArchiveVisible && (
+                                                <li
+                                                    className={
+                                                        classes.projectlist +
+                                                        ' ' +
+                                                        classes.projectlistactive
+                                                    }
+
+                                                >
+                                                    <a
+                                                        href={
+                                                            '/wishlist?id=' +
+                                                            e.category_id
+                                                        }
+                                                    >
+                                                        {e.category_name}
+                                                    </a>
+                                                </li>
+                                            )}
+                                        </>
                                     );
                                 } else if (
                                     e.category_name.startsWith('ARCHIVE') &&
                                     this.props.archive
                                 ) {
+                                    // bloc a faire le hide/show au click
                                     return (
-                                        <li className={classes.projectlist}>
-                                            <a
-                                                href={
-                                                    '/wishlist?id=' +
-                                                    e.category_id
-                                                }
-                                            >
-                                                {e.category_name}
-                                            </a>
-                                        </li>
+                                        <>
+                                            {this.state.myArchiveVisible && (
+
+                                                <li className={classes.projectlist}>
+                                                    <a
+                                                        href={
+                                                            '/wishlist?id=' +
+                                                            e.category_id
+                                                        }
+                                                    >
+                                                        {e.category_name}
+                                                    </a>
+                                                </li>
+                                            )}
+                                        </>
+
                                     );
                                 }
+                                // ------------ MY PROJECTS --------------
                                 if (
                                     !e.category_name.startsWith('ARCHIVE') &&
                                     !this.props.archive &&
                                     projectId == e.category_id
                                 ) {
                                     return (
-                                        <li
-                                            className={
-                                                classes.projectlist +
-                                                ' ' +
-                                                classes.projectlistactive
-                                            }
-                                        >
-                                            <a
-                                                href={
-                                                    '/wishlist?id=' +
-                                                    e.category_id
-                                                }
-                                            >
-                                                {e.category_name}
-                                            </a>
-                                        </li>
+                                        <>
+                                            {this.state.myProjectsVisible(
+                                                <>
+                                                    <li
+                                                        className={
+                                                            classes.projectlist +
+                                                            ' ' +
+                                                            classes.projectlistactive
+                                                        }
+                                                    >
+                                                        <a
+                                                            href={
+                                                                '/wishlist?id=' +
+                                                                e.category_id
+                                                            }
+                                                        >
+                                                            {e.category_name}
+                                                        </a>
+                                                    </li>
+                                                </>
+                                            )}
+                                        </>
                                     );
                                 } else if (
                                     !e.category_name.startsWith('ARCHIVE') &&
                                     !this.props.archive
                                 ) {
+                                    // bloc a faire le hide/show au click
                                     return (
-                                        <li className={classes.projectlist}>
-                                            <a
-                                                href={
-                                                    '/wishlist?id=' +
-                                                    e.category_id
-                                                }
-                                            >
-                                                {e.category_name}
-                                            </a>
-                                        </li>
+                                        <>
+                                            {this.state.myProjectsVisible && (
+                                                <>
+                                                    <li className={classes.projectlist}>
+                                                        <a
+                                                            href={
+                                                                '/wishlist?id=' +
+                                                                e.category_id
+                                                            }
+                                                        >
+                                                            {e.category_name}
+                                                        </a>
+                                                    </li>
+                                                </>
+                                            )}
+                                        </>
                                     );
                                 }
-                            })}
+                            })
+                        }
                     </>
                 );
             } else {

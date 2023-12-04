@@ -608,9 +608,9 @@ body[class='rtl_view'] .box_actions {
     .greetings_cust {
         padding-left: 85px;
     }
-    .sideBar_wrapper {
+    /*.sideBar_wrapper {
         display: none;
-    }
+    }*/
     .sideBar_wrapper .list {
         border-bottom: 1px solid var(--primary-border-color);
         margin-bottom: 0;
