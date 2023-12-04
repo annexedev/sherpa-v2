@@ -368,6 +368,8 @@ const CategoryContent = props => {
         } else {
             activeLng = '';
         }
+        console.log('**********');
+        console.log(data);
 
         return (
             <div className="App">

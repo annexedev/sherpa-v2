@@ -460,7 +460,7 @@ const Main = props => {
             <div className={pageClass}>
                 {(() => {
 
-                    if(display12Days && activeLng == '-fr') {
+                    if(isSignedIn && display12Days) {
                         return (
                         <Suspense fallback={''}>
                             <Banner
@@ -471,7 +471,21 @@ const Main = props => {
                         )
                     }
 
-                    if(display12Days && activeLng == '') {
+                    if(!isSignedIn && display12Days) {
+                        return (
+                        <>
+                            <TriggerOpen />
+                            <Suspense fallback={''}>
+                                <Banner
+                                    identifier={'sherpa12dys'}
+                                    showBanner={showCategoryBanners}
+                                />
+                            </Suspense>
+                        </>
+                        )
+                    }
+
+                    /* if(isSignedIn && display12Days && activeLng == '') {
                         return (
                         <Suspense fallback={''}>
                             <Banner
@@ -480,7 +494,7 @@ const Main = props => {
                             />
                         </Suspense>
                         )
-                    }
+                    } */
 
 
                     if (displayTeam) {
