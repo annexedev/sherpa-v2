@@ -14,6 +14,7 @@ import Breadcrumbs from '@magento/venia-ui/lib/components/Breadcrumbs';
 import Button from '@magento/venia-ui/lib/components/Button';
 import Carousel from '@magento/venia-ui/lib/components/ProductImageCarousel';
 import FormError from '@magento/venia-ui/lib/components/FormError';
+import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import RichText from '@magento/venia-ui/lib/components/RichText';
 import { Modal } from '../Modal';
@@ -442,6 +443,7 @@ const ProductFullDetail = props => {
     });
     let targetRef = useRef(' ');
     const { product } = props;
+    // console.log(product);
 
     const [, { addToast }] = useToasts();
     const [{ isSignedIn }] = useUserContext();
@@ -466,7 +468,7 @@ const ProductFullDetail = props => {
     const { data, refetch } = wishlistProps;
     let addedToWishlist = false;
     if (typeof data != 'undefined') {
-        data.forEach(function(value) {
+        data.forEach(function (value) {
             if (value.product.id == product.id) {
                 addedToWishlist = true;
             }
@@ -512,6 +514,36 @@ const ProductFullDetail = props => {
         only_x_left_in_stock,
         success
     } = talonProps;
+
+    /* ---------------------- TAG DISCOUNT DETAILS ------------------------------- */
+
+    // console.log(productDetails);
+    const customPricePercent = 0;
+
+    const final_minimum_price =
+        (productDetails.price.minimum_price.final_price.value +
+            customPrice +
+            customPricePercent * productDetails.price.minimum_price.final_price.value) *
+        1;
+
+    const final_regular_price =
+        (productDetails.price.minimum_price.regular_price.value +
+            customPrice +
+            customPricePercent *
+            productDetails.price.minimum_price.regular_price.value) *
+        1;
+
+    const discount_percent = Math.round(
+        (1 - final_minimum_price / final_regular_price).toFixed(2) *
+        100 *
+        100
+    ) / 100;
+    
+    let discount_date = new Date(product.special_to_date);
+
+    // console.log(discount_percent);
+    // console.log(product);
+    /* -------------------------------------------------------------------------- */
 
     const classes = mergeClasses(cedClasses, props.classes);
 
@@ -781,6 +813,7 @@ const ProductFullDetail = props => {
         currencyCde = 'CAD';
     }
 
+
     return (
         <Fragment>
             <div className={'container' + ' ' + classes.product_page_container}>
@@ -810,6 +843,32 @@ const ProductFullDetail = props => {
                                     classes.title + ' ' + classes.shadow_section
                                 }
                             >
+                                {discount_percent > 0 && email && (
+                                    <div className={classes.priceTag}>
+                                        <b>
+                                            {discount_percent}%{' '}
+                                            <FormattedMessage
+                                                id={'item.rebate'}
+                                                defaultMessage={'Off'}
+                                            />
+                                            {product.special_to_date && (
+                                                <>
+                                                    {' '}
+                                                    <FormattedMessage
+                                                        id={'item.until'}
+                                                        defaultMessage={'until'}
+                                                    />{' '}
+                                                    {discount_date
+                                                        .toDateString()
+                                                        .split(' ')
+                                                        .slice(1)
+                                                        .join(' ')}
+                                                </>
+                                            )}
+                                        </b>
+                                    </div>
+                                )}
+
                                 <h1 className={classes.productName}>
                                     {productDetails.name}
                                 </h1>
@@ -863,7 +922,7 @@ const ProductFullDetail = props => {
                                                         value={(
                                                             Math.round(
                                                                 product.msrp_sherpa2 *
-                                                                    100
+                                                                100
                                                             ) / 100
                                                         ).toFixed(2)}
                                                         currencyCode={
@@ -1144,7 +1203,7 @@ const ProductFullDetail = props => {
                                         />
                                         {product &&
                                             product.stock_status ==
-                                                'IN_STOCK' && (
+                                            'IN_STOCK' && (
                                                 <>
                                                     <Button
                                                         priority="high"
@@ -1186,7 +1245,7 @@ const ProductFullDetail = props => {
 
                                         {product &&
                                             product.stock_status !=
-                                                'IN_STOCK' && (
+                                            'IN_STOCK' && (
                                                 <div
                                                     className={
                                                         classes.out_of_stock

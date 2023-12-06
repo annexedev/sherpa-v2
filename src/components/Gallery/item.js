@@ -381,6 +381,7 @@ const GalleryItem = props => {
     const { email } = useDashboard();
 
     const { handleLinkClick, item } = useGalleryItem(props);
+    console.log(item);
     const { style } = props;
 
     const [productName, setProductName] = useState('');
