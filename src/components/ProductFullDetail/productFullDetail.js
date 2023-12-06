@@ -517,7 +517,7 @@ const ProductFullDetail = props => {
 
     /* ---------------------- TAG DISCOUNT DETAILS ------------------------------- */
 
-    // console.log(productDetails);
+    console.log(productDetails);
     const customPricePercent = 0;
 
     const final_minimum_price =
@@ -542,7 +542,7 @@ const ProductFullDetail = props => {
     let discount_date = new Date(product.special_to_date);
 
     // console.log(discount_percent);
-    // console.log(product);
+    console.log(product);
     /* -------------------------------------------------------------------------- */
 
     const classes = mergeClasses(cedClasses, props.classes);

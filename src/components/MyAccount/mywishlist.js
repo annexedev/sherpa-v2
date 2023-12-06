@@ -20,6 +20,8 @@ import {
     faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 import { useCategoryAddToCart } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+
 import Quantity from '../CartPage/ProductListing/quantity';
 
 import WishlistSkelton from './WishlistSkeleton.js';
@@ -87,6 +89,40 @@ const MyWishList = props => {
         query: WishListQuery
     });
 
+    console.log(wishlistProps);
+    console.log(useProductMoreInfo);
+
+    /* ---------------------- TAG DISCOUNT DETAILS ------------------------------- */
+
+    // console.log(productDetails);
+    // const customPricePercent = 0;
+
+    // const final_minimum_price =
+    //     (productDetails.price.minimum_price.final_price.value +
+    //         customPrice +
+    //         customPricePercent * productDetails.price.minimum_price.final_price.value) *
+    //     1;
+
+    // const final_regular_price =
+    //     (productDetails.price.minimum_price.regular_price.value +
+    //         customPrice +
+    //         customPricePercent *
+    //         productDetails.price.minimum_price.regular_price.value) *
+    //     1;
+
+    // const discount_percent = Math.round(
+    //     (1 - final_minimum_price / final_regular_price).toFixed(2) *
+    //     100 *
+    //     100
+    // ) / 100;
+    
+    // let discount_date = new Date(product.special_to_date);
+
+    // // console.log(discount_percent);
+    // console.log(product);
+    /* -------------------------------------------------------------------------- */
+
+
     const deleteData = useDeleteFromWishlist({
         query: REMOVE_FROM_WISHLIST_MUTATION,
         customerQuery: GET_CUSTOMER_QUERY
@@ -112,6 +148,8 @@ const MyWishList = props => {
         loading,
         refetch
     } = wishlistProps;
+
+    // console.log(data);
 
     const queryParameters = new URLSearchParams(window.location.search);
 
@@ -222,7 +260,7 @@ const MyWishList = props => {
                 data['MpBetterWishlistCreateCategory']['category_id'];
             console.log(
                 'https://data.sherpagroupav.com/duplicate_project.php?projectId=' +
-                    data['MpBetterWishlistCreateCategory']['category_id']
+                data['MpBetterWishlistCreateCategory']['category_id']
             );
             fetch(dataURL)
                 .then(res => res.json())
@@ -588,21 +626,21 @@ const MyWishList = props => {
                                                                         //document.getElementById('q'+val.id).getElementById("quantity")[0].value = 8;
                                                                         document.getElementById(
                                                                             't' +
-                                                                                pid
+                                                                            pid
                                                                         ).style.display =
                                                                             'block';
                                                                         var element = document.getElementById(
                                                                             't' +
-                                                                                pid
+                                                                            pid
                                                                         );
                                                                         element.classList.add(
                                                                             'activeProject'
                                                                         );
                                                                         console.log(
                                                                             'Is active' +
-                                                                                val.product.price.regularPrice.amount.value.toFixed(
-                                                                                    2
-                                                                                )
+                                                                            val.product.price.regularPrice.amount.value.toFixed(
+                                                                                2
+                                                                            )
                                                                         );
                                                                         total =
                                                                             total +
@@ -610,11 +648,11 @@ const MyWishList = props => {
                                                                                 val.product.price.regularPrice.amount.value.toFixed(
                                                                                     2
                                                                                 ) *
-                                                                                    val.qty
+                                                                                val.qty
                                                                             );
                                                                         console.log(
                                                                             'Total : ' +
-                                                                                total
+                                                                            total
                                                                         );
                                                                         document.getElementById(
                                                                             'totalApprox'
@@ -634,6 +672,7 @@ const MyWishList = props => {
                                                                 wId
                                                             )
                                                         ) {
+                                                            console.log(val);
                                                             return (
                                                                 <>
                                                                     <div
@@ -650,6 +689,34 @@ const MyWishList = props => {
                                                                                 .id
                                                                         }
                                                                     >
+                                                                        {/* --------- ICI le green pills ------- */}
+                                                                        <div>Teste</div>
+                                                                        {/* {discount_percent > 0 && email && (
+                                                                            <div className={classes.priceTag}>
+                                                                                <b>
+                                                                                    {discount_percent}%{' '}
+                                                                                    <FormattedMessage
+                                                                                        id={'item.rebate'}
+                                                                                        defaultMessage={'Off'}
+                                                                                    />
+                                                                                    {product.special_to_date && (
+                                                                                        <>
+                                                                                            {' '}
+                                                                                            <FormattedMessage
+                                                                                                id={'item.until'}
+                                                                                                defaultMessage={'until'}
+                                                                                            />{' '}
+                                                                                            {discount_date
+                                                                                                .toDateString()
+                                                                                                .split(' ')
+                                                                                                .slice(1)
+                                                                                                .join(' ')}
+                                                                                        </>
+                                                                                    )}
+                                                                                </b>
+                                                                            </div>
+                                                                        )} */}
+
                                                                         <div
                                                                             className={
                                                                                 classes.inner
@@ -664,9 +731,9 @@ const MyWishList = props => {
                                                                                     to={resourceUrl(
                                                                                         val
                                                                                             .product[
-                                                                                            'url_key'
+                                                                                        'url_key'
                                                                                         ] +
-                                                                                            productUrlSuffix
+                                                                                        productUrlSuffix
                                                                                     )}
                                                                                 >
                                                                                     <img
@@ -698,9 +765,9 @@ const MyWishList = props => {
                                                                                         to={resourceUrl(
                                                                                             val
                                                                                                 .product[
-                                                                                                'url_key'
+                                                                                            'url_key'
                                                                                             ] +
-                                                                                                productUrlSuffix
+                                                                                            productUrlSuffix
                                                                                         )}
                                                                                     >
                                                                                         {
@@ -811,53 +878,80 @@ const MyWishList = props => {
                                                                                         .product
                                                                                         .__typename ==
                                                                                         'SimpleProduct' && (
-                                                                                        <button
-                                                                                            className={
-                                                                                                'active_item' +
-                                                                                                wId
-                                                                                            }
-                                                                                            onClick={() => {
-                                                                                                /*handleAddToCart(
-                                                                                            val.product, val.qty
-                                                                                        );*/
-                                                                                                var currentQty = document
-                                                                                                    .querySelector(
-                                                                                                        '#q' +
+                                                                                            <button
+                                                                                                className={
+                                                                                                    'active_item' +
+                                                                                                    wId
+                                                                                                }
+                                                                                                onClick={() => {
+                                                                                                    /*handleAddToCart(
+                                                                                                val.product, val.qty
+                                                                                            );*/
+                                                                                                    var currentQty = document
+                                                                                                        .querySelector(
+                                                                                                            '#q' +
                                                                                                             val.id
-                                                                                                    )
-                                                                                                    .querySelector(
-                                                                                                        'input'
-                                                                                                    )
-                                                                                                    .value;
-                                                                                                console.log(
-                                                                                                    'qqqw'
-                                                                                                );
-                                                                                                console.log(
-                                                                                                    val.product
-                                                                                                );
-                                                                                                let item =
-                                                                                                    val.product;
-
-                                                                                                for (
-                                                                                                    let i = 0;
-                                                                                                    i <
-                                                                                                    currentQty;
-                                                                                                    i++
-                                                                                                ) {
-                                                                                                    handleAddToCart(
+                                                                                                        )
+                                                                                                        .querySelector(
+                                                                                                            'input'
+                                                                                                        )
+                                                                                                        .value;
+                                                                                                    console.log(
+                                                                                                        'qqqw'
+                                                                                                    );
+                                                                                                    console.log(
                                                                                                         val.product
                                                                                                     );
-                                                                                                }
+                                                                                                    let item =
+                                                                                                        val.product;
 
-                                                                                                //window.alert("Product moved to cart.");
-                                                                                                /*remove(
-                                                                                            val
-                                                                                                .product
-                                                                                                .id
-                                                                                        );*/
-                                                                                            }}
-                                                                                        >
-                                                                                            <span
+                                                                                                    for (
+                                                                                                        let i = 0;
+                                                                                                        i <
+                                                                                                        currentQty;
+                                                                                                        i++
+                                                                                                    ) {
+                                                                                                        handleAddToCart(
+                                                                                                            val.product
+                                                                                                        );
+                                                                                                    }
+
+                                                                                                    //window.alert("Product moved to cart.");
+                                                                                                    /*remove(
+                                                                                                val
+                                                                                                    .product
+                                                                                                    .id
+                                                                                            );*/
+                                                                                                }}
+                                                                                            >
+                                                                                                <span
+                                                                                                    className={
+                                                                                                        classes.add_btn
+                                                                                                    }
+                                                                                                >
+                                                                                                    <FormattedMessage
+                                                                                                        id={
+                                                                                                            'myWishlist.moveToCartBtn'
+                                                                                                        }
+                                                                                                        defaultMessage={
+                                                                                                            'Move to cart'
+                                                                                                        }
+                                                                                                    />
+                                                                                                </span>
+                                                                                            </button>
+                                                                                        )}
+                                                                                    {val
+                                                                                        .product
+                                                                                        .__typename !=
+                                                                                        'SimpleProduct' && (
+                                                                                            <Link
+                                                                                                to={resourceUrl(
+                                                                                                    val
+                                                                                                        .product[
+                                                                                                    'url_key'
+                                                                                                    ] +
+                                                                                                    productUrlSuffix
+                                                                                                )}
                                                                                                 className={
                                                                                                     classes.add_btn
                                                                                                 }
@@ -870,35 +964,8 @@ const MyWishList = props => {
                                                                                                         'Move to cart'
                                                                                                     }
                                                                                                 />
-                                                                                            </span>
-                                                                                        </button>
-                                                                                    )}
-                                                                                    {val
-                                                                                        .product
-                                                                                        .__typename !=
-                                                                                        'SimpleProduct' && (
-                                                                                        <Link
-                                                                                            to={resourceUrl(
-                                                                                                val
-                                                                                                    .product[
-                                                                                                    'url_key'
-                                                                                                ] +
-                                                                                                    productUrlSuffix
-                                                                                            )}
-                                                                                            className={
-                                                                                                classes.add_btn
-                                                                                            }
-                                                                                        >
-                                                                                            <FormattedMessage
-                                                                                                id={
-                                                                                                    'myWishlist.moveToCartBtn'
-                                                                                                }
-                                                                                                defaultMessage={
-                                                                                                    'Move to cart'
-                                                                                                }
-                                                                                            />
-                                                                                        </Link>
-                                                                                    )}
+                                                                                            </Link>
+                                                                                        )}
                                                                                 </div>
                                                                             </div>
                                                                         </div>

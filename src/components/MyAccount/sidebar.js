@@ -149,7 +149,7 @@ class ProjectList extends Component {
                                         height="20"
                                     />
                                 </span>
-                                <Link onClick={onClose}>
+                                <Link to="/wishlist" onClick={onClose}>
                                     <FormattedMessage
                                         id={'sidebar.MyWishlist'}
                                         defaultMessage={'Project Archives'}
@@ -168,7 +168,7 @@ class ProjectList extends Component {
                                 ) {
                                     return (
                                         <>
-                                            {this.state.myArchiveVisible && (
+                                            {/* {this.state.myArchiveVisible && ( */}
                                                 <li
                                                     className={
                                                         classes.projectlist +
@@ -186,7 +186,7 @@ class ProjectList extends Component {
                                                         {e.category_name}
                                                     </a>
                                                 </li>
-                                            )}
+                                            {/* )} */}
                                         </>
                                     );
                                 } else if (
@@ -221,7 +221,7 @@ class ProjectList extends Component {
                                 ) {
                                     return (
                                         <>
-                                            {this.state.myProjectsVisible(
+                                            {/* {this.state.myProjectsVisible( */}
                                                 <>
                                                     <li
                                                         className={
@@ -240,7 +240,7 @@ class ProjectList extends Component {
                                                         </a>
                                                     </li>
                                                 </>
-                                            )}
+                                            {/* )} */}
                                         </>
                                     );
                                 } else if (
