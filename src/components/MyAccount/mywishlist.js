@@ -67,7 +67,7 @@ class ProjectName extends Component {
             this.state.pageData.pname && this.state.pageData.pname;
         return (
             <React.Fragment>
-                - <span id="widn">{projectname}</span>
+                - <span id="widn" className={defaultClasses.nomProject}>{projectname}</span>
             </React.Fragment>
         );
     }
@@ -77,6 +77,12 @@ const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
     //window.location.href="/";
+
+    const url = window.location.href;
+    
+    const myprojects = url.includes("?id");
+    
+    // console.log(myprojects);
 
     const [, { addToast }] = useToasts();
     const classes = mergeClasses(
@@ -333,7 +339,7 @@ const MyWishList = props => {
                 >
                     <button type="submit" className={classes.add_to_project}>
                         {' '}
-                        Delete project
+                        Permanently Delete Project
                     </button>
                 </form>
             </div>
@@ -479,25 +485,24 @@ const MyWishList = props => {
 
         return (
             <div>
+                {/* <label>Project actions: </label> */}
                 <select
                     onChange={onChange}
-                    className={classes.project_dropdown}
+                    className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
                 >
-                    <option defaultValue value="0">
-                        Project actions
-                    </option>
+                    <option defaultValue value="0">Project Options</option>
 
-                    <option value="1">Create a new project</option>
+                    {/* <option value="1">Create a new project</option> */}
                     <option value="5">Duplicate project</option>
                     <option value="2">Rename current project</option>
                     <option value="3">Archive current project</option>
                     <option value="4">Delete current project</option>
                 </select>
-                {selectValue && selectValue == 1 && (
+                {/* {selectValue && selectValue == 1 && (
                     <div id={'hidden_div'}>
                         <AddTodo uid={wId} />
                     </div>
-                )}
+                )} */}
                 {selectValue && selectValue == 5 && (
                     <div id={'hidden_div'}>
                         <AddTodoDuplicate uid={wId} />
@@ -553,27 +558,30 @@ const MyWishList = props => {
                                         defaultClasses.account_contentBar
                                     }
                                 >
-                                    <div
-                                        className={
-                                            defaultClasses.page_title_wrapper
-                                        }
-                                    >
-                                        <h1
+                                    {myprojects &&
+                                        <div
                                             className={
-                                                defaultClasses.page_title
+                                                defaultClasses.page_title_wrapper
                                             }
                                         >
-                                            <span
-                                                className={defaultClasses.base}
+                                            <h1
+                                                className={
+                                                    defaultClasses.page_title
+                                                }
                                             >
-                                                <FormattedMessage
-                                                    id={'myWishlist.page_title'}
-                                                    defaultMessage={'Project'}
-                                                />{' '}
-                                                <ProjectName cid={wId} />
-                                            </span>
-                                        </h1>
-                                    </div>
+                                                <span
+                                                    className={defaultClasses.base}
+                                                >
+                                                    <FormattedMessage
+                                                        id={'myWishlist.page_title'}
+                                                        defaultMessage={'My Projects'}
+                                                    />{' '}
+                                                    <ProjectName cid={wId} />
+                                                </span>
+                                            </h1>
+                                            <button className={defaultClasses.btnPurchase}>Project Purchase History</button>
+                                        </div>
+                                    }
                                     {wId !== undefined && wId !== null && (
                                         <>
                                             <div>
@@ -581,7 +589,10 @@ const MyWishList = props => {
                                                 shipping : $
                                                 <span id="totalApprox" />
                                             </div>
-                                            <MoveProjectToCart />
+                                            <div className={defaultClasses.wrapperBtnDropdown}>
+                                                <MoveProjectToCart />
+                                                <Select />
+                                            </div>
                                         </>
                                     )}
                                     <div
@@ -1066,11 +1077,11 @@ const MyWishList = props => {
                                             </>
                                         )}
                                     </div>
-                                    {wId !== undefined && wId !== null && (
+                                    {/* {wId !== undefined && wId !== null && (
                                         <>
                                             <Select uid={wId} />
                                         </>
-                                    )}
+                                    )} */}
                                 </div>
                             </div>
                         </div>

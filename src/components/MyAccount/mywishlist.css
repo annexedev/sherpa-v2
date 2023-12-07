@@ -46,6 +46,12 @@
     color: white;
     margin-top: 30px;
 }
+.nomProject{
+    font-size: 32px;
+}
+#widn{
+    font-size:32px;
+}
 .rename_project:hover {
     background: #000;
     transition: 0.3s all;
@@ -61,7 +67,7 @@
     line-height: 20px;
     width: 150px;
     color: white;
-    margin-top: 30px;
+    margin: 30px 0;
 }
 .add_to_project:hover {
     background: #000;

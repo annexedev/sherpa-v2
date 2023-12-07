@@ -198,6 +198,27 @@ form.root input:focus {
     display: block;
     line-height: 28px;
 }
+/* -------- */
+.nomProject{
+    font-size: 20px;
+    font-weight:bold;
+}
+.btnPurchase{
+    margin: 10px 0;
+    color: var(--primary-light-color);
+    background: #8dc74c;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 40px;
+    line-height: 20px;
+}
+.wrapperBtnDropdown{
+    display:flex;
+    gap:20px;
+}
+.project_dropdown{
+    
+}
 .block_dashboard_info,
 .block_dashboard_addresses,
 .block_dashboard_orders {
@@ -283,7 +304,7 @@ form.root input:focus {
 .block_dashboard_addresses {
 }
 .block_dashboard_orders {
-    margin-top: 15px;
+    /* margin-top: 15px; */
     margin-bottom: 0;
 }
 .manage_address,
