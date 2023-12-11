@@ -248,6 +248,9 @@
     .product_img {
         min-height: 185px;
     }
+    .add_to_project {
+        margin: 20px 0 10px 0
+    }
     .qty_control_wrap {
         height: 38px;
     }

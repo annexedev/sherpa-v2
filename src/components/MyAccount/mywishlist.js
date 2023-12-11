@@ -79,9 +79,9 @@ const MyWishList = props => {
     //window.location.href="/";
 
     const url = window.location.href;
-    
+
     const myprojects = url.includes("?id");
-    
+
     // console.log(myprojects);
 
     const [, { addToast }] = useToasts();
@@ -121,7 +121,7 @@ const MyWishList = props => {
     //     100 *
     //     100
     // ) / 100;
-    
+
     // let discount_date = new Date(product.special_to_date);
 
     // // console.log(discount_percent);
@@ -563,21 +563,26 @@ const MyWishList = props => {
                                                 defaultClasses.page_title_wrapper
                                             }
                                         >
-                                            <h1
-                                                className={
-                                                    defaultClasses.page_title
-                                                }
-                                            >
-                                                <span
-                                                    className={defaultClasses.base}
+                                            <div className={defaultClasses.flex_between}>
+                                                <h1
+                                                    className={
+                                                        defaultClasses.page_title
+                                                    }
                                                 >
-                                                    <FormattedMessage
-                                                        id={'myWishlist.page_title'}
-                                                        defaultMessage={'My Projects'}
-                                                    />{' '}
-                                                    <ProjectName cid={wId} />
-                                                </span>
-                                            </h1>
+                                                    <span
+                                                        className={defaultClasses.base}
+                                                    >
+                                                        <FormattedMessage
+                                                            id={'myWishlist.page_title'}
+                                                            defaultMessage={'My Projects'}
+                                                        />{' '}
+                                                        <ProjectName cid={wId} />
+                                                    </span>
+                                                </h1>
+                                                <div id={'hidden_div'} className={defaultClasses.hidden_div}>
+                                                    <AddTodo uid={wId} />
+                                                </div>
+                                            </div>
                                             <button className={defaultClasses.btnPurchase}>Project Purchase History</button>
                                         </div>
                                     }
