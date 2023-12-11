@@ -484,13 +484,12 @@ const MyWishList = props => {
         };
 
         return (
-            <div>
-                {/* <label>Project actions: </label> */}
+            <div className={defaultClasses.wrapper_project_dropdown}>
                 <select
                     onChange={onChange}
                     className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
                 >
-                    <option defaultValue value="0">Project Options</option>
+                    <option value="" disabled selected hidden>Project Options</option>
 
                     {/* <option value="1">Create a new project</option> */}
                     <option value="5">Duplicate project</option>

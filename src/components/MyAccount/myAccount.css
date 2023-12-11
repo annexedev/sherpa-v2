@@ -215,9 +215,18 @@ form.root input:focus {
 .wrapperBtnDropdown{
     display:flex;
     gap:20px;
+    align-items:center;
+    flex-wrap:wrap;
+
 }
 .project_dropdown{
-    
+
+}
+.wrapper_project_dropdown{
+    display:flex;
+    gap:20px;
+    margin:20px 0;
+    align-items: center;
 }
 .block_dashboard_info,
 .block_dashboard_addresses,
