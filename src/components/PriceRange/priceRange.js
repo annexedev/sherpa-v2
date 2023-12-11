@@ -83,7 +83,7 @@ const PriceRange = props => {
                     {final_minimum_price == final_regular_price && (
                         <>
                             <p className={classes.productPrice}>
-                                <FormattedMessage
+                                {/* <FormattedMessage
                                     id={'item.yourCost'}
                                     defaultMessage={'YOUR COST'}
                                 />
@@ -99,8 +99,8 @@ const PriceRange = props => {
                                         </p>
                                         <br />
                                     </>
-                                )}
-                                {product && product.soldin && (
+                                )}*/}
+                                {/*{product && product.soldin && (
                                     <>
                                         <p className={classes.productPrice}>
                                             <FormattedMessage
@@ -111,7 +111,7 @@ const PriceRange = props => {
                                         </p>
                                         <br />
                                     </>
-                                )}
+                                )}*/}
                                 <Price
                                     currencyCode={
                                         price.minimum_price.final_price.currency
