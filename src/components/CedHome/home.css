@@ -1,3 +1,10 @@
+.product_brand_name {
+    margin: 0;
+    min-height: 20px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
 .slider_indicator {
     align-items: center;
     display: grid !important;

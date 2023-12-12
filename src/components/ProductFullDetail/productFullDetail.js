@@ -781,6 +781,45 @@ const ProductFullDetail = props => {
         currencyCde = 'CAD';
     }
 
+    class DisplayRibbon extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let productId = this.props.pid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_newfromandto.php?pid=' + productId;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let display = this.state.pageData.display && this.state.pageData.display;
+            if(display>=2) {
+            return (
+                <React.Fragment>
+                   <div className="ribbon ribbon-top-left ribbon-top-left-product">
+                        <span>
+                            <FormattedMessage id={'item.ribbon'} defaultMessage={'New'} />
+                        </span>
+                    </div>
+                </React.Fragment>
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
+    console.log(productDetails);
     return (
         <Fragment>
             <div className={'container' + ' ' + classes.product_page_container}>
@@ -791,7 +830,8 @@ const ProductFullDetail = props => {
                         defaultMessage={'Return to previous page'}
                     />
                 </a>
-                <Form className={classes.root}>
+                <Form className={classes.root} id="ribbonPosition">
+                    <DisplayRibbon pid={productDetails.id} />
                     {/* product image carousel section */}
                     <section
                         className={
@@ -799,6 +839,7 @@ const ProductFullDetail = props => {
                         }
                     >
                         <div className={classes.imageCarousel_inner}>
+                            
                             <Carousel images={mediaGalleryEntries} />
                         </div>
                     </section>

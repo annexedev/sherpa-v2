@@ -397,6 +397,7 @@ export const useProductFullDetail = props => {
 
     // Normalization object for product details we need for rendering.
     const productDetails = {
+        id: product.id,
         description: product.short_description,
         short_description: product.short_description,
         name: product.name,

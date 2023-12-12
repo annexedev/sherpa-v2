@@ -646,7 +646,7 @@ const GalleryItem = props => {
             headers: {
                 authorization: 'bearer xxx'
             },
-            fetchPolicy: 'no-cache',
+            fetchPolicy: 'network-only',
             variables: {}
         });
 
@@ -720,6 +720,45 @@ const GalleryItem = props => {
         setName(e.target.value); // set name to e.target.value (event)
       };
 
+    class DisplayRibbon extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let productId = this.props.pid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_newfromandto.php?pid=' + productId;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let display = this.state.pageData.display && this.state.pageData.display;
+            if(display>=2) {
+            return (
+                <React.Fragment>
+                   <div className="ribbon ribbon-top-left">
+                        <span>
+                            <FormattedMessage id={'item.ribbon'} defaultMessage={'New'} />
+                        </span>
+                    </div>
+                </React.Fragment>
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
+
     if (item.sku.endsWith('-PROMO') && email == '') {
         return <></>;
     } else {
@@ -727,11 +766,13 @@ const GalleryItem = props => {
             <>
                 <div
                     className={classes.root}
-                    aria-live="polite"
+                    aria-live="polite" 
                     aria-busy="false"
                     id="ribbonPosition"
                 >
-                    {/* <div className="ribbon ribbon-top-left"><span><FormattedMessage id={'item.ribbon'} defaultMessage={'New'} /></span></div> */}
+
+                    <DisplayRibbon pid={item.id} />
+                    
                     <div className={classes.noo_product_image}>
                         {discount_percent > 0 && email && (
                             <div className={classes.priceTag}>

@@ -342,7 +342,7 @@ const CategoryContent = props => {
                     }
                 }
             },
-            fetchPolicy: 'no-cache'
+            fetchPolicy: 'network-only'
         });
 
         if (loading) {
