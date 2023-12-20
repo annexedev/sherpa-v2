@@ -46,6 +46,13 @@
     font-weight: 700;
     color: #333;
 }
+.headingProductsWithProject{
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    background-color:#8DC74C;
+    padding:10px;
+}
 .signInLink span {
     color: var(--primary-base-color);
     font-size: 16px !important;
@@ -95,7 +102,7 @@
 .wrapperProductsFromProjects{
     display:flex;
     justify-content: space-between;
-    margin: 0 50px 0 23px;
+    margin: 0 5px 0 10px;
 }
 .item_container_wrap :first-child{
     margin-bottom:20px;
@@ -103,6 +110,7 @@
 .wrapperValeurProduits{
     gap:8px;
     display:flex;
+    padding: 10px;
 }
 .items_container {
     grid-area: items;
@@ -111,6 +119,16 @@
 }
 .items_container h3 {
     font-size: 15px;
+}
+.items_container_projet{
+    grid-area: items;
+    border: 1px solid #EBEBEB;
+}
+.items_container_projet :first-child{
+    margin-bottom:0 !important;
+}
+.items_container_projet h3{
+        font-size: 15px;
 }
 .price_adjustments_container {
     grid-area: adjustments;

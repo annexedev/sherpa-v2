@@ -176,12 +176,12 @@ const CartPage = props => {
                                     <span>Valeur</span>
                                 </div>
                             </div>
-                            <div className={classes.items_container}>
+                            <div className={classes.items_container_projet}>
                                     <div className={classes.wrapperProductsWithProject}>
-                                        <h1 className={classes.headingProducts}>
+                                        <h1 className={classes.headingProductsWithProject}>
                                             <FormattedMessage
                                                 id={'cartPage.headingProducts'}
-                                                defaultMessage={'Products from projects'}
+                                                defaultMessage={'Nom du projet'}
                                             />
                                         </h1>
                                         <div className={classes.wrapperValeurProduits}>
