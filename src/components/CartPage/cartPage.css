@@ -4,14 +4,18 @@
 .cart_inner {
 }
 .body {
-    display: grid;
+/*     display: grid;
     gap: 15px;
     grid-template-columns: 1fr 20rem;
-    /* The summary grid item spans the entire right column. */
-    grid-template-areas:
+ */    /* The summary grid item spans the entire right column. */
+/*     grid-template-areas:
         'items summary'
         'adjustments summary';
-}
+ */
+  display:flex;
+  gap:15px;
+  width:100%;
+ }
 .review_order_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
@@ -37,6 +41,11 @@
     font-size: 25px;
     font-family: 'Karla-medium' !important;
 }
+.headingProducts{
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
 .signInLink span {
     color: var(--primary-base-color);
     font-size: 16px !important;
@@ -53,9 +62,52 @@
     background: var(--primary-light-color);
     padding: 15px;
     box-shadow: var(--primary-box-shadow);
+    width:70%;
+}
+.noResult {
+    display: flex;
+    /* border-bottom: 1px solid var(--primary-slider-nav-color); */
+    padding: 20px;
+    color: var(--primary-slider-nav-color);
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.noResult_text {
+    color: var(--primary-not-found-color);
+    text-align:center;
+    max-width: 180px;
+    font-size:12px;
+    font-weight: 500;
+}
+.circleIcon svg {
+    width: 0.4em !important;
+}
+.wrapperProducts{
+    display:flex;
+    justify-content: space-between;
+    margin: 0 20px 0 25px;
+}
+.wrapperProductsWithProject{
+    display:flex;
+    justify-content: space-between;
+}
+.wrapperProductsFromProjects{
+    display:flex;
+    justify-content: space-between;
+    margin: 0 50px 0 23px;
+}
+.item_container_wrap :first-child{
+    margin-bottom:20px;
+}
+.wrapperValeurProduits{
+    gap:8px;
+    display:flex;
 }
 .items_container {
     grid-area: items;
+    border: 1px solid #EBEBEB;
+    padding: 20px;
 }
 .items_container h3 {
     font-size: 15px;

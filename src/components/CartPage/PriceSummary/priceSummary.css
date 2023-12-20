@@ -13,7 +13,10 @@
     grid-template-columns: 1fr auto;
     line-height: 1.5rem;
 }
-
+.price_adjustments_container {
+    grid-area: adjustments;
+    margin-top: 50px;
+}
 .lineItemLabel {
     justify-self: start;
 }
@@ -59,6 +62,10 @@
 }
 .checkoutButton_container button {
     width: 100%;
+}
+.checkoutButton_container span{
+    color:#333333;
+    font-weight: 500;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
