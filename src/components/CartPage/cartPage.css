@@ -41,6 +41,12 @@
     font-size: 25px;
     font-family: 'Karla-medium' !important;
 }
+.wrapperProducts .headingProducts{
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
 .headingProducts{
     font-size: 16px;
     font-weight: 700;
@@ -93,7 +99,7 @@
 .wrapperProducts{
     display:flex;
     justify-content: space-between;
-    margin: 0 20px 0 25px;
+    margin: 0;
 }
 .wrapperProductsWithProject{
     display:flex;
