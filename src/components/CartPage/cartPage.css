@@ -104,7 +104,7 @@
     justify-content: space-between;
     margin: 0 5px 0 10px;
 }
-.item_container_wrap :first-child{
+.item_container_wrap:first-child{
     margin-bottom:20px;
 }
 .wrapperValeurProduits{

@@ -67,6 +67,13 @@
     color:#333333;
     font-weight: 500;
 }
+.flexBetween{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #EBEBEB;
+}
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .checkoutButton_container {

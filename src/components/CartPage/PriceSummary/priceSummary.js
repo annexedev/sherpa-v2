@@ -161,6 +161,13 @@ const PriceSummary = props => {
                     data={shipping}
                     isCheckout={isCheckout}
                 />
+            </div>
+            <div
+                className={classes.price_adjustments_container}
+            >
+                {priceAdjustments}
+            </div>
+            <div className={classes.flexBetween}>
                 <span className={classes.totalLabel}>
                     {isCheckout
                         ? formatMessage({
@@ -176,12 +183,7 @@ const PriceSummary = props => {
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>
             </div>
-            <div
-                className={classes.price_adjustments_container}
-            >
-              {priceAdjustments}
-            </div>
- 
+
             {proceedToCheckoutButton}
             {/* <p className={classes.checkoutNotice}>Make sure the quantity of your products is right before checkout.</p> */}
         </div>
