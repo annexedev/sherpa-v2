@@ -27,8 +27,8 @@
 }
 .entryForm input {
     min-height: 41px;
-    width:60%;
 }
+
 /* on mobile... */
 @media (max-width: 960px) {
     .entryForm,

@@ -56,6 +56,9 @@ const CartPage = props => {
     const [productsWithoutProject, setProductsWithoutProject] = useState(false);
     const [productsWithProject, setProductsWithProject] = useState(false);
 
+    const totalPriceProductsWithoutProject = cartItems.reduce((total, product) => total + product.prices.price.value, 0).toFixed(2);
+
+    console.log(totalPriceProductsWithoutProject);
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const { crossSellData } = useCrossSellProduct({
@@ -133,9 +136,9 @@ const CartPage = props => {
                                     />
                                 </h1>
                                 <div className={classes.wrapperValeurProduits}>
-                                    <span>0 products</span>
+                                    <span>{cartItems.length} products</span>
                                     <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                    <span>Valeur</span>
+                                    <span>$ {totalPriceProductsWithoutProject}</span>
                                     <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                 </div>
                             </div>
