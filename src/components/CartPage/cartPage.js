@@ -58,8 +58,6 @@ const CartPage = props => {
 
     const totalPriceProductsWithoutProject = cartItems.reduce((total, product) => total + product.prices.price.value, 0).toFixed(2);
 
-    console.log(totalPriceProductsWithoutProject);
-
     const classes = mergeClasses(defaultClasses, props.classes);
     const { crossSellData } = useCrossSellProduct({
         query: crossSellQuery,

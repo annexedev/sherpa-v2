@@ -67,7 +67,7 @@
 }
 .item_container_wrap {
     background: var(--primary-light-color);
-    padding: 15px;
+    padding: 20px;
     box-shadow: var(--primary-box-shadow);
     width:70%;
 }
@@ -104,9 +104,7 @@
     justify-content: space-between;
     margin: 0 5px 0 10px;
 }
-.item_container_wrap:first-child{
-    margin-bottom:20px;
-}
+
 .wrapperValeurProduits{
     gap:8px;
     display:flex;

@@ -1,5 +1,5 @@
 .root {
-    padding: 15px;
+    padding: 24px;
 }
 
 .errorText {
@@ -61,7 +61,7 @@
     width: 100%;
 }
 .checkoutButton_container button {
-    width: 100%;
+    width: 85%;
 }
 .checkoutButton_container span{
     color:#333333;
@@ -73,6 +73,11 @@
     align-items:center;
     padding-bottom: 18px;
     border-bottom: 1px solid #EBEBEB;
+}
+.headingSubtotal{
+    padding-bottom: 18px;
+    border-bottom: 1px solid #EBEBEB;
+    margin-bottom:30px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

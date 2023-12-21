@@ -118,7 +118,14 @@ const PriceSummary = props => {
 
     return (
         <div className={classes.root}>
+                <h3 className={classes.headingSubtotal}>
+                    <FormattedMessage
+                        id={'priceSummary.heading'}
+                        defaultMessage={'Subtotal'}
+                    />
+                </h3>
             <div className={classes.lineItems}>
+
                 <span className={classes.lineItemLabel}>
                     <FormattedMessage
                         id={'priceSummary.lineItemLabel'}
