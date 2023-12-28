@@ -1,11 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect, Suspense, Component } from 'react';
 import { Price } from '@magento/peregrine';
 import classes from '../ProductFullDetail/productFullDetail.css';
 import priceClasses from './priceRange.css';
 import { FormattedMessage } from 'react-intl';
+import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
+
+
 
 const PriceRange = props => {
     var today = new Date();
+    
+    const { email, group_id } = useDashboard();
+
+    class TierPricing extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+        
+        componentDidMount() {
+            let pid = this.props.pid;
+            let email = this.props.email;
+            
+            let dataURL =
+                'https://data.sherpagroupav.com/get_tierpricing.php?pid=' +
+                pid +
+                '&email=' +
+                email;
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let tierDiscount = this.state.pageData.discount;
+            let finalPrice = this.props.finalPrice;
+            let currency = this.props.currency;
+            if(this.state.pageData.discount != 'undefined' && finalPrice && currency) {
+                return (
+                    <>
+                        <b
+                            className={
+                                classes.total_available_b
+                            }
+                        >
+                            <FormattedMessage
+                                id={'item.yourCost'}
+                                defaultMessage={'YOUR COST'}
+                            />
+                            &nbsp;&nbsp;
+                        </b>
+                        <Price
+                            value={finalPrice * (1-tierDiscount)}
+                            currencyCode={currency}
+                        />
+                    </>
+                );
+            } else {
+                return (
+                    <>
+                        Loading ...
+                    </>
+                );
+            }
+        }
+    }
 
     const {
         price,
@@ -38,6 +103,7 @@ const PriceRange = props => {
 
     let specialDate = new Date(product.special_to_date);
 
+    
 
     if (
         (price && product.__typename == 'SimpleProduct') ||
@@ -71,7 +137,7 @@ const PriceRange = props => {
                             <p className={classes.productPrice}>
                                 <FormattedMessage
                                     id={'item.soldIn'}
-                                    defaultMessage={'Sold in: '}
+                                    defaultMessage={'Sold in '}
                                 />{' '}
                                 : <span>{product && product.soldin}</span>
                             </p>
@@ -112,12 +178,15 @@ const PriceRange = props => {
                                         <br />
                                     </>
                                 )}*/}
-                                <Price
+                                {group_id}
+                                <TierPricing pid={product.id} email={email} finalPrice={final_minimum_price} currency={price.minimum_price.final_price.currency} />
+                                            
+                                {/* <Price
                                     currencyCode={
                                         price.minimum_price.final_price.currency
                                     }
                                     value={final_minimum_price}
-                                />
+                                /> */}
                             </p>
                         </>
                     )}

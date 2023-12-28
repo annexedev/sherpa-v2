@@ -99,6 +99,7 @@ const Home = props => {
     const mobilesliderIdentifier3 = 'homepage_mobile_banner_' + arr[2];
 
     return (
+        <Suspense fallback={'Loading'}>
         <React.Fragment>
             <div>
                 {!mobileView && (
@@ -313,25 +314,9 @@ const Home = props => {
                     </section>
                 )}
                 {/* mid banner section END */}
-
-                {/* Trending product section  */}
-                {/* {showTrendingProducts && scrollFlag && (
-                    <Suspense fallback={''}>
-                        <SliderProduct
-                            showLinkedProduct={showTrendingProducts}
-                            type="BestSeller Product"
-                            name={formatMessage({
-                                id: 'home.bestseller',
-                                defaultMessage: 'BestSeller Product'
-                            })}
-                            classes={classes}
-                        />
-                    </Suspense>
-                )} */}
-
-                {/* Trending product section end */}
             </div>
         </React.Fragment>
+        </Suspense>
     );
 };
 

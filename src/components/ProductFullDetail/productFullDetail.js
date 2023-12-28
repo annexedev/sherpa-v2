@@ -781,6 +781,39 @@ const ProductFullDetail = props => {
         currencyCde = 'CAD';
     }
 
+    class AmastyLabel extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let productId = this.props.pid;
+            let dataURL ='https://data.sherpagroupav.com/get_amastylabel.php?pid=' + productId;
+            //let dataURL ='https://data.sherpagroupav.com/get_amastylabel.php?pid=5620';
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let label_path = this.state.pageData.label_path && this.state.pageData.label_path;
+            if(label_path!='') {
+            return (
+                <img src={"https://data.sherpagroupav.com/media/amasty/amlabel/"+label_path} className={classes.amastyLabel} />
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
+
     class DisplayRibbon extends Component {
         constructor() {
             super();
@@ -832,12 +865,14 @@ const ProductFullDetail = props => {
                 </a>
                 <Form className={classes.root} id="ribbonPosition">
                     <DisplayRibbon pid={productDetails.id} />
+                   
                     {/* product image carousel section */}
                     <section
                         className={
                             classes.imageCarousel + ' ' + classes.shadow_section
                         }
                     >
+                         <AmastyLabel pid={productDetails.id} />
                         <div className={classes.imageCarousel_inner}>
                             
                             <Carousel images={mediaGalleryEntries} />
@@ -974,7 +1009,7 @@ const ProductFullDetail = props => {
                                         <p className={classes.productPrice}>
                                             <FormattedMessage
                                                 id={'item.soldIn'}
-                                                defaultMessage={'Sold in: '}
+                                                defaultMessage={'Sold in '}
                                             />{' '}
                                             <span>
                                                 {product && product.soldin}

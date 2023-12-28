@@ -720,6 +720,182 @@ const GalleryItem = props => {
         setName(e.target.value); // set name to e.target.value (event)
       };
 
+      class TierPricing extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+        
+        componentDidMount() {
+            let pid = this.props.pid;
+            let email = this.props.email;
+            
+            let dataURL =
+                'https://data.sherpagroupav.com/get_tierpricing.php?pid=' +
+                pid +
+                '&email=' +
+                email;
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            console.log('this.state.pageData.discount '+this.state.pageData.discount);
+            let tierDiscount = this.state.pageData.discount;
+            let finalPrice = this.props.finalPrice;
+            let currency = this.props.currency;
+            if(this.state.pageData.discount != 'undefined' && finalPrice && currency) {
+                return (
+                    <>
+                        <b
+                            className={
+                                classes.total_available_b
+                            }
+                        >
+                            <FormattedMessage
+                                id={'item.yourCost'}
+                                defaultMessage={'YOUR COST'}
+                            />
+                            &nbsp;&nbsp;
+                        </b>
+                        <Price
+                            value={finalPrice * (1-tierDiscount)}
+                            currencyCode={currency}
+                        />
+                    </>
+                );
+            } else {
+                return (
+                    <>
+                        Loading ...
+                    </>
+                );
+            }
+        }
+    }
+
+    class TierPricingPromotion extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+        
+        componentDidMount() {
+            let pid = this.props.pid;
+            let email = this.props.email;
+            
+            let dataURL =
+                'https://data.sherpagroupav.com/get_tierpricing.php?pid=' +
+                pid +
+                '&email=' +
+                email;
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let tierDiscount = this.state.pageData.discount;
+            let finalPrice = this.props.finalPrice;
+            let regularPrice = this.props.regularPrice;
+            let currency = this.props.currency;
+            if(this.state.pageData.discount != 'undefined' && finalPrice && currency) {
+                return (
+                    <>
+
+                        <b
+                            className={
+                                classes.total_available_b
+                            }
+                        >
+                            <FormattedMessage
+                                id={'item.yourCost'}
+                                defaultMessage={'YOUR COST'}
+                            />
+                            &nbsp;&nbsp;
+                        </b>
+                        <span
+                            className={
+                                classes.productPrice +
+                                ' ' +
+                                classes.greenprice
+                            }
+                        >
+                            <Price
+                                value={finalPrice * (1-tierDiscount)}
+                                currencyCode={currency}
+                            />
+                        </span>
+                        <span
+                            className={
+                                classes.regularprice +
+                                ' ' +
+                                classes.discountedprice
+                            }
+                        >
+                            <Price
+                                currencyCode={currency}
+                                value={regularPrice}
+                            />
+                        </span>
+                    </>
+                );
+            } else {
+                return (
+                    <>
+                        Loading ...
+                    </>
+                );
+            }
+        }
+    }
+
+    class AmastyLabel extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let productId = this.props.pid;
+            let dataURL ='https://data.sherpagroupav.com/get_amastylabel.php?pid=' + productId;
+            //let dataURL ='https://data.sherpagroupav.com/get_amastylabel.php?pid=5620';
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let label_path = this.state.pageData.label_path && this.state.pageData.label_path;
+            if(label_path!='') {
+            return (
+                <img src={"https://data.sherpagroupav.com/media/amasty/amlabel/"+label_path} className={classes.amastyLabel} />
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
+
     class DisplayRibbon extends Component {
         constructor() {
             super();
@@ -758,7 +934,8 @@ const GalleryItem = props => {
             }
         }
     }  
-
+    console.log('price_range');
+    console.log(price_range);
     if (item.sku.endsWith('-PROMO') && email == '') {
         return <></>;
     } else {
@@ -770,9 +947,12 @@ const GalleryItem = props => {
                     aria-busy="false"
                     id="ribbonPosition"
                 >
-
-                    <DisplayRibbon pid={item.id} />
-                    
+                    <Suspense fallback={null}>
+                        <DisplayRibbon pid={item.id} />
+                    </Suspense>
+                    <Suspense fallback={null}>
+                        <AmastyLabel pid={item.id} />
+                    </Suspense>
                     <div className={classes.noo_product_image}>
                         {discount_percent > 0 && email && (
                             <div className={classes.priceTag}>
@@ -905,83 +1085,22 @@ const GalleryItem = props => {
                                     {item.special_to_date && (
                                         <p>To: {item.special_to_date.slice(0, -8)}</p>
                                     )} */}
-                                            <b
-                                                className={
-                                                    classes.total_available_b
-                                                }
-                                            >
-                                                <FormattedMessage
-                                                    id={'item.yourCost'}
-                                                    defaultMessage={'YOUR COST'}
-                                                />
-                                                &nbsp;&nbsp;
-                                            </b>
-                                            <span
-                                                className={
-                                                    classes.productPrice +
-                                                    ' ' +
-                                                    classes.greenprice
-                                                }
-                                            >
-                                                <Price
-                                                    value={
-                                                        price_range
-                                                            .maximum_price
-                                                            .final_price.value *
-                                                        1
-                                                    }
-                                                    currencyCode={
-                                                        price_range
-                                                            .maximum_price
-                                                            .regular_price
-                                                            .currency
-                                                    }
-                                                />
-                                            </span>
-                                            <span
-                                                className={
-                                                    classes.regularprice +
-                                                    ' ' +
-                                                    classes.discountedprice
-                                                }
-                                            >
-                                                <Price
-                                                    currencyCode={
-                                                        price_range
-                                                            .minimum_price
-                                                            .regular_price
-                                                            .currency
-                                                    }
-                                                    value={final_regular_price}
-                                                />
-                                            </span>
+                                            
+                                            <>
+                                            
+                                                <TierPricingPromotion pid={item.id} email={email} finalPrice={price_range.maximum_price.final_price.value} regularPrice={price_range.maximum_price.regular_price.value} currency={price_range.maximum_price.regular_price.currency} />
+                                                
+                                            </>
+                                            
+                                            
                                         </>
                                     )}
                                     {final_minimum_price ==
                                         final_regular_price && (
                                         <>
-                                            <b
-                                                className={
-                                                    classes.total_available_b
-                                                }
-                                            >
-                                                <FormattedMessage
-                                                    id={'item.yourCost'}
-                                                    defaultMessage={'YOUR COST'}
-                                                />
-                                                &nbsp;&nbsp;
-                                            </b>
-
-                                            <Price
-                                                value={
-                                                    price_range.maximum_price
-                                                        .final_price.value
-                                                }
-                                                currencyCode={
-                                                    price_range.maximum_price
-                                                        .regular_price.currency
-                                                }
-                                            />
+                                            
+                                            <TierPricing pid={item.id} email={email} finalPrice={price_range.maximum_price.final_price.value} currency={price_range.maximum_price.regular_price.currency} />
+                                            
                                         </>
                                     )}
 
@@ -1047,7 +1166,8 @@ const GalleryItem = props => {
                                             classes.qty_selector
                                         }
                                     >
-                                        <QuantityPicker min={1} value={1} onChange={handleChange}/>
+                                    
+                                    <QuantityPicker/>
                                         
                                     </div>
                                     <div className={classes.add_to_cart_btn}>

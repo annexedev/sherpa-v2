@@ -7,6 +7,12 @@
     padding: 15px;
     box-shadow: var(--primary-box-shadow);
 }
+.amastyLabel {
+    position: absolute;
+    right: 0px;
+    z-index: 99999;
+    max-width: 100px
+}
 .product_details_right {
     padding: 0 15px 15px 15px !important;
     order: 2;
