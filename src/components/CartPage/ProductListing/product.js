@@ -141,7 +141,7 @@ const Product = props => {
                         />
                     </div>
                 </div>
-                <Kebab classes={{ root: classes.kebab }} disabled={true}>
+                <Kebab classes={{ root: classes.kebab }} disabled={true}  onClick={handleRemoveFromCart}>
                     {/* {!isSignedIn && (
                         <Section
                             text={
@@ -186,7 +186,7 @@ const Product = props => {
                         )} */}
 
                     {editItemSection}
-                    <Section
+                    {/* <Section
                         text={formatMessage({
                             id: 'product.removeCart',
                             defaultMessage: 'Remove from cart'
@@ -194,7 +194,7 @@ const Product = props => {
                         onClick={handleRemoveFromCart}
                         icon="Trash"
                         classes={{ text: classes.sectionText }}
-                    />
+                    /> */}
                 </Kebab>
             </div>
         </li>

@@ -104,6 +104,15 @@
 .wrapperProductsWithProject{
     display:flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.wrapperProductsWithProject .headingProductsWithProject{
+    font-size: 12px;
+    font-weight: 700;
+    color: #333;
+    background-color: #8DC74C;
+    padding: 14px;
 }
 .wrapperProductsFromProjects{
     display:flex;
@@ -120,6 +129,7 @@
     grid-area: items;
     border: 1px solid #EBEBEB;
     padding: 20px;
+    margin-bottom: 60px;
 }
 .items_container h3 {
     font-size: 15px;
