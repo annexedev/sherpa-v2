@@ -128,7 +128,7 @@
 .items_container {
     grid-area: items;
     border: 1px solid #EBEBEB;
-    padding: 20px;
+    /* padding: 20px; */
     margin-bottom: 60px;
 }
 .items_container h3 {

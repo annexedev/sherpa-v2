@@ -3,6 +3,14 @@ import { Form } from 'informed';
 import { func, number, string } from 'prop-types';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
+import { useProduct } from 'src/peregrine/lib/talons/CartPage/ProductListing/useProduct';
+import { Price } from '@magento/peregrine';
+import { gql } from '@apollo/client';
+
+import { CartPageFragment } from '../cartPageFragments.gql';
+import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
+
+
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
@@ -10,7 +18,7 @@ import TextInput from '../../TextInput';
 import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
-    const { initialValue, itemId, label, min, onChange } = props;
+    const { initialValue, itemId, label, min, onChange, item, setIsCartUpdating, setActiveEditItem } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
@@ -20,6 +28,7 @@ export const QuantityFields = props => {
         onChange
     });
 
+    
     const {
         isDecrementDisabled,
         isIncrementDisabled,
@@ -28,12 +37,48 @@ export const QuantityFields = props => {
         handleIncrement,
         maskInput
     } = talonProps;
+    
+    const talonPropsProduct = useProduct({
+        item,
+        mutations: {
+            removeItemMutation: REMOVE_ITEM_MUTATION,
+            updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
+        },
+        setActiveEditItem,
+        setIsCartUpdating
+    });
+
+    const {
+        errorMessage,
+        handleEditItem,
+        handleRemoveFromCart,
+        handleToggleFavorites,
+        handleUpdateItemQuantity,
+        isEditable,
+        isFavorite,
+        product
+    } = talonPropsProduct;
+
+    const {
+        currency,
+        image,
+        name,
+        options,
+        quantity,
+        stockStatus,
+        unitPrice,
+        urlKey,
+        sku,
+        urlSuffix
+    } = product;
+
 
     return (
         <div className={classes.root}>
             <label className={classes.label} htmlFor={itemId}>
                 {label}
             </label>
+            <div>
             <div className={classes.qty_inner_wrap + ' ' + classes.wrap}>
                 <button
                     aria-label={'Decrease Quantity'}
@@ -66,6 +111,14 @@ export const QuantityFields = props => {
                 >
                     <Icon classes={iconClasses} src={PlusIcon} size={20} />
                 </button>
+            </div>
+            <div className={classes.wrapperPrice}>
+                <p>YOUR COST {unitPrice}</p>
+                <span className={classes.price}>
+                    <Price currencyCode={currency} value={unitPrice * props.initialValue} />
+                </span>
+            </div>
+
             </div>
         </div>
     );
@@ -105,3 +158,42 @@ QuantityFields.defaultProps = {
 };
 
 export default Quantity;
+
+export const REMOVE_ITEM_MUTATION = gql`
+    mutation removeItem($cartId: String!, $itemId: Int!) {
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
+            @connection(key: "removeItemFromCart") {
+            cart {
+                id
+                ...CartPageFragment
+                ...AvailableShippingMethodsCartFragment
+            }
+        }
+    }
+    ${CartPageFragment}
+    ${AvailableShippingMethodsCartFragment}
+`;
+
+export const UPDATE_QUANTITY_MUTATION = gql`
+    mutation updateItemQuantity(
+        $cartId: String!
+        $itemId: Int!
+        $quantity: Float!
+    ) {
+        updateCartItems(
+            input: {
+                cart_id: $cartId
+                cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
+            }
+        ) @connection(key: "updateCartItems") {
+            cart {
+                id
+                ...CartPageFragment
+                ...AvailableShippingMethodsCartFragment
+            }
+        }
+    }
+    ${CartPageFragment}
+    ${AvailableShippingMethodsCartFragment}
+`;
+

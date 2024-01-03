@@ -83,6 +83,17 @@
     opacity: 0.4;
 }
 
+.wrapperPrice{
+    display: flex;
+    gap: 100px;
+    width: 300px;
+}
+.wrapperPrice p{
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 700;
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
     .button {
         min-height: 20px;
