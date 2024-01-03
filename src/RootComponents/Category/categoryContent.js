@@ -340,9 +340,9 @@ const CategoryContent = props => {
                     ids: {
                         in: categoryId
                     }
-                },
-                fetchPolicy: 'no-cache'
-            }
+                }
+            },
+            fetchPolicy: 'network-only'
         });
 
         if (loading) {
@@ -368,6 +368,8 @@ const CategoryContent = props => {
         } else {
             activeLng = '';
         }
+        console.log('**********');
+        console.log(data);
 
         return (
             <div className="App">
@@ -410,7 +412,7 @@ const CategoryContent = props => {
                                                 <div
                                                     className={classes.boxlink}
                                                 >
-                                                    <a href={'/' + s.url_path}>
+                                                    <a href={'/' + s.url_path + '?page=1'}>
                                                         <FormattedMessage
                                                             id={
                                                                 'categoryContent.viewProducts'

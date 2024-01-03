@@ -824,14 +824,18 @@ const ProductFullDetail = props => {
                         defaultMessage={'Return to previous page'}
                     />
                 </a>
-                <Form className={classes.root}>
+                <Form className={classes.root} id="ribbonPosition">
+                    <DisplayRibbon pid={productDetails.id} />
+                   
                     {/* product image carousel section */}
                     <section
                         className={
                             classes.imageCarousel + ' ' + classes.shadow_section
                         }
                     >
+                         <AmastyLabel pid={productDetails.id} />
                         <div className={classes.imageCarousel_inner}>
+                            
                             <Carousel images={mediaGalleryEntries} />
                         </div>
                     </section>
@@ -992,7 +996,7 @@ const ProductFullDetail = props => {
                                         <p className={classes.productPrice}>
                                             <FormattedMessage
                                                 id={'item.soldIn'}
-                                                defaultMessage={'Sold in: '}
+                                                defaultMessage={'Sold in '}
                                             />{' '}
                                             <span>
                                                 {product && product.soldin}

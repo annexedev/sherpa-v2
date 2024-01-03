@@ -460,7 +460,7 @@ const Main = props => {
             <div className={pageClass}>
                 {(() => {
 
-                    if(display12Days) {
+                    if(isSignedIn && display12Days) {
                         return (
                         <Suspense fallback={''}>
                             <Banner
@@ -470,6 +470,31 @@ const Main = props => {
                         </Suspense>
                         )
                     }
+
+                    if(!isSignedIn && display12Days) {
+                        return (
+                        <>
+                            <TriggerOpen />
+                            <Suspense fallback={''}>
+                                <Banner
+                                    identifier={'12daysnot'}
+                                    showBanner={showCategoryBanners}
+                                />
+                            </Suspense>
+                        </>
+                        )
+                    }
+
+                    /* if(isSignedIn && display12Days && activeLng == '') {
+                        return (
+                        <Suspense fallback={''}>
+                            <Banner
+                                identifier={'sherpa12dys'}
+                                showBanner={showCategoryBanners}
+                            />
+                        </Suspense>
+                        )
+                    } */
 
 
                     if (displayTeam) {

@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useCallback } from 'react';
+import React, { Suspense, useState, useCallback, Component } from 'react';
 import { Link, resourceUrl } from 'src/drivers';
 import { useCategoryAddToCart } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { ADD_SIMPLE_MUTATION } from '../../components/ProductFullDetail/productFullDetail.gql';
@@ -106,7 +106,38 @@ const Product = props => {
         activeLng = '';
     }
 
-    //console.log(value);
+    class BrandName extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let productId = this.props.pid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_brandname.php?pid=' + productId;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let brandname = this.state.pageData.brandname && this.state.pageData.brandname;
+            if(brandname) {
+            return (
+                <p className={defaultClasses.product_brand_name}>{brandname}</p>
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
 
     return (
         <div key={index} className="item">
@@ -129,9 +160,9 @@ const Product = props => {
                                 />
                             </Link>
                         </div>
-                        <p className={classes.product_brand_name}>
-                            Brand name
-                        </p>
+                        
+                        <BrandName pid={value.id} />
+                        
                         <div className={defaultClasses.noo_details_wrapper}>
                             
                             <h3

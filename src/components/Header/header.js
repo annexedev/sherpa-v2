@@ -199,7 +199,7 @@ const Header = props => {
     if (document.getElementById('currentLng') != null) {
         lng = document.getElementById('currentLng').innerHTML;
     }
-    let activeLng = '';
+    let activeLng = 'x';
     let indexname = 'magento2_prod_default_products';
     if (lng == 'Français') {
         activeLng = '-fr';
@@ -230,7 +230,7 @@ const Header = props => {
                             </div>
                             {activeLng == '-fr' && (
                                 <>
-                                    {currentUser.firstname ? (
+                                    {email ? (
                                         <p
                                             className={
                                                 classes.offer_message_text
@@ -277,9 +277,9 @@ const Header = props => {
                                 </>
                             )}
 
-                            {activeLng == '' && (
+                            {activeLng == '' && isSignedIn && (
                                 <>
-                                    {currentUser.firstname ? (
+                                    {email ? (
                                         <p
                                             className={
                                                 classes.offer_message_text
@@ -295,33 +295,43 @@ const Header = props => {
                                             </a>
                                         </p>
                                     ) : (
+                                        <></>
+                                    )}
+                                </>
+                            )}
+
+                            {activeLng == '' && !isSignedIn && (
+                                <>
+                                    {!email ? (
                                         <p
-                                            className={
-                                                classes.offer_message_text
-                                            }
+                                        className={
+                                            classes.offer_message_text
+                                        }
+                                    >
+                                        <a
+                                            className={classes.contactus}
+                                            onClick={openLoginBox}
                                         >
-                                            <a
-                                                className={classes.contactus}
-                                                onClick={openLoginBox}
-                                            >
-                                                Login
-                                            </a>{' '}
-                                            |{' '}
-                                            <a
-                                                className={classes.contactus}
-                                                href="/new-user-account"
-                                            >
-                                                Create your account to become a
-                                                dealer
-                                            </a>{' '}
-                                            |{' '}
-                                            <a
-                                                className={classes.contactus}
-                                                href="/contact"
-                                            >
-                                                Contact us
-                                            </a>
-                                        </p>
+                                            Login
+                                        </a>{' '}
+                                        |{' '}
+                                        <a
+                                            className={classes.contactus}
+                                            href="/new-user-account"
+                                        >
+                                            Create your account to become a
+                                            dealer
+                                        </a>{' '}
+                                        |{' '}
+                                        <a
+                                            className={classes.contactus}
+                                            href="/contact"
+                                        >
+                                            Contact us
+                                        </a>
+                                    </p>
+                                    ) : (
+                                        <></>
                                     )}
                                 </>
                             )}

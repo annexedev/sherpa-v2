@@ -20,6 +20,18 @@ const ProductSort = props => {
     useEffect(() => {
         // Update the document title using the browser API
         //document.getElementById('setSort').click();
+
+        if (window.location.href.indexOf("search.html") != -1) {
+            
+        } else {
+            currentSort.sortAttribute = 'sku';
+            currentSort.sortDirection = 'ASC';
+            currentSort.sortId = 'sortItem.sku';
+        }
+
+        console.log('Current sort: ');
+        console.log(currentSort);
+        
         if (!mobileView) {
             setExpanded(true);
         }

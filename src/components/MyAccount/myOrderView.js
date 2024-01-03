@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Component } from 'react';
 import { shape, string } from 'prop-types';
 import Classes from './myAccount.css';
 import defaultClasses from './myOrderView.css';
@@ -43,6 +43,39 @@ const MyOrderView = props => {
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
+    
+    class OrderPo extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let orderNumber = this.props.pid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_pocomments.php?pid=' + orderNumber;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let orderpo = this.state.pageData.orderpo && this.state.pageData.orderpo;
+            return (
+                <React.Fragment>
+                    <b>{orderpo}</b>
+                </React.Fragment>
+            );
+        }
+    }
+
     return (
         <div className={defaultClasses.columns}>
             <div className="container">
@@ -979,7 +1012,7 @@ const MyOrderView = props => {
                                                             defaultClasses.order_view_columns
                                                         }
                                                     >
-                                                        PO 123456
+                                                        <OrderPo pid={data.increment_id} />
                                                     </div>
                                         </div>
 

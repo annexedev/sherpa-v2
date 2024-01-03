@@ -10,9 +10,6 @@
   <link rel="shortcut icon" href="/cenia-static/sherpa_fav.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sherpa Technology Group - <%= STORE_NAME %></title>
-  <meta http-equiv='cache-control' content='no-cache'>
-  <meta http-equiv='expires' content='0'>
-  <meta http-equiv='pragma' content='no-cache'>
   <style>
     .aa-Panel { 
       z-index: 1;
@@ -242,14 +239,14 @@ section.team-page-section .w-100{
   z-index: -1;
   content: '';
   display: block;
-  border: 5px solid #2980b9;
+  border: 5px solid #8dc74c;
 }
 .ribbon span {
   position: absolute;
   display: block;
   width: 225px;
   padding: 15px 0;
-  background-color: #3498db;
+  background-color: #8dc74c;
   box-shadow: 0 5px 10px rgba(0,0,0,.1);
   color: #fff;
   font: 700 18px/1 'Lato', sans-serif;
@@ -263,6 +260,14 @@ section.team-page-section .w-100{
   top: -10px;
   left: -10px;
 }
+
+@media only screen and (max-width: 767px){
+  .ribbon-top-left-product {
+    top: 5px;
+    left: 5px;
+  }
+}
+
 .ribbon-top-left::before,
 .ribbon-top-left::after {
   border-top-color: transparent;
