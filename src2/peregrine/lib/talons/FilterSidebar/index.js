@@ -1,1 +1,0 @@
-export { useFilterSidebar } from './useFilterSidebar';
