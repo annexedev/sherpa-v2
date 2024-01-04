@@ -18,7 +18,7 @@ import TextInput from '../../TextInput';
 import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
-    const { initialValue, itemId, label, min, onChange, item, setIsCartUpdating, setActiveEditItem } = props;
+    const { initialValue, itemId, label, min, onChange, item } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
@@ -28,7 +28,11 @@ export const QuantityFields = props => {
         onChange
     });
 
-    
+    console.log(item);
+
+    const price = item ? item.prices.price.value : 0;
+    const currency = item ? item.prices.price.currency : 'CAD';
+
     const {
         isDecrementDisabled,
         isIncrementDisabled,
@@ -37,88 +41,55 @@ export const QuantityFields = props => {
         handleIncrement,
         maskInput
     } = talonProps;
-    
-    const talonPropsProduct = useProduct({
-        item,
-        mutations: {
-            removeItemMutation: REMOVE_ITEM_MUTATION,
-            updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
-        },
-        setActiveEditItem,
-        setIsCartUpdating
-    });
-
-    const {
-        errorMessage,
-        handleEditItem,
-        handleRemoveFromCart,
-        handleToggleFavorites,
-        handleUpdateItemQuantity,
-        isEditable,
-        isFavorite,
-        product
-    } = talonPropsProduct;
-
-    const {
-        currency,
-        image,
-        name,
-        options,
-        quantity,
-        stockStatus,
-        unitPrice,
-        urlKey,
-        sku,
-        urlSuffix
-    } = product;
 
 
     return (
         <div className={classes.root}>
-            <label className={classes.label} htmlFor={itemId}>
+            {/* <label className={classes.label} htmlFor={itemId}>
                 {label}
-            </label>
+            </label> */}
             <div>
-            <div className={classes.qty_inner_wrap + ' ' + classes.wrap}>
-                <button
-                    aria-label={'Decrease Quantity'}
-                    className={classes.button_decrement}
-                    disabled={isDecrementDisabled}
-                    onClick={handleDecrement}
-                    type="button"
-                >
-                    <Icon classes={iconClasses} src={MinusIcon} size={22} />
-                </button>
-                <div className={classes.qty_field_wrap}>
-                    <TextInput
-                        aria-label="Item Quantity"
-                        classes={{ input: classes.input }}
-                        field="quantity"
-                        id={itemId}
-                        inputMode="numeric"
-                        mask={maskInput}
-                        min={min}
-                        onBlur={handleBlur}
-                        pattern="[0-9]*"
-                    />
+                <div className={classes.qty_inner_wrap + ' ' + classes.wrap}>
+                    <button
+                        aria-label={'Decrease Quantity'}
+                        className={classes.button_decrement}
+                        disabled={isDecrementDisabled}
+                        onClick={handleDecrement}
+                        type="button"
+                    >
+                        <Icon classes={iconClasses} src={MinusIcon} size={22} />
+                    </button>
+                    <div className={classes.qty_field_wrap}>
+                        <TextInput
+                            aria-label="Item Quantity"
+                            classes={{ input: classes.input }}
+                            field="quantity"
+                            id={itemId}
+                            inputMode="numeric"
+                            mask={maskInput}
+                            min={min}
+                            onBlur={handleBlur}
+                            pattern="[0-9]*"
+                        />
+                    </div>
+                    <button
+                        aria-label={'Increase Quantity'}
+                        className={classes.button_increment}
+                        disabled={isIncrementDisabled}
+                        onClick={handleIncrement}
+                        type="button"
+                    >
+                        <Icon classes={iconClasses} src={PlusIcon} size={20} />
+                    </button>
                 </div>
-                <button
-                    aria-label={'Increase Quantity'}
-                    className={classes.button_increment}
-                    disabled={isIncrementDisabled}
-                    onClick={handleIncrement}
-                    type="button"
-                >
-                    <Icon classes={iconClasses} src={PlusIcon} size={20} />
-                </button>
+                <div className={classes.wrapperPrice}>
+                    <p>YOUR COST {price}</p>
+                </div>
             </div>
-            <div className={classes.wrapperPrice}>
-                <p>YOUR COST {unitPrice}</p>
-                <span className={classes.price}>
-                    <Price currencyCode={currency} value={unitPrice * props.initialValue} />
+            <div className={classes.price}>
+                <span>
+                    <Price currencyCode={currency} value={price * props.initialValue} />
                 </span>
-            </div>
-
             </div>
         </div>
     );
@@ -148,52 +119,52 @@ Quantity.defaultProps = {
     label: 'Quantity',
     min: 0,
     initialValue: 1,
-    onChange: () => {}
+    onChange: () => { }
 };
 
 QuantityFields.defaultProps = {
     min: 0,
     initialValue: 1,
-    onChange: () => {}
+    onChange: () => { }
 };
 
 export default Quantity;
 
-export const REMOVE_ITEM_MUTATION = gql`
-    mutation removeItem($cartId: String!, $itemId: Int!) {
-        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
-            @connection(key: "removeItemFromCart") {
-            cart {
-                id
-                ...CartPageFragment
-                ...AvailableShippingMethodsCartFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${AvailableShippingMethodsCartFragment}
-`;
+// export const REMOVE_ITEM_MUTATION = gql`
+//     mutation removeItem($cartId: String!, $itemId: Int!) {
+//         removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
+//             @connection(key: "removeItemFromCart") {
+//             cart {
+//                 id
+//                 ...CartPageFragment
+//                 ...AvailableShippingMethodsCartFragment
+//             }
+//         }
+//     }
+//     ${CartPageFragment}
+//     ${AvailableShippingMethodsCartFragment}
+// `;
 
-export const UPDATE_QUANTITY_MUTATION = gql`
-    mutation updateItemQuantity(
-        $cartId: String!
-        $itemId: Int!
-        $quantity: Float!
-    ) {
-        updateCartItems(
-            input: {
-                cart_id: $cartId
-                cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
-            }
-        ) @connection(key: "updateCartItems") {
-            cart {
-                id
-                ...CartPageFragment
-                ...AvailableShippingMethodsCartFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${AvailableShippingMethodsCartFragment}
-`;
+// export const UPDATE_QUANTITY_MUTATION = gql`
+//     mutation updateItemQuantity(
+//         $cartId: String!
+//         $itemId: Int!
+//         $quantity: Float!
+//     ) {
+//         updateCartItems(
+//             input: {
+//                 cart_id: $cartId
+//                 cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
+//             }
+//         ) @connection(key: "updateCartItems") {
+//             cart {
+//                 id
+//                 ...CartPageFragment
+//                 ...AvailableShippingMethodsCartFragment
+//             }
+//         }
+//     }
+//     ${CartPageFragment}
+//     ${AvailableShippingMethodsCartFragment}
+// `;
 
