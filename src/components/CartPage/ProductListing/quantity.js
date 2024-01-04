@@ -33,6 +33,11 @@ export const QuantityFields = props => {
     const price = item ? item.prices.price.value : 0;
     const currency = item ? item.prices.price.currency : 'CAD';
 
+    const url = window.location.href;
+    const cart = url.includes("cart");
+
+
+
     /* Si il y a rabais ( manque prendre les données pour avoir les rabais du produit ) */
     const ProduitDiscount = true;
 
@@ -85,17 +90,22 @@ export const QuantityFields = props => {
                         <Icon classes={iconClasses} src={PlusIcon} size={20} />
                     </button>
                 </div>
-                <div className={classes.wrapperPrice}>
-                    <p>YOUR COST </p>
-                    <p className={classes.priceWithDiscount}>${price}</p>
-                   { ProduitDiscount && <p className={classes.initialPrice}>$30.00</p> }
+                {cart &&
+                    <div className={classes.wrapperPrice}>
+                        <p>YOUR COST </p>
+                        <p className={classes.priceWithDiscount}>${price}</p>
+                        {ProduitDiscount && <p className={classes.initialPrice}>$30.00</p>}
+                    </div>
+                }
+            </div>
+            {cart &&
+
+                <div className={classes.price}>
+                    <span>
+                        <Price currencyCode={currency} value={price * props.initialValue} />
+                    </span>
                 </div>
-            </div>
-            <div className={classes.price}>
-                <span>
-                    <Price currencyCode={currency} value={price * props.initialValue} />
-                </span>
-            </div>
+            }
         </div>
     );
 };

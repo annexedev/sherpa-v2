@@ -24,7 +24,7 @@ class ProjectList extends Component {
 
     componentDidMount() {
         let pid = this.props.pid;
-
+        console.log(this.props);
         let dataURL =
             'https://data.sherpagroupav.com/get_projects.php?email=' + pid;
         fetch(dataURL)
@@ -34,6 +34,7 @@ class ProjectList extends Component {
                     pageData: res
                 });
             });
+
 
         let grantAccess =
             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
@@ -45,6 +46,7 @@ class ProjectList extends Component {
                 });
             });
     }
+
 
     /* ----- HIDE/SHOW ---------- */
 
@@ -72,11 +74,14 @@ class ProjectList extends Component {
         let archive = this.props.archive;
         const { showAll } = this.state;
 
+        // console.log(showAll);
         const classes = mergeClasses(defaultClasses, wishlistClasses);
 
         const queryParameters = new URLSearchParams(window.location.search);
 
         const projectId = queryParameters.get('id');
+
+        
 
         //console.log('Access ::::::: ');
         //console.log(this.state.pageDataAccess["access"]);
@@ -224,7 +229,6 @@ class ProjectList extends Component {
                                         return (
                                             <>
                                                 {/* {this.state.myProjectsVisible( */}
-                                                <>
                                                     <li
                                                         className={
                                                             classes.projectlist +
@@ -241,7 +245,6 @@ class ProjectList extends Component {
                                                             {e.category_name}
                                                         </a>
                                                     </li>
-                                                </>
                                                 {/* )} */}
                                             </>
                                         );

@@ -95,8 +95,6 @@ const MyWishList = props => {
         query: WishListQuery
     });
 
-    console.log(wishlistProps);
-    console.log(useProductMoreInfo);
 
     /* ---------------------- TAG DISCOUNT DETAILS ------------------------------- */
 
@@ -155,13 +153,12 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
-    // console.log(data);
 
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
 
-    console.log('WID ' + wId);
+    // console.log('WID ' + wId);
 
     const remove = async id => {
         await handleRemoveItem({ product_id: id });

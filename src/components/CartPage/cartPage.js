@@ -16,6 +16,13 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle, faCircle, faCircleChevronUp, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
+import {
+    useWishlist,
+    useDeleteFromWishlist
+} from '../../peregrine/lib/talons/MyAccount/useDashboard';
+import WishListQuery from '../../queries/getWishlist.graphql';
+
+
 import { useCrossSellProduct } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import crossSellQuery from '../../queries/getCrossSellProducts.graphql';
 import CrossSellProducts from './linkedProducts';
@@ -53,6 +60,26 @@ const CartPage = props => {
         shouldShowLoadingIndicator
     } = talonProps;
 
+    console.log(isSignedIn);
+
+
+    /* list produits dans le projet */
+    
+    const wishlistProps = useWishlist({
+        query: WishListQuery
+    });
+
+    const {
+        handleSetQuantity,
+        quantity,
+        data,
+        loading,
+        refetch
+    } = wishlistProps;
+
+    console.log(data);
+
+
     const [productsWithoutProject, setProductsWithoutProject] = useState(false);
     const [productsWithProject, setProductsWithProject] = useState(false);
 
@@ -80,6 +107,7 @@ const CartPage = props => {
         </LinkButton>
     ) : null;
 
+
     // const productListing =
     //     hasItems ? (
     //         <ProductListing setIsCartUpdating={setIsCartUpdating} />
@@ -105,6 +133,13 @@ const CartPage = props => {
     const priceSummary = hasItems ? (
         <PriceSummary isUpdating={isCartUpdating} />
     ) : null;
+
+    const url = window.location.href;
+
+    // const myprojects = url.includes("?id");
+    const myprojects = true; /* il faut verifier si il y a des projets */
+
+
 
     return (
         <div className={'container' + ' ' + defaultClasses.cart_page_container}>
@@ -164,20 +199,24 @@ const CartPage = props => {
                             >
                                 {priceAdjustments}
                             </div> */}
-                            <div className={classes.wrapperProductsFromProjects}>
-                                <h1 className={classes.headingProducts}>
-                                    <FormattedMessage
-                                        id={'cartPage.headingProducts'}
-                                        defaultMessage={'Products from projects'}
-                                    />
-                                </h1>
-                                <div className={classes.wrapperValeurProduits}>
-                                    <span>0 products</span>
-                                    <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                    <span>Valeur</span>
+
+                            {myprojects &&
+                                <div className={classes.wrapperProductsFromProjects}>
+                                    <h1 className={classes.headingProducts}>
+                                        <FormattedMessage
+                                            id={'cartPage.headingProducts'}
+                                            defaultMessage={'Products from projects'}
+                                        />
+                                    </h1>
+                                    <div className={classes.wrapperValeurProduits}>
+                                        <span>0 products</span>
+                                        <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
+                                        <span>Valeur</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={classes.items_container_projet}>
+                            }
+                            {myprojects &&
+                                <div className={classes.items_container_projet}>
                                     <div className={classes.wrapperProductsWithProject}>
                                         <h1 className={classes.headingProductsWithProject}>
                                             <FormattedMessage
@@ -193,15 +232,16 @@ const CartPage = props => {
                                         </div>
                                     </div>
 
-                                {productsWithProject &&
-                                    hasItems ?
-                                    <ProductListing setIsCartUpdating={setIsCartUpdating} />
-                                    :
-                                    <div>
-                                    </div>
-                                    
-                                }
-                            </div>
+                                    {productsWithProject &&
+                                        hasItems ?
+                                        <ProductListing setIsCartUpdating={setIsCartUpdating} />
+                                        :
+                                        <div>
+                                        </div>
+
+                                    }
+                                </div>
+                            }
 
                         </div>
                         <div className={classes.summary_container}>

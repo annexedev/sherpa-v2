@@ -33,7 +33,7 @@ const ProductListing = props => {
     });
     const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
 
-    console.log(items);
+    // console.log(items);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
