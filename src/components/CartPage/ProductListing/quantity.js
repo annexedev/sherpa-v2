@@ -28,10 +28,13 @@ export const QuantityFields = props => {
         onChange
     });
 
-    console.log(item);
+    // console.log(item);
 
     const price = item ? item.prices.price.value : 0;
     const currency = item ? item.prices.price.currency : 'CAD';
+
+    /* Si il y a rabais ( manque prendre les données pour avoir les rabais du produit ) */
+    const ProduitDiscount = true;
 
     const {
         isDecrementDisabled,
@@ -83,7 +86,9 @@ export const QuantityFields = props => {
                     </button>
                 </div>
                 <div className={classes.wrapperPrice}>
-                    <p>YOUR COST {price}</p>
+                    <p>YOUR COST </p>
+                    <p className={classes.priceWithDiscount}>${price}</p>
+                   { ProduitDiscount && <p className={classes.initialPrice}>$30.00</p> }
                 </div>
             </div>
             <div className={classes.price}>
