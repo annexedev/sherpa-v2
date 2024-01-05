@@ -129,7 +129,7 @@ const PriceSummary = props => {
                 <span className={classes.lineItemLabel}>
                     <FormattedMessage
                         id={'priceSummary.lineItemLabel'}
-                        defaultMessage={'Subtotal'}
+                        defaultMessage={'Products'}
                     />
                 </span>
                 <span className={priceClass}>
@@ -168,6 +168,7 @@ const PriceSummary = props => {
                     data={shipping}
                     isCheckout={isCheckout}
                 />
+                
             </div>
             <div
                 className={classes.price_adjustments_container}

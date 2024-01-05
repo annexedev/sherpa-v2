@@ -30,8 +30,8 @@ const Kebab = props => {
                 onClick={handleKebabClick}
                 ref={kebabRef}
             >
-                {/* <Icon src={MoreVerticalIcon} /> */}
-                <span className={classes.circleIcon}><FontAwesomeIcon icon={faTrash} /></span>
+                <Icon src={MoreVerticalIcon} />
+                {/* <span className={classes.circleIcon}><FontAwesomeIcon icon={faTrash} /></span> */}
             </button>
             <ul className={toggleClass}>{children}</ul>
         </div>

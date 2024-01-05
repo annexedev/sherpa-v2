@@ -17,6 +17,12 @@ import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useIntl } from 'react-intl';
+import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
+import Icon from '../../Icon';
+import { Trash2 as DeleteIcon } from 'react-feather';
+
+
+
 const IMAGE_SIZE = 100;
 
 const Product = props => {
@@ -35,6 +41,7 @@ const Product = props => {
         setActiveEditItem,
         setIsCartUpdating
     });
+
 
     const {
         errorMessage,
@@ -85,6 +92,18 @@ const Product = props => {
 
     const stockStatusMessage =
         stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
+
+    /* --------  DELETE ----------- */
+
+    const handleRemoveItem = handleRemoveFromCart;
+    const itemID = item.id;
+    const { isDeleting, removeItem } = useItem({
+        itemID,
+        handleRemoveItem
+    });
+    // const rootClass = isDeleting ? classes.root_disabled : classes.root;
+
+
 
     return (
         <li className={classes.root}>
@@ -138,7 +157,7 @@ const Product = props => {
                         {stockStatusMessage}
                     </span>
                     <div className={classes.quantity}>
-                        <Quantity 
+                        <Quantity
                             item={item}
                             itemId={item.id}
                             initialValue={quantity}
@@ -148,8 +167,21 @@ const Product = props => {
                         />
                     </div>
                 </div>
-                <Kebab classes={{ root: classes.kebab }} disabled={true}  onClick={handleRemoveFromCart}>
-                    {/* {!isSignedIn && (
+                <button
+                    onClick={removeItem}
+                    type="button"
+                    className={classes.deleteButton}
+                // disabled={isDeleting}
+                >
+                    <Icon
+                        size={16}
+                        src={DeleteIcon}
+                        classes={{ icon: classes.editIcon }}
+                    />
+                </button>
+
+                {/* <Kebab classes={{ root: classes.kebab }} disabled={true}  onClick={handleRemoveFromCart}> */}
+                {/* {!isSignedIn && (
                         <Section
                             text={
                                 isFavorite
@@ -192,8 +224,8 @@ const Product = props => {
                         />
                         )} */}
 
-                    {editItemSection}
-                    {/* <Section
+                {/* {editItemSection} */}
+                {/* <Section
                         text={formatMessage({
                             id: 'product.removeCart',
                             defaultMessage: 'Remove from cart'
@@ -202,7 +234,7 @@ const Product = props => {
                         icon="Trash"
                         classes={{ text: classes.sectionText }}
                     /> */}
-                </Kebab>
+                {/* </Kebab> */}
             </div>
         </li>
     );
