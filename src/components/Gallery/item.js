@@ -575,6 +575,7 @@ const GalleryItem = props => {
             )
         }
     `;
+    const [valueProduit, setValueProduit] = useState()
 
     function AddToProject({ item_id }) {
         let input;
@@ -591,8 +592,7 @@ const GalleryItem = props => {
             );
         if (error) return `Submission error! ${error.message}`;
 
-        console.log(data);
-
+        console.log(valueProduit);
         return (
             <div>
                 <form
@@ -602,7 +602,8 @@ const GalleryItem = props => {
                         addTodo({
                             variables: {
                                 category_id: getDataValue(),
-                                product_id: item_id
+                                product_id: item_id,
+                                quantity: valueProduit
                             }
                         });
                         window.alert('Product added to project.');
@@ -1168,7 +1169,10 @@ const GalleryItem = props => {
                                         }
                                     >
                                     
-                                    <QuantityPicker/>
+                                    <QuantityPicker
+                                        value={valueProduit}
+                                        onChange={() => setValueProduit(valueProduit)}   
+                                    />
                                         
                                     </div>
                                     <div className={classes.add_to_cart_btn}>

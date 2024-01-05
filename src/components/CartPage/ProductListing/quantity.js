@@ -52,7 +52,7 @@ export const QuantityFields = props => {
 
 
     return (
-        <div className={classes.root}>
+        <div className={cart ? [classes.root, classes.rootCart].join(' ') : classes.root }>
             {/* <label className={classes.label} htmlFor={itemId}>
                 {label}
             </label> */}

@@ -7,6 +7,9 @@
     /* align-items: center; */
     justify-items: center;
 }
+.rootCart{
+    margin-top: -23px;
+}
 .qty_inner_wrap {
 }
 .wrap {
