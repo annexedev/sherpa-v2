@@ -19,8 +19,7 @@ import {
     faTrashAlt,
     faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
-import { useCategoryAddToCart } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
-import { useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { useCategoryAddToCart , useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 
 import Quantity from '../CartPage/ProductListing/quantity';
 

@@ -1,0 +1,3 @@
+mutation MpBetterWishlistRemoveItem($category_id: String!, $product_id: Int!) {
+    MpBetterWishlistRemoveItem(input: { category_id: $category_id, product_id: $product_id }) 
+}
