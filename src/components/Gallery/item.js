@@ -626,7 +626,7 @@ const GalleryItem = props => {
                 items {
                     added_at
                     description
-                    product_id
+                    product
                     qty
                     store_id
                     wishlist_item_id

@@ -205,11 +205,13 @@ form.root input:focus {
     font-family: 'Karla-Medium' !important;
     display: block;
     line-height: 28px;
+    font-weight: 900;
 }
 /* -------- */
 .nomProject{
     font-size: 20px;
-    font-weight:bold;
+    font-weight: 900;
+    color: #8dc74c;
 }
 .btnPurchase{
     margin: 10px 0;

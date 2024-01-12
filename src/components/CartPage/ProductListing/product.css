@@ -10,6 +10,10 @@
     grid-gap: 0.5rem 1rem;
     grid-template-areas: 'image details kebab';
     grid-template-columns: 100px 1fr min-content;
+    width: 95%; 
+}
+.deleteButton{
+    margin-top: -20px;
 }
 
 .errorText {

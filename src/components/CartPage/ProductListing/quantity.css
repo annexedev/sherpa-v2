@@ -6,6 +6,7 @@
     grid-column-gap: 0.5rem;
     /* align-items: center; */
     justify-items: center;
+    width: 100px;
 }
 .rootCart{
     margin-top: -23px;
@@ -101,7 +102,8 @@
 }
 
 .price{
-    margin-top: 13px;
+    margin-top: 40px;
+    margin-left: -40px;
 }
 
 .initialPrice {
