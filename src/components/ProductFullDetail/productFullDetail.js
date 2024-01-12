@@ -1252,10 +1252,10 @@ const ProductFullDetail = props => {
                                                     {/* wishlist section */}
 
                                                     {isSignedIn && (
-                                                        <ServiceDetailsEmployeurs
+                                                       {/* <ServiceDetailsEmployeurs
                                                             pid={email}
                                                             item_id={product.id}
-                                                        />
+                                                        /> */}
                                                     )}
                                                 </>
                                             )}

@@ -342,11 +342,12 @@ const CategoryContent = props => {
                     }
                 }
             },
-            fetchPolicy: 'network-only'
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
         });
 
         if (loading) {
-            return <p>Loading ...</p>;
+            return <p></p>;
         }
 
         let childrenCount = data.categoryList.length;

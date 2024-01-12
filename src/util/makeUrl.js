@@ -5,7 +5,7 @@ const { imageOptimizingOrigin } = htmlDataset;
 let mediaBackend = htmlDataset.mediaBackend;
 if (!mediaBackend) {
     console.warn('A media backend URL should be defined in your config.');
-    mediaBackend = 'https://backend.test/media/';
+    mediaBackend = '/media/';
 }
 
 const useBackendForImgs = imageOptimizingOrigin === 'backend';

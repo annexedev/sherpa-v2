@@ -887,7 +887,7 @@ const GalleryItem = props => {
     
         render() {
             let label_path = this.state.pageData.label_path && this.state.pageData.label_path;
-            if(label_path!='') {
+            if(label_path!= '' && this.state.pageData.label_path) {
             return (
                 <img src={"https://data.sherpagroupav.com/media/amasty/amlabel/"+label_path} className={classes.amastyLabel} />
             ) } else {
@@ -1386,10 +1386,10 @@ const GalleryItem = props => {
                                     (email == 'mcharbonneau@annexe-d.com' && (
                                         <div>
                                             <Select />
-                                            <ServiceDetailsEmployeurs
+                                            {/* <ServiceDetailsEmployeurs
                                                 pid={email}
                                                 item_id={item.id}
-                                            />
+                                            /> */}
                                         </div>
                                     ))}
                                 <BWL />

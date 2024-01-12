@@ -98,12 +98,16 @@ const Home = props => {
     const mobilesliderIdentifier2 = 'homepage_mobile_banner_' + arr[1];
     const mobilesliderIdentifier3 = 'homepage_mobile_banner_' + arr[2];
 
+    function PlaceHolder() {
+        return <h2>Loading...</h2>;
+      }
+
     return (
-        <Suspense fallback={'Loading'}>
+        
         <React.Fragment>
             <div>
                 {!mobileView && (
-                    <React.Suspense fallback={null}>
+                    <React.Suspense fallback={PlaceHolder}>
                         <Carousel
                             showThumbs={false}
                             autoPlay={true}
@@ -112,7 +116,7 @@ const Home = props => {
                             interval={6000}
                         >
                             <div>
-                                <Suspense fallback={''}>
+                                <Suspense fallback={PlaceHolder}>
                                     <Banner
                                         identifier={
                                             desktopsliderIdentifier1 + activeLng
@@ -122,7 +126,7 @@ const Home = props => {
                                 </Suspense>
                             </div>
                             <div>
-                                <Suspense fallback={''}>
+                                <Suspense fallback={PlaceHolder}>
                                     <Banner
                                         identifier={
                                             desktopsliderIdentifier2 + activeLng
@@ -132,7 +136,7 @@ const Home = props => {
                                 </Suspense>
                             </div>
                             <div>
-                                <Suspense fallback={''}>
+                                <Suspense fallback={PlaceHolder}>
                                     <Banner
                                         identifier={
                                             desktopsliderIdentifier3 + activeLng
@@ -146,7 +150,7 @@ const Home = props => {
                 )}
 
                 {mobileView && (
-                    <React.Suspense fallback={null}>
+                    <React.Suspense fallback={PlaceHolder}>
                         <Carousel
                             showThumbs={false}
                             autoPlay={true}
@@ -190,7 +194,7 @@ const Home = props => {
 
                 {/* features block */}
                 {showOfferBanners != 0 && (
-                    <React.Suspense fallback={null}>
+                    <React.Suspense fallback={PlaceHolder}>
                         <section
                             className={
                                 defaultClasses.homepage_sections +
@@ -316,9 +320,11 @@ const Home = props => {
                 {/* mid banner section END */}
             </div>
         </React.Fragment>
-        </Suspense>
+       
     );
 };
+
+
 
 Home.propTypes = {
     classes: shape({

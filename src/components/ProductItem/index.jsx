@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function ProductItem({ hit, components }) {
-  let sherpaurl = hit.url.replace("data.sherpagroupav.com/default", "sherpagroupav.com");
+  let sherpaurl = hit.url.replace("data.sherpagroupav.com/default", "sherpagroupav.com").replace("data.sherpagroupav.com/default", "sherpagroupav.com");
 
   let CADDollar = new Intl.NumberFormat('en-CA', {
       style: 'currency',
