@@ -452,7 +452,7 @@ const CheckoutPage = props => {
                             )}
                             <br />
                             <Link
-                                to="/brands"
+                                to="/brands-sherpa"
                                 className={classes.review_order_button_link}
                             >
                                 <span>
@@ -526,7 +526,7 @@ const CheckoutPage = props => {
                             )}
                             <br />
                             <Link
-                                to="/brands"
+                                to="/brands-sherpa"
                                 className={classes.review_order_button_link}
                             >
                                 <span>

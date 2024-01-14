@@ -5,6 +5,17 @@ import { Title } from '../Head';
 import { Link } from 'src/drivers';
 import { FormattedMessage } from 'react-intl';
 const ErrorView = () => {
+
+    /* Handle 404 errors */
+
+    const currentUrl = window.location.href;
+    let newurl = '';
+
+    if (window.location.href.indexOf("/brands/") != -1) {
+        newurl = currentUrl.replace('/brands','');
+        window.location.href = newurl;
+    }
+
     return (
         <div className={defaultClasses.page_not_find}>
             <Title>{'404 not found'}</Title>

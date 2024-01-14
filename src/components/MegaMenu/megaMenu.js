@@ -19,6 +19,11 @@ const MegaMenu = () => {
     const [{ isSignedIn }] = useUserContext();
     const { navdetails } = talonsProps;
     if (typeof navdetails != 'undefined' && navdetails && !mobileView) {
+
+	if (window.location.href.indexOf("/default") > -1) {
+            window.location.href = '/fr';
+        }
+
         const elements = JSON.parse(navdetails).categories;
 
         let lng = '';
@@ -84,7 +89,7 @@ const MegaMenu = () => {
                             }
                         >
                             <Link
-                                to={resourceUrl('/' + v['main_category_url'])}
+                                to={resourceUrl('/' + v['main_category_url'].replace("brands/", "brands-sherpa/"))}
                             >
                                 {v['main_category_name']}
                                 {haschild && (
@@ -140,13 +145,13 @@ const MegaMenu = () => {
                                                                 '/' +
                                                                 v1[
                                                                     'sub_category_url'
-                                                                ];
+                                                                ].replace("brands/", "brands-sherpa/");
                                                         }}
                                                         to={resourceUrl(
                                                             '/' +
                                                                 v1[
                                                                     'sub_category_url'
-                                                                ]
+                                                                ].replace("brands/", "brands-sherpa/")
                                                         )}
                                                     >
                                                         {
@@ -184,7 +189,7 @@ const MegaMenu = () => {
                                                                                     '/' +
                                                                                         v2[
                                                                                             'category_url'
-                                                                                        ]
+                                                                                        ].replace("brands/", "brands-sherpa/")
                                                                                 )}
                                                                             >
                                                                                 {
@@ -245,9 +250,9 @@ const MegaMenu = () => {
                         }
                     >
                         {activeLng == '-fr' ? (
-                            <a href="/brands/clearance">Liquidation</a>
+                            <a href="/brands-sherpa/clearance">Liquidation</a>
                         ) : (
-                            <a href="/brands/clearance">Clearance</a>
+                            <a href="/brands-sherpa/clearance">Clearance</a>
                         )}
                     </li>
                 );

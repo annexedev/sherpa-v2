@@ -258,12 +258,12 @@ const Home = props => {
                             <div>
                                 {activeLng == '-fr' && (
                                     <>
-                                        <a href="/brands">VOIR TOUS</a>
+                                        <a href="/brands-sherpa">VOIR TOUS</a>
                                     </>
                                 )}
                                 {activeLng == '' && (
                                     <>
-                                        <a href="/brands">SEE ALL</a>
+                                        <a href="/brands-sherpa">SEE ALL</a>
                                     </>
                                 )}
                             </div>

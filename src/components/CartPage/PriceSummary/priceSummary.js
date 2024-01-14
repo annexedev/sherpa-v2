@@ -98,7 +98,7 @@ const PriceSummary = props => {
             </div>
             <br />
             <div className={classes.checkoutButton_containerlink}>
-                <Link to="/brands" className={classes.review_order_button_link}>
+                <Link to="/brands-sherpa" className={classes.review_order_button_link}>
                     <span>
                         <FormattedMessage
                             id={'checkoutPage.cs'}
