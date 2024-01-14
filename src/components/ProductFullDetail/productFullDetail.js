@@ -96,7 +96,7 @@ let data_value = 'A';
 
 function updateDataValue(valeur) {
     data_value = valeur;
-    console.log('UPDATE: ' + data_value);
+    // console.log('UPDATE: ' + data_value);
 }
 
 const ProductFullDetail = props => {
@@ -454,10 +454,10 @@ const ProductFullDetail = props => {
     });
     const { formatMessage } = useIntl();
 
-    const { productMoreInfo } = useProductMoreInfo({
+    /* const { productMoreInfo } = useProductMoreInfo({
         query: moreInfoProductsGraphql,
         sku: product.sku
-    });
+    }); */
 
     const wishlistProps = useWishlist({
         query: WishListQuery
@@ -819,7 +819,7 @@ const ProductFullDetail = props => {
             }
         }
     }  
-    console.log(productDetails);
+    // console.log(productDetails);
     return (
         <Fragment>
             <div className={'container' + ' ' + classes.product_page_container}>
@@ -1491,6 +1491,7 @@ const ProductFullDetail = props => {
                                                 </strong>
                                                 {productDetails.sku}
                                             </div>
+                                            {/* 
                                             {productMoreInfo.length > 0 &&
                                                 productMoreInfo.map((v, i) => {
                                                     return (
@@ -1512,6 +1513,7 @@ const ProductFullDetail = props => {
                                                         </div>
                                                     );
                                                 })}
+                                            */}
                                         </div>
                                     </div>
                                 </div>

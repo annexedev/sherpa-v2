@@ -48,8 +48,8 @@ class OrderTotal extends Component {
             email +
             '&cid=' +
             orderNumber;
-        console.log('DATA URL');
-        console.log(dataURL);
+        // console.log('DATA URL');
+        // console.log(dataURL);
         fetch(dataURL)
             .then(res => res.json())
             .then(res => {
@@ -332,7 +332,7 @@ const CategoryContent = props => {
     const LinkList = () => {
         let categoryId = catId.toString();
 
-        console.log('categoryId: ' + categoryId);
+        // console.log('categoryId: ' + categoryId);
 
         const { data, loading } = useQuery(GET_PAGE_SIZE, {
             variables: {
@@ -368,8 +368,8 @@ const CategoryContent = props => {
         } else {
             activeLng = '';
         }
-        console.log('**********');
-        console.log(data);
+        // console.log('**********');
+        // console.log(data);
 
         return (
             <div className="App">
@@ -490,7 +490,7 @@ const CategoryContent = props => {
     };
 
     function openLoginBox() {
-        console.log('Open the shit');
+        
         document.getElementById('user_account').click();
     }
 

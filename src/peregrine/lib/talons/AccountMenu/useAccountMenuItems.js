@@ -25,13 +25,13 @@ export const useAccountMenuItems = props => {
         .then(res => {
             if (res['access'] == 1) {
                 is_granted = 1;
-                console.log('YEAH !!!');
+                // console.log('YEAH !!!');
             } else {
                 is_granted = 0;
             }
         });
 
-    console.log('IS GRANTED :::::: ' + is_granted);
+    // console.log('IS GRANTED :::::: ' + is_granted);
 
     let MENU_ITEMS = [];
 

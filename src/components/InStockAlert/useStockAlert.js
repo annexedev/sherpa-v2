@@ -14,7 +14,7 @@ export const useStockAlert = props => {
         },
         [subscribeAlert]
     );
-    console.log(data, 'ffff');
+    //console.log(data, 'ffff');
     return {
         handleAlert,
         inProgress,

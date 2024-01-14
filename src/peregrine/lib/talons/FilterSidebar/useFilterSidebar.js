@@ -92,7 +92,7 @@ export const useFilterSidebar = props => {
                 keys.add(`${group}[filter]`);
 
                 // add items
-                console.log(options, 'options123');
+                //console.log(options, 'options123');
                 for (const { label, value, count } of options) {
                     items.push({ title: stripHtml(label), value, count });
                 }

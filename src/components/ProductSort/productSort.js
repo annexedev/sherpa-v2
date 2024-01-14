@@ -29,8 +29,8 @@ const ProductSort = props => {
             currentSort.sortId = 'sortItem.sku';
         }
 
-        console.log('Current sort: ');
-        console.log(currentSort);
+        // console.log('Current sort: ');
+        // console.log(currentSort);
         
         if (!mobileView) {
             setExpanded(true);

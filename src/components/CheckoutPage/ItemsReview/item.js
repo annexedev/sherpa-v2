@@ -34,7 +34,7 @@ const Item = props => {
     });
 
     //let productPrice = product.price_range.minimum_price.final_price.value;
-    console.log(product);
+    // console.log(product);
     return (
         <div className={className}>
             <Image

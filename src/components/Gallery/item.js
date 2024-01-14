@@ -33,7 +33,7 @@ let data_value = 'A';
 
 function updateDataValue(valeur) {
     data_value = valeur;
-    console.log('UPDATE: ' + data_value);
+    // console.log('UPDATE: ' + data_value);
 }
 
 class ServiceDetailsEmployeurs extends Component {
@@ -127,7 +127,7 @@ class ServiceDetailsEmployeurs extends Component {
                                 var loopProject = document
                                     .getElementsByClassName('c' + item_id)[0]
                                     .querySelector('input').value;
-                                console.log('loop ' + loopProject);
+                                //console.log('loop ' + loopProject);
                                 for (let i = 0; i < loopProject; i++) {
                                     addTodo({
                                         variables: {
@@ -225,7 +225,7 @@ class ServiceDetailsEmployeurs extends Component {
 
                 inputs = document.getElementsByTagName('select');
                 for (index = 0; index < inputs.length; ++index) {
-                    console.log(inputs[index].id);
+                    //console.log(inputs[index].id);
 
                     var daySelect = document.getElementById(inputs[index].id);
 
@@ -557,11 +557,11 @@ const GalleryItem = props => {
 
     function updateDataValue(valeur) {
         data_value = valeur;
-        console.log('UPDATE: ' + data_value);
+        // console.log('UPDATE: ' + data_value);
     }
 
     function getDataValue() {
-        console.log('REQ: ' + data_value);
+        // console.log('REQ: ' + data_value);
         return data_value;
     }
 
@@ -590,7 +590,7 @@ const GalleryItem = props => {
             );
         if (error) return `Submission error! ${error.message}`;
 
-        console.log(data);
+        // console.log(data);
 
         return (
             <div>
@@ -672,7 +672,7 @@ const GalleryItem = props => {
                 {/*<select onChange={onChange} className={classes.project_dropdown}>
                 <option value="2">Choose a project</option>
                 {data.MpBetterWishlistGetCategories && data.MpBetterWishlistGetCategories.map((e) => {
-                    console.log('Calvert');
+                    
                     console.log("LNG "+e.items.length > 0)
                     if(e.items.length > 0) {
                         return (
@@ -1056,7 +1056,7 @@ const GalleryItem = props => {
                                             item.options == null && (
                                                 <button
                                                     onClick={() => {
-                                                        console.log(item);
+                                                        // console.log(item);
                                                         setProductName(
                                                             item.name
                                                         ),

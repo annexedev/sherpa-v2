@@ -21,7 +21,7 @@ const CMSPage = props => {
         }
     });
 
-    console.log('Data: ' + data);
+    // console.log('Data: ' + data);
 
     const homepageData = useHome({
         query: GET_HOMEPAGECONFIG_DATA

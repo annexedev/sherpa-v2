@@ -1,6 +1,0 @@
-query getStoreCurrency {
-    currency {
-        base_currency_code
-        available_currency_codes
-    }
-}

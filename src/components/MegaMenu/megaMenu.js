@@ -38,8 +38,8 @@ const MegaMenu = () => {
         }
 
         if (elements) {
-            console.log('Elements');
-            console.log(elements);
+            //console.log('Elements');
+            //console.log(elements);
 
             navItems.push(
                 <>
@@ -272,7 +272,7 @@ const MegaMenu = () => {
                                         focusable="false"
                                         data-prefix="fas"
                                         data-icon="chevron-down"
-                                        class="svg-inline--fa fa-chevron-down fa-w-14 "
+                                        className="svg-inline--fa fa-chevron-down fa-w-14 "
                                         role="img"
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 448 512"
@@ -293,17 +293,17 @@ const MegaMenu = () => {
                                         defaultClasses.col1
                                     }
                                 >
-                                    <li class="megaMenu-has_child-1b6">
+                                    <li className="megaMenu-has_child-1b6">
                                         <a href="/events">
                                             Calendrier des événements
                                         </a>
                                     </li>
-                                    <li class="megaMenu-has_child-1b6">
+                                    <li className="megaMenu-has_child-1b6">
                                         <a href="/sherpa-webinar-archive">
                                             Archives - formations
                                         </a>
                                     </li>
-                                    <li class="megaMenu-has_child-1b6">
+                                    <li className="megaMenu-has_child-1b6">
                                         <a href="/brand-youtube-links">
                                             Page YouTube de nos marques
                                         </a>
@@ -319,7 +319,7 @@ const MegaMenu = () => {
                                         focusable="false"
                                         data-prefix="fas"
                                         data-icon="chevron-down"
-                                        class="svg-inline--fa fa-chevron-down fa-w-14 "
+                                        className="svg-inline--fa fa-chevron-down fa-w-14 "
                                         role="img"
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 448 512"
@@ -340,15 +340,15 @@ const MegaMenu = () => {
                                         defaultClasses.col1
                                     }
                                 >
-                                    <li class="megaMenu-has_child-1b6">
+                                    <li className="megaMenu-has_child-1b6">
                                         <a href="/events">Event Calendar</a>
                                     </li>
-                                    <li class="megaMenu-has_child-1b6">
+                                    <li className="megaMenu-has_child-1b6">
                                         <a href="/sherpa-webinar-archive">
                                             Webinar Archive
                                         </a>
                                     </li>
-                                    <li class="megaMenu-has_child-1b6">
+                                    <li className="megaMenu-has_child-1b6">
                                         <a href="/brand-youtube-links">
                                             Brand YouTube Pages
                                         </a>
