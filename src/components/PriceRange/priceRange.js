@@ -73,7 +73,7 @@ const PriceRange = props => {
                                     id={'item.soldIn'}
                                     defaultMessage={'Sold in: '}
                                 />{' '}
-                                : <span>{product && product.soldin}</span>
+                                <span>{product && product.soldin}</span>
                             </p>
                             <br />
                         </>
@@ -112,6 +112,10 @@ const PriceRange = props => {
                                         <br />
                                     </>
                                 )}*/}
+                                <FormattedMessage
+                                    id={'item.yourCost'}
+                                    defaultMessage={'YOUR COST'}
+                                />&nbsp;
                                 <Price
                                     currencyCode={
                                         price.minimum_price.final_price.currency
