@@ -27,7 +27,7 @@ veniaResponse:
       pattern: '^/(robots\.txt|favicon\.ico|manifest\.json)'
       use: staticFromRoot
     - matches: fileExtension
-      pattern: "(js|json|png|jpg|jpeg|gif|svg|ico|css|txt|eot|otf|ttf|woff|woff2)"
+      pattern: "(js|json|png|jpg|jpeg|gif|svg|ico|css|txt|eot|otf|ttf|woff|woff2|xml)"
       use: veniaStatic
   default: veniaAppShell
 

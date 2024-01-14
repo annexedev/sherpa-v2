@@ -19,26 +19,24 @@ const ProductSort = props => {
 
     useEffect(() => {
         // Update the document title using the browser API
-        //document.getElementById('setSort').click();
+        //document.getElementById('sortItem.sku').click();
 
         if (window.location.href.indexOf("search.html") != -1) {
             
         } else {
-            currentSort.sortAttribute = 'sku';
-            currentSort.sortDirection = 'ASC';
-            currentSort.sortId = 'sortItem.sku';
+            //document.getElementById('sortItem.sku').click();
+            //currentSort.sortAttribute = 'sku';
+            //currentSort.sortDirection = 'ASC';
+            //currentSort.sortId = 'sortItem.sku';
         }
 
-        // console.log('Current sort: ');
-        // console.log(currentSort);
+        
         
         if (!mobileView) {
             setExpanded(true);
         }
         if (currentSort && currentSort.sortText == 'Relevance') {
-            //document.getElementById('setSort').click();
-            //document.getElementById('skusku').click();
-            //currentSort.sortText=='Positionx';
+            
         }
     });
 
@@ -67,7 +65,26 @@ const ProductSort = props => {
             const isActive =
                 currentSort.sortAttribute === attribute &&
                 currentSort.sortDirection === sortDirection;
+            //console.log('Active state:  '+currentSort.sortAttribute);
+            if(currentSort.sortAttribute=='position' && !window.location.href.indexOf("search.html") != -1) {
+                /*currentSort.sortAttribute = 'sku';
+                currentSort.sortDirection = 'ASC';
+                currentSort.sortId = 'sortItem.sku';*/
+                //document.getElementById('sortItem.sku').click();
 
+                /*var str,
+                element = document.getElementById('sortItem.sku');
+                if (element != null) {
+                    str = element.value;
+                    console.log('foundid');
+                    document.getElementById('sortItem.sku').click();
+                }
+                else {
+                    str = null;
+                    console.log('notfound');
+                }*/
+
+            }
             const key = `${attribute}--${sortDirection}`;
             return (
                 <li key={key} className={classes.menuItem}>
