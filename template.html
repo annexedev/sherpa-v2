@@ -7,28 +7,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="manifest" href="/manifest.json" />
-  <link rel="shortcut icon" href="/cenia-static/sherpa_fav.png" />
+  <link rel="shortcut icon" href="/cenia-static/favicon-32x32.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="eDQOUXpn0g2AidFSyiFwuIJ1JNx2kL_ksk23CiXI0qY" />
   <title>Sherpa Technology Group - <%= STORE_NAME %></title>
   <style>
     .aa-Panel { 
       z-index: 1;
     }
   </style>
-  <!--
-            Apple Specific Tags
 
-            To be included until Safari supports WebAppManifest
-            See Docs:
-            - https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
-            - https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
-        -->
-  <!--
-            Apple Icons for Homescreen
-            Sizes: https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/
-        -->
-  <link rel="apple-touch-icon" href="/cenia-static/icons/cenia_square_57.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/cenia-static/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" href="/cenia-static/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/cenia-static/apple-touch-icon.png" />
   <link rel="preconnect" href="<%= process.env.MAGENTO_BACKEND_URL %>" />
   <link rel="preload" href="/cenia-static/fonts/Jost-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/cenia-static/fonts/Jost-Medium.woff2" as="font" type="font/woff2" crossorigin>
@@ -41,7 +31,7 @@
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-250871205');</script>
-    <!-- End Google Tag Manager -->
+  <!-- End Google Tag Manager -->
   <style>
     html, body {
     overflow-x: hidden;
@@ -400,18 +390,14 @@ section.team-page-section .w-100{
 $(document).on("keypress", "#henlo-input", function(e){
     if(e.which == 13){
         var inputVal = $(this).val();
-        //alert("You've entered: " + inputVal);
         window.location.href="/search.html?query="+inputVal+"&page=1";
     }
 });
 
 $("body").on("click", ".aa-SubmitIcon", function(e) {
     var inputVal = $("#henlo-input").val();
-        //alert("You've entered: " + inputVal);
         window.location.href="/search.html?query="+inputVal+"&page=1";
 });
 
-
-       
       </script>
 </html>
