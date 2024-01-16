@@ -402,7 +402,9 @@ export const useProductFullDetail = props => {
         short_description: product.short_description,
         name: product.name,
         price: productPrice,
-        sku: product.sku
+        sku: product.sku,
+        special_to_date: product.special_to_date,
+        special_from_date: product.special_from_date,
     };
 
     const derivedErrorMessage = useMemo(

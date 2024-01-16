@@ -12,6 +12,12 @@
     display: grid;
     grid-template-areas: 'main';
 }
+.amastyLabel {
+    position: absolute;
+    right: 0px;
+    z-index: 99999;
+    max-width: 100px
+}
 .priceTag {
     position: absolute;
     right: 0px;

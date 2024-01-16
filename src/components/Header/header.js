@@ -49,7 +49,7 @@ class ProjectLink extends Component {
 
         let grantAccess =
             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
-        console.log(grantAccess);
+        //console.log(grantAccess);
         fetch(grantAccess)
             .then(res => res.json())
             .then(res => {

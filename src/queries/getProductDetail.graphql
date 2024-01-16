@@ -28,6 +28,8 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
             meta_title @include(if: $onServer)
             meta_keyword @include(if: $onServer)
             meta_description
+            special_to_date
+            special_from_date
             name
             price {
                 regularPrice {

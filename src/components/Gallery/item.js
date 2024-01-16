@@ -555,6 +555,8 @@ const GalleryItem = props => {
         }
     };
 
+    
+
     function updateDataValue(valeur) {
         data_value = valeur;
         // console.log('UPDATE: ' + data_value);
@@ -692,10 +694,13 @@ const GalleryItem = props => {
         lng = document.getElementById('currentLng').innerHTML;
     }
     let activeLng = '';
+    let storeid = '';
     if (lng == 'Français') {
         activeLng = '-fr';
+        storeid = 2;
     } else {
         activeLng = '';
+        storeid = 1;
     }
 
     // Check if the default placeholder image exist and if FR assign new default image
@@ -719,6 +724,41 @@ const GalleryItem = props => {
         //e.preventDefault(); // prevent the default action
         setName(e.target.value); // set name to e.target.value (event)
       };
+
+      class AmastyLabel extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let productId = this.props.pid;
+            let storeid = this.props.storeid;
+            let email = this.props.email;
+            let dataURL ='https://data.sherpagroupav.com/get_amastylabel.php?pid=' + productId + '&storeid=' + storeid + '&email=' + email;
+           
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let label_path = this.state.pageData.label_path && this.state.pageData.label_path;
+            let url_path = this.state.pageData.url_path && this.state.pageData.url_path;
+            if(label_path != '' && this.state.pageData.label_path) {
+            return (
+                <a href={url_path}><img src={"https://data.sherpagroupav.com/media/amasty/amlabel/"+label_path} className={classes.amastyLabel} /></a>
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
 
     class DisplayRibbon extends Component {
         constructor() {
@@ -759,9 +799,12 @@ const GalleryItem = props => {
         }
     }  
 
+    
+
     if (item.sku.endsWith('-PROMO') && email == '') {
         return <></>;
     } else {
+
         return (
             <>
                 <div
@@ -771,7 +814,12 @@ const GalleryItem = props => {
                     id="ribbonPosition"
                 >
 
-                    <DisplayRibbon pid={item.id} />
+                    <Suspense fallback={null}>
+                        <DisplayRibbon pid={item.id} />
+                    </Suspense>
+                    <Suspense fallback={null}>
+                        <AmastyLabel pid={item.id} storeid={storeid} email={email}/>
+                    </Suspense>
                     
                     <div className={classes.noo_product_image}>
                         {discount_percent > 0 && email && (
@@ -1047,7 +1095,7 @@ const GalleryItem = props => {
                                             classes.qty_selector
                                         }
                                     >
-                                        <QuantityPicker min={1} value={1} onChange={handleChange}/>
+                                        <QuantityPicker />
                                         
                                     </div>
                                     <div className={classes.add_to_cart_btn}>

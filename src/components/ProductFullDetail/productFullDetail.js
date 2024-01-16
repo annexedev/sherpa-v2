@@ -6,6 +6,7 @@ import React, {
     useState,
     Component
 } from 'react';
+import { Link } from 'react-router-dom';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
@@ -775,11 +776,50 @@ const ProductFullDetail = props => {
         lng = document.getElementById('currentLng').innerHTML;
     }
     let currencyCde = '';
+    let storeid = '';
     if (lng == 'Français') {
         currencyCde = 'CAD';
+        storeid = 2;
     } else {
         currencyCde = 'CAD';
+        storeid = 1;
     }
+
+    class AmastyLabel extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let productId = this.props.pid;
+            let storeid = this.props.storeid;
+            let email = this.props.email;
+            let dataURL ='https://data.sherpagroupav.com/get_amastylabel.php?pid=' + productId + '&storeid=' + storeid + '&email=' + email;
+            //console.log(dataURL);
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let label_path = this.state.pageData.label_path && this.state.pageData.label_path;
+            let url_path = this.state.pageData.url_path && this.state.pageData.url_path;
+            console.log(url_path);
+            if(label_path!= '' && this.state.pageData.label_path) {
+            return (
+                <a href={url_path}><img src={"https://data.sherpagroupav.com/media/amasty/amlabel/"+label_path} className={classes.amastyLabel} /></a>
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
 
     class DisplayRibbon extends Component {
         constructor() {
@@ -819,7 +859,43 @@ const ProductFullDetail = props => {
             }
         }
     }  
-    // console.log(productDetails);
+    console.log(productDetails);
+
+    //const customPrice = 0;
+    const customPricePercent = 0;
+
+    const final_minimum_price =
+        (productDetails.price.minimum_price.final_price.value +
+            customPrice +
+            customPricePercent * productDetails.price.minimum_price.final_price.value) *
+        1;
+
+    const final_regular_price =
+        (productDetails.price.minimum_price.regular_price.value +
+            customPrice +
+            customPricePercent *
+            productDetails.price.minimum_price.regular_price.value) *
+        1;
+
+    const final_maximum_price =
+    productDetails.price.maximum_price.final_price.value +
+        customPrice +
+        customPricePercent * productDetails.price.maximum_price.final_price.value;
+
+    const final_regular_price_max =
+    productDetails.price.maximum_price.regular_price.value +
+        customPrice +
+        customPricePercent * productDetails.price.maximum_price.regular_price.value;
+
+    const discount_percent =
+        Math.round(
+            (1 - final_minimum_price / final_regular_price).toFixed(2) *
+                100 *
+                100
+        ) / 100;
+
+    let discount_date = new Date(productDetails.special_to_date);
+
     return (
         <Fragment>
             <div className={'container' + ' ' + classes.product_page_container}>
@@ -830,14 +906,84 @@ const ProductFullDetail = props => {
                         defaultMessage={'Return to previous page'}
                     />
                 </a>
+                
+                <div className={classes.noo_product_image}>
+                        {discount_percent > 0 && email && (
+                            <div className={classes.priceTag}>
+                                <b>
+                                    {discount_percent}%{' '}
+                                    <FormattedMessage
+                                        id={'item.rebate'}
+                                        defaultMessage={'Off'}
+                                    />
+                                    {productDetails.special_to_date && (
+                                        <>
+                                            {' '}
+                                            <FormattedMessage
+                                                id={'item.until'}
+                                                defaultMessage={'until'}
+                                            />{' '}
+                                            {discount_date
+                                                .toDateString()
+                                                .split(' ')
+                                                .slice(1)
+                                                .join(' ')}
+                                        </>
+                                    )}
+                                </b>
+                            </div>
+                        )}
+
+                       {/* <Link
+                            onClick={handleLinkClick}
+                            to={productLink}
+                            className={classes.images}
+                        >
+                            {productDetails.sku.endsWith('-PROMO') &&
+                            activeLng == '-fr' ? (
+                                <Image
+                                    alt={name}
+                                    classes={{
+                                        image: classes.image,
+                                        loaded: classes.imageLoaded,
+                                        notLoaded: classes.imageNotLoaded,
+                                        root: classes.imageContainer
+                                    }}
+                                    height={IMAGE_HEIGHT}
+                                    resource={finalFrenchPath}
+                                    widths={IMAGE_WIDTHS}
+                                />
+                            ) : (
+                                <Image
+                                    alt={name}
+                                    classes={{
+                                        image: classes.image,
+                                        loaded: classes.imageLoaded,
+                                        notLoaded: classes.imageNotLoaded,
+                                        root: classes.imageContainer
+                                    }}
+                                    height={IMAGE_HEIGHT}
+                                    resource={smallImageURL}
+                                    widths={IMAGE_WIDTHS}
+                                />
+                            )}
+                                </Link> */}
+                    </div>
+
                 <Form className={classes.root} id="ribbonPosition">
-                    <DisplayRibbon pid={productDetails.id} />
+                    <Suspense fallback={null}>
+                        <DisplayRibbon pid={productDetails.id} />
+                    </Suspense>
+                   
                     {/* product image carousel section */}
                     <section
                         className={
                             classes.imageCarousel + ' ' + classes.shadow_section
                         }
                     >
+                         <Suspense fallback={null}>
+                            <AmastyLabel pid={productDetails.id} storeid={storeid} email={email} />
+                        </Suspense>
                         <div className={classes.imageCarousel_inner}>
                             
                             <Carousel images={mediaGalleryEntries} />
