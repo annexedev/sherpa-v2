@@ -264,10 +264,7 @@ const Product = props => {
                                                         classes.qty_selector
                                                     }
                                                 >
-                                                    <QuantityPicker
-                                                        min={1}
-                                                        value={1}
-                                                    />
+                                                    <QuantityPicker />
                                                 </div>
                                                 <button
                                                     aria-label="Addtocart"
