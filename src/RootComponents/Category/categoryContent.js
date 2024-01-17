@@ -412,7 +412,7 @@ const CategoryContent = props => {
                                                 <div
                                                     className={classes.boxlink}
                                                 >
-                                                    <a href={'https://www.sherpagroupav.com/' + s.url_path + '?page=1'}>
+                                                    <a href={'/' + s.url_path + '?page=1'}>
                                                         <FormattedMessage
                                                             id={
                                                                 'categoryContent.viewProducts'

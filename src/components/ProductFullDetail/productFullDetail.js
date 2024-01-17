@@ -1685,7 +1685,7 @@ const ProductFullDetail = props => {
                             />
                         </Suspense>
                     </div>
-                    <div className={classes.h_products_wrap}>
+                    {/* <div className={classes.h_products_wrap}>
                         <Suspense fallback={''}>
                             <LinkedProducts
                                 suffix={product.url_suffix}
@@ -1699,7 +1699,7 @@ const ProductFullDetail = props => {
                                 type={'upsell'}
                             />
                         </Suspense>
-                    </div>
+                    </div> */}
                     {/* <div className={classes.h_products_wrap}>
                         <Suspense fallback={''}>
                             <RecentProducts
