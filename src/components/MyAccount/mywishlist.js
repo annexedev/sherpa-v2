@@ -194,7 +194,6 @@ const MyWishList = props => {
                 items {
                     added_at
                     description
-                    product_id
                     qty
                     store_id
                     wishlist_item_id
@@ -212,8 +211,7 @@ const MyWishList = props => {
             TOGGLE_LIKED_PHOTO
         );
         const [selectValue, setSelectValue] = React.useState('');
-        if (data) {
-        }
+       
         if (loading) return 'Submitting...';
         if (error) return `Submission error! ${error.message}`;
 
