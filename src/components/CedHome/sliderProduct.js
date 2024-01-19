@@ -92,7 +92,7 @@ export default function SliderProduct(props) {
                                                     defaultClasses.owl_thme_design
                                                 }
                                                 loop={false}
-                                                rewind={true}
+                                                rewind={false}
                                                 margin={10}
                                                 nav={true}
                                                 dots={true}
@@ -100,6 +100,8 @@ export default function SliderProduct(props) {
                                                 autoplayTimeout={4000}
                                                 items={5}
                                                 responsive={responsive1}
+                                                mouseDrag={false}
+                                                touchDrag={false}
                                             >
                                                 {sliderProduct
                                                     ? productComponents

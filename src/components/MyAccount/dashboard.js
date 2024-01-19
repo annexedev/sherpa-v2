@@ -769,7 +769,7 @@ const Dashboard = props => {
                                                                     {val.status}
                                                                 </li>
                                                                 <li
-                                                                    mobilelabel="Action"
+                                                                    mobilelabel="P.O. / Comments"
                                                                     className={
                                                                         defaultClasses.item +
                                                                         ' ' +
@@ -790,7 +790,7 @@ const Dashboard = props => {
                                                                                 'dashboard.ViewOrder'
                                                                             }
                                                                             defaultMessage={
-                                                                                'View Order'
+                                                                                'P.O. / Comments'
                                                                             }
                                                                         />
                                                                     </Link>

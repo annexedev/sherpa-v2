@@ -34,6 +34,8 @@ import { ProductItem } from '../ProductItem';
 import { createRedirectUrlPlugin } from '@algolia/autocomplete-plugin-redirect-url';
 import { act } from 'react-test-renderer';
 
+import BrowserPersistence from '@magento/peregrine/lib/util/simplePersistence';
+
 class ProjectLink extends Component {
     constructor() {
         super();
@@ -209,6 +211,20 @@ const Header = props => {
         indexname = 'magento2_prod_default_products';
     }
 
+    /* Get store view for language */
+
+    function getStoreview() {
+        var storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        } else {
+            storeview = storeview;
+        }
+        return storeview;
+    }
+
+    var storeview = getStoreview();
+    console.log(storeview+email)
     return (
         <Fragment>
             <header className={rootClass}>
@@ -228,9 +244,9 @@ const Header = props => {
                                     <VisitorId />
                                 </Suspense>
                             </div>
-                            {activeLng == '-fr' && (
+                            {storeview == 'fr' ? (
                                 <>
-                                    {email ? (
+                                    {email && storeview != '' ? (
                                         <p
                                             className={
                                                 classes.offer_message_text
@@ -238,12 +254,9 @@ const Header = props => {
                                         >
                                             Bienvenue {currentUser.firstname}{' '}
                                             {currentUser.lastname} |{' '}
-                                            <a
-                                                className={classes.contactus}
-                                                href="/contact"
-                                            >
+                                            <Link className={classes.contactus} to={resourceUrl('/contact')}>
                                                 Nous joindre
-                                            </a>
+                                            </Link>
                                         </p>
                                     ) : (
                                         <p
@@ -266,20 +279,15 @@ const Header = props => {
                                                 revendeur
                                             </a>{' '}
                                             |{' '}
-                                            <a
-                                                className={classes.contactus}
-                                                href="/contact"
-                                            >
+                                            <Link className={classes.contactus} to={resourceUrl('/contact')}>
                                                 Nous joindre
-                                            </a>
+                                            </Link>
                                         </p>
                                     )}
                                 </>
-                            )}
-
-                            {activeLng == '' && isSignedIn && (
+                            ) : (
                                 <>
-                                    {email ? (
+                                    {email && storeview != '' ? (
                                         <p
                                             className={
                                                 classes.offer_message_text
@@ -287,61 +295,38 @@ const Header = props => {
                                         >
                                             Welcome {currentUser.firstname}{' '}
                                             {currentUser.lastname} |{' '}
-                                            <a
-                                                className={classes.contactus}
-                                                href="/contact"
-                                            >
+                                            <Link className={classes.contactus} to={resourceUrl('/contact')}>
                                                 Contact us
-                                            </a>
+                                            </Link>
                                         </p>
                                     ) : (
-                                        <></>
-                                    )}
-                                </>
-                            )}
-
-                            {activeLng == '' && !isSignedIn && (
-                                <>
-                                    {!email ? (
                                         <p
-                                        className={
-                                            classes.offer_message_text
-                                        }
-                                    >
-                                        <a
-                                            className={classes.contactus}
-                                            onClick={openLoginBox}
+                                            className={
+                                                classes.offer_message_text
+                                            }
                                         >
-                                            Login
-                                        </a>{' '}
-                                        |{' '}
-                                        <a
-                                            className={classes.contactus}
-                                            href="/new-user-account"
-                                        >
-                                            Create your account to become a
-                                            dealer
-                                        </a>{' '}
-                                        |{' '}
-                                        <a
-                                            className={classes.contactus}
-                                            href="/contact"
-                                        >
-                                            Contact us
-                                        </a>
-                                    </p>
-                                    ) : (
-                                        <></>
+                                            <a
+                                                className={classes.contactus}
+                                                onClick={openLoginBox}
+                                            >
+                                                Login
+                                            </a>{' '}
+                                            |{' '}
+                                            <a
+                                                className={classes.contactus}
+                                                href="/new-user-account"
+                                            >
+                                                Create your account to become a dealer
+                                            </a>{' '}
+                                            |{' '}
+                                            <Link className={classes.contactus} to={resourceUrl('/contact')}>
+                                                Contact us
+                                            </Link>
+                                        </p>
                                     )}
                                 </>
                             )}
 
-                            {/* <FormattedMessage
-                  id={'header.offer_message_text'}
-                  defaultMessage={
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                  }
-                /> */}
                         </div>
                     </div>
                 </div>
@@ -367,7 +352,7 @@ const Header = props => {
                                 <span aria-hidden="true">
                                     <FormattedMessage
                                         id={'header.logo'}
-                                        defaultMessage={' logo'}
+                                        defaultMessage={' Sherpa Technology Group'}
                                     />
                                 </span>
                                 <Logo classes={{ logo: classes.logo }} />

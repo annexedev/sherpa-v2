@@ -27,6 +27,7 @@
     font-size: 30px;
     text-align: left;
     font-family: 'Karla-medium' !important;
+    display: block;
 }
 .categoryTitle_itemscount {
     color: var(--ced-brown-text-color);

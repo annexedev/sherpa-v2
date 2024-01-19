@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import $ from 'jquery';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import BrowserPersistence from '@magento/peregrine/lib/util/simplePersistence';
 
 function hideNav() {
     //document.getElementById("id-main").style.opacity = "0";
@@ -18,6 +19,22 @@ const MegaMenu = () => {
     const navItems = [];
     const [{ isSignedIn }] = useUserContext();
     const { navdetails } = talonsProps;
+
+    /* Get store view for language */
+
+    const storage = new BrowserPersistence();
+    function getStoreview() {
+        var storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        } else {
+            storeview = storeview;
+        }
+        return storeview;
+    }
+
+    var storeview = getStoreview();
+
     if (typeof navdetails != 'undefined' && navdetails && !mobileView) {
 
 	if (window.location.href.indexOf("/default") > -1) {
@@ -26,20 +43,7 @@ const MegaMenu = () => {
 
         const elements = JSON.parse(navdetails).categories;
 
-        let lng = '';
-        if (document.getElementById('currentLng') != null) {
-            lng = document.getElementById('currentLng').innerHTML;
-        }
-        let activeLng = '';
-        if (lng == 'Français') {
-            activeLng = '-fr';
-        } else {
-            activeLng = '';
-        }
-
         if (elements) {
-            //console.log('Elements');
-            //console.log(elements);
 
             navItems.push(
                 <>
@@ -48,10 +52,15 @@ const MegaMenu = () => {
                             defaultClasses.item + ' ' + defaultClasses.haschild
                         }
                     >
-                        {activeLng == '-fr' ? (
-                            <a href="/about">À propos</a>
+                        {storeview == 'fr' ? (
+                            <Link to={resourceUrl('/about')}>
+                                À propos
+                            </Link>
+                            
                         ) : (
-                            <a href="/about">About us</a>
+                            <Link to={resourceUrl('/about')}>
+                                About us
+                            </Link>
                         )}
                     </li>
                     <li
@@ -59,10 +68,14 @@ const MegaMenu = () => {
                             defaultClasses.item + ' ' + defaultClasses.haschild
                         }
                     >
-                        {activeLng == '-fr' ? (
-                            <a href="/sherpa-our-team">Notre équipe</a>
+                        {storeview == 'fr' ? (
+                            <Link to={resourceUrl('/sherpa-our-team')}>
+                                Notre équipe
+                            </Link>
                         ) : (
-                            <a href="/sherpa-our-team">Our team</a>
+                            <Link to={resourceUrl('/sherpa-our-team')}>
+                                Our team
+                            </Link>
                         )}
                     </li>
                 </>
@@ -220,10 +233,14 @@ const MegaMenu = () => {
                             defaultClasses.item + ' ' + defaultClasses.haschild
                         }
                     >
-                        {activeLng == '-fr' ? (
-                            <a href="/promotions">Promotions</a>
+                        {storeview == 'fr' ? (
+                            <Link to={resourceUrl('/promotions')}>
+                                Promotions
+                            </Link>
                         ) : (
-                            <a href="/promotions">Promotions</a>
+                            <Link to={resourceUrl('/promotions')}>
+                                Promotions
+                            </Link>
                         )}
                     </li>
                 );
@@ -249,10 +266,14 @@ const MegaMenu = () => {
                             defaultClasses.item + ' ' + defaultClasses.haschild
                         }
                     >
-                        {activeLng == '-fr' ? (
-                            <a href="/brands-sherpa/clearance">Liquidation</a>
+                        {storeview == 'fr' ? (
+                            <Link to={resourceUrl('/brands-sherpa/clearance')}>
+                                Liquidation
+                            </Link>
                         ) : (
-                            <a href="/brands-sherpa/clearance">Clearance</a>
+                            <Link to={resourceUrl('/brands-sherpa/clearance')}>
+                                Clearance
+                            </Link>
                         )}
                     </li>
                 );
@@ -263,7 +284,7 @@ const MegaMenu = () => {
                             defaultClasses.item + ' ' + defaultClasses.haschild
                         }
                     >
-                        {activeLng == '-fr' ? (
+                        {storeview == 'fr' ? (
                             <>
                                 <a href="/education-landing">
                                     Éducation
@@ -375,10 +396,15 @@ const MegaMenu = () => {
                             defaultClasses.item + ' ' + defaultClasses.haschild
                         }
                     >
-                        {activeLng == '-fr' ? (
-                            <a href="/education-landing">Éducation</a>
+                        {storeview == 'fr' ? (
+                            <Link to={resourceUrl('/education-landing')}>
+                                Éducation
+                            </Link>
+                            
                         ) : (
-                            <a href="/education-landing">Education</a>
+                            <Link to={resourceUrl('/education-landing')}>
+                                Education
+                            </Link>
                         )}
                     </li>
                 );

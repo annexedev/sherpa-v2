@@ -31,6 +31,7 @@
     font-size: 30px;
     text-align: left;
     font-family: 'Karla-Medium' !important;
+    display: block;
 }
 .specsheet {
     color: var(--primary-base-color);

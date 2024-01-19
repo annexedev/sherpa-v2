@@ -118,7 +118,8 @@ autocomplete({
 // Add template for Product items
 function ProductItem({ hit, components }) {
     return (
-        <a href={hit.url} className="aa-ItemLink">
+        <Link to={resourceUrl(hit.url)} className={aa-ItemLink}>
+        {/* <a href={hit.url} className="aa-ItemLink"> */}
             <div className="aa-ItemContent">
                 <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
                     <img
@@ -210,6 +211,6 @@ function ProductItem({ hit, components }) {
                     </svg>
                 </button>
             </div>
-        </a>
+        </Link>
     );
 }

@@ -6,6 +6,7 @@ import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBre
 import GET_BREADCRUMB_DATA from '../../queries/getBreadcrumbData.graphql';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './breadcrumbs.css';
+import BrowserPersistence from '@magento/peregrine/lib/util/simplePersistence';
 
 /**
  * Breadcrumbs! Generates a sorted display of category links.
@@ -69,21 +70,25 @@ const Breadcrumbs = props => {
         </Fragment>
     ) : null;
 
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
+    /* Get store view for language */
+
+    const storage = new BrowserPersistence();
+    function getStoreview() {
+        var storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        } else {
+            storeview = storeview;
+        }
+        return storeview;
     }
-    let activeLng = '';
-    if (lng == 'Français') {
-        activeLng = '-fr';
-    } else {
-        activeLng = '';
-    }
+
+    var storeview = getStoreview();
 
     return (
         <div className={classes.root}>
-            <Link className={classes.link} to="/">
-                {activeLng == '-fr' ? <>Accueil</> : <>Home</>}
+            <Link className={classes.link} to={('/')}>
+                {storeview == 'fr' ? <>Accueil</> : <>Home</>}
             </Link>
             {links}
             <span className={classes.divider}>/</span>

@@ -257,14 +257,14 @@ const Home = props => {
                         <div className={defaultClasses.button_new}>
                             <div>
                                 {activeLng == '-fr' && (
-                                    <>
-                                        <a href="/brands-sherpa">VOIR TOUS</a>
-                                    </>
+                                    <Link to={resourceUrl('/brands-sherpa')}>
+                                        VOIR TOUS
+                                    </Link>
                                 )}
                                 {activeLng == '' && (
-                                    <>
-                                        <a href="/brands-sherpa">SEE ALL</a>
-                                    </>
+                                   <Link to={resourceUrl('/brands-sherpa')}>
+                                        SEE ALL
+                                    </Link>
                                 )}
                             </div>
                         </div>

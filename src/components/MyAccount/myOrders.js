@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { shape, string } from 'prop-types';
 import defaultClasses from './myAccount.css';
 import searchClasses from '../SearchPage/searchPage.css';
@@ -31,6 +31,39 @@ const MyOrders = props => {
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
+
+    class OrderPo extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let orderNumber = this.props.pid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_pocomments.php?pid=' + orderNumber;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let orderpo = this.state.pageData.orderpo && this.state.pageData.orderpo;
+            return (
+                <React.Fragment>
+                    <b>{orderpo}</b>
+                </React.Fragment>
+            );
+        }
+    }
+
     if (!loading) {
         return (
             <div className={defaultClasses.columns}>
@@ -196,7 +229,7 @@ const MyOrders = props => {
                                                                             'myOrders.Action'
                                                                         }
                                                                         defaultMessage={
-                                                                            'Action'
+                                                                            'P.O.'
                                                                         }
                                                                     />
                                                                 </li>
@@ -228,9 +261,24 @@ const MyOrders = props => {
                                                                                         defaultClasses.body_item
                                                                                     }
                                                                                 >
-                                                                                    {
-                                                                                        val.increment_id
-                                                                                    }
+
+                                                                                    <Link
+                                                                                        className={
+                                                                                            defaultClasses.body_item_link +
+                                                                                            ' ' +
+                                                                                            defaultClasses.order_view_linkq
+                                                                                        }
+                                                                                        to={
+                                                                                            '/orderview/' +
+                                                                                            val.id
+                                                                                        }
+                                                                                    >
+                                                                                        {
+                                                                                            val.increment_id
+                                                                                        }
+                                                                                    </Link>
+
+                                                                                    
                                                                                 </li>
                                                                                 <li
                                                                                     mobilelabel="Date"
@@ -241,7 +289,7 @@ const MyOrders = props => {
                                                                                     }
                                                                                 >
                                                                                     {
-                                                                                        val.created_at
+                                                                                        val.created_at.slice(0, -3)
                                                                                     }
                                                                                 </li>
                                                                                 <li
@@ -288,7 +336,10 @@ const MyOrders = props => {
                                                                                         defaultClasses.body_item
                                                                                     }
                                                                                 >
-                                                                                    <Link
+
+                                                                                    <OrderPo pid={val.increment_id} />
+
+                                                                                    {/*<Link
                                                                                         className={
                                                                                             defaultClasses.body_item_link +
                                                                                             ' ' +
@@ -307,7 +358,7 @@ const MyOrders = props => {
                                                                                                 'View Order'
                                                                                             }
                                                                                         />
-                                                                                    </Link>
+                                                                                        </Link> */}
                                                                                     {/* <a
                                                                                 className={
                                                                                     defaultClasses.body_item_link
