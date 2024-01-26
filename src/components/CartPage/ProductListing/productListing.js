@@ -25,7 +25,7 @@ import { ProductListingFragment } from './productListingFragments';
 const EditModal = React.lazy(() => import('./EditModal'));
 
 const ProductListing = props => {
-    const { setIsCartUpdating } = props;
+    const { setIsCartUpdating, projectIds } = props;
     const talonProps = useProductListing({
         queries: {
             getProductListing: GET_PRODUCT_LISTING
@@ -40,13 +40,19 @@ const ProductListing = props => {
     }
 
     if (items.length) {
+
+        console.log('projectIds '+ projectIds);
+
         const productComponents = items.map(product => (
-            <Product
-                item={product}
-                key={product.id}
-                setActiveEditItem={setActiveEditItem}
-                setIsCartUpdating={setIsCartUpdating}
-            />
+            <>
+                <Product
+                    item={product}
+                    key={product.id+1}
+                    setActiveEditItem={setActiveEditItem}
+                    setIsCartUpdating={setIsCartUpdating}
+                />
+            </>
+            
         ));
 
         return (

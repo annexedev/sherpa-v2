@@ -15,13 +15,16 @@ class ProjectList extends Component {
             pageData: [],
             pageDataAccess: [],
             name: 'React Component reload sample',
-            reload: false
+            reload: false,
+            myProjectsVisible: false,
+            myArchiveVisible: false,
+            showAll: false,
         };
     }
 
     componentDidMount() {
         let pid = this.props.pid;
-
+        console.log(this.props);
         let dataURL =
             'https://data.sherpagroupav.com/get_projects.php?email=' + pid;
         fetch(dataURL)
@@ -31,6 +34,7 @@ class ProjectList extends Component {
                     pageData: res
                 });
             });
+
 
         let grantAccess =
             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
@@ -43,14 +47,41 @@ class ProjectList extends Component {
             });
     }
 
+
+    /* ----- HIDE/SHOW ---------- */
+
+
+    alternateVisibilityArchive = () => {
+        this.setState((prevState) => ({
+
+            myArchiveVisible: !prevState.myArchiveVisible,
+        }));
+    }
+
+    alternateVisibilityProjects = () => {
+        this.setState((prevState) => ({
+
+            myProjectsVisible: !prevState.myProjectsVisible,
+        }));
+    }
+
+    handleShowMoreClick = () => {
+        this.setState({ showAll: true });
+    }
+
+
     render() {
         let archive = this.props.archive;
+        const { showAll } = this.state;
 
+        // console.log(showAll);
         const classes = mergeClasses(defaultClasses, wishlistClasses);
 
         const queryParameters = new URLSearchParams(window.location.search);
 
         const projectId = queryParameters.get('id');
+
+        
 
         //console.log('Access ::::::: ');
         //console.log(this.state.pageDataAccess["access"]);
@@ -65,7 +96,6 @@ class ProjectList extends Component {
             }
 
             if (this.state.pageDataAccess['access'] == 1) {
-                console.log(this.props.archive);
                 return (
                     <>
                         {!this.props.archive ? (
@@ -73,10 +103,11 @@ class ProjectList extends Component {
                                 className={
                                     path == '/wishlist'
                                         ? defaultClasses.item +
-                                          ' ' +
-                                          defaultClasses.active
+                                        ' ' +
+                                        defaultClasses.active
                                         : defaultClasses.item
                                 }
+                                onClick={this.alternateVisibilityProjects}
                             >
                                 {' '}
                                 <span
@@ -91,10 +122,10 @@ class ProjectList extends Component {
                                         height="20"
                                     />
                                 </span>
-                                <Link to="/wishlist" onClick={onClose}>
+                                <Link onClick={onClose}>
                                     <FormattedMessage
                                         id={'sidebar.MyWishlist'}
-                                        defaultMessage={'My projects'}
+                                        defaultMessage={'My projects (active)'}
                                     />
                                 </Link>
                             </li>
@@ -103,10 +134,11 @@ class ProjectList extends Component {
                                 className={
                                     path == '/wishlist'
                                         ? defaultClasses.item +
-                                          ' ' +
-                                          defaultClasses.active
+                                        ' ' +
+                                        defaultClasses.active
                                         : defaultClasses.item
                                 }
+                                onClick={this.alternateVisibilityArchive}
                             >
                                 {' '}
                                 <span
@@ -123,96 +155,126 @@ class ProjectList extends Component {
                                 </span>
                                 <Link to="/wishlist" onClick={onClose}>
                                     <FormattedMessage
-                                        id={'sidebar.MyWishlist'}
-                                        defaultMessage={'Project Archives'}
+                                        id={'sidebar.MyWishlistArchive'}
+                                        defaultMessage={'My Project Archives'}
                                     />
                                 </Link>
                             </li>
                         )}
+                        <ul className={defaultClasses.wrapperProjects}>
 
-                        {this.state.pageData &&
-                            this.state.pageData.map(e => {
-                                if (
-                                    e.category_name.startsWith('ARCHIVE') &&
-                                    this.props.archive &&
-                                    projectId == e.category_id
-                                ) {
-                                    return (
-                                        <li
-                                            className={
-                                                classes.projectlist +
-                                                ' ' +
-                                                classes.projectlistactive
-                                            }
-                                        >
-                                            <a
-                                                href={
-                                                    '/wishlist?id=' +
-                                                    e.category_id
-                                                }
-                                            >
-                                                {e.category_name}
-                                            </a>
-                                        </li>
-                                    );
-                                } else if (
-                                    e.category_name.startsWith('ARCHIVE') &&
-                                    this.props.archive
-                                ) {
-                                    return (
-                                        <li className={classes.projectlist}>
-                                            <a
-                                                href={
-                                                    '/wishlist?id=' +
-                                                    e.category_id
-                                                }
-                                            >
-                                                {e.category_name}
-                                            </a>
-                                        </li>
-                                    );
-                                }
-                                if (
-                                    !e.category_name.startsWith('ARCHIVE') &&
-                                    !this.props.archive &&
-                                    projectId == e.category_id
-                                ) {
-                                    return (
-                                        <li
-                                            className={
-                                                classes.projectlist +
-                                                ' ' +
-                                                classes.projectlistactive
-                                            }
-                                        >
-                                            <a
-                                                href={
-                                                    '/wishlist?id=' +
-                                                    e.category_id
-                                                }
-                                            >
-                                                {e.category_name}
-                                            </a>
-                                        </li>
-                                    );
-                                } else if (
-                                    !e.category_name.startsWith('ARCHIVE') &&
-                                    !this.props.archive
-                                ) {
-                                    return (
-                                        <li className={classes.projectlist}>
-                                            <a
-                                                href={
-                                                    '/wishlist?id=' +
-                                                    e.category_id
-                                                }
-                                            >
-                                                {e.category_name}
-                                            </a>
-                                        </li>
-                                    );
-                                }
-                            })}
+                            {this.state.pageData &&
+                                this.state.pageData.map((e, index) => {
+                                    // --------------- PROJECT ARCHIVES ------------
+                                    // const produitsLength = e.category_id.length;
+                                    // const tenPlus = {produitsLength > 10 'scroll' : 'hidden'};
+                                    if (
+                                        e.category_name.startsWith('ARCHIVE') &&
+                                        this.props.archive &&
+                                        projectId == e.category_id
+                                    ) {
+                                        return (
+                                            <>
+                                                {/* {this.state.myArchiveVisible && ( */}
+                                                <li
+                                                    className={
+                                                        classes.projectlist +
+                                                        ' ' +
+                                                        classes.projectlistactive
+                                                    }
+
+                                                >
+                                                    <a
+                                                        href={
+                                                            '/wishlist?id=' +
+                                                            e.category_id
+                                                        }
+                                                    >
+                                                        {e.category_name}
+                                                    </a>
+                                                </li>
+                                                {/* )} */}
+                                            </>
+                                        );
+                                    } else if (
+                                        e.category_name.startsWith('ARCHIVE') &&
+                                        this.props.archive
+                                    ) {
+                                        // bloc a faire le hide/show au click
+                                        return (
+                                            <>
+                                                {this.state.myArchiveVisible && (
+
+                                                    <li className={classes.projectlist}>
+                                                        <a
+                                                            href={
+                                                                '/wishlist?id=' +
+                                                                e.category_id
+                                                            }
+                                                        >
+                                                            {e.category_name}
+                                                        </a>
+                                                    </li>
+                                                )}
+                                            </>
+
+                                        );
+                                    }
+                                    // ------------ MY PROJECTS --------------
+                                    if (
+                                        !e.category_name.startsWith('ARCHIVE') &&
+                                        !this.props.archive &&
+                                        projectId == e.category_id
+                                    ) {
+                                        return (
+                                            <>
+                                                {/* {this.state.myProjectsVisible( */}
+                                                    <li
+                                                        className={
+                                                            classes.projectlist +
+                                                            ' ' +
+                                                            classes.projectlistactive
+                                                        }
+                                                    >
+                                                        <a
+                                                            href={
+                                                                '/wishlist?id=' +
+                                                                e.category_id
+                                                            }
+                                                        >
+                                                            {e.category_name}
+                                                        </a>
+                                                    </li>
+                                                {/* )} */}
+                                            </>
+                                        );
+                                    } else if (
+                                        !e.category_name.startsWith('ARCHIVE') &&
+                                        !this.props.archive
+                                    ) {
+                                        // bloc a faire le hide/show au click
+                                        return (
+                                            <>
+                                                {this.state.myProjectsVisible && (
+                                                    <>
+                                                        <li className={classes.projectlist}>
+                                                            <a
+                                                                href={
+                                                                    '/wishlist?id=' +
+                                                                    e.category_id
+                                                                }
+                                                            >
+                                                                {e.category_name}
+                                                            </a>
+                                                        </li>
+                                                    </>
+                                                )}
+                                            </>
+                                        );
+                                    }
+                                })
+                            }
+                        </ul>
                     </>
                 );
             } else {
@@ -221,9 +283,9 @@ class ProjectList extends Component {
         };
 
         return (
-            <React.Fragment>
-                <ProjectItems />
-            </React.Fragment>
+            // <React.Fragment>
+            <ProjectItems />
+            // </React.Fragment>
         );
     }
 }
@@ -301,7 +363,7 @@ const Sidebar = props => {
                     <ProjectList pid={email} archive={true} />
                 ) : (
                     <>
-                        <p>Loading projects</p>
+                        <p>Loading archive projects</p>
                     </>
                 )}
                 <li

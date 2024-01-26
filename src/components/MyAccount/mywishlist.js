@@ -19,7 +19,8 @@ import {
     faTrashAlt,
     faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
-import { useCategoryAddToCart } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { useCategoryAddToCart , useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+
 import Quantity from '../CartPage/ProductListing/quantity';
 
 import WishlistSkelton from './WishlistSkeleton.js';
@@ -30,10 +31,15 @@ import { useGetScopeCache } from '../../peregrine/lib/talons/Home/useHome';
 import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+// import MpBetterWishlistGetCategories from '../../queries/getMpBetterWishlistGetCategories.graphql'
 import { Title } from '@magento/venia-ui/lib/components/Head';
 import { gql, useMutation } from '@apollo/client';
 import { ChevronDown as ArrowDown, X as ArrowUp } from 'react-feather';
 import Icon from '../Icon';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
+
 
 const Banner = React.lazy(() => import('../CedHome/banner'));
 const categoryBannerIdentifierHome = 'projects_instructions';
@@ -65,9 +71,52 @@ class ProjectName extends Component {
             this.state.pageData.pname && this.state.pageData.pname;
         return (
             <React.Fragment>
-                - <span id="widn">{projectname}</span>
+                - <span id="widn" className={defaultClasses.nomProject}>{projectname}</span>
             </React.Fragment>
         );
+    }
+}
+
+class AlreadyPurchased extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+
+    componentDidMount() {
+        let pid = this.props.pid;
+        let email = this.props.email;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_already_purchased.php?email='+email+'&productId=' + pid;
+            console.log(dataURL);
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+    }
+
+    render() {
+        let purchased = this.state.pageData.purchased && this.state.pageData.purchased;
+        let sku = this.props.sku;
+        let wId = this.props.wId;
+        if(this.state.pageData.purchased && this.state.pageData.purchased > 0) {
+            return (
+                <Link
+                    className={defaultClasses.linkPurchase}
+                    to={resourceUrl('/orders?project='+wId+'&id='+sku)}
+                >{purchased} purchased</Link>
+            );
+        } else {
+            return (
+                <></>
+            );
+        }
+        
     }
 }
 
@@ -75,6 +124,14 @@ const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
     //window.location.href="/";
+
+    const { email } = useDashboard();
+
+    const url = window.location.href;
+
+    const myprojects = url.includes("?id");
+
+    // console.log(myprojects);
 
     const [, { addToast }] = useToasts();
     const classes = mergeClasses(
@@ -86,6 +143,38 @@ const MyWishList = props => {
     const wishlistProps = useWishlist({
         query: WishListQuery
     });
+
+
+    /* ---------------------- TAG DISCOUNT DETAILS ------------------------------- */
+
+    // console.log(productDetails);
+    // const customPricePercent = 0;
+
+    // const final_minimum_price =
+    //     (productDetails.price.minimum_price.final_price.value +
+    //         customPrice +
+    //         customPricePercent * productDetails.price.minimum_price.final_price.value) *
+    //     1;
+
+    // const final_regular_price =
+    //     (productDetails.price.minimum_price.regular_price.value +
+    //         customPrice +
+    //         customPricePercent *
+    //         productDetails.price.minimum_price.regular_price.value) *
+    //     1;
+
+    // const discount_percent = Math.round(
+    //     (1 - final_minimum_price / final_regular_price).toFixed(2) *
+    //     100 *
+    //     100
+    // ) / 100;
+
+    // let discount_date = new Date(product.special_to_date);
+
+    // // console.log(discount_percent);
+    // console.log(product);
+    /* -------------------------------------------------------------------------- */
+
 
     const deleteData = useDeleteFromWishlist({
         query: REMOVE_FROM_WISHLIST_MUTATION,
@@ -113,11 +202,12 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
+// console.log(MpBetterWishlistGetCategories);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
 
-    console.log('WID ' + wId);
+    // console.log('WID ' + wId);
 
     const remove = async id => {
         await handleRemoveItem({ product_id: id });
@@ -177,13 +267,11 @@ const MyWishList = props => {
         if (error) return `Submission error! ${error.message}`;
 
         return (
+            <>
             <div>
                 <input
                     className={classes.input_rename}
                     type="text"
-                    ref={node => {
-                        input = node;
-                    }}
                     placeholder={'New project name'}
                 />
                 <input type="hidden" value={selectId} />
@@ -201,7 +289,48 @@ const MyWishList = props => {
                 >
                     Create new project
                 </button>
+                
+                {/* <MoveProjectToCart /> */}
             </div>
+                <Popup
+                trigger={<button className={classes.button_move_project}> Move to Cart </button>}
+                modal
+                nested
+            >
+                {close => (
+                <div className="modalreact">
+                    <button className="close" onClick={close}>
+                    &times;
+                    </button>
+                    <div className="header"> Move project to cart <ProjectName cid={wId} /></div>
+                    <div className="content content-align">
+                    {' '}
+                    This will send your entire projects contents to the Shopping Cart.
+                    <br/><br/>
+                    <b>Do you want to proceed?</b>
+                    </div>
+                    <div className="actions">
+                    <button
+                        className={classes.button_move_project_yes}
+                        onClick={() => {
+                        close();
+                        }}
+                    >
+                        Yes
+                    </button>
+                    <button
+                        className={classes.button_move_project_no}
+                        onClick={() => {
+                        close();
+                        }}
+                    >
+                        Cancel and close
+                    </button>
+                    </div>
+                </div>
+                )}
+            </Popup>
+        </>
         );
     }
 
@@ -222,7 +351,7 @@ const MyWishList = props => {
                 data['MpBetterWishlistCreateCategory']['category_id'];
             console.log(
                 'https://data.sherpagroupav.com/duplicate_project.php?projectId=' +
-                    data['MpBetterWishlistCreateCategory']['category_id']
+                data['MpBetterWishlistCreateCategory']['category_id']
             );
             fetch(dataURL)
                 .then(res => res.json())
@@ -295,7 +424,7 @@ const MyWishList = props => {
                 >
                     <button type="submit" className={classes.add_to_project}>
                         {' '}
-                        Delete project
+                        Permanently Delete Project
                     </button>
                 </form>
             </div>
@@ -440,26 +569,24 @@ const MyWishList = props => {
         };
 
         return (
-            <div>
+            <div className={defaultClasses.wrapper_project_dropdown}>
                 <select
                     onChange={onChange}
-                    className={classes.project_dropdown}
+                    className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
                 >
-                    <option defaultValue value="0">
-                        Project actions
-                    </option>
+                    <option value="" disabled selected hidden>Project Options</option>
 
-                    <option value="1">Create a new project</option>
+                    {/* <option value="1">Create a new project</option> */}
                     <option value="5">Duplicate project</option>
                     <option value="2">Rename current project</option>
                     <option value="3">Archive current project</option>
                     <option value="4">Delete current project</option>
                 </select>
-                {selectValue && selectValue == 1 && (
+                {/* {selectValue && selectValue == 1 && (
                     <div id={'hidden_div'}>
                         <AddTodo uid={wId} />
                     </div>
-                )}
+                )} */}
                 {selectValue && selectValue == 5 && (
                     <div id={'hidden_div'}>
                         <AddTodoDuplicate uid={wId} />
@@ -515,27 +642,39 @@ const MyWishList = props => {
                                         defaultClasses.account_contentBar
                                     }
                                 >
-                                    <div
-                                        className={
-                                            defaultClasses.page_title_wrapper
-                                        }
-                                    >
-                                        <h1
+                                    {myprojects &&
+                                        <div
                                             className={
-                                                defaultClasses.page_title
+                                                defaultClasses.page_title_wrapper
                                             }
                                         >
-                                            <span
-                                                className={defaultClasses.base}
-                                            >
-                                                <FormattedMessage
-                                                    id={'myWishlist.page_title'}
-                                                    defaultMessage={'Project'}
-                                                />{' '}
-                                                <ProjectName cid={wId} />
-                                            </span>
-                                        </h1>
-                                    </div>
+                                            <div className={defaultClasses.flex_between}>
+                                                <h1
+                                                    className={
+                                                        defaultClasses.page_title
+                                                    }
+                                                >
+                                                    <span
+                                                        className={defaultClasses.base}
+                                                    >
+                                                        <FormattedMessage
+                                                            id={'myWishlist.page_title'}
+                                                            defaultMessage={'My Projects'}
+                                                        />{' '}
+                                                        <ProjectName cid={wId} />
+                                                    </span>
+                                                </h1>
+                                                <div id={'hidden_div'} className={defaultClasses.hidden_div}>
+                                                    <AddTodo uid={wId} />
+                                                </div>
+                                            </div>
+                                            <Link
+                                                className={defaultClasses.btnPurchase}
+                                                to={resourceUrl('/orders?project='+wId)}
+                                            >Project Purchase History</Link>
+                                           
+                                        </div>
+                                    }
                                     {wId !== undefined && wId !== null && (
                                         <>
                                             <div>
@@ -543,7 +682,11 @@ const MyWishList = props => {
                                                 shipping : $
                                                 <span id="totalApprox" />
                                             </div>
-                                            <MoveProjectToCart />
+                                            <div className={defaultClasses.wrapperBtnDropdown}>
+                                            
+                                                
+                                                <Select />
+                                            </div>
                                         </>
                                     )}
                                     <div
@@ -563,7 +706,7 @@ const MyWishList = props => {
                                                     {data.map((val, index) => {
                                                         var currentProduct =
                                                             val.product;
-
+                                                        console.log(val);
                                                         function belongToProject(
                                                             pid,
                                                             cid
@@ -634,6 +777,14 @@ const MyWishList = props => {
                                                                 wId
                                                             )
                                                         ) {
+
+                                                            var discount_percent =
+                                                                Math.round(
+                                                                    (1 - val.product.final_minimum_price / val.product.final_regular_price).toFixed(2) *
+                                                                        100 *
+                                                                        100
+                                                                ) / 100;
+
                                                             return (
                                                                 <>
                                                                     <div
@@ -650,6 +801,34 @@ const MyWishList = props => {
                                                                                 .id
                                                                         }
                                                                     >
+                                                                        {/* --------- ICI le green pills ------- */}
+                                                                        
+                                                                        {discount_percent > 0 && email && (
+                                                                            <div className={classes.priceTag}>
+                                                                                <b>
+                                                                                    {discount_percent}%{' '}
+                                                                                    <FormattedMessage
+                                                                                        id={'item.rebate'}
+                                                                                        defaultMessage={'Off'}
+                                                                                    />
+                                                                                    {val.product.special_to_date && (
+                                                                                        <>
+                                                                                            {' '}
+                                                                                            <FormattedMessage
+                                                                                                id={'item.until'}
+                                                                                                defaultMessage={'until'}
+                                                                                            />{' '}
+                                                                                            {discount_date
+                                                                                                .toDateString()
+                                                                                                .split(' ')
+                                                                                                .slice(1)
+                                                                                                .join(' ')}
+                                                                                        </>
+                                                                                    )}
+                                                                                </b>
+                                                                            </div>
+                                                                        )}
+
                                                                         <div
                                                                             className={
                                                                                 classes.inner
@@ -664,9 +843,9 @@ const MyWishList = props => {
                                                                                     to={resourceUrl(
                                                                                         val
                                                                                             .product[
-                                                                                            'url_key'
+                                                                                        'url_key'
                                                                                         ] +
-                                                                                            productUrlSuffix
+                                                                                        productUrlSuffix
                                                                                     )}
                                                                                 >
                                                                                     <img
@@ -698,9 +877,9 @@ const MyWishList = props => {
                                                                                         to={resourceUrl(
                                                                                             val
                                                                                                 .product[
-                                                                                                'url_key'
+                                                                                            'url_key'
                                                                                             ] +
-                                                                                                productUrlSuffix
+                                                                                            productUrlSuffix
                                                                                         )}
                                                                                     >
                                                                                         {
@@ -796,7 +975,9 @@ const MyWishList = props => {
                                                                                         </span>
                                                                                     </button>
                                                                                 </span>
+                                                                                
                                                                             </div>
+                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
@@ -811,53 +992,130 @@ const MyWishList = props => {
                                                                                         .product
                                                                                         .__typename ==
                                                                                         'SimpleProduct' && (
-                                                                                        <button
-                                                                                            className={
-                                                                                                'active_item' +
-                                                                                                wId
-                                                                                            }
-                                                                                            onClick={() => {
-                                                                                                /*handleAddToCart(
-                                                                                            val.product, val.qty
-                                                                                        );*/
-                                                                                                var currentQty = document
-                                                                                                    .querySelector(
-                                                                                                        '#q' +
+                                                                                            <>
+                                                                                            <button
+                                                                                                className={
+                                                                                                    'active_item' +
+                                                                                                    wId
+                                                                                                }
+                                                                                                onClick={() => {
+                                                                                                    /*handleAddToCart(
+                                                                                                val.product, val.qty
+                                                                                            );*/
+                                                                                                    var currentQty = document
+                                                                                                        .querySelector(
+                                                                                                            '#q' +
                                                                                                             val.id
-                                                                                                    )
-                                                                                                    .querySelector(
-                                                                                                        'input'
-                                                                                                    )
-                                                                                                    .value;
-                                                                                                console.log(
-                                                                                                    'qqqw'
-                                                                                                );
-                                                                                                console.log(
-                                                                                                    val.product
-                                                                                                );
-                                                                                                let item =
-                                                                                                    val.product;
-
-                                                                                                for (
-                                                                                                    let i = 0;
-                                                                                                    i <
-                                                                                                    currentQty;
-                                                                                                    i++
-                                                                                                ) {
-                                                                                                    handleAddToCart(
+                                                                                                        )
+                                                                                                        .querySelector(
+                                                                                                            'input'
+                                                                                                        )
+                                                                                                        .value;
+                                                                                                    console.log(
+                                                                                                        'qqqw'
+                                                                                                    );
+                                                                                                    console.log(
                                                                                                         val.product
                                                                                                     );
-                                                                                                }
+                                                                                                    let item =
+                                                                                                        val.product;
 
-                                                                                                //window.alert("Product moved to cart.");
-                                                                                                /*remove(
-                                                                                            val
-                                                                                                .product
-                                                                                                .id
-                                                                                        );*/
-                                                                                            }}
-                                                                                        >
-                                                                                            <span
+                                                                                                    for (
+                                                                                                        let i = 0;
+                                                                                                        i <
+                                                                                                        currentQty;
+                                                                                                        i++
+                                                                                                    ) {
+                                                                                                        handleAddToCart(
+                                                                                                            val.product
+                                                                                                        );
+                                                                                                    }
+
+                                                                                                    //window.alert("Product moved to cart.");
+                                                                                                    /*remove(
+                                                                                                val
+                                                                                                    .product
+                                                                                                    .id
+                                                                                            );*/
+                                                                                                }}
+                                                                                            >
+                                                                                                <span
+                                                                                                    className={
+                                                                                                        classes.add_btn
+                                                                                                    }
+                                                                                                >
+                                                                                                    <FormattedMessage
+                                                                                                        id={
+                                                                                                            'myWishlist.moveToCartBtn'
+                                                                                                        }
+                                                                                                        defaultMessage={
+                                                                                                            'Move to cart'
+                                                                                                        }
+                                                                                                    />
+                                                                                                </span>
+                                                                                            </button>
+                                                                                            <button
+                                                                                                onClick={() => {
+                                                                                                    document.getElementById('move_item_box_'+val.id).style.display='block';
+                                                                                                }}
+                                                                                            >
+                                                                                                <span
+                                                                                                    className={
+                                                                                                        classes.move_item
+                                                                                                    }
+                                                                                                >
+                                                                                                    <FormattedMessage
+                                                                                                        id={
+                                                                                                            'myWishlist.moveToCartBtnPartial'
+                                                                                                        }
+                                                                                                        defaultMessage={
+                                                                                                            'Move partial quantity to cart'
+                                                                                                        }
+                                                                                                    />
+                                                                                                </span>
+                                                                                            </button>
+                                                                                            <div 
+                                                                                                id={'move_item_box_'+val.id} 
+                                                                                                className={ classes.move_item_static }>
+                                                                                                <Quantity
+                                                                                                    initialValue={1}
+                                                                                                />
+                                                                                                <button
+                                                                                                onClick={() => {
+                                                                                                    document.getElementById('move_item_box_'+val.id).style.display='block';
+                                                                                                }}
+                                                                                            >
+                                                                                                <span
+                                                                                                    className={
+                                                                                                        classes.move_confirm
+                                                                                                    }
+                                                                                                >
+                                                                                                    <FormattedMessage
+                                                                                                        id={
+                                                                                                            'myWishlist.moveConfirm'
+                                                                                                        }
+                                                                                                        defaultMessage={
+                                                                                                            'Confirm'
+                                                                                                        }
+                                                                                                    />
+                                                                                                </span>
+                                                                                            </button>
+                                                                                            </div>
+                                                                                            </>
+                                                                                        )}
+                                                                                    {val
+                                                                                        .product
+                                                                                        .__typename !=
+                                                                                        'SimpleProduct' && (
+                                                                                            <>
+                                                                                            <Link
+                                                                                                to={resourceUrl(
+                                                                                                    val
+                                                                                                        .product[
+                                                                                                    'url_key'
+                                                                                                    ] +
+                                                                                                    productUrlSuffix
+                                                                                                )}
                                                                                                 className={
                                                                                                     classes.add_btn
                                                                                                 }
@@ -870,35 +1128,30 @@ const MyWishList = props => {
                                                                                                         'Move to cart'
                                                                                                     }
                                                                                                 />
-                                                                                            </span>
-                                                                                        </button>
-                                                                                    )}
-                                                                                    {val
-                                                                                        .product
-                                                                                        .__typename !=
-                                                                                        'SimpleProduct' && (
-                                                                                        <Link
-                                                                                            to={resourceUrl(
-                                                                                                val
-                                                                                                    .product[
+                                                                                            </Link>
+                                                                                            <Link
+                                                                                                to={resourceUrl(
+                                                                                                    val
+                                                                                                        .product[
                                                                                                     'url_key'
-                                                                                                ] +
+                                                                                                    ] +
                                                                                                     productUrlSuffix
-                                                                                            )}
-                                                                                            className={
-                                                                                                classes.add_btn
-                                                                                            }
-                                                                                        >
-                                                                                            <FormattedMessage
-                                                                                                id={
-                                                                                                    'myWishlist.moveToCartBtn'
+                                                                                                )}
+                                                                                                className={
+                                                                                                    classes.add_btn
                                                                                                 }
-                                                                                                defaultMessage={
-                                                                                                    'Move to cart'
-                                                                                                }
-                                                                                            />
-                                                                                        </Link>
-                                                                                    )}
+                                                                                            >
+                                                                                                <FormattedMessage
+                                                                                                    id={
+                                                                                                        'myWishlist.moveToCartBtn'
+                                                                                                    }
+                                                                                                    defaultMessage={
+                                                                                                        'Move to cart'
+                                                                                                    }
+                                                                                                />
+                                                                                            </Link>
+                                                                                            </>
+                                                                                        )}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -999,11 +1252,11 @@ const MyWishList = props => {
                                             </>
                                         )}
                                     </div>
-                                    {wId !== undefined && wId !== null && (
+                                    {/* {wId !== undefined && wId !== null && (
                                         <>
                                             <Select uid={wId} />
                                         </>
-                                    )}
+                                    )} */}
                                 </div>
                             </div>
                         </div>

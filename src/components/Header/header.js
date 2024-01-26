@@ -78,10 +78,10 @@ class ProjectLink extends Component {
                         <span aria-hidden="true">
                             <FormattedMessage
                                 id={'header.Wishlist'}
-                                defaultMessage={'Wishlist'}
+                                defaultMessage={'My Projects'}
                             />
                         </span>
-                        <span title="Wishlist">{heartIcon}</span>
+                        <span title="My Projects">{heartIcon}</span>
                     </Link>
                 );
             } else {

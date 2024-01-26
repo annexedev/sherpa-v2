@@ -11,7 +11,8 @@ import {
     Home as HomeIcon,
     MapPin as MapPinIcon,
     User as UserIcon,
-    Heart as HeartIcon
+    Heart as HeartIcon,
+    Clipboard as MyProjects
 } from 'react-feather';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
@@ -31,7 +32,7 @@ class ProjectLink extends Component {
 
         let grantAccess =
             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
-        //console.log(grantAccess);
+        console.log(grantAccess);
         fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
@@ -47,8 +48,8 @@ class ProjectLink extends Component {
         const ProjectItems = props => {
             const [activeClass, setActiveClass] = useState('home');
 
-            //console.log('ACCESSS ::::::::: ');
-            //console.log(this.state.pageDataAccess['access']);
+            console.log('ACCESSS ::::::::: ');
+            console.log(this.state.pageDataAccess['access']);
 
             if (this.state.pageDataAccess['access'] == 1) {
                 return (
@@ -74,7 +75,7 @@ class ProjectLink extends Component {
                             }
                             title="My projects"
                         >
-                            {heartIcon}
+                            {projectsIcon}
                         </span>
                         <p className={defaultClasses.images_label}>
                             <FormattedMessage
@@ -101,6 +102,8 @@ const homeIcon = <Icon src={HomeIcon} size={18} />;
 const userIcon = <Icon src={UserIcon} size={18} />;
 const heartIcon = <Icon src={HeartIcon} size={18} />;
 const mappinIcon = <Icon src={MapPinIcon} size={18} />;
+const projectsIcon = <Icon src={MyProjects} size={18} />;
+
 
 const MobileLinks = props => {
     const { email } = useDashboard();

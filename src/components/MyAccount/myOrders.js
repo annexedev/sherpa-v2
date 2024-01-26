@@ -6,11 +6,12 @@ import Sidebar from './sidebar.js';
 import { useCustomerOrder } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 import { FormattedMessage } from 'react-intl';
 import CustomerOrder from '../../queries/getCustomerOrderList.graphql';
-import { Link, Redirect } from 'src/drivers';
+import { Link, Redirect, resourceUrl } from 'src/drivers';
 import MyOrderSkelton from './MyOrderSkeleton.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@magento/venia-ui/lib/components/Head';
+import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 
 const MyOrders = props => {
     const orderProps = useCustomerOrder({
@@ -28,9 +29,12 @@ const MyOrders = props => {
             });
         }
     };
+
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
+
+    const { email } = useDashboard();
 
     class OrderPo extends Component {
         constructor() {
@@ -64,7 +68,13 @@ const MyOrders = props => {
         }
     }
 
-    if (!loading) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const isProject = urlParams.get('project');
+    const isId = urlParams.get('id');
+    //console.log('doudou'+isProject);
+
+    if (!loading && isProject == null) {
         return (
             <div className={defaultClasses.columns}>
                 <Title>{`My Orders - ${STORE_NAME}`}</Title>
@@ -443,6 +453,414 @@ const MyOrders = props => {
                     </div>
                 </div>
             </div>
+        );
+    } else if(!loading && isProject != '') {
+
+        class OrderLines extends Component {
+            constructor() {
+                super();
+                this.state = {
+                    pageData: []
+                };
+            }
+            
+            componentDidMount() {
+                let orderNumber = this.props.orderNumber;
+                let category_id = this.props.category_id;
+                let dataURL =
+                    'https://data.sherpagroupav.com/get_order_projects_lines.php?category_id='+category_id+'&orderId='+orderNumber;
+                
+                fetch(dataURL)
+                    .then(res => res.json())
+                    .then(res => {
+                        this.setState({
+                            pageData: res
+                        });
+                    });
+            }
+        
+            render() {
+
+                let productReference = this.props.productReference;
+                let orderId = this.props.orderId;
+                
+                return (
+                    <React.Fragment>
+
+                       {this.state.pageData && this.state.pageData.map(e => {
+                                
+                                /*if(this.state.pageData && this.state.pageData.length < 1) {
+                                    document.getElementById(orderId).style.display='none';
+                                }
+                                    
+                                else */
+
+                                if(productReference != '') {
+
+                                    if(productReference == e.sku) {
+                                        return (
+    
+                                            <p className={defaultClasses.stripe}>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                            
+                                        );
+                                    } else {
+                                        return (
+    
+                                            <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                            
+                                        );
+                                    }
+
+                                } else {
+                                    return (
+    
+                                        <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                        
+                                    );
+                                }
+                                
+                                
+                                    
+                                
+                            }
+                        )} 
+                    </React.Fragment>
+                );
+            }
+        }
+
+        class ProjectName extends Component {
+            constructor() {
+                super();
+                this.state = {
+                    pageData: []
+                };
+            }
+        
+            componentDidMount() {
+                let cid = this.props.cid;
+                let dataURL =
+                    'https://data.sherpagroupav.com/get_projectname.php?cid=' + cid;
+                fetch(dataURL)
+                    .then(res => res.json())
+                    .then(res => {
+                        this.setState({
+                            pageData: res
+                        });
+                    });
+            }
+        
+            render() {
+                let projectname = this.state.pageData.pname && this.state.pageData.pname;
+                if(this.state.pageData.pname && this.state.pageData.pname) {
+                    return (
+                            <>{`Products found in this Project - ${projectname}`} </>
+                    );
+                } else {
+                    return (<></>);
+                }
+            }
+        }
+
+        class FromProject extends Component {
+            constructor() {
+                super();
+                this.state = {
+                    pageData: []
+                };
+            }
+        
+            componentDidMount() {
+                let email = this.props.email;
+                let category_id = this.props.category_id;
+                let dataURL =
+                    'https://data.sherpagroupav.com/get_order_projects.php?category_id='+category_id+'&email=' + email;
+                
+                fetch(dataURL)
+                    .then(res => res.json())
+                    .then(res => {
+                        this.setState({
+                            pageData: res
+                        });
+                    });
+            }
+        
+            render() {
+                return (
+                    <div className={defaultClasses.columns}>
+                        <ProjectName cid={isProject} />
+                        
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div
+                                        className={
+                                            defaultClasses.column +
+                                            ' ' +
+                                            defaultClasses.main
+                                        }
+                                    >
+                                        <div className={defaultClasses.account_sideBar}>
+                                            <Sidebar history={props.history} />
+                                        </div>
+                                        <div
+                                            className={
+                                                defaultClasses.account_contentBar
+                                            }
+                                        >
+                                            <div
+                                                className={
+                                                    defaultClasses.page_title_wrapper
+                                                }
+                                            >
+                                                <h1
+                                                    className={
+                                                        defaultClasses.page_title
+                                                    }
+                                                >
+                                                    <span
+                                                        className={defaultClasses.base}
+                                                    >
+                                                        <ProjectName cid={isProject} />
+                                                    </span>
+                                                </h1>
+                                            </div>
+                                            <div
+                                                className={
+                                                    defaultClasses.block +
+                                                    ' ' +
+                                                    defaultClasses.block_dashboard_orders
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        defaultClasses.recent_order_list
+                                                    }
+                                                >
+                                                    <div
+                                                        className={
+                                                            defaultClasses.table_wrapper +
+                                                            ' ' +
+                                                            defaultClasses.orders_recent
+                                                        }
+                                                    >
+                                                        {typeof data != 'undefined' &&
+                                                            data.items.length != 0 && (
+                                                                <div
+                                                                    className={
+                                                                        defaultClasses.table_wrapper_inner
+                                                                    }
+                                                                >
+                                                                    <ul
+                                                                        className={
+                                                                            defaultClasses.table_wrapper_head
+                                                                        }
+                                                                    >
+                                                                        <li
+                                                                            className={
+                                                                                defaultClasses.item +
+                                                                                ' ' +
+                                                                                defaultClasses.head_item
+                                                                            }
+                                                                        >
+                                                                            <FormattedMessage
+                                                                                id={
+                                                                                    'myOrders.Order'
+                                                                                }
+                                                                                defaultMessage={
+                                                                                    'Order #'
+                                                                                }
+                                                                            />
+                                                                        </li>
+                                                                        <li
+                                                                            className={
+                                                                                defaultClasses.item +
+                                                                                ' ' +
+                                                                                defaultClasses.head_item
+                                                                            }
+                                                                        >
+                                                                            <FormattedMessage
+                                                                                id={
+                                                                                    'myOrders.Date'
+                                                                                }
+                                                                                defaultMessage={
+                                                                                    'Date'
+                                                                                }
+                                                                            />
+                                                                        </li>
+                                                                        
+                                                                        <li
+                                                                            className={
+                                                                                defaultClasses.item +
+                                                                                ' ' +
+                                                                                defaultClasses.head_item
+                                                                            }
+                                                                        >
+                                                                            <FormattedMessage
+                                                                                id={
+                                                                                    'myOrders.OrderTotal'
+                                                                                }
+                                                                                defaultMessage={
+                                                                                    'Order Total'
+                                                                                }
+                                                                            />
+                                                                        </li>
+                                                                        <li
+                                                                            className={
+                                                                                defaultClasses.item +
+                                                                                ' ' +
+                                                                                defaultClasses.head_item
+                                                                            }
+                                                                        >
+                                                                            <FormattedMessage
+                                                                                id={
+                                                                                    'myOrders.Status'
+                                                                                }
+                                                                                defaultMessage={
+                                                                                    'Status'
+                                                                                }
+                                                                            />
+                                                                        </li>
+                                                                        <li
+                                                                            className={
+                                                                                defaultClasses.item +
+                                                                                ' ' +
+                                                                                defaultClasses.head_item
+                                                                            }
+                                                                        >
+                                                                            Products found in this Project
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div
+                                                                        className={
+                                                                            defaultClasses.table_wrapper_body
+                                                                        }
+                                                                    >
+
+                                                                                {this.state.pageData && this.state.pageData.map(e => {
+                                                                                                            
+                                                                                                            return (
+                                                                                    <ul
+                                                                                        className={
+                                                                                            defaultClasses.orders_row
+                                                                                        }
+
+                                                                                        id={e.order_id}
+                                                                                    >
+                                                                                        <li
+                                                                                            mobilelabel="Order #"
+                                                                                            className={
+                                                                                                defaultClasses.item +
+                                                                                                ' ' +
+                                                                                                defaultClasses.body_item
+                                                                                            }
+                                                                                        >
+        
+                                                                                            <Link
+                                                                                                className={
+                                                                                                    defaultClasses.body_item_link +
+                                                                                                    ' ' +
+                                                                                                    defaultClasses.order_view_linkq
+                                                                                                }
+                                                                                                to={
+                                                                                                    '/orderview/' +
+                                                                                                    e.order_id
+                                                                                                }
+                                                                                            >
+                                                                                                {
+                                                                                                    e.increment_id
+                                                                                                }
+                                                                                            </Link>
+        
+                                                                                            
+                                                                                        </li>
+                                                                                        
+                                                                                        <li
+                                                                                            mobilelabel="Date"
+                                                                                            className={
+                                                                                                defaultClasses.item +
+                                                                                                ' ' +
+                                                                                                defaultClasses.body_item
+                                                                                            }
+                                                                                        >
+                                                                                            {
+                                                                                                e.created_at.slice(0, -3)
+                                                                                            }
+                                                                                        </li>
+                                                                                        
+                                                                                        <li
+                                                                                            mobilelabel="Order Total"
+                                                                                            className={
+                                                                                                defaultClasses.item +
+                                                                                                ' ' +
+                                                                                                defaultClasses.body_item
+                                                                                            }
+                                                                                        >
+                                                                                            {
+                                                                                                e.grand_total
+                                                                                            }
+                                                                                        </li>
+                                                                                        <li
+                                                                                            mobilelabel="Status"
+                                                                                            className={
+                                                                                                defaultClasses.item +
+                                                                                                ' ' +
+                                                                                                defaultClasses.body_item
+                                                                                            }
+                                                                                        >
+                                                                                            {
+                                                                                                e.status
+                                                                                            }
+                                                                                        </li>
+                                                                                        <li
+                                                                                            mobilelabel="Products found in this project"
+                                                                                            className={
+                                                                                                defaultClasses.item +
+                                                                                                ' ' +
+                                                                                                defaultClasses.body_item
+                                                                                            }
+                                                                                        >
+        
+                                                                                        <OrderLines orderId={e.order_id} productReference={isId} orderNumber={e.order_id} category_id={isProject} />
+        
+                                                                                           
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                );
+                                                                            }
+                                                                        )}
+                                                                        
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            )}
+                                                    </div>
+                                                    
+                                                </div>
+                                                <br/>
+                                                <Link
+                                                    className={defaultClasses.btnPurchase}
+                                                    to={resourceUrl('/wishlist?id='+isProject)}
+                                                >Return to project</Link>
+                                                <br/><br/>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                );
+            }
+        }
+    
+
+        return (
+            <FromProject email={email} category_id={isProject}/>
         );
     } else {
         return (

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { Suspense, useState, useEffect, Component, useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { Link, resourceUrl } from 'src/drivers';
 import { useProduct } from 'src/peregrine/lib/talons/CartPage/ProductListing/useProduct';
@@ -84,6 +84,10 @@ const Product = props => {
     const stockStatusMessage =
         stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
 
+    let calculatedQuantity = quantity + Math.floor(Math.random() * 10);
+
+    let input;
+
     return (
         <li className={classes.root}>
             <span className={classes.errorText}>{errorMessage}</span>
@@ -130,13 +134,29 @@ const Product = props => {
                     <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />
                     </span>
+                    <div>
+                        <input
+                            className={classes.input_rename}
+                            type="text"
+                            ref={node => {
+                                input = node;
+                            }}
+                            placeholder={'Custom note'}
+                        />
+                        <button
+                            className={classes.rename_project}
+                        >
+                            Save
+                        </button>
+                    </div>
+
                     <span className={classes.stockStatusMessage}>
                         {stockStatusMessage}
                     </span>
                     <div className={classes.quantity}>
                         <Quantity 
                             itemId={item.id}
-                            initialValue={quantity}
+                            initialValue={calculatedQuantity}
                             onChange={handleUpdateItemQuantity}
                         />
                     </div>

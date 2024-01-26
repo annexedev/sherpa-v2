@@ -2,7 +2,21 @@
     display: grid;
     row-gap: 0.5rem;
 }
-
+.input_rename {
+    width: 150px;
+    margin-right: 10px;
+    height: 39px;
+}
+.rename_project {
+    background: #007637;
+    border-radius: 5px;
+    padding: 10px 10px;
+    min-height: 40px;
+    line-height: 20px;
+    width: 50px;
+    color: white;
+    /* margin-top: 30px; */
+}
 .item {
     align-items: start;
     display: grid;
