@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCartPage } from '../../peregrine/lib/talons/CartPage/useCartPage.js';
 import { FormattedMessage } from 'react-intl';
 import { mergeClasses } from '../../classify';
@@ -14,7 +14,14 @@ import { GET_CART_DETAILS } from './cartPage.gql';
 import searchClasses from '../SearchPage/searchPage.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faCircle, faCircleChevronUp, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+
+import {
+    useWishlist,
+    useDeleteFromWishlist
+} from '../../peregrine/lib/talons/MyAccount/useDashboard';
+import WishListQuery from '../../queries/getWishlist.graphql';
+
 
 import { useCrossSellProduct } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import crossSellQuery from '../../queries/getCrossSellProducts.graphql';
@@ -53,6 +60,31 @@ const CartPage = props => {
         shouldShowLoadingIndicator
     } = talonProps;
 
+    console.log(isSignedIn);
+
+
+    /* list produits dans le projet */
+    
+    const wishlistProps = useWishlist({
+        query: WishListQuery
+    });
+
+    const {
+        handleSetQuantity,
+        quantity,
+        data,
+        loading,
+        refetch
+    } = wishlistProps;
+
+    console.log(data);
+
+
+    const [productsWithoutProject, setProductsWithoutProject] = useState(false);
+    const [productsWithProject, setProductsWithProject] = useState(false);
+
+    const totalPriceProductsWithoutProject = cartItems.reduce((total, product) => total + product.prices.price.value, 0).toFixed(2);
+
     const classes = mergeClasses(defaultClasses, props.classes);
     const { crossSellData } = useCrossSellProduct({
         query: crossSellQuery,
@@ -75,28 +107,39 @@ const CartPage = props => {
         </LinkButton>
     ) : null;
 
-    const productListing = hasItems ? (
-        <ProductListing setIsCartUpdating={setIsCartUpdating} />
-    ) : (
-        <div className={searchClasses.noResult}>
-            <span className={searchClasses.noResult_icon}>
-                <FontAwesomeIcon icon={faExclamationTriangle} />
-            </span>
-            <span className={'ml-2' + ' ' + searchClasses.noResult_text}>
-                <FormattedMessage
-                    id={'cartPage.noResult_text'}
-                    defaultMessage={'There are no items in your cart.'}
-                />
-            </span>
-        </div>
-    );
 
-    const priceAdjustments = hasItems ? (
-        <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
-    ) : null;
+    // const productListing =
+    //     hasItems ? (
+    //         <ProductListing setIsCartUpdating={setIsCartUpdating} />
+    //     ) : (
+    //         <div className={classes.noResult}>
+    //             {/* <span className={searchClasses.noResult_icon}>
+    //             <FontAwesomeIcon icon={faExclamationTriangle} />
+    //             </span> */}
+    //             <span className={'ml-2' + ' ' + classes.noResult_text}>
+    //                 <FormattedMessage
+    //                     id={'cartPage.noResult_text'}
+    //                     defaultMessage={'No products without project in your cart.'}
+    //                 />
+    //             </span>
+    //         </div>
+    //     )
+
+
+    // const priceAdjustments = hasItems ? (
+    //     <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
+    // ) : null;
+
     const priceSummary = hasItems ? (
         <PriceSummary isUpdating={isCartUpdating} />
     ) : null;
+
+    const url = window.location.href;
+
+    // const myprojects = url.includes("?id");
+    const myprojects = true; /* il faut verifier si il y a des projets */
+
+
 
     return (
         <div className={'container' + ' ' + defaultClasses.cart_page_container}>
@@ -117,14 +160,89 @@ const CartPage = props => {
                 <div className={classes.cart_inner}>
                     <div className={classes.body}>
                         <div className={classes.item_container_wrap}>
-                            <div className={classes.items_container}>
-                                {productListing}
+                            {/* products individuelle */}
+                            <div className={classes.wrapperProducts}>
+                                <h1 className={classes.headingProducts}>
+                                    <FormattedMessage
+                                        id={'cartPage.headingProducts'}
+                                        defaultMessage={'Products'}
+                                    />
+                                </h1>
+                                <div className={classes.wrapperValeurProduits}>
+                                    <span>{cartItems.length} products</span>
+                                    <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
+                                    <span>$ {totalPriceProductsWithoutProject}</span>
+                                    <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                </div>
                             </div>
-                            <div
+                            {productsWithoutProject &&
+                                <div className={classes.items_container}>
+                                    {hasItems ?
+                                        <ProductListing setIsCartUpdating={setIsCartUpdating} />
+                                        :
+                                        <div className={classes.noResult}>
+                                            {/* <span className={searchClasses.noResult_icon}>
+                                                <FontAwesomeIcon icon={faExclamationTriangle} />
+                                                </span> */}
+                                            <span className={'ml-2' + ' ' + classes.noResult_text}>
+                                                <FormattedMessage
+                                                    id={'cartPage.noResult_text'}
+                                                    defaultMessage={'No products without project in your cart.'}
+                                                />
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            {/* <div
                                 className={classes.price_adjustments_container}
                             >
                                 {priceAdjustments}
-                            </div>
+                            </div> */}
+
+                            {myprojects &&
+                                <div className={classes.wrapperProductsFromProjects}>
+                                    <h1 className={classes.headingProducts}>
+                                        <FormattedMessage
+                                            id={'cartPage.headingProducts'}
+                                            defaultMessage={'Products from projects'}
+                                        />
+                                    </h1>
+                                    <div className={classes.wrapperValeurProduits}>
+                                        <span>0 products</span>
+                                        <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
+                                        <span>Valeur</span>
+                                    </div>
+                                </div>
+                            }
+                            {myprojects &&
+                                <div className={classes.items_container_projet}>
+                                    <div className={classes.wrapperProductsWithProject}>
+                                        <h1 className={classes.headingProductsWithProject}>
+                                            <FormattedMessage
+                                                id={'cartPage.headingProducts'}
+                                                defaultMessage={'Nom du projet'}
+                                            />
+                                        </h1>
+                                        <div className={classes.wrapperValeurProduits}>
+                                            <span>0 products</span>
+                                            <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
+                                            <span>Valeur</span>
+                                            <span onClick={() => { setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                        </div>
+                                    </div>
+
+                                    {productsWithProject &&
+                                        hasItems ?
+                                        <ProductListing setIsCartUpdating={setIsCartUpdating} />
+                                        :
+                                        <div>
+                                        </div>
+
+                                    }
+                                </div>
+                            }
+
                         </div>
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>

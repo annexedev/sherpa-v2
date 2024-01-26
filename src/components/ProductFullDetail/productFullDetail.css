@@ -18,6 +18,12 @@
     margin-top: 30px;
     z-index: 999;
 }
+.amastyLabel {
+    position: absolute;
+    right: 0px;
+    z-index: 99999;
+    max-width: 100px
+}
 .product_details_right {
     padding: 0 15px 15px 15px !important;
     order: 2;
@@ -279,6 +285,20 @@
     vertical-align: middle;
     text-align: center;
     padding-top: 5px;
+}
+
+.priceTag {
+    /* position: absolute; */
+    /* right: 0px; */
+    /* margin-right: 10px; */
+    width: 184px;
+    margin: 10px 0;
+    background: #8cc650;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    /* margin-top: 10px; */
+    z-index: 999;
 }
 @-webkit-keyframes scale {
     0% {

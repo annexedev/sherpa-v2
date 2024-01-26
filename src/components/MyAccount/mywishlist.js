@@ -19,7 +19,8 @@ import {
     faTrashAlt,
     faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
-import { useCategoryAddToCart } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { useCategoryAddToCart , useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+
 import Quantity from '../CartPage/ProductListing/quantity';
 
 import WishlistSkelton from './WishlistSkeleton.js';
@@ -30,6 +31,7 @@ import { useGetScopeCache } from '../../peregrine/lib/talons/Home/useHome';
 import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+// import MpBetterWishlistGetCategories from '../../queries/getMpBetterWishlistGetCategories.graphql'
 import { Title } from '@magento/venia-ui/lib/components/Head';
 import { gql, useMutation } from '@apollo/client';
 import { ChevronDown as ArrowDown, X as ArrowUp } from 'react-feather';
@@ -65,7 +67,7 @@ class ProjectName extends Component {
             this.state.pageData.pname && this.state.pageData.pname;
         return (
             <React.Fragment>
-                - <span id="widn">{projectname}</span>
+                - <span id="widn" className={defaultClasses.nomProject}>{projectname}</span>
             </React.Fragment>
         );
     }
@@ -75,6 +77,12 @@ const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
     //window.location.href="/";
+
+    const url = window.location.href;
+
+    const myprojects = url.includes("?id");
+
+    // console.log(myprojects);
 
     const [, { addToast }] = useToasts();
     const classes = mergeClasses(
@@ -86,6 +94,38 @@ const MyWishList = props => {
     const wishlistProps = useWishlist({
         query: WishListQuery
     });
+
+
+    /* ---------------------- TAG DISCOUNT DETAILS ------------------------------- */
+
+    // console.log(productDetails);
+    // const customPricePercent = 0;
+
+    // const final_minimum_price =
+    //     (productDetails.price.minimum_price.final_price.value +
+    //         customPrice +
+    //         customPricePercent * productDetails.price.minimum_price.final_price.value) *
+    //     1;
+
+    // const final_regular_price =
+    //     (productDetails.price.minimum_price.regular_price.value +
+    //         customPrice +
+    //         customPricePercent *
+    //         productDetails.price.minimum_price.regular_price.value) *
+    //     1;
+
+    // const discount_percent = Math.round(
+    //     (1 - final_minimum_price / final_regular_price).toFixed(2) *
+    //     100 *
+    //     100
+    // ) / 100;
+
+    // let discount_date = new Date(product.special_to_date);
+
+    // // console.log(discount_percent);
+    // console.log(product);
+    /* -------------------------------------------------------------------------- */
+
 
     const deleteData = useDeleteFromWishlist({
         query: REMOVE_FROM_WISHLIST_MUTATION,
@@ -113,11 +153,12 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
+// console.log(MpBetterWishlistGetCategories);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
 
-    console.log('WID ' + wId);
+    // console.log('WID ' + wId);
 
     const remove = async id => {
         await handleRemoveItem({ product_id: id });
@@ -153,7 +194,6 @@ const MyWishList = props => {
                 items {
                     added_at
                     description
-                    product_id
                     qty
                     store_id
                     wishlist_item_id
@@ -171,8 +211,7 @@ const MyWishList = props => {
             TOGGLE_LIKED_PHOTO
         );
         const [selectValue, setSelectValue] = React.useState('');
-        if (data) {
-        }
+       
         if (loading) return 'Submitting...';
         if (error) return `Submission error! ${error.message}`;
 
@@ -222,7 +261,7 @@ const MyWishList = props => {
                 data['MpBetterWishlistCreateCategory']['category_id'];
             console.log(
                 'https://data.sherpagroupav.com/duplicate_project.php?projectId=' +
-                    data['MpBetterWishlistCreateCategory']['category_id']
+                data['MpBetterWishlistCreateCategory']['category_id']
             );
             fetch(dataURL)
                 .then(res => res.json())
@@ -295,7 +334,7 @@ const MyWishList = props => {
                 >
                     <button type="submit" className={classes.add_to_project}>
                         {' '}
-                        Delete project
+                        Permanently Delete Project
                     </button>
                 </form>
             </div>
@@ -440,26 +479,24 @@ const MyWishList = props => {
         };
 
         return (
-            <div>
+            <div className={defaultClasses.wrapper_project_dropdown}>
                 <select
                     onChange={onChange}
-                    className={classes.project_dropdown}
+                    className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
                 >
-                    <option defaultValue value="0">
-                        Project actions
-                    </option>
+                    <option value="" disabled selected hidden>Project Options</option>
 
-                    <option value="1">Create a new project</option>
+                    {/* <option value="1">Create a new project</option> */}
                     <option value="5">Duplicate project</option>
                     <option value="2">Rename current project</option>
                     <option value="3">Archive current project</option>
                     <option value="4">Delete current project</option>
                 </select>
-                {selectValue && selectValue == 1 && (
+                {/* {selectValue && selectValue == 1 && (
                     <div id={'hidden_div'}>
                         <AddTodo uid={wId} />
                     </div>
-                )}
+                )} */}
                 {selectValue && selectValue == 5 && (
                     <div id={'hidden_div'}>
                         <AddTodoDuplicate uid={wId} />
@@ -515,27 +552,35 @@ const MyWishList = props => {
                                         defaultClasses.account_contentBar
                                     }
                                 >
-                                    <div
-                                        className={
-                                            defaultClasses.page_title_wrapper
-                                        }
-                                    >
-                                        <h1
+                                    {myprojects &&
+                                        <div
                                             className={
-                                                defaultClasses.page_title
+                                                defaultClasses.page_title_wrapper
                                             }
                                         >
-                                            <span
-                                                className={defaultClasses.base}
-                                            >
-                                                <FormattedMessage
-                                                    id={'myWishlist.page_title'}
-                                                    defaultMessage={'Project'}
-                                                />{' '}
-                                                <ProjectName cid={wId} />
-                                            </span>
-                                        </h1>
-                                    </div>
+                                            <div className={defaultClasses.flex_between}>
+                                                <h1
+                                                    className={
+                                                        defaultClasses.page_title
+                                                    }
+                                                >
+                                                    <span
+                                                        className={defaultClasses.base}
+                                                    >
+                                                        <FormattedMessage
+                                                            id={'myWishlist.page_title'}
+                                                            defaultMessage={'My Projects'}
+                                                        />{' '}
+                                                        <ProjectName cid={wId} />
+                                                    </span>
+                                                </h1>
+                                                <div id={'hidden_div'} className={defaultClasses.hidden_div}>
+                                                    <AddTodo uid={wId} />
+                                                </div>
+                                            </div>
+                                            <button className={defaultClasses.btnPurchase}>Project Purchase History</button>
+                                        </div>
+                                    }
                                     {wId !== undefined && wId !== null && (
                                         <>
                                             <div>
@@ -543,7 +588,10 @@ const MyWishList = props => {
                                                 shipping : $
                                                 <span id="totalApprox" />
                                             </div>
-                                            <MoveProjectToCart />
+                                            <div className={defaultClasses.wrapperBtnDropdown}>
+                                                <MoveProjectToCart />
+                                                <Select />
+                                            </div>
                                         </>
                                     )}
                                     <div
@@ -560,80 +608,84 @@ const MyWishList = props => {
                                                         classes.products_wrapper
                                                     }
                                                 >
+                                                    <div>Here!!!</div>
+                                                    {/* Ici je dois reprendre la requête faite et afficher le produit qui fait partie de ce projet en utilisant l'identifiant */}
                                                     {data.map((val, index) => {
                                                         var currentProduct =
                                                             val.product;
 
-                                                        function belongToProject(
-                                                            pid,
-                                                            cid
-                                                        ) {
-                                                            let dataURL =
-                                                                'https://data.sherpagroupav.com/get_belongs.php?pid=' +
-                                                                pid +
-                                                                '&cid=' +
-                                                                cid;
-                                                            fetch(dataURL)
-                                                                .then(res =>
-                                                                    res.json()
-                                                                )
-                                                                .then(res => {
-                                                                    if (
-                                                                        res.display ==
-                                                                        1
-                                                                    ) {
-                                                                        //document.getElementById('.q'+val.id+' #quantity').value=val.qty;
-                                                                        //var targetDiv = getElementsByClassName('q'+val.id).document.getElementById("quantity")[0];
-                                                                        //targetDiv.value = val.qty;
-                                                                        //document.getElementById('q'+val.id).getElementById("quantity")[0].value = 8;
-                                                                        document.getElementById(
-                                                                            't' +
-                                                                                pid
-                                                                        ).style.display =
-                                                                            'block';
-                                                                        var element = document.getElementById(
-                                                                            't' +
-                                                                                pid
-                                                                        );
-                                                                        element.classList.add(
-                                                                            'activeProject'
-                                                                        );
-                                                                        console.log(
-                                                                            'Is active' +
-                                                                                val.product.price.regularPrice.amount.value.toFixed(
-                                                                                    2
-                                                                                )
-                                                                        );
-                                                                        total =
-                                                                            total +
-                                                                            Number(
-                                                                                val.product.price.regularPrice.amount.value.toFixed(
-                                                                                    2
-                                                                                ) *
-                                                                                    val.qty
-                                                                            );
-                                                                        console.log(
-                                                                            'Total : ' +
-                                                                                total
-                                                                        );
-                                                                        document.getElementById(
-                                                                            'totalApprox'
-                                                                        ).innerHTML = total.toFixed(
-                                                                            2
-                                                                        );
-                                                                    } else {
-                                                                    }
-                                                                });
+                                                        // function belongToProject(
+                                                        //     pid,
+                                                        //     cid
+                                                        // ) {
+                                                        //     let dataURL =
+                                                        //         'https://data.sherpagroupav.com/get_belongs.php?pid=' +
+                                                        //         pid +
+                                                        //         '&cid=' +
+                                                        //         cid;
+                                                        //     fetch(dataURL)
+                                                        //         .then(res =>
+                                                        //             res.json()
+                                                        //         )
+                                                        //         .then(res => {
+                                                        //             if (
+                                                        //                 res.display ==
+                                                        //                 1
+                                                        //             ) {
+                                                        //                 //document.getElementById('.q'+val.id+' #quantity').value=val.qty;
+                                                        //                 //var targetDiv = getElementsByClassName('q'+val.id).document.getElementById("quantity")[0];
+                                                        //                 //targetDiv.value = val.qty;
+                                                        //                 //document.getElementById('q'+val.id).getElementById("quantity")[0].value = 8;
+                                                        //                 // document.getElementById(
+                                                        //                 //     't' +
+                                                        //                 //     pid
+                                                        //                 // ).style.display =
+                                                        //                 //     'block';
+                                                        //                 // var element = document.getElementById(
+                                                        //                 //     't' +
+                                                        //                 //     pid
+                                                        //                 // );
+                                                        //                 // element.classList.add(
+                                                        //                 //     'activeProject'
+                                                        //                 // );
+                                                        //                 // console.log(
+                                                        //                 //     'Is active' +
+                                                        //                 //     val.product.price.regularPrice.amount.value.toFixed(
+                                                        //                 //         2
+                                                        //                 //     )
+                                                        //                 // );
+                                                        //                 // total =
+                                                        //                 //     total +
+                                                        //                 //     Number(
+                                                        //                 //         val.product.price.regularPrice.amount.value.toFixed(
+                                                        //                 //             2
+                                                        //                 //         ) *
+                                                        //                 //         val.qty
+                                                        //                 //     );
+                                                        //                 // console.log(
+                                                        //                 //     'Total : ' +
+                                                        //                 //     total
+                                                        //                 // );
+                                                        //                 // document.getElementById(
+                                                        //                 //     'totalApprox'
+                                                        //                 // ).innerHTML = total.toFixed(
+                                                        //                 //     2
+                                                        //                 // );
+                                                        //             } else {
+                                                        //             }
+                                                        //         });
 
-                                                            return 1;
-                                                        }
-
-                                                        if (
-                                                            belongToProject(
-                                                                val.product.id,
-                                                                wId
-                                                            )
+                                                        //     return 1;
+                                                        // }
+                                                        const belongToProject = true
+                                                        // Ici si le produit faire partie du projet affiche ça
+                                                        if (belongToProject
+                                                            // belongToProject(
+                                                            //     val.product.id,
+                                                            //     wId
+                                                            // )
                                                         ) {
+                                                            console.log(val, 'val*****************');
                                                             return (
                                                                 <>
                                                                     <div
@@ -650,6 +702,34 @@ const MyWishList = props => {
                                                                                 .id
                                                                         }
                                                                     >
+                                                                        {/* --------- ICI le green pills ------- */}
+                                                                        <div>Teste</div>
+                                                                        {/* {discount_percent > 0 && email && (
+                                                                            <div className={classes.priceTag}>
+                                                                                <b>
+                                                                                    {discount_percent}%{' '}
+                                                                                    <FormattedMessage
+                                                                                        id={'item.rebate'}
+                                                                                        defaultMessage={'Off'}
+                                                                                    />
+                                                                                    {product.special_to_date && (
+                                                                                        <>
+                                                                                            {' '}
+                                                                                            <FormattedMessage
+                                                                                                id={'item.until'}
+                                                                                                defaultMessage={'until'}
+                                                                                            />{' '}
+                                                                                            {discount_date
+                                                                                                .toDateString()
+                                                                                                .split(' ')
+                                                                                                .slice(1)
+                                                                                                .join(' ')}
+                                                                                        </>
+                                                                                    )}
+                                                                                </b>
+                                                                            </div>
+                                                                        )} */}
+
                                                                         <div
                                                                             className={
                                                                                 classes.inner
@@ -664,9 +744,9 @@ const MyWishList = props => {
                                                                                     to={resourceUrl(
                                                                                         val
                                                                                             .product[
-                                                                                            'url_key'
+                                                                                        'url_key'
                                                                                         ] +
-                                                                                            productUrlSuffix
+                                                                                        productUrlSuffix
                                                                                     )}
                                                                                 >
                                                                                     <img
@@ -698,9 +778,9 @@ const MyWishList = props => {
                                                                                         to={resourceUrl(
                                                                                             val
                                                                                                 .product[
-                                                                                                'url_key'
+                                                                                            'url_key'
                                                                                             ] +
-                                                                                                productUrlSuffix
+                                                                                            productUrlSuffix
                                                                                         )}
                                                                                     >
                                                                                         {
@@ -811,53 +891,80 @@ const MyWishList = props => {
                                                                                         .product
                                                                                         .__typename ==
                                                                                         'SimpleProduct' && (
-                                                                                        <button
-                                                                                            className={
-                                                                                                'active_item' +
-                                                                                                wId
-                                                                                            }
-                                                                                            onClick={() => {
-                                                                                                /*handleAddToCart(
-                                                                                            val.product, val.qty
-                                                                                        );*/
-                                                                                                var currentQty = document
-                                                                                                    .querySelector(
-                                                                                                        '#q' +
+                                                                                            <button
+                                                                                                className={
+                                                                                                    'active_item' +
+                                                                                                    wId
+                                                                                                }
+                                                                                                onClick={() => {
+                                                                                                    /*handleAddToCart(
+                                                                                                val.product, val.qty
+                                                                                            );*/
+                                                                                                    var currentQty = document
+                                                                                                        .querySelector(
+                                                                                                            '#q' +
                                                                                                             val.id
-                                                                                                    )
-                                                                                                    .querySelector(
-                                                                                                        'input'
-                                                                                                    )
-                                                                                                    .value;
-                                                                                                console.log(
-                                                                                                    'qqqw'
-                                                                                                );
-                                                                                                console.log(
-                                                                                                    val.product
-                                                                                                );
-                                                                                                let item =
-                                                                                                    val.product;
-
-                                                                                                for (
-                                                                                                    let i = 0;
-                                                                                                    i <
-                                                                                                    currentQty;
-                                                                                                    i++
-                                                                                                ) {
-                                                                                                    handleAddToCart(
+                                                                                                        )
+                                                                                                        .querySelector(
+                                                                                                            'input'
+                                                                                                        )
+                                                                                                        .value;
+                                                                                                    console.log(
+                                                                                                        'qqqw'
+                                                                                                    );
+                                                                                                    console.log(
                                                                                                         val.product
                                                                                                     );
-                                                                                                }
+                                                                                                    let item =
+                                                                                                        val.product;
 
-                                                                                                //window.alert("Product moved to cart.");
-                                                                                                /*remove(
-                                                                                            val
-                                                                                                .product
-                                                                                                .id
-                                                                                        );*/
-                                                                                            }}
-                                                                                        >
-                                                                                            <span
+                                                                                                    for (
+                                                                                                        let i = 0;
+                                                                                                        i <
+                                                                                                        currentQty;
+                                                                                                        i++
+                                                                                                    ) {
+                                                                                                        handleAddToCart(
+                                                                                                            val.product
+                                                                                                        );
+                                                                                                    }
+
+                                                                                                    //window.alert("Product moved to cart.");
+                                                                                                    /*remove(
+                                                                                                val
+                                                                                                    .product
+                                                                                                    .id
+                                                                                            );*/
+                                                                                                }}
+                                                                                            >
+                                                                                                <span
+                                                                                                    className={
+                                                                                                        classes.add_btn
+                                                                                                    }
+                                                                                                >
+                                                                                                    <FormattedMessage
+                                                                                                        id={
+                                                                                                            'myWishlist.moveToCartBtn'
+                                                                                                        }
+                                                                                                        defaultMessage={
+                                                                                                            'Move to cart'
+                                                                                                        }
+                                                                                                    />
+                                                                                                </span>
+                                                                                            </button>
+                                                                                        )}
+                                                                                    {val
+                                                                                        .product
+                                                                                        .__typename !=
+                                                                                        'SimpleProduct' && (
+                                                                                            <Link
+                                                                                                to={resourceUrl(
+                                                                                                    val
+                                                                                                        .product[
+                                                                                                    'url_key'
+                                                                                                    ] +
+                                                                                                    productUrlSuffix
+                                                                                                )}
                                                                                                 className={
                                                                                                     classes.add_btn
                                                                                                 }
@@ -870,35 +977,8 @@ const MyWishList = props => {
                                                                                                         'Move to cart'
                                                                                                     }
                                                                                                 />
-                                                                                            </span>
-                                                                                        </button>
-                                                                                    )}
-                                                                                    {val
-                                                                                        .product
-                                                                                        .__typename !=
-                                                                                        'SimpleProduct' && (
-                                                                                        <Link
-                                                                                            to={resourceUrl(
-                                                                                                val
-                                                                                                    .product[
-                                                                                                    'url_key'
-                                                                                                ] +
-                                                                                                    productUrlSuffix
-                                                                                            )}
-                                                                                            className={
-                                                                                                classes.add_btn
-                                                                                            }
-                                                                                        >
-                                                                                            <FormattedMessage
-                                                                                                id={
-                                                                                                    'myWishlist.moveToCartBtn'
-                                                                                                }
-                                                                                                defaultMessage={
-                                                                                                    'Move to cart'
-                                                                                                }
-                                                                                            />
-                                                                                        </Link>
-                                                                                    )}
+                                                                                            </Link>
+                                                                                        )}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -999,11 +1079,11 @@ const MyWishList = props => {
                                             </>
                                         )}
                                     </div>
-                                    {wId !== undefined && wId !== null && (
+                                    {/* {wId !== undefined && wId !== null && (
                                         <>
                                             <Select uid={wId} />
                                         </>
-                                    )}
+                                    )} */}
                                 </div>
                             </div>
                         </div>

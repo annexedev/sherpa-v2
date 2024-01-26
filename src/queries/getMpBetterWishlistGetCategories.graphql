@@ -1,0 +1,59 @@
+query MpBetterWishlistGetCategories(category_id: null, is_items: null){
+   MpBetterWishlistGetCategories(category_id: null, is_items: null) {
+        items {
+            added_at
+            description
+            store_id
+            wishlist_item_id
+            qty
+            product {
+                id
+                name
+                small_image {
+                    url
+                }
+                type_id
+                url_key
+                price {
+                    regularPrice
+                    minimalPrice {
+                        adjustments {
+                            code
+                            description
+                            amount {
+                                currency
+                                value
+                            }
+                        }
+                        amount {
+                            currency
+                            value
+                        }
+                    }
+                    maximalPrice {
+                        adjustments {
+                            code
+                            description
+                            amount {
+                                currency
+                                value
+                            }
+                        }
+                        amount {
+                            currency
+                            value
+                        }
+                    }
+                }
+                product_brand
+                sku
+                special_price
+                special_to_date
+            }
+        }
+        category_id
+        category_name
+        is_default
+    }
+
+}

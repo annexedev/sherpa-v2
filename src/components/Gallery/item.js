@@ -381,6 +381,7 @@ const GalleryItem = props => {
     const { email } = useDashboard();
 
     const { handleLinkClick, item } = useGalleryItem(props);
+    console.log(item);
     const { style } = props;
 
     const [productName, setProductName] = useState('');
@@ -576,6 +577,7 @@ const GalleryItem = props => {
             )
         }
     `;
+    const [valueProduit, setValueProduit] = useState()
 
     function AddToProject({ item_id }) {
         let input;
@@ -592,8 +594,7 @@ const GalleryItem = props => {
             );
         if (error) return `Submission error! ${error.message}`;
 
-        // console.log(data);
-
+        // console.log(valueProduit);
         return (
             <div>
                 <form
@@ -603,7 +604,8 @@ const GalleryItem = props => {
                         addTodo({
                             variables: {
                                 category_id: getDataValue(),
-                                product_id: item_id
+                                product_id: item_id,
+                                quantity: valueProduit
                             }
                         });
                         window.alert('Product added to project.');
@@ -626,7 +628,7 @@ const GalleryItem = props => {
                 items {
                     added_at
                     description
-                    product_id
+                    product
                     qty
                     store_id
                     wishlist_item_id
@@ -953,83 +955,22 @@ const GalleryItem = props => {
                                     {item.special_to_date && (
                                         <p>To: {item.special_to_date.slice(0, -8)}</p>
                                     )} */}
-                                            <b
-                                                className={
-                                                    classes.total_available_b
-                                                }
-                                            >
-                                                <FormattedMessage
-                                                    id={'item.yourCost'}
-                                                    defaultMessage={'YOUR COST'}
-                                                />
-                                                &nbsp;&nbsp;
-                                            </b>
-                                            <span
-                                                className={
-                                                    classes.productPrice +
-                                                    ' ' +
-                                                    classes.greenprice
-                                                }
-                                            >
-                                                <Price
-                                                    value={
-                                                        price_range
-                                                            .maximum_price
-                                                            .final_price.value *
-                                                        1
-                                                    }
-                                                    currencyCode={
-                                                        price_range
-                                                            .maximum_price
-                                                            .regular_price
-                                                            .currency
-                                                    }
-                                                />
-                                            </span>
-                                            <span
-                                                className={
-                                                    classes.regularprice +
-                                                    ' ' +
-                                                    classes.discountedprice
-                                                }
-                                            >
-                                                <Price
-                                                    currencyCode={
-                                                        price_range
-                                                            .minimum_price
-                                                            .regular_price
-                                                            .currency
-                                                    }
-                                                    value={final_regular_price}
-                                                />
-                                            </span>
+                                            
+                                            <>
+                                            
+                                                <TierPricingPromotion pid={item.id} email={email} finalPrice={price_range.maximum_price.final_price.value} regularPrice={price_range.maximum_price.regular_price.value} currency={price_range.maximum_price.regular_price.currency} />
+                                                
+                                            </>
+                                            
+                                            
                                         </>
                                     )}
                                     {final_minimum_price ==
                                         final_regular_price && (
                                         <>
-                                            <b
-                                                className={
-                                                    classes.total_available_b
-                                                }
-                                            >
-                                                <FormattedMessage
-                                                    id={'item.yourCost'}
-                                                    defaultMessage={'YOUR COST'}
-                                                />
-                                                &nbsp;&nbsp;
-                                            </b>
-
-                                            <Price
-                                                value={
-                                                    price_range.maximum_price
-                                                        .final_price.value
-                                                }
-                                                currencyCode={
-                                                    price_range.maximum_price
-                                                        .regular_price.currency
-                                                }
-                                            />
+                                            
+                                            <TierPricing pid={item.id} email={email} finalPrice={price_range.maximum_price.final_price.value} currency={price_range.maximum_price.regular_price.currency} />
+                                            
                                         </>
                                     )}
 
@@ -1095,7 +1036,11 @@ const GalleryItem = props => {
                                             classes.qty_selector
                                         }
                                     >
-                                        <QuantityPicker />
+                                    
+                                    <QuantityPicker
+                                        value={valueProduit}
+                                        onChange={() => setValueProduit(valueProduit)}   
+                                    />
                                         
                                     </div>
                                     <div className={classes.add_to_cart_btn}>
