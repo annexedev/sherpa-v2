@@ -233,11 +233,25 @@ form.root input:focus {
 
 }
 .flex_between{
-    display:flex;
-    justify-content:space-between;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
     flex-wrap: wrap;
+    align-items: center;
     gap: 20px;
-    margin: 20px 0;
+    /* margin: 20px 0; */
+}
+.blocQntProduits{
+    margin: 10px 0;
+    color: black;
+    font-weight: 700;
+    background: #8dc74c;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 40px;
+    line-height: 20px;
+    width: 183px;
+    margin-bottom: 40px;
 }
 .wrapper_project_dropdown{
     display:flex;

@@ -559,6 +559,7 @@ const MyWishList = props => {
                                             }
                                         >
                                             <div className={defaultClasses.flex_between}>
+                                                <div>
                                                 <h1
                                                     className={
                                                         defaultClasses.page_title
@@ -574,22 +575,26 @@ const MyWishList = props => {
                                                         <ProjectName cid={wId} />
                                                     </span>
                                                 </h1>
-                                                <div id={'hidden_div'} className={defaultClasses.hidden_div}>
-                                                    <AddTodo uid={wId} />
                                                 </div>
+                                                <MoveProjectToCart />
+
+                                                {/* <div id={'hidden_div'} className={defaultClasses.hidden_div}>
+                                                    <AddTodo uid={wId} />
+                                                </div> */}
                                             </div>
-                                            <button className={defaultClasses.btnPurchase}>Project Purchase History</button>
+                                            <div className={defaultClasses.blocQntProduits} id="totalApprox">4 products - 23,456,45$</div>
                                         </div>
                                     }
                                     {wId !== undefined && wId !== null && (
                                         <>
-                                            <div>
+                                            {/* <div>
                                                 Estimated total before taxes and
                                                 shipping : $
                                                 <span id="totalApprox" />
-                                            </div>
+                                            </div> */}
+
                                             <div className={defaultClasses.wrapperBtnDropdown}>
-                                                <MoveProjectToCart />
+                                                <button className={defaultClasses.btnPurchase}>Project Purchase History</button>
                                                 <Select />
                                             </div>
                                         </>
