@@ -676,6 +676,15 @@ body[class='rtl_view'] .box_actions {
     .wrapperBtnDropdown{
         gap:0px;
     }
+    .blocQntProduits{
+        margin-top: 60px;
+    }
+    .btnPurchase{
+        margin-top: -27px;
+    }
+    .wrapper_project_dropdown{
+        margin: 3px;
+    }
     .customer_name_Fletter {
         left: 10px;
     }

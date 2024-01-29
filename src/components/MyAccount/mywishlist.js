@@ -707,7 +707,7 @@ const MyWishList = props => {
                                                                         }
                                                                     >
                                                                         {/* --------- ICI le green pills ------- */}
-                                                                        <div>Teste</div>
+                                                                        {/* <div>Teste</div> */}
                                                                         {/* {discount_percent > 0 && email && (
                                                                             <div className={classes.priceTag}>
                                                                                 <b>
