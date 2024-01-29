@@ -8,6 +8,7 @@ import defaultClasses from './priceSummary.css';
 import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
+import PriceAdjustments from '../PriceAdjustments';
 import TaxSummary from './taxSummary';
 import { PriceSummaryFragment } from './priceSummaryFragments';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -74,6 +75,11 @@ const PriceSummary = props => {
         return null;
     }
 
+    const priceAdjustments = hasItems ? (
+        <PriceAdjustments setIsCartUpdating={isUpdating} />
+    ) : null;
+
+
     const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
     const isPriceUpdating = isUpdating || isLoading;
@@ -92,7 +98,7 @@ const PriceSummary = props => {
                 >
                     <FormattedMessage
                         id={'priceSummary.checkoutButton_container'}
-                        defaultMessage={'FINALISE ORDER DETAILS'}
+                        defaultMessage={'This is correct'}
                     />
                 </Button>
             </div>
@@ -112,11 +118,18 @@ const PriceSummary = props => {
 
     return (
         <div className={classes.root}>
+                <h3 className={classes.headingSubtotal}>
+                    <FormattedMessage
+                        id={'priceSummary.heading'}
+                        defaultMessage={'Subtotal'}
+                    />
+                </h3>
             <div className={classes.lineItems}>
+
                 <span className={classes.lineItemLabel}>
                     <FormattedMessage
                         id={'priceSummary.lineItemLabel'}
-                        defaultMessage={'Subtotal'}
+                        defaultMessage={'Products'}
                     />
                 </span>
                 <span className={priceClass}>
@@ -155,21 +168,30 @@ const PriceSummary = props => {
                     data={shipping}
                     isCheckout={isCheckout}
                 />
+                
+            </div>
+            <div
+                className={classes.price_adjustments_container}
+            >
+                {priceAdjustments}
+            </div>
+            <div className={classes.flexBetween}>
                 <span className={classes.totalLabel}>
                     {isCheckout
                         ? formatMessage({
-                              id: 'priceSummary.Total',
-                              defaultMessage: 'Total'
-                          })
+                            id: 'priceSummary.Total',
+                            defaultMessage: 'Total'
+                        })
                         : formatMessage({
-                              id: 'priceSummary.estimatedTotal',
-                              defaultMessage: 'Estimated Total'
-                          })}
+                            id: 'priceSummary.estimatedTotal',
+                            defaultMessage: 'Estimated Total'
+                        })}
                 </span>
                 <span className={totalPriceClass}>
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>
             </div>
+
             {proceedToCheckoutButton}
             {/* <p className={classes.checkoutNotice}>Make sure the quantity of your products is right before checkout.</p> */}
         </div>

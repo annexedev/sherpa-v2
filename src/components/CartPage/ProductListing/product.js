@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect, Component, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { Link, resourceUrl } from 'src/drivers';
 import { useProduct } from 'src/peregrine/lib/talons/CartPage/ProductListing/useProduct';
@@ -17,6 +17,12 @@ import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useIntl } from 'react-intl';
+import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
+import Icon from '../../Icon';
+import { Trash2 as DeleteIcon } from 'react-feather';
+
+
+
 const IMAGE_SIZE = 100;
 
 const Product = props => {
@@ -35,6 +41,7 @@ const Product = props => {
         setActiveEditItem,
         setIsCartUpdating
     });
+
 
     const {
         errorMessage,
@@ -62,6 +69,8 @@ const Product = props => {
     if (urlSuffix && urlSuffix != 'null') {
         productUrlSuffix = urlSuffix;
     }
+
+    console.log(product);
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const editItemSection = isEditable ? (
@@ -84,9 +93,17 @@ const Product = props => {
     const stockStatusMessage =
         stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
 
-    let calculatedQuantity = quantity + Math.floor(Math.random() * 10);
+    /* --------  DELETE ----------- */
 
-    let input;
+    const handleRemoveItem = handleRemoveFromCart;
+    const itemID = item.id;
+    const { isDeleting, removeItem } = useItem({
+        itemID,
+        handleRemoveItem
+    });
+    // const rootClass = isDeleting ? classes.root_disabled : classes.root;
+
+
 
     return (
         <li className={classes.root}>
@@ -130,39 +147,41 @@ const Product = props => {
                             }}
                         />
                     )}
-                    <span>Part # {product.sku}</span>
-                    <span className={classes.price}>
+                    <span><strong>Part #</strong> {product.sku}</span>
+                    <span><strong>Brand:</strong> Brand Name</span>
+                    <span><strong>Sold in:</strong> Each</span>
+                    {/* <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />
-                    </span>
-                    <div>
-                        <input
-                            className={classes.input_rename}
-                            type="text"
-                            ref={node => {
-                                input = node;
-                            }}
-                            placeholder={'Custom note'}
-                        />
-                        <button
-                            className={classes.rename_project}
-                        >
-                            Save
-                        </button>
-                    </div>
-
+                    </span> */}
                     <span className={classes.stockStatusMessage}>
                         {stockStatusMessage}
                     </span>
                     <div className={classes.quantity}>
-                        <Quantity 
+                        <Quantity
+                            item={item}
                             itemId={item.id}
-                            initialValue={calculatedQuantity}
+                            initialValue={quantity}
                             onChange={handleUpdateItemQuantity}
+                            setActiveEditItem={setActiveEditItem}
+                            setIsCartUpdating={setIsCartUpdating}
                         />
                     </div>
                 </div>
-                <Kebab classes={{ root: classes.kebab }} disabled={true}>
-                    {/* {!isSignedIn && (
+                <button
+                    onClick={removeItem}
+                    type="button"
+                    className={classes.deleteButton}
+                // disabled={isDeleting}
+                >
+                    <Icon
+                        size={16}
+                        src={DeleteIcon}
+                        classes={{ icon: classes.editIcon }}
+                    />
+                </button>
+
+                {/* <Kebab classes={{ root: classes.kebab }} disabled={true}  onClick={handleRemoveFromCart}> */}
+                {/* {!isSignedIn && (
                         <Section
                             text={
                                 isFavorite
@@ -205,8 +224,8 @@ const Product = props => {
                         />
                         )} */}
 
-                    {editItemSection}
-                    <Section
+                {/* {editItemSection} */}
+                {/* <Section
                         text={formatMessage({
                             id: 'product.removeCart',
                             defaultMessage: 'Remove from cart'
@@ -214,8 +233,8 @@ const Product = props => {
                         onClick={handleRemoveFromCart}
                         icon="Trash"
                         classes={{ text: classes.sectionText }}
-                    />
-                </Kebab>
+                    /> */}
+                {/* </Kebab> */}
             </div>
         </li>
     );

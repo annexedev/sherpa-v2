@@ -234,7 +234,7 @@ const CartPage = props => {
 
                                     {productsWithProject &&
                                         hasItems ?
-                                        <ProductListing setIsCartUpdating={setIsCartUpdating} projectIds={1}/>
+                                        <ProductListing setIsCartUpdating={setIsCartUpdating} />
                                         :
                                         <div>
                                         </div>
