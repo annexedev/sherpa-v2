@@ -526,6 +526,7 @@ const MyWishList = props => {
     }
     if (!loading) {
         var total = 0;
+        let qntProduit = 0;
         return (
             <div className={defaultClasses.columns}>
                 <Title>{`My Projects`}</Title>
@@ -613,12 +614,10 @@ const MyWishList = props => {
                                                         classes.products_wrapper
                                                     }
                                                 >
-                                                    {/* <div>Here!!!</div> */}
                                                     {/* Ici je dois reprendre la requête faite et afficher le produit qui fait partie de ce projet en utilisant l'identifiant */}
                                                     {data.map((val, index) => {
                                                         var currentProduct =
                                                             val.product;
-
                                                         function belongToProject(
                                                             pid,
                                                             cid
@@ -659,6 +658,11 @@ const MyWishList = props => {
                                                                                 2
                                                                             )
                                                                         );
+                                                                        qntProduit = qntProduit + val.qty;
+                                                                        console.log(
+                                                                                'Quantity Produit : ' +
+                                                                                qntProduit
+                                                                            );
                                                                         total =
                                                                             total +
                                                                             Number(
@@ -673,9 +677,9 @@ const MyWishList = props => {
                                                                         );
                                                                         document.getElementById(
                                                                             'totalApprox'
-                                                                        ).innerHTML = total.toFixed(
+                                                                        ).innerHTML = qntProduit + ' products - ' + total.toFixed(
                                                                             2
-                                                                        );
+                                                                        ) + '$';
                                                                     } else {
                                                                     }
                                                                 });
