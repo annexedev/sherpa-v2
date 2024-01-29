@@ -583,7 +583,7 @@ const MyWishList = props => {
                                                     <AddTodo uid={wId} />
                                                 </div> */}
                                             </div>
-                                            <div className={defaultClasses.blocQntProduits} id="totalApprox">4 products - 23,456,45$</div>
+                                            <div className={defaultClasses.blocQntProduits} id="totalApprox"></div>
                                         </div>
                                     }
                                     {wId !== undefined && wId !== null && (
@@ -901,9 +901,9 @@ const MyWishList = props => {
                                                                                                     wId
                                                                                                 }
                                                                                                 onClick={() => {
-                                                                                                    /*handleAddToCart(
+                                                                                                    handleAddToCart(
                                                                                                 val.product, val.qty
-                                                                                            );*/
+                                                                                            );
                                                                                                     var currentQty = document
                                                                                                         .querySelector(
                                                                                                             '#q' +

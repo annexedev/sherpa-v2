@@ -1,5 +1,5 @@
-query MpBetterWishlistGetCategories(category_id: null, is_items: null){
-   MpBetterWishlistGetCategories(category_id: null, is_items: null) {
+query MpBetterWishlistGetCategories($category_id: null, $is_items: null){
+   MpBetterWishlistGetCategories(category_id: $category_id, is_items: $is_items) {
         items {
             added_at
             description
