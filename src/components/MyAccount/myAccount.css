@@ -252,6 +252,9 @@ form.root input:focus {
     line-height: 20px;
     width: 183px;
     margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .wrapper_project_dropdown{
     display:flex;
