@@ -131,4 +131,11 @@
     .qty_inner_wrap {
         justify-content: flex-start !important;
     }
+    .wrap{
+        margin-top: 40px;
+    }
+    .rootCart{
+        display: flex;
+        flex-direction: column;
+    }
 }

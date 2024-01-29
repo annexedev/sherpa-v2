@@ -209,6 +209,15 @@
     }
     .body {
         gap: 10px;
+        flex-wrap: wrap;
+        width: 100%;
+        display: flex;
+    }
+    .item_container_wrap{
+        width: 100%;
+    }
+    .summary_container{
+        width: 100%;
     }
     .h_products {
         background-color: var(--primary-light-color);
