@@ -613,83 +613,78 @@ const MyWishList = props => {
                                                         classes.products_wrapper
                                                     }
                                                 >
-                                                    <div>Here!!!</div>
+                                                    {/* <div>Here!!!</div> */}
                                                     {/* Ici je dois reprendre la requête faite et afficher le produit qui fait partie de ce projet en utilisant l'identifiant */}
                                                     {data.map((val, index) => {
                                                         var currentProduct =
                                                             val.product;
 
-                                                        // function belongToProject(
-                                                        //     pid,
-                                                        //     cid
-                                                        // ) {
-                                                        //     let dataURL =
-                                                        //         'https://data.sherpagroupav.com/get_belongs.php?pid=' +
-                                                        //         pid +
-                                                        //         '&cid=' +
-                                                        //         cid;
-                                                        //     fetch(dataURL)
-                                                        //         .then(res =>
-                                                        //             res.json()
-                                                        //         )
-                                                        //         .then(res => {
-                                                        //             if (
-                                                        //                 res.display ==
-                                                        //                 1
-                                                        //             ) {
-                                                        //                 //document.getElementById('.q'+val.id+' #quantity').value=val.qty;
-                                                        //                 //var targetDiv = getElementsByClassName('q'+val.id).document.getElementById("quantity")[0];
-                                                        //                 //targetDiv.value = val.qty;
-                                                        //                 //document.getElementById('q'+val.id).getElementById("quantity")[0].value = 8;
-                                                        //                 // document.getElementById(
-                                                        //                 //     't' +
-                                                        //                 //     pid
-                                                        //                 // ).style.display =
-                                                        //                 //     'block';
-                                                        //                 // var element = document.getElementById(
-                                                        //                 //     't' +
-                                                        //                 //     pid
-                                                        //                 // );
-                                                        //                 // element.classList.add(
-                                                        //                 //     'activeProject'
-                                                        //                 // );
-                                                        //                 // console.log(
-                                                        //                 //     'Is active' +
-                                                        //                 //     val.product.price.regularPrice.amount.value.toFixed(
-                                                        //                 //         2
-                                                        //                 //     )
-                                                        //                 // );
-                                                        //                 // total =
-                                                        //                 //     total +
-                                                        //                 //     Number(
-                                                        //                 //         val.product.price.regularPrice.amount.value.toFixed(
-                                                        //                 //             2
-                                                        //                 //         ) *
-                                                        //                 //         val.qty
-                                                        //                 //     );
-                                                        //                 // console.log(
-                                                        //                 //     'Total : ' +
-                                                        //                 //     total
-                                                        //                 // );
-                                                        //                 // document.getElementById(
-                                                        //                 //     'totalApprox'
-                                                        //                 // ).innerHTML = total.toFixed(
-                                                        //                 //     2
-                                                        //                 // );
-                                                        //             } else {
-                                                        //             }
-                                                        //         });
-
-                                                        //     return 1;
-                                                        // }
-                                                        const belongToProject = true
-                                                        // Ici si le produit faire partie du projet affiche ça
-                                                        if (belongToProject
-                                                            // belongToProject(
-                                                            //     val.product.id,
-                                                            //     wId
-                                                            // )
+                                                        function belongToProject(
+                                                            pid,
+                                                            cid
                                                         ) {
+                                                            let dataURL =
+                                                                'https://data.sherpagroupav.com/get_belongs.php?pid=' +
+                                                                pid +
+                                                                '&cid=' +
+                                                                cid;
+                                                            fetch(dataURL)
+                                                                .then(res =>
+                                                                    res.json()
+                                                                )
+                                                                .then(res => {
+                                                                    if (
+                                                                        res.display ==
+                                                                        1
+                                                                    ) {
+                                                                        //document.getElementById('.q'+val.id+' #quantity').value=val.qty;
+                                                                        //var targetDiv = getElementsByClassName('q'+val.id).document.getElementById("quantity")[0];
+                                                                        //targetDiv.value = val.qty;
+                                                                        //document.getElementById('q'+val.id).getElementById("quantity")[0].value = 8;
+                                                                        document.getElementById(
+                                                                            't' +
+                                                                            pid
+                                                                        ).style.display =
+                                                                            'block';
+                                                                        var element = document.getElementById(
+                                                                            't' +
+                                                                            pid
+                                                                        );
+                                                                        element.classList.add(
+                                                                            'activeProject'
+                                                                        );
+                                                                        console.log(
+                                                                            'Is active' +
+                                                                            val.product.price.regularPrice.amount.value.toFixed(
+                                                                                2
+                                                                            )
+                                                                        );
+                                                                        total =
+                                                                            total +
+                                                                            Number(
+                                                                                val.product.price.regularPrice.amount.value.toFixed(
+                                                                                    2
+                                                                                ) *
+                                                                                val.qty
+                                                                            );
+                                                                        console.log(
+                                                                            'Total : ' +
+                                                                            total
+                                                                        );
+                                                                        document.getElementById(
+                                                                            'totalApprox'
+                                                                        ).innerHTML = total.toFixed(
+                                                                            2
+                                                                        );
+                                                                    } else {
+                                                                    }
+                                                                });
+
+                                                            return 1;
+                                                        }
+                                                        // const belongToProject = true
+                                                        // Ici si le produit faire partie du projet affiche ça
+                                                        if (belongToProject(val.product.id,wId)) {
                                                             console.log(val, 'val*****************');
                                                             return (
                                                                 <>
