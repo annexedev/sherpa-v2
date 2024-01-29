@@ -8,7 +8,7 @@
 }
 
 .contents_container {
-    padding: 15px;
+    /* padding: 15px 0; */
 }
 
 .contents_container:empty {
@@ -31,7 +31,7 @@
     composes: product_tabs_list from '../ProductFullDetail/productFullDetail.css';
     width: 100%;
     background: var(--primary-light-color);
-    padding: 10px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--primary-border-color);
 }
 .title_wrapper {

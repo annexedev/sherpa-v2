@@ -166,16 +166,17 @@ const CouponCode = props => {
 
         return (
             <Form className={formClass} onSubmit={handleApplyCoupon}>
-                <Field
+               <Field
                     id="couponCode"
-                    label={formatMessage({
+/*                     label={formatMessage({
                         id: 'couponCode.couponCode',
-                        defaultMessage: 'Coupon Code'
+                        defaultMessage: ''
                     })}
-                >
-                    <TextInput
+ */                >
+                   <TextInput
                         field="couponCode"
                         id={'couponCode'}
+                        className={classes.inputCoupon}
                         placeholder={formatMessage({
                             id: 'couponCode.enterCode',
                             defaultMessage: 'Enter code'
@@ -184,7 +185,7 @@ const CouponCode = props => {
                         maskOnBlur={true}
                         message={errorMessage}
                     />
-                </Field>
+              </Field>
                 <Field>
                     <Button
                         disabled={applyingCoupon}

@@ -2,10 +2,14 @@
     --stroke: var(--venia-global-color-gray-600);
     text-align: center;
     display: grid;
-    grid-template-columns: 1fr 4rem 1fr;
+    grid-template-columns: 1fr 8rem 1fr;
     grid-column-gap: 0.5rem;
-    align-items: center;
+    /* align-items: center; */
     justify-items: center;
+    width: 100px;
+}
+.rootCart{
+    margin-top: -23px;
 }
 .qty_inner_wrap {
 }
@@ -83,6 +87,36 @@
     opacity: 0.4;
 }
 
+.wrapperPrice{
+    display: flex;
+    gap: 10px;
+    width: 195px;
+    margin-left: 5px;
+    align-items: center;
+}
+.wrapperPrice p{
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.price{
+    margin-top: 40px;
+    margin-left: -40px;
+}
+
+.initialPrice {
+    position: relative;
+    text-decoration: line-through;
+    color: #BF363C;
+}
+
+.priceWithDiscount{
+    color: #8DC74C;
+}
+  
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
     .button {
         min-height: 20px;
@@ -96,5 +130,12 @@
     }
     .qty_inner_wrap {
         justify-content: flex-start !important;
+    }
+    .wrap{
+        margin-top: 40px;
+    }
+    .rootCart{
+        display: flex;
+        flex-direction: column;
     }
 }
