@@ -1,0 +1,26 @@
+query MpBetterWishlistGetCategories($category_id: String! ){
+   MpBetterWishlistGetCategories(category_id: $category_id, is_items: true) {
+        items {
+            added_at
+            description
+            store_id
+            wishlist_item_id
+            qty
+            product {
+                id
+                name
+                small_image {
+                    url
+                }
+                type_id
+                url_key
+                product_brand
+                sku
+                special_price
+                special_to_date
+            }
+        }
+        category_id
+    }
+
+}

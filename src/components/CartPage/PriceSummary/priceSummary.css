@@ -1,5 +1,5 @@
 .root {
-    padding: 15px;
+    padding: 24px;
 }
 
 .errorText {
@@ -13,7 +13,10 @@
     grid-template-columns: 1fr auto;
     line-height: 1.5rem;
 }
-
+.price_adjustments_container {
+    grid-area: adjustments;
+    margin-top: 50px;
+}
 .lineItemLabel {
     justify-self: start;
 }
@@ -58,7 +61,23 @@
     width: 100%;
 }
 .checkoutButton_container button {
-    width: 100%;
+    width: 85%;
+}
+.checkoutButton_container span{
+    color:#333333;
+    font-weight: 500;
+}
+.flexBetween{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #EBEBEB;
+}
+.headingSubtotal{
+    padding-bottom: 18px;
+    border-bottom: 1px solid #EBEBEB;
+    margin-bottom:30px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

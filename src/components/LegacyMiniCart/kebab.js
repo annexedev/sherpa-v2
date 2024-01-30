@@ -1,6 +1,12 @@
 import React from 'react';
 import { node, shape, string } from 'prop-types';
-import { MoreVertical as MoreVerticalIcon } from 'react-feather';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+// import { MoreVertical as MoreVerticalIcon } from 'react-feather';
+
+
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
@@ -14,6 +20,9 @@ const Kebab = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
 
+
+
+
     return (
         <div className={classes.root}>
             <button
@@ -22,6 +31,7 @@ const Kebab = props => {
                 ref={kebabRef}
             >
                 <Icon src={MoreVerticalIcon} />
+                {/* <span className={classes.circleIcon}><FontAwesomeIcon icon={faTrash} /></span> */}
             </button>
             <ul className={toggleClass}>{children}</ul>
         </div>

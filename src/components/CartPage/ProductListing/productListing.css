@@ -1,4 +1,5 @@
 .root {
     display: grid;
     grid-gap: 2rem 1rem;
+    margin-bottom: 0;
 }

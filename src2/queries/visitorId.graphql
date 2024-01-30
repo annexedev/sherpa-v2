@@ -1,5 +1,0 @@
-query visitorId($visitorId: Int) {
-    visitorId(visitor_id: $visitorId) {
-        visitor_id
-    }
-}

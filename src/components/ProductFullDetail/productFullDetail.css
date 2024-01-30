@@ -269,6 +269,20 @@
     text-align: center;
     padding-top: 5px;
 }
+
+.priceTag {
+    /* position: absolute; */
+    /* right: 0px; */
+    /* margin-right: 10px; */
+    width: 184px;
+    margin: 10px 0;
+    background: #8cc650;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    /* margin-top: 10px; */
+    z-index: 999;
+}
 @-webkit-keyframes scale {
     0% {
         -webkit-transform: scale(1);
