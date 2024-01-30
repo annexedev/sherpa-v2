@@ -164,6 +164,35 @@ export const useDeleteFromWishlist = props => {
     };
 };
 
+
+export const useWishListQueryByCategory = props => {
+    const { query, categoryId } = props;
+    const apolloClient = useApolloClient();
+
+    const [{ currentUser, isSignedIn }, { getUserDetails }] = useUserContext();
+
+    const { error, data, loading, refetch } = useQuery(query, {
+        variables: { category_id: categoryId },
+        fetchPolicy: 'network-only',
+        skip: !isSignedIn
+    });
+    useEffect(() => {
+        if (error) {
+            console.log(error);
+        }
+    }, [error]);
+
+    return {
+        apolloClient,
+        getUserDetails,
+        isSignedIn,
+        data: data ,
+        currentUser,
+        loading,
+        refetch
+    };
+};
+
 export const useWishlist = props => {
     const { query, customerQuery } = props;
     const apolloClient = useApolloClient();

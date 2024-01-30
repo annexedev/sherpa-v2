@@ -1,5 +1,5 @@
-query MpBetterWishlistGetCategories(category_id: null, is_items: null){
-   MpBetterWishlistGetCategories(category_id: null, is_items: null) {
+query MpBetterWishlistGetCategories($category_id: String! ){
+   MpBetterWishlistGetCategories(category_id: $category_id, is_items: true) {
         items {
             added_at
             description
@@ -14,37 +14,6 @@ query MpBetterWishlistGetCategories(category_id: null, is_items: null){
                 }
                 type_id
                 url_key
-                price {
-                    regularPrice
-                    minimalPrice {
-                        adjustments {
-                            code
-                            description
-                            amount {
-                                currency
-                                value
-                            }
-                        }
-                        amount {
-                            currency
-                            value
-                        }
-                    }
-                    maximalPrice {
-                        adjustments {
-                            code
-                            description
-                            amount {
-                                currency
-                                value
-                            }
-                        }
-                        amount {
-                            currency
-                            value
-                        }
-                    }
-                }
                 product_brand
                 sku
                 special_price
@@ -52,8 +21,6 @@ query MpBetterWishlistGetCategories(category_id: null, is_items: null){
             }
         }
         category_id
-        category_name
-        is_default
     }
 
 }

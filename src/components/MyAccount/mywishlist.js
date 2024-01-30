@@ -10,9 +10,11 @@ import Sidebar from './sidebar.js';
 import accountClasses from './accountinformation.css';
 import {
     useWishlist,
-    useDeleteFromWishlist
+    useDeleteFromWishlist,
+    useWishListQueryByCategory
 } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 import WishListQuery from '../../queries/getWishlist.graphql';
+import getMpBetterWishlistGetCategories from '../../queries/getMpBetterWishlistGetCategories.graphql';
 import REMOVE_FROM_WISHLIST_MUTATION from '../../queries/removeFromWishlist.graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -31,7 +33,6 @@ import { useGetScopeCache } from '../../peregrine/lib/talons/Home/useHome';
 import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
-// import MpBetterWishlistGetCategories from '../../queries/getMpBetterWishlistGetCategories.graphql'
 import { Title } from '@magento/venia-ui/lib/components/Head';
 import { gql, useMutation } from '@apollo/client';
 import { ChevronDown as ArrowDown, X as ArrowUp } from 'react-feather';
@@ -91,9 +92,22 @@ const MyWishList = props => {
         wishlistClasses
     );
     const [removeMsg, setRemoveMsg] = useState(false);
+
+
     const wishlistProps = useWishlist({
-        query: WishListQuery
+        query:  WishListQuery
     });
+
+    const wishListQueryByCategoryProps = useWishListQueryByCategory({
+        query: getMpBetterWishlistGetCategories,
+        categoryId : '1684973876_080'
+    });
+
+
+
+    console.log("-----------------------------------------------------------------------");
+    console.log(wishListQueryByCategoryProps);
+    console.log("-----------------------------------------------------------------------");
 
 
     /* ---------------------- TAG DISCOUNT DETAILS ------------------------------- */
@@ -144,6 +158,7 @@ const MyWishList = props => {
     if (config.product_url_suffix && config.product_url_suffix != 'null') {
         productUrlSuffix = config.product_url_suffix;
     }
+
     const {
         handleSetQuantity,
         quantity,
