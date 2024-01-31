@@ -29,7 +29,8 @@ const ForgotPasswordForm = props => {
         onSubmit,
         otpResponse,
         setShowForgot,
-        handleTriggerClick
+        handleTriggerClick,
+        displayBtnBack
     } = props;
     const [emailData, setEmailData] = useState('');
 
@@ -275,27 +276,31 @@ const ForgotPasswordForm = props => {
                             />
                         </Button>
                     </div>
-                    <div className={'text-center'}>
-                        <span
-                            role="button"
-                            className={defaultClasses.instructions}
-                            onClick={() => setShowForgot(false)}
-                            onKeyDown={() => setShowForgot(false)}
-                            tabIndex={0}
-                        >
-                            <span>
-                                <img
-                                    src="/cenia-static/images/icon_arrow_left.png"
-                                    alt="icon_arrow_left"
-                                    width="25"
+                    {displayBtnBack ? (
+                        <div className={'text-center'}>
+                            <span
+                                role="button"
+                                className={defaultClasses.instructions}
+                                onClick={() => setShowForgot(false)}
+                                onKeyDown={() => setShowForgot(false)}
+                                tabIndex={0}
+                            >
+                                <span>
+                                    <img
+                                        src="/cenia-static/images/icon_arrow_left.png"
+                                        alt="icon_arrow_left"
+                                        width="25"
+                                    />
+                                </span>
+                                <FormattedMessage
+                                    id={'forgotPasswordForm.BackToLogin'}
+                                    defaultMessage={'Back to Login'}
                                 />
                             </span>
-                            <FormattedMessage
-                                id={'forgotPasswordForm.BackToLogin'}
-                                defaultMessage={'Back to Login'}
-                            />
-                        </span>
-                    </div>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </Form>
             </div>
         );

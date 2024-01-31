@@ -22,7 +22,9 @@ const AccountMenu = React.forwardRef((props, ref) => {
     const {
         accountMenuIsOpen,
         setAccountMenuIsOpen,
-        handleTriggerClick
+        handleTriggerClick,
+        customeRoute,
+        displayBtnBack
     } = props;
     const talonProps = useAccountMenu({
         mutations: { signOut: SIGN_OUT_MUTATION },
@@ -80,6 +82,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
                     initialValues={{ email: username }}
                     onCancel={handleCancel}
                     handleTriggerClick={handleTriggerClick}
+                    displayBtnBack={displayBtnBack}
                 />
             );
 
@@ -115,6 +118,18 @@ const AccountMenu = React.forwardRef((props, ref) => {
 
             break;
         }
+    }
+
+    if( customeRoute == 'FORGOT_PASSWORD' ){
+        dropdownContents = (
+            <ForgotPassword
+                handleTriggerClick={handleTriggerClick}
+                initialValues={{ email: username }}
+                onCancel={handleCancel}
+                handleTriggerClick={handleTriggerClick}
+                displayBtnBack={displayBtnBack}
+            />
+        );
     }
 
     return (

@@ -64,6 +64,7 @@ const AccountTrigger = props => {
                     accountMenuIsOpen={accountMenuIsOpen}
                     setAccountMenuIsOpen={setAccountMenuIsOpen}
                     handleTriggerClick={handleTriggerClick}
+                    displayBtnBack={true}
                 />
             </Suspense>
         </Fragment>

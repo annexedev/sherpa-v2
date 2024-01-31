@@ -7,7 +7,7 @@ import { useForgotPassword } from '../../peregrine/lib/talons/ForgotPassword/use
 import forgotPasswordMutation from '../../queries/forgotPassword.graphql';
 
 const ForgotPassword = props => {
-    const { initialValues, onClose, onCancel, handleTriggerClick } = props;
+    const { initialValues, onClose, onCancel, handleTriggerClick,displayBtnBack } = props;
     const talonProps = useForgotPassword({
         onClose,
         query: forgotPasswordMutation
@@ -26,6 +26,7 @@ const ForgotPassword = props => {
                     isResettingPassword={inProgress}
                     otpResponse={forgotPasswordResponse}
                     setShowForgot={onCancel}
+                    displayBtnBack={displayBtnBack}
                 />
             </Fragment>
         </div>
