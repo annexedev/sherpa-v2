@@ -60,11 +60,11 @@ const CartPage = props => {
         shouldShowLoadingIndicator
     } = talonProps;
 
-    console.log(isSignedIn);
+    console.log('CART ITEMS', cartItems);
 
 
     /* list produits dans le projet */
-    
+
     const wishlistProps = useWishlist({
         query: WishListQuery
     });
@@ -76,8 +76,6 @@ const CartPage = props => {
         loading,
         refetch
     } = wishlistProps;
-
-    console.log(data);
 
 
     const [productsWithoutProject, setProductsWithoutProject] = useState(false);
@@ -140,6 +138,22 @@ const CartPage = props => {
     const myprojects = true; /* il faut verifier si il y a des projets */
 
 
+    const cartItemsJSON = cartItems.map(item => {
+        return {
+            ...item,
+            category: item.category ? JSON.parse(item.category) : null
+        };
+    });
+
+    console.log('ITEMS JSON', cartItemsJSON);
+
+    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
+    const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
+
+    console.log('ITEMS WITH PROJECT', itemsWithProject);
+    console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
+
+
 
     return (
         <div className={'container' + ' ' + defaultClasses.cart_page_container}>
@@ -160,88 +174,94 @@ const CartPage = props => {
                 <div className={classes.cart_inner}>
                     <div className={classes.body}>
                         <div className={classes.item_container_wrap}>
-                            {/* products individuelle */}
-                            <div className={classes.wrapperProducts}>
-                                <h1 className={classes.headingProducts}>
-                                    <FormattedMessage
-                                        id={'cartPage.headingProducts'}
-                                        defaultMessage={'Products'}
-                                    />
-                                </h1>
-                                <div className={classes.wrapperValeurProduits}>
-                                    <span>{cartItems.length} products</span>
-                                    <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                    <span>$ {totalPriceProductsWithoutProject}</span>
-                                    <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                            <div className={classes.productsWithoutProject}>
+                                {/* products individuelle */}
+                                <div className={classes.wrapperProducts}>
+                                    <h1 className={classes.headingProducts}>
+                                        <FormattedMessage
+                                            id={'cartPage.headingProducts'}
+                                            defaultMessage={'Products'}
+                                        />
+                                    </h1>
+                                    <div className={classes.wrapperValeurProduits}>
+                                        <span>{cartItems.length} products</span>
+                                        <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
+                                        <span>$ {totalPriceProductsWithoutProject}</span>
+                                        <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            {productsWithoutProject &&
-                                <div className={classes.items_container}>
-                                    {hasItems ?
-                                        <ProductListing setIsCartUpdating={setIsCartUpdating} />
-                                        :
-                                        <div className={classes.noResult}>
-                                            {/* <span className={searchClasses.noResult_icon}>
+                                {productsWithoutProject &&
+                                    <div className={classes.items_container}>
+                                        {/* il faut verifier si le category est null si true vient le produit ici*/}
+                                        {hasItems ?
+                                            <ProductListing setIsCartUpdating={setIsCartUpdating} />
+                                            :
+                                            <div className={classes.noResult}>
+                                                {/* <span className={searchClasses.noResult_icon}>
                                                 <FontAwesomeIcon icon={faExclamationTriangle} />
                                                 </span> */}
-                                            <span className={'ml-2' + ' ' + classes.noResult_text}>
-                                                <FormattedMessage
-                                                    id={'cartPage.noResult_text'}
-                                                    defaultMessage={'No products without project in your cart.'}
-                                                />
-                                            </span>
-                                        </div>
-                                    }
-                                </div>
-                            }
+                                                <span className={'ml-2' + ' ' + classes.noResult_text}>
+                                                    <FormattedMessage
+                                                        id={'cartPage.noResult_text'}
+                                                        defaultMessage={'No products without project in your cart.'}
+                                                    />
+                                                </span>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
                             {/* <div
                                 className={classes.price_adjustments_container}
                             >
                                 {priceAdjustments}
                             </div> */}
-
-                            {myprojects &&
-                                <div className={classes.wrapperProductsFromProjects}>
-                                    <h1 className={classes.headingProducts}>
-                                        <FormattedMessage
-                                            id={'cartPage.headingProducts'}
-                                            defaultMessage={'Products from projects'}
-                                        />
-                                    </h1>
-                                    <div className={classes.wrapperValeurProduits}>
-                                        <span>0 products</span>
-                                        <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                        <span>Valeur</span>
-                                    </div>
-                                </div>
-                            }
-                            {myprojects &&
-                                <div className={classes.items_container_projet}>
-                                    <div className={classes.wrapperProductsWithProject}>
-                                        <h1 className={classes.headingProductsWithProject}>
+                            <div className={classes.productsWithProject}>
+                                {myprojects &&
+                                    <div className={classes.wrapperProductsFromProjects}>
+                                        <h1 className={classes.headingProducts}>
                                             <FormattedMessage
                                                 id={'cartPage.headingProducts'}
-                                                defaultMessage={'Nom du projet'}
+                                                defaultMessage={'Products from projects'}
                                             />
                                         </h1>
                                         <div className={classes.wrapperValeurProduits}>
                                             <span>0 products</span>
                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                             <span>Valeur</span>
-                                            <span onClick={() => { setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                         </div>
                                     </div>
-
-                                    {productsWithProject &&
-                                        hasItems ?
-                                        <ProductListing setIsCartUpdating={setIsCartUpdating} />
-                                        :
-                                        <div>
+                                }
+                                {myprojects &&
+                                    <div className={classes.items_container_projet}>
+                                        <div className={classes.wrapperProductsWithProject}>
+                                            <h1 className={classes.headingProductsWithProject}>
+                                                <FormattedMessage
+                                                    id={'cartPage.headingProducts'}
+                                                    defaultMessage={'Nom du projet'}
+                                                />
+                                            </h1>
+                                            <div className={classes.wrapperValeurProduits}>
+                                                <span>0 products</span>
+                                                <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
+                                                <span>Valeur</span>
+                                                <span onClick={() => { setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                            </div>
                                         </div>
 
-                                    }
-                                </div>
-                            }
+                                        {/* il faut verifier si le category est !null si true vient le produit ici*/}
+                                        {productsWithProject &&
+                                            hasItems ?
+
+                                            <ProductListing setIsCartUpdating={setIsCartUpdating} />
+                                            :
+                                            <div>
+                                            </div>
+
+                                        }
+                                    </div>
+                                }
+                            </div>
 
                         </div>
                         <div className={classes.summary_container}>
