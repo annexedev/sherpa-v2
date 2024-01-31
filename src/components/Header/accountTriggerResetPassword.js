@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccountTrigger';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -14,7 +14,7 @@ const AccountMenu = React.lazy(() => import('../AccountMenu'));
  * @param {Object} props
  * @param {Object} props.classes - CSS classes to override element styles.
  */
-const AccountTrigger = props => {
+const AccountTriggerResetPassword = props => {
     const talonProps = useAccountTrigger();
     const {
         accountMenuIsOpen,
@@ -23,6 +23,7 @@ const AccountTrigger = props => {
         setAccountMenuIsOpen,
         handleTriggerClick
     } = talonProps;
+
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
@@ -36,12 +37,13 @@ const AccountTrigger = props => {
             .getElementsByTagName('html')[0]
             .setAttribute('data-scroll-lock', 'false');
     }
+    
 
     return (
         <Fragment>
             <div className={rootClassName} ref={accountMenuTriggerRef}>
                 <button
-                    id="user_account"
+                    id="reset_password"
                     aria-label={formatMessage({
                         id: 'accountTrigger.ariaLabel',
                         defaultMessage: 'Toggle My Account Menu'
@@ -49,13 +51,10 @@ const AccountTrigger = props => {
                     className={classes.trigger}
                     onClick={handleTriggerClick}
                 >
-                    <AccountChip
-                        fallbackText={formatMessage({
-                            id: 'accountTrigger.buttonFallback',
-                            defaultMessage: 'Sign In'
-                        })}
-                        shouldIndicateLoading={true}
-                    />
+                      <FormattedMessage
+                                    id={'forgotPasswordForm.title'}
+                                    defaultMessage={'Reset password existing count'}
+                                />
                 </button>
             </div>
             <Suspense fallback={null}>
@@ -64,16 +63,17 @@ const AccountTrigger = props => {
                     accountMenuIsOpen={accountMenuIsOpen}
                     setAccountMenuIsOpen={setAccountMenuIsOpen}
                     handleTriggerClick={handleTriggerClick}
-                    displayBtnBack={true}
+                    customeRoute={'FORGOT_PASSWORD'}
+                    displayBtnBack={false}
                 />
             </Suspense>
         </Fragment>
     );
 };
 
-export default AccountTrigger;
+export default AccountTriggerResetPassword;
 
-AccountTrigger.propTypes = {
+AccountTriggerResetPassword.propTypes = {
     classes: shape({
         root: string,
         root_open: string,
