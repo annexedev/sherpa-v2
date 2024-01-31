@@ -12,6 +12,12 @@
 }
 .limiter_text {
 }
+.brand_name {
+    text-align: center;
+}
+.brand_name p {
+    font-weight: bold;
+}
 .move_item_static {
     display: none;
     margin-top: 10px;
@@ -129,7 +135,6 @@
     line-height: 20px;
     min-width: 150px;
     color: white;
-    margin: 30px 0;
 }
 .add_to_project:hover {
     background: #000;
@@ -244,14 +249,6 @@
     cursor: pointer;
     margin-bottom: 8px;
 }
-
-.delete_icon {
-    position: relative;
-    left: 80%;
-    height: 0px;
-    top: -41px;
-}
-
 .delete_text svg {
     font-size: 15px;
     color: var(--secondary-dark-color);

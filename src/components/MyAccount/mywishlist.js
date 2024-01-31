@@ -77,6 +77,96 @@ class ProjectName extends Component {
     }
 }
 
+class BrandName extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+
+    componentDidMount() {
+        let productId = this.props.pid;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_brandname.php?pid=' + productId;
+        
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+    }
+
+    render() {
+        let brandname = this.state.pageData.brandname && this.state.pageData.brandname;
+        if(brandname) {
+        return (
+            <p className={defaultClasses.product_brand_name}>{brandname}</p>
+        ) } else {
+            return(<></>);
+        }
+    }
+}  
+
+class SoldIn extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+
+    componentDidMount() {
+
+        let lng = '';
+        if (document.getElementById('currentLng') != null) {
+            lng = document.getElementById('currentLng').innerHTML;
+        }
+        let activeLng = '';
+        if (lng == 'Français') {
+            activeLng = 2;
+        } else {
+            activeLng = 0;
+        }
+
+        let productId = this.props.pid;
+
+        let dataURL =
+            'https://data.sherpagroupav.com/get_soldin.php?pid=' + productId + '&sid=' + activeLng;
+        
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+    }
+
+    render() {
+        let soldin = this.state.pageData.soldin && this.state.pageData.soldin;
+        if(soldin) {
+        return (
+            <p className={defaultClasses.product_brand_name}>
+            <b>
+                <FormattedMessage
+                    id={
+                        'item.partNo'
+                    }
+                    defaultMessage={
+                        'Sold in: '
+                    }
+                />
+            </b>
+            {soldin}</p>
+        ) } else {
+            return(<></>);
+        }
+    }
+}  
+
 class AlreadyPurchased extends Component {
     constructor() {
         super();
@@ -268,31 +358,7 @@ const MyWishList = props => {
 
         return (
             <>
-            <div>
-                <input
-                    className={classes.input_rename}
-                    type="text"
-                    placeholder={'New project name'}
-                />
-                <input type="hidden" value={selectId} />
-                <button
-                    className={classes.rename_project}
-                    onClick={e => {
-                        e.preventDefault();
-                        addTodo({ variables: { category_name: input.value } });
-                        input.value = '';
-
-                        window.alert('New project created.');
-                        setSelectValue(999);
-                        window.location.reload();
-                    }}
-                >
-                    Create new project
-                </button>
-                
-                {/* <MoveProjectToCart /> */}
-            </div>
-                <Popup
+             <Popup
                 trigger={<button className={classes.button_move_project}> Move to Cart </button>}
                 modal
                 nested
@@ -616,6 +682,7 @@ const MyWishList = props => {
     }
     if (!loading) {
         var total = 0;
+        let qntProduit = 0;
         return (
             <div className={defaultClasses.columns}>
                 <Title>{`My Projects`}</Title>
@@ -668,23 +735,19 @@ const MyWishList = props => {
                                                     <AddTodo uid={wId} />
                                                 </div>
                                             </div>
-                                            <Link
-                                                className={defaultClasses.btnPurchase}
-                                                to={resourceUrl('/orders?project='+wId)}
-                                            >Project Purchase History</Link>
+                                            
+                                            <div className={defaultClasses.blocQntProduits} id="totalApprox"></div>
                                            
                                         </div>
                                     }
                                     {wId !== undefined && wId !== null && (
                                         <>
-                                            <div>
-                                                Estimated total before taxes and
-                                                shipping : $
-                                                <span id="totalApprox" />
-                                            </div>
                                             <div className={defaultClasses.wrapperBtnDropdown}>
                                             
-                                                
+                                                <Link
+                                                    className={defaultClasses.btnPurchase}
+                                                    to={resourceUrl('/orders?project='+wId)}
+                                                >Project Purchase History</Link>
                                                 <Select />
                                             </div>
                                         </>
@@ -747,23 +810,28 @@ const MyWishList = props => {
                                                                                     2
                                                                                 )
                                                                         );
+                                                                        qntProduit = qntProduit + val.qty;
+                                                                        console.log(
+                                                                                'Quantity Produit : ' +
+                                                                                qntProduit
+                                                                            );
                                                                         total =
                                                                             total +
                                                                             Number(
                                                                                 val.product.price.regularPrice.amount.value.toFixed(
                                                                                     2
                                                                                 ) *
-                                                                                    val.qty
+                                                                                val.qty
                                                                             );
                                                                         console.log(
                                                                             'Total : ' +
-                                                                                total
+                                                                            total
                                                                         );
                                                                         document.getElementById(
                                                                             'totalApprox'
-                                                                        ).innerHTML = total.toFixed(
+                                                                        ).innerHTML = qntProduit + ' products - ' + total.toFixed(
                                                                             2
-                                                                        );
+                                                                        ) + '$';
                                                                     } else {
                                                                     }
                                                                 });
@@ -784,6 +852,8 @@ const MyWishList = props => {
                                                                         100 *
                                                                         100
                                                                 ) / 100;
+
+                                                            
 
                                                             return (
                                                                 <>
@@ -861,6 +931,7 @@ const MyWishList = props => {
                                                                                         }
                                                                                     />
                                                                                 </Link>
+                                                                                <div className={classes.brand_name}><BrandName pid={val.product.id} /></div>
                                                                             </div>
 
                                                                             <div
@@ -897,12 +968,15 @@ const MyWishList = props => {
                                                                                                 'Part #'
                                                                                             }
                                                                                         />
-                                                                                    </b>{' '}
+                                                                                    </b>
+                                                                                    {' '}
                                                                                     {
-                                                                                        val
-                                                                                            .product
-                                                                                            .sku
+                                                                                        val.product.sku
                                                                                     }
+                                                                                    <p>
+                                                                                        <SoldIn pid={val.product.id} />
+                                                                                    </p>
+                                                                                    
                                                                                 </div>
                                                                                 <span
                                                                                     className={
@@ -999,9 +1073,9 @@ const MyWishList = props => {
                                                                                                     wId
                                                                                                 }
                                                                                                 onClick={() => {
-                                                                                                    /*handleAddToCart(
-                                                                                                val.product, val.qty
-                                                                                            );*/
+                                                                                                    console.log('XXXXXXXXXXX');
+                                                                                                    console.log(val);
+                                                                                                    //val.product.qty = 10;
                                                                                                     var currentQty = document
                                                                                                         .querySelector(
                                                                                                             '#q' +
@@ -1011,32 +1085,24 @@ const MyWishList = props => {
                                                                                                             'input'
                                                                                                         )
                                                                                                         .value;
-                                                                                                    console.log(
-                                                                                                        'qqqw'
-                                                                                                    );
-                                                                                                    console.log(
-                                                                                                        val.product
-                                                                                                    );
-                                                                                                    let item =
-                                                                                                        val.product;
 
-                                                                                                    for (
-                                                                                                        let i = 0;
-                                                                                                        i <
-                                                                                                        currentQty;
-                                                                                                        i++
-                                                                                                    ) {
-                                                                                                        handleAddToCart(
-                                                                                                            val.product
-                                                                                                        );
-                                                                                                    }
+                                                                                                    const tempProps = {...val.product};
+                                                                                                    tempProps.qty = currentQty;
 
-                                                                                                    //window.alert("Product moved to cart.");
-                                                                                                    /*remove(
-                                                                                                val
-                                                                                                    .product
-                                                                                                    .id
-                                                                                            );*/
+                                                                                                    console.log('coucoucoucou');
+                                                                                                    console.log(tempProps);
+
+                                                                                                    handleAddToCart(
+                                                                                                        tempProps
+                                                                                                    );
+
+                                                                                                    addToast({
+                                                                                                        type: 'info',
+                                                                                                        message: val.product.name + ' added to the cart.',
+                                                                                                        dismissable: true,
+                                                                                                        timeout: 4000
+                                                                                                    });
+                                                                                                   
                                                                                                 }}
                                                                                             >
                                                                                                 <span
@@ -1078,11 +1144,37 @@ const MyWishList = props => {
                                                                                                 id={'move_item_box_'+val.id} 
                                                                                                 className={ classes.move_item_static }>
                                                                                                 <Quantity
-                                                                                                    initialValue={1}
+                                                                                                    initialValue={1} isChildren={1} productId={val.id}
                                                                                                 />
-                                                                                                <button
+                                                                                            <button
                                                                                                 onClick={() => {
-                                                                                                    document.getElementById('move_item_box_'+val.id).style.display='block';
+                                                                                                    var currentQty = document
+                                                                                                        .querySelector(
+                                                                                                            '#move_item_box_' +
+                                                                                                            val.id
+                                                                                                        )
+                                                                                                        .querySelector(
+                                                                                                            'input'
+                                                                                                        )
+                                                                                                        .value;
+
+                                                                                                    const tempProps = {...val.product};
+                                                                                                    tempProps.qty = currentQty;
+
+                                                                                                    console.log('coucoucoucou');
+                                                                                                    console.log(tempProps);
+
+                                                                                                    handleAddToCart(
+                                                                                                        tempProps
+                                                                                                    );
+
+                                                                                                    addToast({
+                                                                                                        type: 'info',
+                                                                                                        message: val.product.name + ' added to the cart.',
+                                                                                                        dismissable: true,
+                                                                                                        timeout: 4000
+                                                                                                    });
+                                                                                                   
                                                                                                 }}
                                                                                             >
                                                                                                 <span

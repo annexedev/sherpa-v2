@@ -18,25 +18,25 @@ import TextInput from '../../TextInput';
 import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
-    const { initialValue, itemId, label, min, onChange, item } = props;
+    const { initialValue, itemId, label, min, onChange, item, isChildren, productId } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
     const talonProps = useQuantity({
         initialValue,
         min,
-        onChange
+        onChange,
+        isChildren,
+        productId
     });
 
-    // console.log(item);
+    console.log(item);
 
     const price = item ? item.prices.price.value : 0;
     const currency = item ? item.prices.price.currency : 'CAD';
 
     const url = window.location.href;
     const cart = url.includes("cart");
-
-
 
     /* Si il y a rabais ( manque prendre les données pour avoir les rabais du produit ) */
     const ProduitDiscount = true;
@@ -86,6 +86,7 @@ export const QuantityFields = props => {
                         disabled={isIncrementDisabled}
                         onClick={handleIncrement}
                         type="button"
+                        id={'plus'+productId}
                     >
                         <Icon classes={iconClasses} src={PlusIcon} size={20} />
                     </button>

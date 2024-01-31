@@ -9,6 +9,21 @@
 .root input {
     padding: 10px;
 }
+.blocQntProduits{
+    margin: 10px 0;
+    color: black;
+    font-weight: 700;
+    background: #8dc74c;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 40px;
+    line-height: 20px;
+    width: 183px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .projectlist {
     margin-left: 75px;
     margin-top: 5px;
@@ -668,6 +683,9 @@ body[class='rtl_view'] .box_actions {
     .account_sideBar {
         flex: 0 0 100%;
         min-width: 100%;
+    }
+    .blocQntProduits{
+        margin-top: 60px;
     }
     .wrapperBtnDropdown{
         gap:0px;
