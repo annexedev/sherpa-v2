@@ -14,6 +14,7 @@ export const ProductListingFragment = gql`
                     }
                 }
             }
+            category
             product {
                 id
                 name

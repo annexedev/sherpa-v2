@@ -103,8 +103,6 @@ const Product = props => {
     });
     // const rootClass = isDeleting ? classes.root_disabled : classes.root;
 
-
-
     return (
         <li className={classes.root}>
             <span className={classes.errorText}>{errorMessage}</span>
