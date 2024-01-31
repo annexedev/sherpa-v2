@@ -303,7 +303,8 @@ export const useProductFullDetail = props => {
             if (isProductConfigurable(product)) {
                 appendOptionsToPayload(payload, optionSelections, optionCodes);
             }
-
+            console.log('payload.item');
+            console.log(payload.item);
             if (isSupportedProductType) {
                 const variables = {
                     cartId,
@@ -652,15 +653,17 @@ export const useCategoryAddToCart = props => {
 
     const handleAddToCart = useCallback(
         async product => {
+
             const productType = product.__typename;
             const payload = {
                 item: product,
                 productType,
-                quantity
+                quantity: product.qty
             };
 
             let addItemMutation;
             // Use the proper mutation for the type.
+
             if (
                 productType === 'SimpleProduct' ||
                 productType === 'VirtualProduct'
@@ -669,6 +672,8 @@ export const useCategoryAddToCart = props => {
             } else if (product.type === 'simple') {
                 addItemMutation = addSimpleProductToCart;
             }
+
+            addItemMutation = addSimpleProductToCart;
 
             await addItemToCart({
                 ...payload,
