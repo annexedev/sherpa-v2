@@ -238,13 +238,12 @@ const CartPage = props => {
 
                                     <>
                                         {itemsWithProject.map(item => (
-                                            item.category.map(project => (
                                                 <div className={classes.items_container_projet}>
                                                     <div className={classes.wrapperProductsWithProject}>
                                                         <h1 className={classes.headingProductsWithProject}>
                                                             <FormattedMessage
                                                                 id={'cartPage.headingProducts'}
-                                                                defaultMessage={project.name}
+                                                                defaultMessage={'project name'}
                                                             />
                                                         </h1>
                                                         <div className={classes.wrapperValeurProduits}>
@@ -256,15 +255,14 @@ const CartPage = props => {
                                                     </div>
 
                                                     {/* il faut verifier si le category est !null si true vient le produit ici*/}
-                                                    {productsWithProject ?
-                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} />
+                                                    {productsWithProject && itemsWithProject ?
+                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} project={true}/>
                                                         :
                                                         <div>
                                                         </div>
 
                                                     }
                                                 </div>
-                                            ))
                                         ))}
                                     </>
                                 )

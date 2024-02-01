@@ -25,13 +25,17 @@ import { ProductListingFragment } from './productListingFragments';
 const EditModal = React.lazy(() => import('./EditModal'));
 
 const ProductListing = props => {
-    const { setIsCartUpdating, projectIds } = props;
+    const { setIsCartUpdating, projectIds, products, project } = props;
     const talonProps = useProductListing({
         queries: {
             getProductListing: GET_PRODUCT_LISTING
         }
     });
     const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
+
+    console.log('**PROJECT', project);
+    console.log('***PRODUCT', products);
+
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -40,21 +44,35 @@ const ProductListing = props => {
     }
 
     if (items.length) {
+        let productComponents = [];
+        console.log('projectIds ' + projectIds);
+        if (project) {
+            productComponents = products.map(product => (
+                <>
+                    <Product
+                        item={product}
+                        key={product.id + 1}
+                        setActiveEditItem={setActiveEditItem}
+                        setIsCartUpdating={setIsCartUpdating}
+                    />
+                </>
 
-        console.log('projectIds '+ projectIds);
+            ));
 
-        const productComponents = items.map(product => (
-            <>
-                <Product
-                    item={product}
-                    key={product.id+1}
-                    setActiveEditItem={setActiveEditItem}
-                    setIsCartUpdating={setIsCartUpdating}
-                />
-            </>
-            
-        ));
+        } else {
+            productComponents = items.map(product => (
 
+                <>
+                    <Product
+                        item={product}
+                        key={product.id + 1}
+                        setActiveEditItem={setActiveEditItem}
+                        setIsCartUpdating={setIsCartUpdating}
+                    />
+                </>
+
+            ));
+        }
         return (
             <Fragment>
                 <ul className={classes.root}>{productComponents}</ul>
