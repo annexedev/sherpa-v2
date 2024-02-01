@@ -154,7 +154,7 @@ const CartPage = props => {
 
     const myprojects = itemsWithProject.length >= 1 ? true : false; /* il faut verifier si il y a des projets */
 
-    const 
+  
 
 
 
