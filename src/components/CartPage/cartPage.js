@@ -60,7 +60,7 @@ const CartPage = props => {
         shouldShowLoadingIndicator
     } = talonProps;
 
-    console.log('CART ITEMS', cartItems);
+    console.log('CART UPDATING', setIsCartUpdating);
 
 
     /* list produits dans le projet */
@@ -154,6 +154,8 @@ const CartPage = props => {
 
     const myprojects = itemsWithProject.length >= 1 ? true : false; /* il faut verifier si il y a des projets */
 
+    const 
+
 
 
     return (
@@ -194,9 +196,7 @@ const CartPage = props => {
                                 {productsWithoutProject &&
                                     <div className={classes.items_container}>
                                         {itemsWithoutProject ?
-                                                itemsWithoutProject.map(item => (
-                                                    <ProductListing setIsCartUpdating={setIsCartUpdating}  />
-                                                ))
+                                            <ProductListing setIsCartUpdating={setIsCartUpdating}  />
                                             :
                                             <div className={classes.noResult}>
                                                 {/* <span className={searchClasses.noResult_icon}>
