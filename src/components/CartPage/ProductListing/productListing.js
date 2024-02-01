@@ -39,23 +39,30 @@ const ProductListing = props => {
     /* TESTE  */
 
     // Array para armazenar os projetos filtrados
-    const projetsFiltre = [];
+    
+    let listOfProjects = [];
+    let projetsFiltre = [];
 
     // Filtrar os projetos com base na quantidade desejada
     products.map((item, index) => {
+        projetsFiltre = [];
+
         item.category.map(projet => {
             let _item = {...item.product, projet_qty: projet.qty};
-            console.log('****_item:', _item)
             if(projetsFiltre.indexOf(projet.category_id) == -1){
                 projetsFiltre[projet.category_id] = _item;
             }else{
                 projetsFiltre[projet.category_id].push(_item);
             }
+            console.log('****projetsFiltre:', projetsFiltre)
         })
+
+        listOfProjects.push(projetsFiltre);
 
     });
 
-    console.log(projetsFiltre);
+    console.log('FIN',listOfProjects);
+    console.log('FIN',projetsFiltre);
 
 
     const classes = mergeClasses(defaultClasses, props.classes);
