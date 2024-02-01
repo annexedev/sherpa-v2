@@ -402,9 +402,9 @@ const Main = props => {
         document.head.appendChild(integrationScript);
     }
 
-    if (window.location.href.indexOf('/myprojects') != -1) {
+    /*if (window.location.href.indexOf('/myprojects') != -1) {
         window.location.replace('/wishlist');
-    }
+    }*/
 
     if (window.location.href.indexOf('/education-landing') != -1) {
         displayEducation = false;

@@ -152,12 +152,8 @@ class SoldIn extends Component {
             <p className={defaultClasses.product_brand_name}>
             <b>
                 <FormattedMessage
-                    id={
-                        'item.partNo'
-                    }
-                    defaultMessage={
-                        'Sold in: '
-                    }
+                    id={'item.partNo'}
+                    defaultMessage={'Sold in: '}
                 />
             </b>
             {soldin}</p>
@@ -378,8 +374,15 @@ const MyWishList = props => {
                     <div className="actions">
                     <button
                         className={classes.button_move_project_yes}
+
                         onClick={() => {
-                        close();
+                            
+                            var elements = document.getElementsByClassName("active_item"+wId);
+                
+                            for (var i = 0; i < elements.length; i++) {
+                                elements[i].click();
+                            } 
+
                         }}
                     >
                         Yes
@@ -680,9 +683,86 @@ const MyWishList = props => {
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
+
+
+    
+
     if (!loading) {
+
         var total = 0;
         let qntProduit = 0;
+
+        /*setTimeout(function() {
+            var elements = document.getElementsByClassName("increment");
+            var elementsD = document.getElementsByClassName("decrement");
+
+            console.log('elementsD');
+            console.log(elementsD);
+
+            for (var i = 0; i < elementsD.length; i++) {
+                elementsD[i].addEventListener('click', myFunctionD, false);
+            }
+    
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].addEventListener('click', myFunction, false);
+            }
+
+        }, 2000);*/
+  
+        
+
+        var myFunction = function() {
+
+            console.log('here ' + this.id);
+
+            if(this.id != 'plus_undefined') {
+
+                var containerIdMinus = this.id;
+                var containerIdMinusComplete = containerIdMinus.replace("plus_", "");
+                
+                var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
+                var futureQty = currentQty + 1;
+                var currentQtySelector = document.querySelector('#move_item_box_' + containerIdMinusComplete).querySelector('input').value;
+
+                console.log(futureQty +' '+currentQty)
+
+                if(futureQty >= currentQty) {
+                    document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
+                } else {
+                    document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
+                }
+
+            }
+
+        };
+    
+        var myFunctionD = function() {
+
+            console.log('there');
+
+            if(this.id != 'minus_undefined') {
+
+                var containerIdMinus = this.id;
+                var containerIdMinusComplete = containerIdMinus.replace("minus_", "");
+                
+                var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
+                var currentQtySelector = document.querySelector('#move_item_box_' + containerIdMinusComplete).querySelector('input').value;
+
+                console.log(currentQtySelector+' '+currentQty)
+
+                if(currentQtySelector - 1 < currentQty) {
+                    document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
+                } else {
+                    document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
+                }
+
+            }
+
+        };
+
+        console.log('val.product');
+        console.log(data);
+
         return (
             <div className={defaultClasses.columns}>
                 <Title>{`My Projects`}</Title>
@@ -1142,7 +1222,7 @@ const MyWishList = props => {
                                                                                             </button>
                                                                                             <div 
                                                                                                 id={'move_item_box_'+val.id} 
-                                                                                                className={ classes.move_item_static }>
+                                                                                                className={ classes.move_item_static + ' move_item_ref' }>
                                                                                                 <Quantity
                                                                                                     initialValue={1} isChildren={1} productId={val.id}
                                                                                                 />

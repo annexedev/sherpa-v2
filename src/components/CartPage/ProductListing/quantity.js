@@ -30,7 +30,7 @@ export const QuantityFields = props => {
         productId
     });
 
-    console.log(item);
+    console.log('PROD ID : '+productId);
 
     const price = item ? item.prices.price.value : 0;
     const currency = item ? item.prices.price.currency : 'CAD';
@@ -50,7 +50,6 @@ export const QuantityFields = props => {
         maskInput
     } = talonProps;
 
-
     return (
         <div className={cart ? [classes.root, classes.rootCart].join(' ') : classes.root }>
             {/* <label className={classes.label} htmlFor={itemId}>
@@ -60,10 +59,11 @@ export const QuantityFields = props => {
                 <div className={classes.qty_inner_wrap + ' ' + classes.wrap}>
                     <button
                         aria-label={'Decrease Quantity'}
-                        className={classes.button_decrement}
+                        className={classes.button_decrement+' decrement'}
                         disabled={isDecrementDisabled}
                         onClick={handleDecrement}
                         type="button"
+                        id={'minus_'+productId}
                     >
                         <Icon classes={iconClasses} src={MinusIcon} size={22} />
                     </button>
@@ -82,11 +82,11 @@ export const QuantityFields = props => {
                     </div>
                     <button
                         aria-label={'Increase Quantity'}
-                        className={classes.button_increment}
+                        className={classes.button_increment+' increment'}
                         disabled={isIncrementDisabled}
                         onClick={handleIncrement}
                         type="button"
-                        id={'plus'+productId}
+                        id={'plus_'+productId}
                     >
                         <Icon classes={iconClasses} src={PlusIcon} size={20} />
                     </button>
@@ -109,7 +109,11 @@ export const QuantityFields = props => {
             }
         </div>
     );
+
+
 };
+
+
 
 const Quantity = props => {
     return (

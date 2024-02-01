@@ -26,6 +26,7 @@ const Product = props => {
     const [loaderName, setLoaderName] = useState('');
     const { email } = useDashboard();
     const [, { addToast }] = useToasts();
+    const [productName, setProductName] = useState('');
     let productUrlSuffix = '';
     var image = resourceUrl(value['image'], {
         type: 'image-product',
@@ -278,6 +279,25 @@ const Product = props => {
                                                             value.name
                                                         );
                                                     }}
+
+                                                    /*onClick={() => {
+                                                        // console.log(item);
+                                                        setProductName(
+                                                            value.name
+                                                        ),
+                                                            handleAddToCart({
+                                                                quantity: document
+                                                                    .querySelector(
+                                                                        '.c' +
+                                                                            value.id
+                                                                    )
+                                                                    .querySelector(
+                                                                        '.quantity-display'
+                                                                    ).value,
+                                                                value
+                                                            });
+                                                    }}*/
+
                                                 >
                                                     <FormattedMessage
                                                         id={
