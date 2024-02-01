@@ -25,6 +25,7 @@
   <link rel="preload" href="/cenia-static/fonts/Jost-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <script src="//code.tidio.co/lkmxnhgge8hf2csbej2fog3du6bcwvdq.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+  <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'/>
   <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -174,6 +175,83 @@ section.team-page-section .w-100{
 .carousel .control-dots .dot.selected, .carousel .control-dots .dot:hover {
     background-color: #8dc74c !important;
 }
+
+.accordion {
+  max-width: 100%;
+  margin: 0 auto;
+  border-bottom:1px solid #efefef;
+}
+.accordion input{
+  display: none;
+}
+.accordion input + label {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1em;
+  padding: 10px;
+  color: #262626;
+  background: #fff;
+  border-top:1px solid #efefef;
+}
+.accordion label i {
+  font-size: 0.9em;
+  position: absolute;
+  left: 15px;
+  top: 14px;
+}
+.accordion label i.fa-chevron-down {
+  right: 20px;
+  left: auto;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+ -o-transition: all 0.3s ease;
+ transition: all 0.3s ease;
+}
+.accordion input:checked + label i.fa-chevron-down{
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+ -ms-transform: rotate(180deg);
+ -o-transform: rotate(180deg);
+ transform: rotate(180deg);
+}
+.accordion .item {
+  transform: scaleY(0);
+  transform-origin: top;
+  max-height: 0px;
+  overflow: hidden;
+  position: relative;
+  padding: 0 15px;
+  font-weight: normal;
+  font-size: 16px;
+  background: #fafafa;
+  color: #333333;
+  transition: all 0.3s ease-in-out;
+}
+#item1:checked ~ #content1,
+#item2:checked ~ #content2,
+#item3:checked ~ #content3,
+#item4:checked ~ #content4,
+#item5:checked ~ #content5,
+#item6:checked ~ #content6,
+#item7:checked ~ #content7,
+#item8:checked ~ #content8,
+#item9:checked ~ #content9
+{
+  max-height: 750px;
+  transform: scaleY(1);
+}
+.accordion .item p {
+  padding: 10px 0;
+  margin: 0;
+}
+
+.mb-0 {
+  margin-bottom: 0px
+}
+
+
 @media only screen and (min-width: 992px){
     section.team-page-section .team-item .team-flex{
         height:700px

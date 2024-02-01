@@ -21,7 +21,7 @@ class OrderTotal extends Component {
         let orderNumber = this.props.cid;
         let dataURL =
             'https://data.sherpagroupav.com/get_order.php?cid=' + orderNumber;
-        console.log(dataURL);
+        //console.log(dataURL);
         fetch(dataURL)
             .then(res => res.json())
             .then(res => {
@@ -105,7 +105,7 @@ const OrderConfirmationPage = props => {
     const nameString = `${firstname} ${lastname}`;
     const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;
 
-    console.log(orderNumber);
+    // console.log(orderNumber);
 
     return (
         <div

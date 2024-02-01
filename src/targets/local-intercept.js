@@ -19,6 +19,11 @@ module.exports = targets => {
                 path: require.resolve('../components/MyAccount/mywishlist.js')
             },
             {
+                name: 'My Wishlist',
+                pattern: '/myprojects',
+                path: require.resolve('../components/MyAccount/mywishlist.js')
+            },
+            {
                 name: 'Address Book',
                 pattern: '/addresses',
                 path: require.resolve('../components/MyAccount/addressbook.js')

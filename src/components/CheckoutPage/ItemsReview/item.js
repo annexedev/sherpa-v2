@@ -34,7 +34,7 @@ const Item = props => {
     });
 
     //let productPrice = product.price_range.minimum_price.final_price.value;
-    // console.log(product);
+    console.log(product);
     return (
         <div className={className}>
             <Image
@@ -85,12 +85,13 @@ const Item = props => {
                     id={'checkoutPage.partNumber'}
                     defaultMessage={'Price :'}
                 />
-                <Price
+                
+                {/*<Price
                     value={product.price_range.minimum_price.final_price.value.toFixed(
                         2
                     )}
                     currencyCode="CAD"
-                />
+                    /> */}
             </span>
         </div>
     );
