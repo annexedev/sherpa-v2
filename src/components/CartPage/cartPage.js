@@ -81,7 +81,6 @@ const CartPage = props => {
     const [productsWithoutProject, setProductsWithoutProject] = useState(false);
     const [productsWithProject, setProductsWithProject] = useState(false);
 
-    const totalPriceProductsWithoutProject = cartItems.reduce((total, product) => total + product.prices.price.value, 0).toFixed(2);
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const { crossSellData } = useCrossSellProduct({
@@ -149,13 +148,21 @@ const CartPage = props => {
     const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
     const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
 
+    const projectsDansPanier = itemsWithProject.map(project => project.category.map(item => item));
+
+    console.log(projectsDansPanier);
+
     console.log('ITEMS WITH PROJECT', itemsWithProject);
     console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
 
     const myprojects = itemsWithProject.length >= 1 ? true : false; /* il faut verifier si il y a des projets */
 
-  
+    const qntyProjects = itemsWithProject.map(project => (project.category.length))
 
+    const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
+
+
+    console.log(totalPriceProductsWithoutProject);
 
 
     return (
@@ -187,7 +194,7 @@ const CartPage = props => {
                                         />
                                     </h1>
                                     <div className={classes.wrapperValeurProduits}>
-                                        <span>{cartItems.length} products</span>
+                                        <span>{itemsWithoutProject.length} products</span>
                                         <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                         <span>$ {totalPriceProductsWithoutProject}</span>
                                         <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
@@ -196,7 +203,7 @@ const CartPage = props => {
                                 {productsWithoutProject &&
                                     <div className={classes.items_container}>
                                         {itemsWithoutProject ?
-                                            <ProductListing setIsCartUpdating={setIsCartUpdating}  />
+                                            <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithoutProject} cart={true} />
                                             :
                                             <div className={classes.noResult}>
                                                 {/* <span className={searchClasses.noResult_icon}>
@@ -228,7 +235,7 @@ const CartPage = props => {
                                             />
                                         </h1>
                                         <div className={classes.wrapperValeurProduits}>
-                                            <span>0 products</span>
+                                            <span>{projectsDansPanier[0].length} projects</span>
                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                             <span>Valeur</span>
                                         </div>
@@ -237,17 +244,17 @@ const CartPage = props => {
                                 {myprojects && itemsWithProject.length >= 1 && (
 
                                     <>
-                                        {itemsWithProject.map(item => (
+                                        {projectsDansPanier[0].map(item => (
                                                 <div className={classes.items_container_projet}>
                                                     <div className={classes.wrapperProductsWithProject}>
                                                         <h1 className={classes.headingProductsWithProject}>
                                                             <FormattedMessage
                                                                 id={'cartPage.headingProducts'}
-                                                                defaultMessage={'project name'}
+                                                                defaultMessage={item.category_name}
                                                             />
                                                         </h1>
                                                         <div className={classes.wrapperValeurProduits}>
-                                                            <span>0 products</span>
+                                                            <span>{item.qty} products</span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                                             <span>Valeur</span>
                                                             <span onClick={() => { setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
@@ -256,7 +263,7 @@ const CartPage = props => {
 
                                                     {/* il faut verifier si le category est !null si true vient le produit ici*/}
                                                     {productsWithProject && itemsWithProject ?
-                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} project={true}/>
+                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true}/>
                                                         :
                                                         <div>
                                                         </div>
