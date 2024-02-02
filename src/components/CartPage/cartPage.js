@@ -152,7 +152,7 @@ const CartPage = props => {
 
     // console.log('LIST OF PROJECTS',listOfProjects);
 
-    // console.log('ITEMS WITH PROJECT', itemsWithProject);
+    console.log('ITEMS WITH PROJECT', itemsWithProject);
     // console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
 
     const myprojects = itemsWithProject.length >= 1 ? true : false; /* il faut verifier si il y a des projets */
@@ -164,6 +164,43 @@ const CartPage = props => {
 
     // console.log(totalPriceProductsWithoutProject);
 
+    let productsFiltre = [];
+    let productsParProjet = [];
+
+    // Filtrar os projetos com base na quantidade desejada
+    itemsWithProject.map(item => {
+
+        item.category.map(projet => {
+            // console.log(projet);
+            let _item = { ...item.product, projet_qty: projet.qty, productID: projet.product_id, projetID: projet.category_id, projetNom: projet.category_name, prices: item.prices };
+            productsFiltre.push(_item)
+        })
+
+    });
+
+    // console.log('FIN', productsFiltre);
+
+    // Agrupando os itens por ID do projeto
+    const itensParProjets = productsFiltre.reduce((groupe, produit) => {
+        // Verifica se já existe uma chave com o ID do projeto
+        if (!groupe[produit.projetNom]) {
+            // Se não existe, cria uma nova chave com o ID do projeto e inicia com um array vazio
+            groupe[produit.projetNom] = [];
+        }
+        // console.log(groupe);
+        // Adiciona o item ao array correspondente ao ID do projeto
+        groupe[produit.projetNom].push(produit);
+        return groupe;
+    }, {});
+
+    // console.log(itensParProjets);
+
+    // productsParProjet.push(itensAgrupadosPorProjeto);
+    const arrayItensParProjets = Object.keys(itensParProjets).map((key) => {
+        return { [key]: itensParProjets[key] }
+     });
+
+    console.log(arrayItensParProjets);
 
     return (
         <div className={'container' + ' ' + defaultClasses.cart_page_container}>
@@ -244,13 +281,14 @@ const CartPage = props => {
                                 {myprojects && itemsWithProject.length >= 1 && (
 
                                     <>
-                                        {listOfProjects.map(item => (
+                                        {arrayItensParProjets.map(item => (
+                                           
                                                 <div className={classes.items_container_projet}>
                                                     <div className={classes.wrapperProductsWithProject}>
                                                         <h1 className={classes.headingProductsWithProject}>
                                                             <FormattedMessage
                                                                 id={'cartPage.headingProducts'}
-                                                                defaultMessage={item.category_name}
+                                                                defaultMessage={Object.keys(item)[0]}
                                                             />
                                                         </h1>
                                                         <div className={classes.wrapperValeurProduits}>
@@ -263,11 +301,10 @@ const CartPage = props => {
 
                                                     {/* il faut verifier si le category est !null si true vient le produit ici*/}
                                                     {productsWithProject && itemsWithProject ?
-                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} projects={listOfProjects}/>
+                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} projects={listOfProjects} product={item}/>
                                                         :
                                                         <div>
                                                         </div>
-
                                                     }
                                                 </div>
                                         ))}
