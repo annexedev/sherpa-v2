@@ -293,7 +293,7 @@ const MyWishList = props => {
 
     const wId = queryParameters.get('id');
 
-    // console.log('WID ' + wId);
+    console.log('WID ' + wId);
 
     const remove = async id => {
         await handleRemoveItem({ product_id: id });

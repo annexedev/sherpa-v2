@@ -34,7 +34,7 @@ const ProductListing = props => {
     const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
 
     // console.log('**PROJECT', cart);
-    // console.log('***PRODUCT', product);
+    console.log('***PRODUCT', products);
 
     const arrayProduct = Object.keys(product).map((key) => {
         return { [key]: product[key] }
@@ -92,17 +92,17 @@ const ProductListing = props => {
         let productComponents = [];
         console.log('projectIds ' + projectIds);
         if (cart) {
-            productComponents = products.map(product => (
-                <>
+            // productComponents = products.map(product => (
+            //     <>
                     <Product
                         item={product}
                         key={product.id + 1}
                         setActiveEditItem={setActiveEditItem}
                         setIsCartUpdating={setIsCartUpdating}
                     />
-                </>
+                // </>
 
-            ));
+            // ));
 
         } else {
             productComponents = items.map(product => (
