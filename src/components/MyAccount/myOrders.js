@@ -840,7 +840,7 @@ const MyOrders = props => {
                                                 <br/>
                                                 <Link
                                                     className={defaultClasses.btnPurchase}
-                                                    to={resourceUrl('/wishlist?id='+isProject)}
+                                                    to={resourceUrl('/myprojects?id='+isProject)}
                                                 >Return to project</Link>
                                                 <br/><br/>
                                             </div>

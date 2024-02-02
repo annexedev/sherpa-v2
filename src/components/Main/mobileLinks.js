@@ -154,7 +154,7 @@ const MobileLinks = props => {
     };
     const handleWishlist = () => {
         if (isSignedIn) {
-            history.push('/wishlist'), setActiveClass('wishlist');
+            history.push('/myprojects'), setActiveClass('wishlist');
         } else {
             handleOpenNavigation();
         }

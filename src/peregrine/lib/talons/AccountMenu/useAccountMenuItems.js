@@ -50,7 +50,7 @@ export const useAccountMenuItems = props => {
             {
                 name: 'My Projects',
                 id: 'My Projects',
-                url: '/wishlist'
+                url: '/myprojects'
             },
             {
                 name: 'Address Book',
@@ -78,7 +78,7 @@ export const useAccountMenuItems = props => {
             {
                 name: 'My Projects',
                 id: 'My Projects',
-                url: '/wishlist'
+                url: '/myprojects'
             }, 
             {
                 name: 'Address Book',

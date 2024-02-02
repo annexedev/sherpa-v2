@@ -73,7 +73,7 @@ class ProjectLink extends Component {
                             ' ' +
                             classes.header_Actions_image
                         }
-                        to="/wishlist"
+                        to="/myprojects"
                     >
                         <span aria-hidden="true">
                             <FormattedMessage
