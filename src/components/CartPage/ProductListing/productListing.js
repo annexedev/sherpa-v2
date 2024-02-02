@@ -25,7 +25,7 @@ import { ProductListingFragment } from './productListingFragments';
 const EditModal = React.lazy(() => import('./EditModal'));
 
 const ProductListing = props => {
-    const { setIsCartUpdating, projectIds, products, cart } = props;
+    const { setIsCartUpdating, projectIds, products, cart, projects } = props;
     const talonProps = useProductListing({
         queries: {
             getProductListing: GET_PRODUCT_LISTING
@@ -33,36 +33,29 @@ const ProductListing = props => {
     });
     const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
 
-    console.log('**PROJECT', cart);
-    console.log('***PRODUCT', products);
+    // console.log('**PROJECT', cart);
+    // console.log('***PRODUCT', products);
 
     /* TESTE  */
 
     // Array para armazenar os projetos filtrados
     
-    let listOfProjects = [];
-    let projetsFiltre = [];
+    let productsFiltre = [];
 
     // Filtrar os projetos com base na quantidade desejada
-    products.map((item, index) => {
-        projetsFiltre = [];
+    products.map(item => {
 
         item.category.map(projet => {
-            let _item = {...item.product, projet_qty: projet.qty};
-            if(projetsFiltre.indexOf(projet.category_id) == -1){
-                projetsFiltre[projet.category_id] = _item;
-            }else{
-                projetsFiltre[projet.category_id].push(_item);
-            }
-            console.log('****projetsFiltre:', projetsFiltre)
+            let _item = {...item.product, projet_qty: projet.qty, productID : projet.product_id, projetID: projet.category_id};
+            productsFiltre.push(_item)
         })
-
-        listOfProjects.push(projetsFiltre);
-
     });
 
-    console.log('FIN',listOfProjects);
-    console.log('FIN',projetsFiltre);
+    console.log('FIN',productsFiltre);
+
+    // productsFiltre.map(item => {
+    //     console.log(item);
+    // })
 
 
     const classes = mergeClasses(defaultClasses, props.classes);

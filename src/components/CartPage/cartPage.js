@@ -60,7 +60,6 @@ const CartPage = props => {
         shouldShowLoadingIndicator
     } = talonProps;
 
-    console.log('CART UPDATING', setIsCartUpdating);
 
 
     /* list produits dans le projet */
@@ -143,17 +142,18 @@ const CartPage = props => {
         };
     });
 
-    console.log('ITEMS JSON', cartItemsJSON);
+    // console.log('ITEMS JSON', cartItemsJSON);
 
     const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
     const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
+    let listOfProjects = [];
 
-    const projectsDansPanier = itemsWithProject.map(project => project.category.map(item => item));
+    const projectsDansPanier = itemsWithProject.map(project => project.category.map(item => listOfProjects.push(item)));
 
-    console.log(projectsDansPanier);
+    // console.log('LIST OF PROJECTS',listOfProjects);
 
-    console.log('ITEMS WITH PROJECT', itemsWithProject);
-    console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
+    // console.log('ITEMS WITH PROJECT', itemsWithProject);
+    // console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
 
     const myprojects = itemsWithProject.length >= 1 ? true : false; /* il faut verifier si il y a des projets */
 
@@ -162,7 +162,7 @@ const CartPage = props => {
     const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
 
 
-    console.log(totalPriceProductsWithoutProject);
+    // console.log(totalPriceProductsWithoutProject);
 
 
     return (
@@ -244,7 +244,7 @@ const CartPage = props => {
                                 {myprojects && itemsWithProject.length >= 1 && (
 
                                     <>
-                                        {projectsDansPanier[0].map(item => (
+                                        {listOfProjects.map(item => (
                                                 <div className={classes.items_container_projet}>
                                                     <div className={classes.wrapperProductsWithProject}>
                                                         <h1 className={classes.headingProductsWithProject}>
@@ -263,7 +263,7 @@ const CartPage = props => {
 
                                                     {/* il faut verifier si le category est !null si true vient le produit ici*/}
                                                     {productsWithProject && itemsWithProject ?
-                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true}/>
+                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} projects={listOfProjects}/>
                                                         :
                                                         <div>
                                                         </div>
