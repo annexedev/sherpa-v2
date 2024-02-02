@@ -44,6 +44,7 @@ import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard'
 const Banner = React.lazy(() => import('../CedHome/banner'));
 const categoryBannerIdentifierHome = 'projects_instructions';
 let showCategoryBanners = true;
+let projectname = "";
 
 class ProjectName extends Component {
     constructor() {
@@ -64,10 +65,11 @@ class ProjectName extends Component {
                     pageData: res
                 });
             });
+
     }
 
     render() {
-        let projectname =
+        projectname =
             this.state.pageData.pname && this.state.pageData.pname;
         return (
             <React.Fragment>
@@ -288,7 +290,7 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
-// console.log(MpBetterWishlistGetCategories);
+ //console.log(MpBetterWishlistGetCategories);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
@@ -1168,12 +1170,15 @@ const MyWishList = props => {
 
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
+                                                                                                    tempProps.cartItemId = wId;
+                                                                                                    tempProps.categoryName = projectname ;
+
 
                                                                                                     console.log('coucoucoucou');
                                                                                                     console.log(tempProps);
 
                                                                                                     handleAddToCart(
-                                                                                                        tempProps
+                                                                                                        tempProps , "ttttttttt"
                                                                                                     );
 
                                                                                                     addToast({

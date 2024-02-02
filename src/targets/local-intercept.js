@@ -21,7 +21,7 @@ module.exports = targets => {
             {
                 name: 'My Wishlist',
                 pattern: '/myprojects',
-                path: require.resolve('../components/MyAccount/mywishlist.js')
+                path: 'src/components/MyAccount/mywishlist.js'
             },
             {
                 name: 'Address Book',
