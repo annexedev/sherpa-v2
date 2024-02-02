@@ -1170,7 +1170,7 @@ const MyWishList = props => {
 
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
-                                                                                                    tempProps.cartItemId = wId;
+                                                                                                    tempProps.categoryId = wId;
                                                                                                     tempProps.categoryName = projectname ;
 
 
