@@ -67,6 +67,7 @@ class ProjectName extends Component {
                     pageData: res
                 });
             });
+
     }
 
     render() {
@@ -426,12 +427,12 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
-// console.log(MpBetterWishlistGetCategories);
+ //console.log(MpBetterWishlistGetCategories);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
 
-    // console.log('WID ' + wId);
+    console.log('WID ' + wId);
 
     const remove = async id => {
         await handleRemoveItem({ product_id: id });
@@ -1451,12 +1452,15 @@ const MyWishList = props => {
 
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
+                                                                                                    tempProps.categoryId = wId;
+                                                                                                    tempProps.categoryName = projectname ;
+
 
                                                                                                     console.log('coucoucoucou');
                                                                                                     console.log(tempProps);
 
                                                                                                     handleAddToCart(
-                                                                                                        tempProps
+                                                                                                        tempProps , "ttttttttt"
                                                                                                     );
 
                                                                                                     addToast({
@@ -1533,6 +1537,8 @@ const MyWishList = props => {
 
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
+                                                                                                    tempProps.categoryId = wId;
+                                                                                                    tempProps.categoryName = projectname ;
 
                                                                                                     tempProps.category = 'BINGO';
 

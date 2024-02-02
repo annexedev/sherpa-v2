@@ -6,114 +6,104 @@ module.exports = targets => {
             {
                 name: 'My Account',
                 pattern: '/account/:who?',
-                path: require.resolve('../components/MyAccount/account.js')
+                path: 'src/components/MyAccount/account.js'
             },
             {
                 name: 'My Orders',
                 pattern: '/orders',
-                path: require.resolve('../components/MyAccount/myOrders.js')
+                path: 'src/components/MyAccount/myOrders.js'
             },
             {
                 name: 'My Wishlist',
                 pattern: '/wishlist',
-                path: require.resolve('../components/MyAccount/mywishlist.js')
+                path: 'src/components/MyAccount/mywishlist.js'
             },
             {
                 name: 'My Wishlist',
                 pattern: '/myprojects',
-                path: require.resolve('../components/MyAccount/mywishlist.js')
+                path: 'src/components/MyAccount/mywishlist.js'
             },
             {
                 name: 'Address Book',
                 pattern: '/addresses',
-                path: require.resolve('../components/MyAccount/addressbook.js')
+                path: 'src/components/MyAccount/addressbook.js'
             },
             {
                 name: 'My Reviews',
                 pattern: '/reviews',
-                path: require.resolve(
-                    '../components/MyAccount/productReviews.js'
-                )
+                path: 'src/components/MyAccount/productReviews.js'
             },
             {
                 name: 'Newsletter Subscriptions',
                 pattern: '/newsletter',
-                path: require.resolve('../components/MyAccount/newsletter.js')
+                path: 'src/components/MyAccount/newsletter.js'
             },
             {
                 name: 'Account Information',
                 pattern: '/profile',
-                path: require.resolve(
-                    '../components/MyAccount/accountinformation.js'
-                )
+                path: 'src/components/MyAccount/accountinformation.js'
             },
             {
                 name: 'Order Details',
                 pattern: '/orderview/:who?',
-                path: require.resolve('../components/MyAccount/myOrderView.js')
+                path: 'src/components/MyAccount/myOrderView.js'
             },
             {
                 name: 'New Address',
                 pattern: '/address/new',
-                path: require.resolve('../components/MyAccount/newAddress.js')
+                path: 'src/components/MyAccount/newAddress.js'
             },
             {
                 name: 'Edit Address',
                 pattern: '/address/edit/:who?',
-                path: require.resolve('../components/MyAccount/editAddress.js')
+                path: 'src/components/MyAccount/editAddress.js'
             },
             {
                 name: 'Print Order',
                 pattern: '/printorder/:orderid?',
-                path: require.resolve('../components/MyAccount/printOrder.js')
+                path: 'src/components/MyAccount/printOrder.js'
             },
             {
                 name: 'Invoice',
                 pattern: '/invoice/:orderid?',
-                path: require.resolve('../components/MyAccount/invoice.js')
+                path: 'src/components/MyAccount/invoice.js'
             },
             {
                 name: 'Shipment',
                 pattern: '/shipment/:orderid?',
-                path: require.resolve('../components/MyAccount/shipments.js')
+                path: 'src/components/MyAccount/shipments.js'
             },
             {
                 name: 'Contact',
                 pattern: '/contact',
-                path: require.resolve('../components/ContactUs/contact.js')
+                path: 'src/components/ContactUs/contact.js'
             },
             {
                 name: 'paypal-review',
                 pattern: '/paypal-review',
-                path: require.resolve(
-                    '../components/CheckoutPage/paypalReview.js'
-                )
+                path: 'src/components/CheckoutPage/paypalReview.js'
             },
             {
                 name: 'Refund',
                 pattern: '/refunds/:orderid?',
-                path: require.resolve('../components/MyAccount/refunds.js')
+                path: 'src/components/MyAccount/refunds.js'
             },
             {
                 name: 'Confirmation',
                 pattern: '/customer/account/confirm',
-                path: require.resolve(
-                    '../components/AccountConfirmation/accountConfirmation.js'
-                )
+                path: 'src/components/AccountConfirmation/accountConfirmation.js'
             },
             {
                 name: 'Confirmation',
                 pattern: '/customer/account/confirmation',
-                path: require.resolve(
-                    '../components/AccountConfirmation/sendConfirmationLink.js'
-                )
+                path: 'src/components/AccountConfirmation/sendConfirmationLink.js'
             },
             {
                 name: 'Compare Products',
                 pattern: '/compare_products',
-                path: require.resolve('../components/Compare/compare.js')
+                path: 'src/components/Compare/compare.js'
             }
-        );
+            );
         return routes;
     });
 

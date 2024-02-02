@@ -138,6 +138,7 @@
 .items_container_projet{
     grid-area: items;
     border: 1px solid #EBEBEB;
+    margin: 0 0 20px 0;
 }
 /* .items_container_projet :first-child{
     margin-bottom:0 !important;

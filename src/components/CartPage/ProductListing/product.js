@@ -70,7 +70,9 @@ const Product = props => {
         productUrlSuffix = urlSuffix;
     }
 
+    console.log(item);
     console.log(product);
+    
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const editItemSection = isEditable ? (
@@ -146,7 +148,7 @@ const Product = props => {
                         />
                     )}
                     <span><strong>Part #</strong> {product.sku}</span>
-                    <span><strong>Brand:</strong> Brand Name</span>
+                    <span><strong>Brand:</strong> {product.name}</span>
                     <span><strong>Sold in:</strong> Each</span>
                     {/* <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />
