@@ -33,36 +33,53 @@ const ProductListing = props => {
     });
     const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
 
-    console.log('**PROJECT', cart);
+    // console.log('**PROJECT', cart);
     console.log('***PRODUCT', products);
+
+    // const arrayProduct = Object.keys(product).map((key) => {
+    //     return { [key]: product[key] }
+    //  });
+
+    //  console.log(arrayProduct);
 
     /* TESTE  */
 
     // Array para armazenar os projetos filtrados
-    
-    let listOfProjects = [];
-    let projetsFiltre = [];
 
-    // Filtrar os projetos com base na quantidade desejada
-    products.map((item, index) => {
-        projetsFiltre = [];
+    // let productsFiltre = [];
+    // let productsParProjet = [];
 
-        item.category.map(projet => {
-            let _item = {...item.product, projet_qty: projet.qty};
-            if(projetsFiltre.indexOf(projet.category_id) == -1){
-                projetsFiltre[projet.category_id] = _item;
-            }else{
-                projetsFiltre[projet.category_id].push(_item);
-            }
-            console.log('****projetsFiltre:', projetsFiltre)
-        })
+    // // Filtrar os projetos com base na quantidade desejada
+    // products.map(item => {
 
-        listOfProjects.push(projetsFiltre);
+    //     item.category.map(projet => {
+    //         let _item = { ...item.product, projet_qty: projet.qty, productID: projet.product_id, projetID: projet.category_id };
+    //         productsFiltre.push(_item)
+    //         // productsFiltre.map(item => item.filter())
+    //     })
 
-    });
+    // });
 
-    console.log('FIN',listOfProjects);
-    console.log('FIN',projetsFiltre);
+    // console.log('FIN', productsFiltre);
+
+    // // Agrupando os itens por ID do projeto
+    // const itensAgrupadosPorProjeto = productsFiltre.reduce((agrupado, produit) => {
+    //     // Verifica se já existe uma chave com o ID do projeto
+    //     if (!agrupado[produit.projetID]) {
+    //         // Se não existe, cria uma nova chave com o ID do projeto e inicia com um array vazio
+    //         agrupado[produit.projetID] = [];
+    //     }
+    //     // Adiciona o item ao array correspondente ao ID do projeto
+    //     agrupado[produit.projetID].push(produit);
+    //     return agrupado;
+    // }, {});
+
+    // console.log(itensAgrupadosPorProjeto);
+
+
+    // productsFiltre.map(item => {
+    //     console.log(item);
+    // })
 
 
     const classes = mergeClasses(defaultClasses, props.classes);

@@ -71,6 +71,8 @@ const Product = props => {
     }
 
     console.log(item);
+    console.log(product);
+    
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const editItemSection = isEditable ? (
