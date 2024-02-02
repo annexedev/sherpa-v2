@@ -301,7 +301,7 @@ const CartPage = props => {
 
                                                     {/* il faut verifier si le category est !null si true vient le produit ici*/}
                                                     {productsWithProject && itemsWithProject ?
-                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} projects={listOfProjects} product={item}/>
+                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} />
                                                         :
                                                         <div>
                                                         </div>
