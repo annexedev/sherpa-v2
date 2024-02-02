@@ -178,7 +178,7 @@ const CartPage = props => {
 
     });
 
-    // console.log('FIN', productsFiltre);
+    console.log('FIN', productsFiltre);
 
     // Agrupando os itens por ID do projeto
     const itensParProjets = productsFiltre.reduce((groupe, produit) => {
@@ -187,13 +187,13 @@ const CartPage = props => {
             // Se não existe, cria uma nova chave com o ID do projeto e inicia com um array vazio
             groupe[produit.projetNom] = [];
         }
-        // console.log(groupe);
+        console.log(produit);
         // Adiciona o item ao array correspondente ao ID do projeto
         groupe[produit.projetNom].push(produit);
         return groupe;
     }, {});
 
-    // console.log(itensParProjets);
+    console.log(itensParProjets);
 
     // productsParProjet.push(itensAgrupadosPorProjeto);
     const arrayItensParProjets = Object.keys(itensParProjets).map((key) => {
