@@ -39,12 +39,13 @@ import Icon from '../Icon';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
-
+import { Price } from '@magento/peregrine';
 
 const Banner = React.lazy(() => import('../CedHome/banner'));
 const categoryBannerIdentifierHome = 'projects_instructions';
 let showCategoryBanners = true;
-let projectname = "";
+
+
 
 class ProjectName extends Component {
     constructor() {
@@ -53,6 +54,7 @@ class ProjectName extends Component {
             pageData: []
         };
     }
+    
 
     componentDidMount() {
         let cid = this.props.cid;
@@ -69,8 +71,7 @@ class ProjectName extends Component {
     }
 
     render() {
-        projectname =
-            this.state.pageData.pname && this.state.pageData.pname;
+        let projectname = this.state.pageData.pname && this.state.pageData.pname;
         return (
             <React.Fragment>
                 - <span id="widn" className={defaultClasses.nomProject}>{projectname}</span>
@@ -102,12 +103,140 @@ class BrandName extends Component {
     }
 
     render() {
+        console.log('UPDATED');
         let brandname = this.state.pageData.brandname && this.state.pageData.brandname;
         if(brandname) {
         return (
             <p className={defaultClasses.product_brand_name}>{brandname}</p>
         ) } else {
             return(<></>);
+        }
+    }
+}  
+
+class IsInCart extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+
+    componentDidMount() {
+        let productId = this.props.pid;
+        let email = this.props.email;
+        let cid = this.props.cid;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_projectsitemincart.php?pid='+productId+'&email='+email+'&cid=' + cid;
+        console.log(dataURL);
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+    }
+
+    render() {
+        let additional_data = this.state.pageData.additional_data && this.state.pageData.additional_data;
+        if(additional_data && additional_data != 'undefined' && additional_data >= 0) {
+            return(
+                <>
+                    <div className={defaultClasses.ribbon_wrapper}>
+                    <div className={defaultClasses.ribbon}>{additional_data} in cart</div>
+                    </div>
+                </>
+                );
+        } else {
+            return(<></>);
+        }   
+    }
+}  
+
+class SpecialPrice extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+
+    componentDidMount() {
+        let productId = this.props.productId;
+        
+        let dataURL = 'https://data.sherpagroupav.com/get_newfromandto_project.php?pid=' + productId;
+        console.log(dataURL);
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+    }
+
+    render() {
+        let regularPrice = this.props.regularPrice;
+        let special_price = this.state.pageData.special_price && this.state.pageData.special_price;
+        if(special_price > 0) {
+        return (
+            <>
+                <span
+                    className={
+                        defaultClasses.productPrice +
+                        ' ' +
+                        defaultClasses.greenprice
+                    }
+                >   
+                    <span className={defaultClasses.yourcost}>
+                    <FormattedMessage
+                        id={'item.yourCost'}
+                        defaultMessage={'YOUR COST'}
+                    />
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                    <Price
+                        currencyCode={'CAD'}
+                        value={special_price}
+                    />
+                </span>
+                <span
+                    className={
+                        defaultClasses.productPrice +
+                        ' ' +
+                        defaultClasses.regularprice +
+                        ' ' +
+                        defaultClasses.discountedprice
+                    }
+                >
+                    <Price
+                        currencyCode={'CAD'}
+                        value={regularPrice}
+                    />
+                </span>
+            </>
+        ) } else {
+            return(
+            <>
+                <span
+                    className={
+                        defaultClasses.productPrice
+                    }
+                >   
+                    <span className={defaultClasses.yourcost}>
+                    <FormattedMessage
+                        id={'item.yourCost'}
+                        defaultMessage={'YOUR COST'}
+                    />
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                    <Price
+                        currencyCode={'CAD'}
+                        value={regularPrice}
+                    />
+                </span>
+            </>);
         }
     }
 }  
@@ -212,7 +341,11 @@ const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
     //window.location.href="/";
+    const [seed, setSeed] = useState(1);
 
+    const reset = () => {
+        setSeed(Math.random());
+    }
     const { email } = useDashboard();
 
     const url = window.location.href;
@@ -274,6 +407,10 @@ const MyWishList = props => {
         createCartMutation: CREATE_CART_MUTATION,
         getCartDetailsQuery: GET_CART_DETAILS_QUERY
     });
+
+    console.log('getCartDetailsQuery');
+    console.log(catProps);
+
     const { handleAddToCart } = catProps;
     let productUrlSuffix = '';
 
@@ -320,6 +457,8 @@ const MyWishList = props => {
         }
     }, [addToast, removeMsg, removeResponse, refetch]);
 
+    // removed product_id
+
     const TOGGLE_LIKED_PHOTO = gql`
         mutation($category_name: String!) {
             MpBetterWishlistCreateCategory(
@@ -331,7 +470,6 @@ const MyWishList = props => {
                 items {
                     added_at
                     description
-                    product_id
                     qty
                     store_id
                     wishlist_item_id
@@ -353,7 +491,7 @@ const MyWishList = props => {
         }
         if (loading) return 'Submitting...';
         if (error) return `Submission error! ${error.message}`;
-
+        if( wId ) {
         return (
             <>
              <Popup
@@ -403,6 +541,37 @@ const MyWishList = props => {
             </Popup>
         </>
         );
+        } else {
+            return (<>
+            
+            <div>
+                <input
+                    className={classes.input_rename}
+                    type="text"
+                    ref={node => {
+                        input = node;
+                    }}
+                    placeholder={'New project name'}
+                />
+                <input type="hidden" value={selectId} />
+                <button
+                    className={classes.rename_project}
+                    onClick={e => {
+                        e.preventDefault();
+                        addTodo({ variables: { category_name: input.value } });
+                        input.value = '';
+
+                        window.alert('New project created.');
+                        setSelectValue(999);
+                        //window.location.reload();
+                    }}
+                >
+                    Create new project
+                </button>
+            </div>
+            
+            </>);
+        }
     }
 
     function AddTodoDuplicate(uid) {
@@ -428,7 +597,7 @@ const MyWishList = props => {
                 .then(res => res.json())
                 .then(res => {
                     window.location.href =
-                        '/wishlist?id=' +
+                        '/myprojects?id=' +
                         data['MpBetterWishlistCreateCategory']['category_id'];
                 });
         }
@@ -490,7 +659,7 @@ const MyWishList = props => {
                         e.preventDefault();
                         removeProject({ variables: { category_id: cid } });
                         window.alert('Project deleted.');
-                        window.location.href = '/wishlist';
+                        window.location.href = '/myprojects';
                     }}
                 >
                     <button type="submit" className={classes.add_to_project}>
@@ -534,7 +703,7 @@ const MyWishList = props => {
                             }
                         });
                         window.alert('Project archived.');
-                        window.location.href = '/wishlist';
+                        window.location.href = '/myprojects';
                     }}
                 >
                     <button type="submit" className={classes.add_to_project}>
@@ -545,6 +714,111 @@ const MyWishList = props => {
             </div>
         );
     }
+
+    class RestoreProject extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+        
+    
+        componentDidMount() {
+            let cid = this.props.cid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_projectname.php?cid=' + cid;
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let projectname = this.state.pageData.pname && this.state.pageData.pname;
+
+            if(projectname && projectname.startsWith('ARCHIVE - ')) {
+
+                return (
+                    <div>
+                    <form
+                        onSubmit={e => {
+                            e.preventDefault();
+                            console.log('PIN ' + returnVal());
+                            restoreProject({
+                                variables: {
+                                    category_name: returnVal(),
+                                    category_id: wId
+                                }
+                            });
+                            window.alert('Project restored.');
+                            window.location.href = '/myprojects';
+                        }}
+                    >
+                        <button type="submit" className={classes.add_to_project}>
+                            {' '}
+                            Restore project
+                        </button>
+                    </form>
+                </div>
+                );
+
+            } else {
+
+                return (<Select />);
+
+            }
+
+            
+        }
+    }
+
+    /*function RestoreProject({ cid }) {
+        const [restoreProject, { data, loading, error }] = useMutation(
+            RENAME_PROJECT
+        );
+
+        if (loading)
+            return (
+                <button type="" className={classes.add_to_project}>
+                    RESTORING PROJECT
+                </button>
+            );
+        if (error) return `Restore error! ${error.message}`;
+
+        function returnVal() {
+            var e = document.getElementById('widn');
+            var value = e.innerHTML.slice(10);
+            return value;
+        }
+
+        return (
+            <div>
+                <form
+                    onSubmit={e => {
+                        e.preventDefault();
+                        console.log('PIN ' + returnVal());
+                        restoreProject({
+                            variables: {
+                                category_name: returnVal(),
+                                category_id: wId
+                            }
+                        });
+                        window.alert('Project restored.');
+                        window.location.href = '/myprojects';
+                    }}
+                >
+                    <button type="submit" className={classes.add_to_project}>
+                        {' '}
+                        Restore project
+                    </button>
+                </form>
+            </div>
+        );
+    } */
 
     function MoveProjectToCart({ cid }) {
         return (
@@ -765,6 +1039,12 @@ const MyWishList = props => {
         console.log('val.product');
         console.log(data);
 
+        let projectName = '';
+
+        if(document.getElementById('widn') != null){
+            projectName = document.getElementById('widn').innerHTML;
+        }
+
         return (
             <div className={defaultClasses.columns}>
                 <Title>{`My Projects`}</Title>
@@ -830,7 +1110,8 @@ const MyWishList = props => {
                                                     className={defaultClasses.btnPurchase}
                                                     to={resourceUrl('/orders?project='+wId)}
                                                 >Project Purchase History</Link>
-                                                <Select />
+                                                <RestoreProject cid={wId} />
+                                                
                                             </div>
                                         </>
                                     )}
@@ -1013,7 +1294,8 @@ const MyWishList = props => {
                                                                                         }
                                                                                     />
                                                                                 </Link>
-                                                                                <div className={classes.brand_name}><BrandName pid={val.product.id} /></div>
+                                                                                <IsInCart pid={val.product.id} cid={wId} email={email} />
+                                                                                <div className={classes.brand_name}><BrandName pid={val.product.id} key={seed} /></div>
                                                                             </div>
 
                                                                             <div
@@ -1060,7 +1342,8 @@ const MyWishList = props => {
                                                                                     </p>
                                                                                     
                                                                                 </div>
-                                                                                <span
+                                                                                <SpecialPrice productId={val.product.id} regularPrice={val.product.price.regularPrice.amount.value.toFixed(2)} />
+                                                                                {/*<span
                                                                                     className={
                                                                                         classes.price_label
                                                                                     }
@@ -1072,10 +1355,8 @@ const MyWishList = props => {
                                                                                         classes.price
                                                                                     }
                                                                                 >
-                                                                                    {val.product.price.regularPrice.amount.value.toFixed(
-                                                                                        2
-                                                                                    )}
-                                                                                </span>
+                                                                                    {val.product.price.regularPrice.amount.value.toFixed(2)}
+                                                                                </span> */}
                                                                             </div>
                                                                             <div
                                                                                 id={
@@ -1098,6 +1379,7 @@ const MyWishList = props => {
                                                                                                 .sku
                                                                                         )
                                                                                     }
+                                                                                    
                                                                                 />
                                                                                 <span
                                                                                     className={
@@ -1187,6 +1469,8 @@ const MyWishList = props => {
                                                                                                         dismissable: true,
                                                                                                         timeout: 4000
                                                                                                     });
+
+                                                                                                    reset();
                                                                                                    
                                                                                                 }}
                                                                                             >
@@ -1207,7 +1491,15 @@ const MyWishList = props => {
                                                                                             </button>
                                                                                             <button
                                                                                                 onClick={() => {
-                                                                                                    document.getElementById('move_item_box_'+val.id).style.display='block';
+
+                                                                                                    var x = document.getElementById('move_item_box_'+val.id);
+                                                                                                    if (window.getComputedStyle(x).display === "none") {
+                                                                                                        document.getElementById('move_item_box_'+val.id).style.display='block';
+                                                                                                    } else {
+                                                                                                        document.getElementById('move_item_box_'+val.id).style.display='none';
+                                                                                                    }
+
+                                                                                                    
                                                                                                 }}
                                                                                             >
                                                                                                 <span
@@ -1229,7 +1521,7 @@ const MyWishList = props => {
                                                                                                 id={'move_item_box_'+val.id} 
                                                                                                 className={ classes.move_item_static + ' move_item_ref' }>
                                                                                                 <Quantity
-                                                                                                    initialValue={1} isChildren={1} productId={val.id}
+                                                                                                    initialValue={1} isChildren={1} productId={val.id} onClick={reset}
                                                                                                 />
                                                                                             <button
                                                                                                 onClick={() => {
@@ -1245,6 +1537,8 @@ const MyWishList = props => {
 
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
+
+                                                                                                    tempProps.category = 'BINGO';
 
                                                                                                     console.log('coucoucoucou');
                                                                                                     console.log(tempProps);

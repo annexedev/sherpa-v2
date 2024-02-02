@@ -12,6 +12,37 @@
 }
 .limiter_text {
 }
+
+.regularprice {
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+}
+.regularprice:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: #b9b9b9;
+    left: 0;
+    top: 50%;
+}
+.regularprice span {
+    font-size: 15px;
+    color: #b9b9b9;
+}
+
+.greenprice span {
+    color: #8cc650;
+}
+
+.discountedprice span {
+    color: red;
+}
+
+.discountedprice:after {
+    background-color: red;
+}
 .brand_name {
     text-align: center;
 }
@@ -151,9 +182,12 @@
 }
 .product_img {
     min-height: 175px;
+    text-align: center;
+    position: relative;
 }
 .product_img img {
     max-height: 175px;
+    
 }
 .product_details {
 }

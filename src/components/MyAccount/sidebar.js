@@ -101,7 +101,7 @@ class ProjectList extends Component {
                         {!this.props.archive ? (
                             <li
                                 className={
-                                    path == '/wishlist'
+                                    path == '/myprojects'
                                         ? defaultClasses.item +
                                         ' ' +
                                         defaultClasses.active
@@ -132,7 +132,7 @@ class ProjectList extends Component {
                         ) : (
                             <li
                                 className={
-                                    path == '/wishlist'
+                                    path == '/myprojects'
                                         ? defaultClasses.item +
                                         ' ' +
                                         defaultClasses.active
@@ -153,7 +153,7 @@ class ProjectList extends Component {
                                         height="20"
                                     />
                                 </span>
-                                <Link to="/wishlist" onClick={onClose}>
+                                <Link to="/myprojects" onClick={onClose}>
                                     <FormattedMessage
                                         id={'sidebar.MyWishlistArchive'}
                                         defaultMessage={'My Project Archives'}
@@ -186,7 +186,7 @@ class ProjectList extends Component {
                                                 >
                                                     <a
                                                         href={
-                                                            '/wishlist?id=' +
+                                                            '/myprojects?id=' +
                                                             e.category_id
                                                         }
                                                     >
@@ -208,7 +208,7 @@ class ProjectList extends Component {
                                                     <li className={classes.projectlist}>
                                                         <a
                                                             href={
-                                                                '/wishlist?id=' +
+                                                                '/myprojects?id=' +
                                                                 e.category_id
                                                             }
                                                         >
@@ -238,7 +238,7 @@ class ProjectList extends Component {
                                                     >
                                                         <a
                                                             href={
-                                                                '/wishlist?id=' +
+                                                                '/myprojects?id=' +
                                                                 e.category_id
                                                             }
                                                         >
@@ -260,7 +260,7 @@ class ProjectList extends Component {
                                                         <li className={classes.projectlist}>
                                                             <a
                                                                 href={
-                                                                    '/wishlist?id=' +
+                                                                    '/myprojects?id=' +
                                                                     e.category_id
                                                                 }
                                                             >

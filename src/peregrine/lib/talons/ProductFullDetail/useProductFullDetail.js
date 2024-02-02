@@ -638,6 +638,9 @@ export const useCategoryAddToCart = props => {
         setShowAlertMsg
     } = props;
 
+    console.log('HERE HERE');
+    console.log(addSimpleProductToCartMutation);
+
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [
