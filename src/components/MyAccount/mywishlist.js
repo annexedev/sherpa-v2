@@ -1245,6 +1245,8 @@ const MyWishList = props => {
 
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
+                                                                                                    tempProps.categoryId = wId;
+                                                                                                    tempProps.categoryName = projectname ;
 
                                                                                                     console.log('coucoucoucou');
                                                                                                     console.log(tempProps);
