@@ -1472,7 +1472,7 @@ const MyWishList = props => {
                                                                                         }
                                                                                     />
                                                                                 </Link>
-                                                                                {/* <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} /> */}
+                                                                                <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} />
                                                                                 <div className={classes.brand_name}><BrandName pid={val.product.id} /></div>
                                                                             </div>
 
@@ -1621,7 +1621,6 @@ const MyWishList = props => {
                                                                                                     tempProps.qty = currentQty;
                                                                                                     tempProps.categoryId = wId;
                                                                                                     tempProps.categoryName = '';
-
 
                                                                                                     console.log('coucoucoucou');
                                                                                                     console.log(tempProps);
