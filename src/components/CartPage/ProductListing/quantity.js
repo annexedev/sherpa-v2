@@ -18,7 +18,7 @@ import TextInput from '../../TextInput';
 import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
-    const { initialValue, itemId, label, min, onChange, item, isChildren, productId } = props;
+    const { initialValue, itemId, label, min, onChange, item, isChildren, productId, wid } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
@@ -27,7 +27,8 @@ export const QuantityFields = props => {
         min,
         onChange,
         isChildren,
-        productId
+        productId,
+        wid
     });
 
     console.log('PROD ID : '+productId);
@@ -64,13 +65,15 @@ export const QuantityFields = props => {
                         onClick={handleDecrement}
                         type="button"
                         id={'minus_'+productId}
+                        data-wid={wid}
+
                     >
                         <Icon classes={iconClasses} src={MinusIcon} size={22} />
                     </button>
                     <div className={classes.qty_field_wrap}>
                         <TextInput
                             aria-label="Item Quantity"
-                            classes={{ input: classes.input }}
+                            classes={{ input: classes.input, partial: 'partialQuantity' }}
                             field="quantity"
                             id={itemId}
                             inputMode="numeric"
@@ -87,6 +90,7 @@ export const QuantityFields = props => {
                         onClick={handleIncrement}
                         type="button"
                         id={'plus_'+productId}
+                        data-wid={wid}
                     >
                         <Icon classes={iconClasses} src={PlusIcon} size={20} />
                     </button>

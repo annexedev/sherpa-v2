@@ -6,7 +6,7 @@
     top: -10px;
     left: -10px;
     .ribbon {
-      font: bold 15px sans-serif;
+      font: bold 11px sans-serif;
       color: #333;
       text-align: center;
       -webkit-transform: rotate(-45deg);
@@ -55,7 +55,17 @@
 .discountedprice span {
     color: red;
 }
-
+.priceTag {
+    position: absolute;
+    right: 0px;
+    margin-right: 10px;
+    background: #8cc650;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-top: 10px;
+    z-index: 999;
+}
 .discountedprice:after {
     background-color: red;
 }
@@ -79,7 +89,7 @@
     border-radius: 5px;
     min-height: 40px;
     line-height: 20px;
-    width: 183px;
+    width: 215px;
     margin-bottom: 40px;
     display: flex;
     align-items: center;
@@ -176,8 +186,8 @@ form.root input:focus {
 }
 
 .account_sideBar {
-    flex: 0 0 25%;
-    min-width: 25%;
+    flex: 0 0 20%;
+    min-width: 20%;
 }
 .customer_specified_details {
     background: var(--primary-light-color);
@@ -268,7 +278,7 @@ form.root input:focus {
 }
 /*right side*/
 .account_contentBar {
-    flex: 0 0 75%;
+    flex: 0 0 80%;
     position: relative;
     z-index: 1;
     min-width: 75%;
@@ -722,6 +732,7 @@ body[class='rtl_view'] .box_actions {
     body[class='rtl_view'] .block_content > div:nth-child(2) {
         border-right: 0;
     }
+    
 }
 @media screen and (max-width: 410px) {
     .qty_control_wrap input {
@@ -745,8 +756,22 @@ body[class='rtl_view'] .box_actions {
         flex: 0 0 100%;
         min-width: 100%;
     }
+    .wrapper_project_dropdown{
+        width: 100%;
+        margin-top: 10px;
+    }
+    .hidden_div {
+        display: contents;
+        text-align: center;
+    }
+    .btnPurchase{
+        width: 100%;
+        text-align: center;
+        margin-top: 0px;
+    }
     .blocQntProduits{
-        margin-top: 60px;
+        margin: 0px;
+        width: 100%;
     }
     .wrapperBtnDropdown{
         gap:0px;
