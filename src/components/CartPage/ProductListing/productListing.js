@@ -35,6 +35,7 @@ const ProductListing = props => {
 
     // console.log('**PROJECT', cart);
     console.log('***PRODUCT', products);
+    console.log('ITEMS****', items);
 
     // const arrayProduct = Object.keys(product).map((key) => {
     //     return { [key]: product[key] }
@@ -81,6 +82,10 @@ const ProductListing = props => {
     //     console.log(item);
     // })
 
+    // const productsArray = Object.values(products).flat()
+
+    // console.log(productsArray);
+
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -90,7 +95,7 @@ const ProductListing = props => {
 
     if (items.length) {
         let productComponents = [];
-        console.log('projectIds ' + projectIds);
+        // console.log('projectIds ' + projectIds);
         if (cart) {
             productComponents = products.map(product => (
                 <>
