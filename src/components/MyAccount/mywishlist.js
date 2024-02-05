@@ -171,11 +171,15 @@ class TotalProjet extends Component {
                 
             );
         } else if(itemCount == 0) {
-            return (<h2>No items in your project!</h2>);
+            return (
+                <>
+                <div className={defaultClasses.blocQntProduits}><h2>No items in your project!</h2></div>
+            </>
+            );
         } 
         
         else {
-            return (<>Calculating ...</>);
+            return (<><div className={defaultClasses.blocQntProduits}>Calculating ...</div></>);
         }
         
     }
@@ -1183,11 +1187,12 @@ const MyWishList = props => {
         };
 
         var myFunction = function() {
-            setTimeout(function(){ reset(); }, 1500);
-            console.log('here ' + this.id);
+            
+            console.log('here hello ' + this.id);
 
             if(this.id != 'plus_undefined') {
-
+                
+                setTimeout(function(){ reset(); }, 1500);
                 var containerIdMinus = this.id;
                 var containerIdMinusComplete = containerIdMinus.replace("plus_", "");
                 
@@ -1205,6 +1210,7 @@ const MyWishList = props => {
 
                 } else if(this.id == 'plus_undefined') {
                     console.log('CALLED')
+                    
                     /*let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=1&cid='+wId;
                     console.log(dataURL);
                     fetch(dataURL)
@@ -1217,9 +1223,9 @@ const MyWishList = props => {
         var myFunctionD = function() { 
 
             console.log('there');
-            setTimeout(function(){ reset(); }, 1500);
+            
             if(this.id != 'minus_undefined') {
-
+                setTimeout(function(){ reset(); }, 1500);
                 var containerIdMinus = this.id;
                 var containerIdMinusComplete = containerIdMinus.replace("minus_", "");
                 
@@ -1500,7 +1506,7 @@ const MyWishList = props => {
                                                                                         }
                                                                                     />
                                                                                 </Link>
-                                                                                <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} />
+                                                                                {/* <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} /> */}
                                                                                 <div className={classes.brand_name}><BrandName pid={val.product.id} /></div>
                                                                             </div>
 
@@ -1716,7 +1722,7 @@ const MyWishList = props => {
                                                                                                 id={'move_item_box_'+val.id} 
                                                                                                 className={ classes.move_item_static + ' move_item_ref' }>
                                                                                                 <Quantity
-                                                                                                    initialValue={1} isChildren={1} productId={val.id} onClick={reset} wid={wId}
+                                                                                                    initialValue={1} isChildren={1} /*productId={val.id} onClick={reset} wid={wId} */
                                                                                                 />
                                                                                             <button
                                                                                                 onClick={() => {
