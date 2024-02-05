@@ -287,7 +287,7 @@ const Header = props => {
                                 </>
                             ) : (
                                 <>
-                                    {email && storeview != '' ? (
+                                    {email ? (
                                         <p
                                             className={
                                                 classes.offer_message_text

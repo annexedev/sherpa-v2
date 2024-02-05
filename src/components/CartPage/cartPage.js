@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import { useCartPage } from '../../peregrine/lib/talons/CartPage/useCartPage.js';
 import { FormattedMessage } from 'react-intl';
 import { mergeClasses } from '../../classify';
@@ -9,6 +9,7 @@ import StockStatusMessage from '../StockStatusMessage';
 import PriceAdjustments from './PriceAdjustments';
 import ProductListing from './ProductListing';
 import PriceSummary from './PriceSummary';
+import { Price } from '@magento/peregrine';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 import searchClasses from '../SearchPage/searchPage.css';
@@ -191,8 +192,110 @@ const CartPage = props => {
         return { [key]: itensParProjets[key] }
      });
     
-    // console.log('arrayItensParProjets');
-    // console.log(arrayItensParProjets);
+    console.log('arrayItensParProjets');
+
+    const unique = [...new Set(productsFiltre.map(item => item.projetID))];
+
+    console.log(arrayItensParProjets);
+    console.log(unique);
+
+    
+
+    class CountProjectItem extends Component {
+
+        render() {
+            let inputCategory = this.props.inputCategory;
+            let products = this.props.products;
+            var qtyTotal = 0;
+            products.forEach(function(entry) {
+                var entryCategory = entry.category;
+        
+                entryCategory.forEach(function(entryCat) { 
+                    
+                    if(entryCat.category_id == inputCategory) {
+                       
+                        qtyTotal = qtyTotal + parseInt(entryCat.qty);
+
+                    } 
+        
+                })
+        
+            })
+
+            if(qtyTotal == 1) {
+                return qtyTotal+' product';
+            } else {
+                return qtyTotal+' products';
+            }
+
+            
+        }
+    }
+
+    class CountProjectValue extends Component {
+
+        render() {
+
+            let inputCategory = this.props.inputCategory;
+            let products = this.props.products;
+            var priceTotal = 0;
+
+            products.forEach(function(entry) {
+                var entryCategory = entry.category;
+        
+                entryCategory.forEach(function(entryCat) { 
+                    
+                    if(entryCat.category_id == inputCategory) {
+                        
+                        priceTotal = parseFloat(priceTotal) + (parseInt(entryCat.qty) * parseFloat(entry.prices.price.value));
+                        
+                    } 
+        
+                })
+        
+            })
+
+            return (
+                <Price
+                    value={priceTotal}
+                    currencyCode={'CAD'}
+                />
+            )
+        }
+    }
+
+    class ProjectName extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let cid = this.props.cid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_projectname.php?cid=' + cid;
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let projectname = this.state.pageData.pname && this.state.pageData.pname;
+            if(this.state.pageData.pname && this.state.pageData.pname) {
+                return (
+                        <>{`${projectname}`} </>
+                );
+            } else {
+                return (<></>);
+            }
+        }
+    }
 
     return (
         <div className={'container' + ' ' + defaultClasses.cart_page_container}>
@@ -232,7 +335,7 @@ const CartPage = props => {
                                 {productsWithoutProject &&
                                     <div className={classes.items_container}>
                                         {itemsWithoutProject ?
-                                            <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithoutProject} cart={true} />
+                                            <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithoutProject} cart={true} isProject={0}/>
                                             :
                                             <div className={classes.noResult}>
                                                 {/* <span className={searchClasses.noResult_icon}>
@@ -263,43 +366,51 @@ const CartPage = props => {
                                                 defaultMessage={'Products from projects'}
                                             />
                                         </h1>
-                                        <div className={classes.wrapperValeurProduits}>
+                                        {/*<div className={classes.wrapperValeurProduits}>
                                             <span>{projectsDansPanier[0].length} projects</span>
                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                             <span>Valeur2</span>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 }
                                 {myprojects && itemsWithProject.length >= 1 && (
 
                                     <>
-                                        {arrayItensParProjets.map(item => (
+
+                                        {unique.map(itemProjet => (
                                            
+                                           <>
+                                           
+                                           {arrayItensParProjets.map((item,index) => (
+
                                                 <div className={classes.items_container_projet}>
                                                     <div className={classes.wrapperProductsWithProject}>
                                                         <h1 className={classes.headingProductsWithProject}>
-                                                            <FormattedMessage
-                                                                id={'cartPage.headingProducts'}
-                                                                defaultMessage={Object.keys(item)[0]}
-                                                            />
+                                                            <ProjectName cid={itemProjet} />
                                                         </h1>
                                                         <div className={classes.wrapperValeurProduits}>
-                                                            <span>{item.qty} products</span>
+                                                            <span><CountProjectItem products={itemsWithProject} inputCategory={itemProjet} /></span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                                            <span>Valeur1</span>
+                                                            <span><CountProjectValue products={itemsWithProject} inputCategory={itemProjet} /></span>
                                                             <span onClick={() => { setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                                         </div>
                                                     </div>
 
                                                     {/* il faut verifier si le category est !null si true vient le produit ici*/}
                                                     {productsWithProject && itemsWithProject ?
-                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} />
+                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} inputCategory={itemProjet} isProject={1} />
                                                         :
                                                         <div>
                                                         </div>
                                                     }
                                                 </div>
                                         ))}
+                                           
+                                           </> 
+                                           
+                                        ))}
+
+                                        
                                     </>
                                 )
                                 }

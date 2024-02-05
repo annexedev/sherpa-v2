@@ -1191,7 +1191,7 @@ const MyWishList = props => {
             console.log('here hello ' + this.id);
 
             if(this.id != 'plus_undefined') {
-                
+
                 setTimeout(function(){ reset(); }, 1500);
                 var containerIdMinus = this.id;
                 var containerIdMinusComplete = containerIdMinus.replace("plus_", "");
@@ -1506,7 +1506,7 @@ const MyWishList = props => {
                                                                                         }
                                                                                     />
                                                                                 </Link>
-                                                                                {/* <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} /> */}
+                                                                                <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} />
                                                                                 <div className={classes.brand_name}><BrandName pid={val.product.id} /></div>
                                                                             </div>
 

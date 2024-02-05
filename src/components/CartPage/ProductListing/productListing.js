@@ -25,7 +25,7 @@ import { ProductListingFragment } from './productListingFragments';
 const EditModal = React.lazy(() => import('./EditModal'));
 
 const ProductListing = props => {
-    const { setIsCartUpdating, projectIds, products, cart } = props;
+    const { setIsCartUpdating, projectIds, products, cart, inputCategory, isProject } = props;
     const talonProps = useProductListing({
         queries: {
             getProductListing: GET_PRODUCT_LISTING
@@ -51,8 +51,69 @@ const ProductListing = props => {
 
     if (items.length) {
         let productComponents = [];
-        // console.log('projectIds ' + projectIds);
-        if (cart) {
+        console.log('projectIds ');
+        console.log(products);
+
+        /*products.forEach(function(entry,index) {
+            var entryCategory = entry.category;
+
+            entryCategory.forEach(function(entryCat) { 
+                console.log('Prise 1 '+entryCat.category_id+' '+inputCategory);
+
+                if(entryCat.category_id == inputCategory) {
+                   console.log('FOUND !');
+                } 
+
+            })
+
+        });*/
+
+        if(isProject==1) {
+        
+            if (cart) {
+
+                products.forEach(function(entry) {
+
+                    var entryCategory = entry.category;
+
+                    entryCategory.forEach(function(entryCat) { 
+                        
+                        if(entryCat.category_id == inputCategory) {
+                            entry.quantity = entryCat.qty;
+
+                            console.log('PROJET '+entryCat.category_id+' qty '+entryCat.qty)
+
+                            productComponents.push(
+                                <>
+                                    <Product
+                                        item={entry}
+                                        key={entry.id + 1}
+                                        setActiveEditItem={setActiveEditItem}
+                                        setIsCartUpdating={setIsCartUpdating}
+                                        projectQty={entryCat.qty}
+                                    />
+                                </>
+                            );
+
+                            /*productComponents = products.map(product => (
+                                <>
+                                    <Product
+                                        item={product}
+                                        key={product.id + 1}
+                                        setActiveEditItem={setActiveEditItem}
+                                        setIsCartUpdating={setIsCartUpdating}
+                                    />
+                                </>
+
+                            )); */
+                        }
+
+                    })
+
+                });
+
+            } 
+        } else {
             productComponents = products.map(product => (
                 <>
                     <Product
@@ -65,7 +126,9 @@ const ProductListing = props => {
 
             ));
 
-        } else {
+        }
+        if (cart) { 1 }
+        else {
             productComponents = items.map(product => (
 
                 <>

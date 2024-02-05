@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, Component } from 'react';
 import { gql } from '@apollo/client';
 import { Link, resourceUrl } from 'src/drivers';
 import { useProduct } from 'src/peregrine/lib/talons/CartPage/ProductListing/useProduct';
@@ -26,7 +26,7 @@ import { Trash2 as DeleteIcon } from 'react-feather';
 const IMAGE_SIZE = 100;
 
 const Product = props => {
-    const { item, setActiveEditItem, setIsCartUpdating } = props;
+    const { item, setActiveEditItem, setIsCartUpdating, projectQty } = props;
     const { formatMessage } = useIntl();
 
     let productUrlSuffix = '';
@@ -102,6 +102,85 @@ const Product = props => {
     });
     // const rootClass = isDeleting ? classes.root_disabled : classes.root;
 
+    class SoldIn extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+    
+            let lng = '';
+            if (document.getElementById('currentLng') != null) {
+                lng = document.getElementById('currentLng').innerHTML;
+            }
+            let activeLng = '';
+            if (lng == 'Français') {
+                activeLng = 2;
+            } else {
+                activeLng = 0;
+            }
+    
+            let productId = this.props.pid;
+    
+            let dataURL =
+                'https://data.sherpagroupav.com/get_soldin.php?pid=' + productId + '&sid=' + activeLng;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let soldin = this.state.pageData.soldin && this.state.pageData.soldin;
+            if(soldin) {
+            return (
+                <>{soldin}</>
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
+
+    class BrandName extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let productId = this.props.pid;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_brandname.php?pid=' + productId;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let brandname = this.state.pageData.brandname && this.state.pageData.brandname;
+            if(brandname) {
+            return (
+                <>{brandname}</>
+            ) } else {
+                return(<></>);
+            }
+        }
+    }  
+
     return (
         <li className={classes.root}>
             <span className={classes.errorText}>{errorMessage}</span>
@@ -145,8 +224,9 @@ const Product = props => {
                         />
                     )}
                     <span><strong>Part #</strong> {product.sku}</span>
-                    <span><strong>Brand:</strong> {product.name}</span>
-                    <span><strong>Sold in:</strong> Each</span>
+                    <span><strong>Brand:</strong> <BrandName pid={item.id} /></span>
+                    
+                    <span><strong>Sold in:</strong> <SoldIn pid={item.id} /></span>
                     {/* <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />
                     </span> */}
