@@ -34,52 +34,13 @@ const ProductListing = props => {
     const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
 
     // console.log('**PROJECT', cart);
-    console.log('***PRODUCT', products);
+    // console.log('***PRODUCT', products);
+    // console.log('ITEMS****', items);
 
-    // const arrayProduct = Object.keys(product).map((key) => {
-    //     return { [key]: product[key] }
-    //  });
+    /* Transforme le objet en array pour faire le mapping */
+    // const productsArray = Object.values(products).flat()
 
-    //  console.log(arrayProduct);
-
-    /* TESTE  */
-
-    // Array para armazenar os projetos filtrados
-
-    // let productsFiltre = [];
-    // let productsParProjet = [];
-
-    // // Filtrar os projetos com base na quantidade desejada
-    // products.map(item => {
-
-    //     item.category.map(projet => {
-    //         let _item = { ...item.product, projet_qty: projet.qty, productID: projet.product_id, projetID: projet.category_id };
-    //         productsFiltre.push(_item)
-    //         // productsFiltre.map(item => item.filter())
-    //     })
-
-    // });
-
-    // console.log('FIN', productsFiltre);
-
-    // // Agrupando os itens por ID do projeto
-    // const itensAgrupadosPorProjeto = productsFiltre.reduce((agrupado, produit) => {
-    //     // Verifica se já existe uma chave com o ID do projeto
-    //     if (!agrupado[produit.projetID]) {
-    //         // Se não existe, cria uma nova chave com o ID do projeto e inicia com um array vazio
-    //         agrupado[produit.projetID] = [];
-    //     }
-    //     // Adiciona o item ao array correspondente ao ID do projeto
-    //     agrupado[produit.projetID].push(produit);
-    //     return agrupado;
-    // }, {});
-
-    // console.log(itensAgrupadosPorProjeto);
-
-
-    // productsFiltre.map(item => {
-    //     console.log(item);
-    // })
+    // console.log(productsArray);
 
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -90,7 +51,7 @@ const ProductListing = props => {
 
     if (items.length) {
         let productComponents = [];
-        console.log('projectIds ' + projectIds);
+        // console.log('projectIds ' + projectIds);
         if (cart) {
             productComponents = products.map(product => (
                 <>

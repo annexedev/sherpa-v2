@@ -44,7 +44,7 @@ import { useMobile } from '../../peregrine/lib/talons/Mobile/useMobile';
 const Banner = React.lazy(() => import('../CedHome/banner'));
 const categoryBannerIdentifierHome = 'projects_instructions';
 let showCategoryBanners = true;
-
+let projectname = '';
 class SpecialPriceTo extends Component {
     constructor() {
         super();
@@ -207,7 +207,7 @@ class ProjectName extends Component {
     }
 
     render() {
-        let projectname = this.state.pageData.pname && this.state.pageData.pname;
+        projectname = this.state.pageData.pname && this.state.pageData.pname;
         return (
             <React.Fragment>
                 - <span id="widn" className={defaultClasses.nomProject}>{projectname}</span>
@@ -510,8 +510,6 @@ const MyWishList = props => {
     const url = window.location.href;
 
     const myprojects = url.includes("?id");
-
-    // console.log(myprojects);
 
     const [, { addToast }] = useToasts();
     const classes = mergeClasses(
@@ -1656,7 +1654,7 @@ const MyWishList = props => {
                                                                                                     console.log(tempProps);
 
                                                                                                     handleAddToCart(
-                                                                                                        tempProps , "ttttttttt"
+                                                                                                        tempProps 
                                                                                                     );
 
                                                                                                     addToast({

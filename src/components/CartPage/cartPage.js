@@ -151,57 +151,48 @@ const CartPage = props => {
     const projectsDansPanier = itemsWithProject.map(project => project.category.map(item => listOfProjects.push(item)));
 
     // console.log('LIST OF PROJECTS',listOfProjects);
-
-    console.log('ITEMS WITH PROJECT', itemsWithProject);
+    // console.log('ITEMS WITH PROJECT', itemsWithProject);
     // console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
 
     const myprojects = itemsWithProject.length >= 1 ? true : false; /* il faut verifier si il y a des projets */
 
-    const qntyProjects = itemsWithProject.map(project => (project.category.length))
+    // const qntyProjects = itemsWithProject.map(project => (project.category.length))
 
     const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
-
-
-    // console.log(totalPriceProductsWithoutProject);
 
     let productsFiltre = [];
     let productsParProjet = [];
 
-    // Filtrar os projetos com base na quantidade desejada
+    // Filtre basée dans la quantité 
     itemsWithProject.map(item => {
 
         item.category.map(projet => {
-            // console.log(projet);
             let _item = { ...item.product, projet_qty: projet.qty, productID: projet.product_id, projetID: projet.category_id, projetNom: projet.category_name, prices: item.prices };
             productsFiltre.push(_item)
         })
-
     });
+    // console.log('FIN', productsFiltre);
 
-    console.log('FIN', productsFiltre);
-
-    // Agrupando os itens por ID do projeto
+    // Groupe les itens par id de projet
     const itensParProjets = productsFiltre.reduce((groupe, produit) => {
-        // Verifica se já existe uma chave com o ID do projeto
+        // Verifie si il y a un key avec l'id du projet
         if (!groupe[produit.projetNom]) {
-            // Se não existe, cria uma nova chave com o ID do projeto e inicia com um array vazio
             groupe[produit.projetNom] = [];
         }
-        console.log(produit);
-        // Adiciona o item ao array correspondente ao ID do projeto
+        // console.log(produit);
         groupe[produit.projetNom].push(produit);
         return groupe;
     }, {});
 
-    console.log(itensParProjets);
+    // console.log(itensParProjets);
 
     // productsParProjet.push(itensAgrupadosPorProjeto);
     const arrayItensParProjets = Object.keys(itensParProjets).map((key) => {
         return { [key]: itensParProjets[key] }
      });
     
-    console.log('arrayItensParProjets');
-    console.log(arrayItensParProjets);
+    // console.log('arrayItensParProjets');
+    // console.log(arrayItensParProjets);
 
     return (
         <div className={'container' + ' ' + defaultClasses.cart_page_container}>

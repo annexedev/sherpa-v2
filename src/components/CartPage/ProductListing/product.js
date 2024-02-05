@@ -69,9 +69,6 @@ const Product = props => {
     if (urlSuffix && urlSuffix != 'null') {
         productUrlSuffix = urlSuffix;
     }
-
-    console.log(item);
-    console.log(product);
     
     const classes = mergeClasses(defaultClasses, props.classes);
 
