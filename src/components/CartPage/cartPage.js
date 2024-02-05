@@ -199,7 +199,8 @@ const CartPage = props => {
     const arrayItensParProjets = Object.keys(itensParProjets).map((key) => {
         return { [key]: itensParProjets[key] }
      });
-
+    
+    console.log('arrayItensParProjets');
     console.log(arrayItensParProjets);
 
     return (
@@ -274,7 +275,7 @@ const CartPage = props => {
                                         <div className={classes.wrapperValeurProduits}>
                                             <span>{projectsDansPanier[0].length} projects</span>
                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                            <span>Valeur</span>
+                                            <span>Valeur2</span>
                                         </div>
                                     </div>
                                 }
@@ -294,7 +295,7 @@ const CartPage = props => {
                                                         <div className={classes.wrapperValeurProduits}>
                                                             <span>{item.qty} products</span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                                            <span>Valeur</span>
+                                                            <span>Valeur1</span>
                                                             <span onClick={() => { setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                                         </div>
                                                     </div>

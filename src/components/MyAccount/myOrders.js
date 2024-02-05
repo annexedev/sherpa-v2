@@ -588,7 +588,6 @@ const MyOrders = props => {
             render() {
                 return (
                     <div className={defaultClasses.columns}>
-                        <ProjectName cid={isProject} />
                         
                         <div className="container">
                             <div className="row">

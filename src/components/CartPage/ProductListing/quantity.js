@@ -31,7 +31,7 @@ export const QuantityFields = props => {
         wid
     });
 
-    console.log('PROD ID : '+productId);
+    console.log('PROD ID : '+productId+' '+wid);
 
     const price = item ? item.prices.price.value : 0;
     const currency = item ? item.prices.price.currency : 'CAD';
@@ -136,7 +136,9 @@ Quantity.propTypes = {
     itemId: string,
     label: string,
     min: number,
-    onChange: func
+    onChange: func,
+    productId: number,
+    wid: number
 };
 
 Quantity.defaultProps = {

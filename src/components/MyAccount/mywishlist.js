@@ -122,12 +122,14 @@ class RealQuantity extends Component {
     render() {
         let qty = this.state.pageData.qty && this.state.pageData.qty;
         let wid = this.props.wid;
+        let pid = this.props.pid;
+        let cid = this.props.cid;
         return (
             <>
             <Quantity
-                wid={wid}
+                wid={cid}
+                productId={wid}
                 initialValue={qty}
-                
             />
             </>
             
@@ -161,15 +163,19 @@ class TotalProjet extends Component {
     render() {
         let itemCount = this.state.pageData.itemCount && this.state.pageData.itemCount;
         let priceTotal = this.state.pageData.priceTotal && this.state.pageData.priceTotal;
-        if(itemCount) {
+        if(itemCount && itemCount > 0) {
             return (
                 <>
                     <div className={defaultClasses.blocQntProduits}>{itemCount} Products &nbsp;&nbsp;<b><Price currencyCode={'CAD'} value={priceTotal}/></b></div>
                 </>
                 
             );
-        } else {
-            return (<></>);
+        } else if(itemCount == 0) {
+            return (<h2>No items in your project!</h2>);
+        } 
+        
+        else {
+            return (<>Calculating ...</>);
         }
         
     }
@@ -252,7 +258,28 @@ class IsInCart extends Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+
+        let productId = this.props.pid;
+        let email = this.props.email;
+        let cid = this.props.cid;
+
+        const url = 'https://data.sherpagroupav.com/get_projectsitemincart.php?pid='+productId+'&email='+email+'&cid=' + cid;
+
+        try {
+          const response = await fetch(url)
+          if (!response.ok) {
+            throw Error(response.statusText);
+          }
+          const json = await response.json();
+          console.log(json)
+          this.setState({ pageData: res });
+        } catch(error) {
+          console.log(error)
+        }
+      }
+
+    /*componentDidMount() {
 
         let productId = this.props.pid;
         let email = this.props.email;
@@ -268,7 +295,7 @@ class IsInCart extends Component {
             });
 
  
-    }
+    } */
 
     render() {
         let additional_data = this.state.pageData.additional_data && this.state.pageData.additional_data;
@@ -566,14 +593,17 @@ const MyWishList = props => {
 
     const remove = async id => {
 
+        var element = document.getElementById('t'+id).querySelector('button[data-wid="'+wId+'"]');
+        var itemId = element.id.replace("minus_", '');
         let dataURL =
-            'https://data.sherpagroupav.com/get_already_purchased.php?productId=' + id;
+            'https://data.sherpagroupav.com/delete_fromproject.php?wid='+itemId+'&cid='+wId;
             console.log(dataURL);
         fetch(dataURL)
             .then(res => res.json())
-            .then();
+            .then(document.getElementById("t"+id).remove())
+            .then(reset()); 
 
-        //await handleRemoveItem({ product_id: id });
+        await handleRemoveItem({ product_id: id });
         setRemoveMsg(true);
     };
 
@@ -1127,7 +1157,7 @@ const MyWishList = props => {
                 inputChangePartial[i].addEventListener('change', myFunctionPartial, false);
             }
 
-        }, 2000);
+        }, 50);
   
         var myFunctionPartial = function() {
 
@@ -1155,7 +1185,7 @@ const MyWishList = props => {
         };
 
         var myFunction = function() {
-
+            setTimeout(function(){ reset(); }, 1500);
             console.log('here ' + this.id);
 
             if(this.id != 'plus_undefined') {
@@ -1177,11 +1207,11 @@ const MyWishList = props => {
 
                 } else if(this.id == 'plus_undefined') {
                     console.log('CALLED')
-                    let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=1&cid='+wId;
+                    /*let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=1&cid='+wId;
                     console.log(dataURL);
                     fetch(dataURL)
                         .then(res => res.json())
-                        .then(setTimeout(function(){ reset(); }, 10));
+                        .then(setTimeout(function(){ reset(); }, 10));*/
                 }
 
         };
@@ -1189,7 +1219,7 @@ const MyWishList = props => {
         var myFunctionD = function() { 
 
             console.log('there');
-
+            setTimeout(function(){ reset(); }, 1500);
             if(this.id != 'minus_undefined') {
 
                 var containerIdMinus = this.id;
@@ -1208,11 +1238,11 @@ const MyWishList = props => {
 
             } else if(this.id == 'minus_undefined') {
                 console.log('CALLED')
-                let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=-1&cid='+wId;
+                /*let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=-1&cid='+wId;
                 console.log(dataURL);
                 fetch(dataURL)
                     .then(res => res.json())
-                    .then(setTimeout(function(){ reset(); }, 10));
+                    .then(setTimeout(function(){ reset(); }, 10));*/
             }
 
         };
@@ -1398,7 +1428,7 @@ const MyWishList = props => {
                                                                         var toBeRemoved = document.getElementById('t' + pid);
 
                                                                         if(toBeRemoved) {
-                                                                            //document.getElementById('t' + pid).remove();
+                                                                            document.getElementById('t' + pid).remove();
                                                                         }
 
                                                                         
@@ -1688,7 +1718,7 @@ const MyWishList = props => {
                                                                                                 id={'move_item_box_'+val.id} 
                                                                                                 className={ classes.move_item_static + ' move_item_ref' }>
                                                                                                 <Quantity
-                                                                                                    initialValue={1} isChildren={1} productId={val.id} onClick={reset}
+                                                                                                    initialValue={1} isChildren={1} productId={val.id} onClick={reset} wid={wId}
                                                                                                 />
                                                                                             <button
                                                                                                 onClick={() => {

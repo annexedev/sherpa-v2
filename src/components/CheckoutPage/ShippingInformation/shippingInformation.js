@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { func, string, shape } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useShippingInformation } from 'src/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
-
+import TextArea from '../../TextArea';
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
@@ -91,6 +91,8 @@ const ShippingInformation = props => {
                     }
                 />
                 </div>*/}
+                    
+                
             {editModal}
         </Fragment>
     ) : (
