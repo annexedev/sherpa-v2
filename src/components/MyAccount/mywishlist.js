@@ -258,7 +258,7 @@ class IsInCart extends Component {
         };
     }
 
-    async componentDidMount() {
+    /*async componentDidMount() {
 
         let productId = this.props.pid;
         let email = this.props.email;
@@ -277,9 +277,9 @@ class IsInCart extends Component {
         } catch(error) {
           console.log(error)
         }
-      }
+      }*/
 
-    /*componentDidMount() {
+    componentDidMount() {
 
         let productId = this.props.pid;
         let email = this.props.email;
@@ -295,7 +295,7 @@ class IsInCart extends Component {
             });
 
  
-    } */
+    } 
 
     render() {
         let additional_data = this.state.pageData.additional_data && this.state.pageData.additional_data;
