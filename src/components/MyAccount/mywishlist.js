@@ -44,7 +44,7 @@ import { Price } from '@magento/peregrine';
 const Banner = React.lazy(() => import('../CedHome/banner'));
 const categoryBannerIdentifierHome = 'projects_instructions';
 let showCategoryBanners = true;
-
+let projectname = '';
 
 
 class ProjectName extends Component {
@@ -71,7 +71,7 @@ class ProjectName extends Component {
     }
 
     render() {
-        let projectname = this.state.pageData.pname && this.state.pageData.pname;
+        projectname = this.state.pageData.pname && this.state.pageData.pname;
         return (
             <React.Fragment>
                 - <span id="widn" className={defaultClasses.nomProject}>{projectname}</span>
