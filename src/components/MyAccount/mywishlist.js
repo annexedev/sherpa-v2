@@ -352,8 +352,6 @@ const MyWishList = props => {
 
     const myprojects = url.includes("?id");
 
-    // console.log(myprojects);
-
     const [, { addToast }] = useToasts();
     const classes = mergeClasses(
         defaultClasses,
@@ -1460,7 +1458,7 @@ const MyWishList = props => {
                                                                                                     console.log(tempProps);
 
                                                                                                     handleAddToCart(
-                                                                                                        tempProps , "ttttttttt"
+                                                                                                        tempProps 
                                                                                                     );
 
                                                                                                     addToast({
