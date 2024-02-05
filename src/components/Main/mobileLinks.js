@@ -55,9 +55,9 @@ class ProjectLink extends Component {
                 return (
                     <button
                         onClick={() => {
-                            setWishlistRender(true);
-
-                            handleWishlist();
+                            //setWishlistRender(true);
+                            //handleWishlist();
+                            window.location.href='/myprojects';
                         }}
                         className={
                             defaultClasses.toolbar_items +
@@ -73,14 +73,14 @@ class ProjectLink extends Component {
                                 ' ' +
                                 classes.header_Actions_image
                             }
-                            title="My projects"
+                            title="MyProjects"
                         >
                             {projectsIcon}
                         </span>
                         <p className={defaultClasses.images_label}>
                             <FormattedMessage
                                 id={'main.Wishlist'}
-                                defaultMessage={'My projects'}
+                                defaultMessage={'MyProjects'}
                             />
                         </p>
                     </button>

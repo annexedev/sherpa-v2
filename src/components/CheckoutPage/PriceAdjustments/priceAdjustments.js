@@ -22,6 +22,32 @@ const PriceAdjustments = props => {
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
+
+                <Section
+                    id={'cardMessage'}
+                    title={formatMessage({
+                        id: 'checkoutPage.cardMessageDropship',
+                        defaultMessage:
+                            'Enter your updated shipping or dropship address'
+                    })}
+                >
+                    <TextArea
+                        id="cardMessageDropship"
+                        field="cardMessage"
+                        placeholder={formatMessage({
+                            id: 'giftOption.placeholder',
+                            defaultMessage: 'Enter your address here'
+                        })}
+                        initialValue=""
+                        onChange={e => {
+                            setTextValue(e.target.value);
+                        }}
+                        onBlur={() => {
+                            localStorage.setItem('cardMessageDropship', textValue);
+                        }}
+                    />
+                </Section>
+
                 <Section
                     id={'cardMessage'}
                     title={formatMessage({

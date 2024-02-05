@@ -48,7 +48,7 @@ const OrderConfirmationPage = props => {
 
     const { data, orderNumber } = props;
     const { formatMessage } = useIntl();
-    var cardMessage = localStorage.getItem('cardMessage');
+    var cardMessage = localStorage.getItem('cardMessage') + ' ' + localStorage.getItem('cardMessageDropship');
 
     const talonProps = useOrderConfirmationPage({
         data,

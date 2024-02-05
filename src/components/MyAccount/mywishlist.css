@@ -122,7 +122,6 @@
     padding: 10px 10px;
     min-height: 40px;
     line-height: 20px;
-    width: 150px;
     color: white;
     /* margin-top: 30px; */
 }
@@ -145,6 +144,7 @@
     color: white;
     margin-left: 15px;
 }
+
 .nomProject{
     font-size: 32px;
 }
@@ -337,6 +337,11 @@
     }
 }
 @media screen and (min-width: 320px) and (max-width: 767px) {
+    .move_confirm { 
+        top: unset;
+        left: unset;
+        width: 100%;
+    }
     .block_dahsboard_wishlist {
         padding: 0;
     }
@@ -349,6 +354,9 @@
         margin: 0px 0px 0px 0px;
         padding: 0;
         min-width: 48%;
+    }
+    .project_dropdown {
+        width: 100%;
     }
     .product_img {
         min-height: 185px;
@@ -389,6 +397,13 @@
         background: var(--primary-border-color);
         padding: 5px;
         border-radius: 3px;
+    }
+    .button_move_project {
+        width: 100%;
+    }
+    .hidden_div {
+        display: contents;
+        text-align: center;
     }
 }
 @media screen and (min-width: 320px) and (max-width: 991px) {

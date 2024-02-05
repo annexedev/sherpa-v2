@@ -228,7 +228,7 @@ const ProductFullDetail = props => {
                             }}
                             className={classes.add_to_project}
                         >
-                            ADD TO PROJECTs
+                            ADD TO PROJECT
                         </button>
                     </div>
                 );
