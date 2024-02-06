@@ -1308,18 +1308,13 @@ const GalleryItem = props => {
 
                         {email ? (
                             <div>
-                                {email == 'kroussel@sherpagroupav.com' ||
-                                    email == 'prayes@sherpagroupav.com' ||
-                                    email == 'bnddbl07@gmail.com' ||
-                                    (email == 'mcharbonneau@annexe-d.com' && (
-                                        <div>
-                                            <Select />
-                                            <ServiceDetailsEmployeurs
-                                                pid={email}
-                                                item_id={item.id}
-                                            />
-                                        </div>
-                                    ))}
+                               <div>
+                                    <Select />
+                                    <ServiceDetailsEmployeurs
+                                        pid={email}
+                                        item_id={item.id}
+                                    />
+                                </div>
                                 <BWL />
                             </div>
                         ) : (
