@@ -183,7 +183,12 @@ const CartPage = props => {
 
     // console.log('ITEMS JSON', cartItemsJSON);
 
-    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || checkProjectQuantity(item.category,item.quantity));
+    //const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
+
+    //const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || checkProjectQuantity(item.category,item.quantity));
+
+    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || item.category !== null);
+
     const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
     let listOfProjects = [];
 

@@ -43,6 +43,7 @@ import { Price } from '@magento/peregrine';
 import { useMobile } from '../../peregrine/lib/talons/Mobile/useMobile';
 const Banner = React.lazy(() => import('../CedHome/banner'));
 const categoryBannerIdentifierHome = 'projects_instructions';
+const categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
 let showCategoryBanners = true;
 let projectname = '';
 class SpecialPriceTo extends Component {
@@ -1993,6 +1994,17 @@ const MyWishList = props => {
                                                 <Suspense fallback={''}>
                                                     <Banner
                                                         identifier={
+                                                            categoryBannerIdentifierHomeBanner
+                                                        }
+                                                        showBanner={
+                                                            showCategoryBanners
+                                                        }
+                                                    />
+                                                    <p>&nbsp;</p>
+                                                    <AddTodo uid={wId} />
+                                                    <p>&nbsp;</p>
+                                                    <Banner
+                                                        identifier={
                                                             categoryBannerIdentifierHome
                                                         }
                                                         showBanner={
@@ -2000,7 +2012,7 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                 </Suspense>
-                                                <AddTodo uid={wId} />
+                                                
                                             </>
                                         )}
                                     </div>
