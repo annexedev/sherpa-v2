@@ -18,7 +18,7 @@ import TextInput from '../../TextInput';
 import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
-    const { initialValue, itemId, label, min, onChange, item, isChildren, productId, wid } = props;
+    const { initialValue, itemId, label, min, onChange, item, isChildren, productId, wid, ignore } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
@@ -31,7 +31,7 @@ export const QuantityFields = props => {
         wid
     });
 
-    console.log('PROD ID : '+productId+' '+wid);
+    //console.log('PROD ID : '+productId+' '+wid);
 
     const price = item ? item.prices.price.value : 0;
     const currency = item ? item.prices.price.currency : 'CAD';
@@ -58,22 +58,40 @@ export const QuantityFields = props => {
             </label> */}
             <div>
                 <div className={classes.qty_inner_wrap + ' ' + classes.wrap}>
-                    <button
-                        aria-label={'Decrease Quantity'}
-                        className={classes.button_decrement+' decrement'}
-                        disabled={isDecrementDisabled}
-                        onClick={handleDecrement}
-                        type="button"
-                        id={'minus_'+productId}
-                        data-wid={wid}
+                    { ignore == 1 ?
+                        <button
+                            aria-label={'Decrease Quantity'}
+                            className={classes.button_decrement+' decrement'}
+                            disabled={isDecrementDisabled}
+                            onClick={handleDecrement}
+                            type="button"
+                            id={'minus_undefined'}
+                            data-wid={wid}
+                            data-pid={productId}
+                            data-pidselect={'m'+productId}
+                        >
+                        
+                            <Icon classes={iconClasses} src={MinusIcon} size={22} />
+                        </button>
+                        :
+                        <button
+                            aria-label={'Decrease Quantity'}
+                            className={classes.button_decrement+' decrement'}
+                            disabled={isDecrementDisabled}
+                            onClick={handleDecrement}
+                            type="button"
+                            id={'minus_'+productId}
+                            data-wid={wid}
 
-                    >
-                        <Icon classes={iconClasses} src={MinusIcon} size={22} />
-                    </button>
+                        >
+                            <Icon classes={iconClasses} src={MinusIcon} size={22} />
+                        </button>
+                    }
+                   
                     <div className={classes.qty_field_wrap}>
                         <TextInput
                             aria-label="Item Quantity"
-                            classes={{ input: classes.input, partial: 'partialQuantity' }}
+                            classes={{ input: classes.input }}
                             field="quantity"
                             id={itemId}
                             inputMode="numeric"
@@ -83,17 +101,34 @@ export const QuantityFields = props => {
                             pattern="[0-9]*"
                         />
                     </div>
-                    <button
-                        aria-label={'Increase Quantity'}
-                        className={classes.button_increment+' increment'}
-                        disabled={isIncrementDisabled}
-                        onClick={handleIncrement}
-                        type="button"
-                        id={'plus_'+productId}
-                        data-wid={wid}
-                    >
-                        <Icon classes={iconClasses} src={PlusIcon} size={20} />
-                    </button>
+                    { ignore == 1 ?
+                        <button
+                            aria-label={'Increase Quantity'}
+                            className={classes.button_increment+' increment'}
+                            disabled={isIncrementDisabled}
+                            onClick={handleIncrement}
+                            type="button"
+                            id={'plus_undefined'}
+                            data-wid={wid}
+                            data-pid={productId}
+                            data-pidselect={'p'+productId}
+                        >
+                            <Icon classes={iconClasses} src={PlusIcon} size={20} />
+                        </button>
+                        :
+                        <button
+                            aria-label={'Increase Quantity'}
+                            className={classes.button_increment+' increment'}
+                            disabled={isIncrementDisabled}
+                            onClick={handleIncrement}
+                            type="button"
+                            id={'plus_'+productId}
+                            data-wid={wid}
+                        >
+                            <Icon classes={iconClasses} src={PlusIcon} size={20} />
+                        </button>
+                    }
+                    
                 </div>
                 {cart &&
                     <div className={classes.wrapperPrice}>
@@ -138,6 +173,7 @@ Quantity.propTypes = {
     min: number,
     onChange: func,
     productId: number,
+    ignore: number,
     wid: number
 };
 

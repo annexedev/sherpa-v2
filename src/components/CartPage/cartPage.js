@@ -137,15 +137,53 @@ const CartPage = props => {
 
 
     const cartItemsJSON = cartItems.map(item => {
+
+        /*const obj = JSON.parse(item.category);
+
+        var x = 0;
+
+        if(obj) {
+
+            obj.forEach(function (arrayItem) {
+                x = x + parseInt(arrayItem.qty);
+            });
+            
+            if(x < item.quantity) {
+                console.log('SURVIVANT');
+            }
+        }*/
+
         return {
             ...item,
             category: item.category ? JSON.parse(item.category) : null
         };
     });
 
+    function checkProjectQuantity(arrayCategory, itemQuantity) {
+
+        const obj = arrayCategory;
+
+        var x = 0;
+
+        if(obj) {
+
+            obj.forEach(function (arrayItem) {
+                x = x + parseInt(arrayItem.qty);
+            });
+            
+            if(x < itemQuantity) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    //const itemsWithBoth 
+
     // console.log('ITEMS JSON', cartItemsJSON);
 
-    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
+    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || checkProjectQuantity(item.category,item.quantity));
     const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
     let listOfProjects = [];
 

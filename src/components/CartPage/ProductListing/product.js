@@ -20,13 +20,22 @@ import { useIntl } from 'react-intl';
 import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
 import Icon from '../../Icon';
 import { Trash2 as DeleteIcon } from 'react-feather';
+/*import { useCategoryAddToCart  } from '../../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import ADD_SIMPLE_MUTATION from '../../../queries/addSimpleProductsToCart.graphql';*/
 
 
 
 const IMAGE_SIZE = 100;
 
 const Product = props => {
-    const { item, setActiveEditItem, setIsCartUpdating, projectQty } = props;
+
+    /*const catProps = useCategoryAddToCart({
+        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION
+    });
+    
+    const { handleAddToCart } = catProps; */
+
+    const { item, setActiveEditItem, setIsCartUpdating, projectQty, wid } = props;
     const { formatMessage } = useIntl();
 
     let productUrlSuffix = '';
@@ -224,9 +233,9 @@ const Product = props => {
                         />
                     )}
                     <span><strong>Part #</strong> {product.sku}</span>
-                    <span><strong>Brand:</strong> <BrandName pid={item.id} /></span>
+                    <span><strong>Brand:</strong> <BrandName pid={item.product.id} /></span>
                     
-                    <span><strong>Sold in:</strong> <SoldIn pid={item.id} /></span>
+                    <span><strong>Sold in:</strong> <SoldIn pid={item.product.id} /></span>
                     {/* <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />
                     </span> */}
@@ -241,6 +250,8 @@ const Product = props => {
                             onChange={handleUpdateItemQuantity}
                             setActiveEditItem={setActiveEditItem}
                             setIsCartUpdating={setIsCartUpdating}
+                            productId={'_'+item.product.id}
+                            wid={wid}
                         />
                     </div>
                 </div>

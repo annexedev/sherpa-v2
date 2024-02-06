@@ -212,6 +212,7 @@ class ProjectName extends Component {
 
     render() {
         projectname = this.state.pageData.pname && this.state.pageData.pname;
+
         return (
             <React.Fragment>
                 - <span id="widn" className={defaultClasses.nomProject}>{projectname}</span>
@@ -592,6 +593,7 @@ const MyWishList = props => {
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
+    const isArchive = queryParameters.get('archive');
 
     const remove = async id => {
 
@@ -885,15 +887,17 @@ const MyWishList = props => {
         );
     }
 
-    class RestoreProject extends Component {
+    
+
+    {/* class RestoreProject extends Component {
         constructor() {
             super();
             this.state = {
                 pageData: []
             };
+           
         }
         
-    
         componentDidMount() {
             let cid = this.props.cid;
             let dataURL =
@@ -908,7 +912,18 @@ const MyWishList = props => {
         }
     
         render() {
+
             let projectname = this.state.pageData.pname && this.state.pageData.pname;
+
+            function returnVal() {
+                var e = document.getElementById('widn');
+                var value = e.innerHTML;
+                return value;
+            }
+
+            const [restoreProject, { data, loading, error }] = useMutation(
+                RENAME_PROJECT_RESTORE
+            );
 
             if(projectname && projectname.startsWith('ARCHIVE - ')) {
 
@@ -944,9 +959,9 @@ const MyWishList = props => {
 
             
         }
-    }
+    } */}
 
-    /*function RestoreProject({ cid }) {
+    function RestoreProject({ cid }) {
         const [restoreProject, { data, loading, error }] = useMutation(
             RENAME_PROJECT
         );
@@ -965,30 +980,39 @@ const MyWishList = props => {
             return value;
         }
 
-        return (
-            <div>
-                <form
-                    onSubmit={e => {
-                        e.preventDefault();
-                        console.log('PIN ' + returnVal());
-                        restoreProject({
-                            variables: {
-                                category_name: returnVal(),
-                                category_id: wId
-                            }
-                        });
-                        window.alert('Project restored.');
-                        window.location.href = '/myprojects';
-                    }}
-                >
-                    <button type="submit" className={classes.add_to_project}>
-                        {' '}
-                        Restore project
-                    </button>
-                </form>
-            </div>
-        );
-    } */
+        if(isArchive == 1) {
+
+            return (
+                <>
+      
+                <div id={'restore'+cid}>
+                    <form
+                        onSubmit={e => {
+                            e.preventDefault();
+                            console.log('PIN ' + returnVal());
+                            restoreProject({
+                                variables: {
+                                    category_name: returnVal(),
+                                    category_id: wId
+                                }
+                            });
+                            window.alert('Project restored.');
+                            window.location.href = '/myprojects';
+                        }}
+                    >
+                        <button type="submit" className={classes.add_to_project}>
+                            {' '}
+                            Restore project
+                        </button>
+                    </form>
+                </div>
+                </>
+
+            ); 
+        } else {
+            return (<Select cid={cid} />  );
+        }
+    } 
 
     function MoveProjectToCart({ cid }) {
         return (
@@ -1076,7 +1100,7 @@ const MyWishList = props => {
         );
     }
 
-    const Select = () => {
+    const Select = ({cid}) => {
         const [selectValue, setSelectValue] = React.useState('');
         const onChange = event => {
             const value = event.target.value;
@@ -1084,7 +1108,7 @@ const MyWishList = props => {
         };
 
         return (
-            <div className={defaultClasses.wrapper_project_dropdown}>
+            <div className={defaultClasses.wrapper_project_dropdown} id={'actions'+cid}>
                 <select
                     onChange={onChange}
                     className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
@@ -1193,7 +1217,7 @@ const MyWishList = props => {
             if(this.id != 'plus_undefined') {
 
                 setTimeout(function(){ reset(); }, 1500);
-                var containerIdMinus = this.id;
+                /*var containerIdMinus = this.id;
                 var containerIdMinusComplete = containerIdMinus.replace("plus_", "");
                 
                 var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
@@ -1206,10 +1230,28 @@ const MyWishList = props => {
                     document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
                 } else {
                     document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
-                }
+                }*/
 
                 } else if(this.id == 'plus_undefined') {
-                    console.log('CALLED')
+
+                    
+
+                    //var containerIdMinus = this.id;
+                    var containerIdMinusComplete = this.getAttribute('data-pid');
+                    
+                    var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
+                    var futureQty = parseInt(currentQty);
+                    var currentQtySelector = parseInt(document.querySelector('#move_item_box_' + containerIdMinusComplete).querySelector('input').value) + 1;
+
+                    //console.log(currentQtySelector +' > '+futureQty)
+
+                    if(currentQtySelector >= futureQty) {
+                        document.body.querySelector('button[data-pidselect="p'+containerIdMinusComplete+'"]').disabled = true;
+                        //document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
+                    } else {
+                        document.body.querySelector('button[data-pidselect="p'+containerIdMinusComplete+'"]').disabled = false;
+                        //document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
+                    }
                     
                     /*let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=1&cid='+wId;
                     console.log(dataURL);
@@ -1226,7 +1268,7 @@ const MyWishList = props => {
             
             if(this.id != 'minus_undefined') {
                 setTimeout(function(){ reset(); }, 1500);
-                var containerIdMinus = this.id;
+                /*var containerIdMinus = this.id;
                 var containerIdMinusComplete = containerIdMinus.replace("minus_", "");
                 
                 var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
@@ -1238,10 +1280,27 @@ const MyWishList = props => {
                     document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
                 } else {
                     document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
-                }
+                }*/
 
             } else if(this.id == 'minus_undefined') {
-                console.log('CALLED')
+                //console.log('CALLED');
+
+                //var containerIdMinus = this.id;
+                var containerIdMinusComplete = this.getAttribute('data-pid');
+                
+                var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
+                var currentQtySelector = parseInt(document.querySelector('#move_item_box_' + containerIdMinusComplete).querySelector('input').value) - 1;
+
+                //console.log(currentQtySelector+' < '+currentQty)
+
+                if(parseInt(currentQtySelector) < currentQty) {
+                    document.body.querySelector('button[data-pidselect="p'+containerIdMinusComplete+'"]').disabled = false;
+                    //document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
+                } else {
+                    document.body.querySelector('button[data-pidselect="p'+containerIdMinusComplete+'"]').disabled = true;
+                    //document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
+                }
+
                 /*let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=-1&cid='+wId;
                 console.log(dataURL);
                 fetch(dataURL)
@@ -1506,7 +1565,7 @@ const MyWishList = props => {
                                                                                         }
                                                                                     />
                                                                                 </Link>
-                                                                                <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} />
+                                                                                {/* <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} /> */}
                                                                                 <div className={classes.brand_name}><BrandName pid={val.product.id} /></div>
                                                                             </div>
 
@@ -1722,7 +1781,7 @@ const MyWishList = props => {
                                                                                                 id={'move_item_box_'+val.id} 
                                                                                                 className={ classes.move_item_static + ' move_item_ref' }>
                                                                                                 <Quantity
-                                                                                                    initialValue={1} isChildren={1} /*productId={val.id} onClick={reset} wid={wId} */
+                                                                                                    initialValue={1} isChildren={1} productId={val.id} ignore={1} /*onClick={reset} wid={wId} */
                                                                                                 />
                                                                                             <button
                                                                                                 onClick={() => {

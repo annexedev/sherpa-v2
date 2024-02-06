@@ -79,8 +79,8 @@ const ProductListing = props => {
                     entryCategory.forEach(function(entryCat) { 
                         
                         if(entryCat.category_id == inputCategory) {
+                            //entry.quantity = entryCat.qty;
                             entry.quantity = entryCat.qty;
-
                             console.log('PROJET '+entryCat.category_id+' qty '+entryCat.qty)
 
                             productComponents.push(
@@ -91,6 +91,7 @@ const ProductListing = props => {
                                         setActiveEditItem={setActiveEditItem}
                                         setIsCartUpdating={setIsCartUpdating}
                                         projectQty={entryCat.qty}
+                                        wid={entryCat.category_id}
                                     />
                                 </>
                             );

@@ -187,7 +187,7 @@ class ProjectList extends Component {
                                                     <a
                                                         href={
                                                             '/myprojects?id=' +
-                                                            e.category_id
+                                                            e.category_id + '&archive=1'
                                                         }
                                                     >
                                                         {e.category_name}
@@ -209,7 +209,7 @@ class ProjectList extends Component {
                                                         <a
                                                             href={
                                                                 '/myprojects?id=' +
-                                                                e.category_id
+                                                                e.category_id + '&archive=1'
                                                             }
                                                         >
                                                             {e.category_name}
