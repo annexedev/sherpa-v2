@@ -753,7 +753,7 @@ const GalleryItem = props => {
             let url_path = this.state.pageData.url_path && this.state.pageData.url_path;
             if(label_path != '' && this.state.pageData.label_path) {
             return (
-                <a href={url_path}><img src={"https://data.sherpagroupav.com/media/amasty/amlabel/"+label_path} className={classes.amastyLabel} /></a>
+                <a href={url_path}><img src={"https://data.sherpagroupav.com"+label_path} className={classes.amastyLabel} /></a>
             ) } else {
                 return(<></>);
             }
