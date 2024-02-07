@@ -35,7 +35,7 @@ const Product = props => {
     
     const { handleAddToCart } = catProps; */
 
-    const { item, setActiveEditItem, setIsCartUpdating, projectQty, wid } = props;
+    const { item, setActiveEditItem, setIsCartUpdating, projectQty, wid, disableQuantity } = props;
     const { formatMessage } = useIntl();
 
     let productUrlSuffix = '';
@@ -242,19 +242,27 @@ const Product = props => {
                     <span className={classes.stockStatusMessage}>
                         {stockStatusMessage}
                     </span>
-                    <div className={classes.quantity}>
-                        <Quantity
-                            item={item}
-                            itemId={item.id}
-                            initialValue={quantity}
-                            onChange={handleUpdateItemQuantity}
-                            setActiveEditItem={setActiveEditItem}
-                            setIsCartUpdating={setIsCartUpdating}
-                            productId={'_'+item.product.id}
-                            wid={wid}
-                        />
-                    </div>
+                    {disableQuantity != 1 && (
+                        <div className={classes.quantity}>
+                            <Quantity
+                                item={item}
+                                itemId={item.id}
+                                initialValue={quantity}
+                                onChange={handleUpdateItemQuantity}
+                                setActiveEditItem={setActiveEditItem}
+                                setIsCartUpdating={setIsCartUpdating}
+                                productId={'_'+item.product.id}
+                                wid={wid}
+                            />
+                        </div>
+                    )}
+                    {disableQuantity == 1 && (
+                        <div className={classes.quantity}>
+                            <p>{quantity} in your cart</p>
+                        </div>
+                    )}
                 </div>
+                {disableQuantity != 1 && (
                 <button
                     onClick={removeItem}
                     type="button"
@@ -267,7 +275,7 @@ const Product = props => {
                         classes={{ icon: classes.editIcon }}
                     />
                 </button>
-
+                )}
                 {/* <Kebab classes={{ root: classes.kebab }} disabled={true}  onClick={handleRemoveFromCart}> */}
                 {/* {!isSignedIn && (
                         <Section

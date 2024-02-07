@@ -92,6 +92,7 @@ const ProductListing = props => {
                                         setIsCartUpdating={setIsCartUpdating}
                                         projectQty={entryCat.qty}
                                         wid={entryCat.category_id}
+                                        disableQuantity={1}
                                     />
                                 </>
                             );

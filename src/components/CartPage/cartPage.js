@@ -363,10 +363,7 @@ const CartPage = props => {
                                 {/* products individuelle */}
                                 <div className={classes.wrapperProducts}>
                                     <h1 className={classes.headingProducts}>
-                                        <FormattedMessage
-                                            id={'cartPage.headingProducts'}
-                                            defaultMessage={'Products'}
-                                        />
+                                        Products in your cart
                                     </h1>
                                     <div className={classes.wrapperValeurProduits}>
                                         <span>{itemsWithoutProject.length} products</span>
@@ -431,6 +428,7 @@ const CartPage = props => {
                                                         <h1 className={classes.headingProductsWithProject}>
                                                             <ProjectName cid={itemProjet} />
                                                         </h1>
+                                                        <div><a href={"/myprojects?id="+itemProjet}>Link button</a></div>
                                                         <div className={classes.wrapperValeurProduits}>
                                                             <span><CountProjectItem products={itemsWithProject} inputCategory={itemProjet} /></span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
