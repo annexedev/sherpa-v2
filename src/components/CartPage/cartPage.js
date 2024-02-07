@@ -15,7 +15,7 @@ import { GET_CART_DETAILS } from './cartPage.gql';
 import searchClasses from '../SearchPage/searchPage.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle, faCircle, faCircleChevronUp, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faCircle, faCircleChevronUp, faChevronUp, faChevronDown, faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
 
 import {
     useWishlist,
@@ -179,6 +179,22 @@ const CartPage = props => {
         }
     }
 
+    function getProjectProductQuantity(arrayCategory) {
+
+        const obj = arrayCategory;
+
+        var x = 0;
+
+        if(obj) {
+
+            obj.forEach(function (arrayItem) {
+                x = x + parseInt(arrayItem.qty);
+            });
+            
+            return x;
+        }
+    }
+
     //const itemsWithBoth 
 
     // console.log('ITEMS JSON', cartItemsJSON);
@@ -257,7 +273,9 @@ const CartPage = props => {
                     
                     if(entryCat.category_id == inputCategory) {
                        
-                        qtyTotal = qtyTotal + parseInt(entryCat.qty);
+                        //qtyTotal = qtyTotal + parseInt(entryCat.qty);
+
+                        qtyTotal = qtyTotal + 1;
 
                     } 
         
@@ -270,6 +288,8 @@ const CartPage = props => {
             } else {
                 return qtyTotal+' products';
             }
+
+            //return inputCategory.length;
 
             
         }
@@ -368,7 +388,7 @@ const CartPage = props => {
                                     <div className={classes.wrapperValeurProduits}>
                                         <span>{itemsWithoutProject.length} products</span>
                                         <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                        <span>$ {totalPriceProductsWithoutProject}</span>
+                                        <span><Price value={totalPriceProductsWithoutProject} currencyCode={'CAD'} /></span>
                                         <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                     </div>
                                 </div>
@@ -428,10 +448,11 @@ const CartPage = props => {
                                                         <h1 className={classes.headingProductsWithProject}>
                                                             <ProjectName cid={itemProjet} />
                                                         </h1>
-                                                        <div><a href={"/myprojects?id="+itemProjet}>Link button</a></div>
+                                                        <div><a href={"/myprojects?id="+itemProjet}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>
                                                         <div className={classes.wrapperValeurProduits}>
                                                             <span><CountProjectItem products={itemsWithProject} inputCategory={itemProjet} /></span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
+                                                            
                                                             <span><CountProjectValue products={itemsWithProject} inputCategory={itemProjet} /></span>
                                                             <span onClick={() => { setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                                         </div>
