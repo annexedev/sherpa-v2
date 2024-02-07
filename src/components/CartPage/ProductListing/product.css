@@ -13,7 +13,7 @@
     width: 95%; 
 }
 .deleteButton{
-    margin-top: -20px;
+    margin-top: -38px;
 }
 
 .errorText {
@@ -123,6 +123,7 @@
     .details {
         grid-template: none;
         overflow: hidden;
+        margin-left: 26px;
     }
     .item {
         grid-template-columns: 60px calc(100% - 90px) 20px;
@@ -140,5 +141,12 @@
     }
     .quantity {
         justify-items: start;
+        margin-top: 36px;
+    }
+}
+
+@media (max-width:991px){
+    .deleteButton{
+        margin-top: -46px;
     }
 }

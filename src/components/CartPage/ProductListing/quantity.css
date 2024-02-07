@@ -132,3 +132,20 @@
         justify-content: flex-start !important;
     }
 }
+
+@media screen and (min-width: 770px) and (max-width: 1280px) {
+
+    .price{
+        margin-top: 40px;
+        margin-left: -136px;
+    }
+
+}
+
+@media screen and (max-width: 550px) {
+.price{
+    margin-top: 77px;
+    margin-left: -409px;    
+}
+}
+

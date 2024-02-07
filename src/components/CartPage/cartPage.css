@@ -15,6 +15,7 @@
   display:flex;
   gap:15px;
   width:100%;
+  flex-wrap: wrap;
  }
 .review_order_button {
     composes: root_highPriority from '../Button/button.css';
@@ -152,7 +153,8 @@
 }
 
 .summary_container {
-    grid-area: summary;
+    /* grid-area: summary; */
+    min-width: 25%;
 }
 
 .summary_contents {
@@ -199,6 +201,12 @@
     }
     .heading_container {
         margin-bottom: 0;
+    }
+    .item_container_wrap{
+        width: 100%;
+    }
+    .summary_container {
+        width: 100%;
     }
 }
 @media screen and (min-width: 320px) and (max-width: 767px) {
