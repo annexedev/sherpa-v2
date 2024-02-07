@@ -127,6 +127,20 @@
     display:flex;
     padding: 10px;
 }
+
+.ctaUpdate {
+    border: 2px solid #8dc74c;
+    padding: 10px;
+}
+
+.ctaUpdate a{
+    color: #8dc74c;
+}
+
+.ctaUpdate a:hover{
+    color: #000;
+}
+
 .items_container {
     grid-area: items;
     border: 1px solid #EBEBEB;

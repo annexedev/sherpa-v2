@@ -448,7 +448,7 @@ const CartPage = props => {
                                                         <h1 className={classes.headingProductsWithProject}>
                                                             <ProjectName cid={itemProjet} />
                                                         </h1>
-                                                        <div><a href={"/myprojects?id="+itemProjet}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>
+                                                        <div className={classes.ctaUpdate}><a href={"/myprojects?id="+itemProjet}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>
                                                         <div className={classes.wrapperValeurProduits}>
                                                             <span><CountProjectItem products={itemsWithProject} inputCategory={itemProjet} /></span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
