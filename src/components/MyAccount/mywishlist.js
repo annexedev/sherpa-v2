@@ -651,9 +651,63 @@ const MyWishList = props => {
         }
     `;
 
+    function MoveToCart(uid) {
+
+        if( wId ) {
+        return (
+            <>
+                <Popup
+                    trigger={<button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'}/> </button>}
+                    modal
+                    nested
+                >
+                    {close => (
+                    <div className="modalreact">
+                        <button className="close" onClick={close}>
+                        &times;
+                        </button>
+                        <div className="header"> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'}/> <ProjectName cid={wId} /></div>
+                        <div className="content content-align">
+                        {' '}
+                        <FormattedMessage id={'project.movecontent'} defaultMessage={'This will send your entire projects contents to the Shopping Cart.'}/>
+                        <br/><br/>
+                        <b><FormattedMessage id={'project.moveproceed'} defaultMessage={'Do you want to proceed?'}/></b>
+                        </div>
+                        <div className="actions">
+                        <button
+                            className={classes.button_move_project_yes}
+
+                            onClick={() => {
+                                
+                                var elements = document.getElementsByClassName("active_item"+wId);
+                    
+                                for (var i = 0; i < elements.length; i++) {
+                                    elements[i].click();
+                                } 
+
+                            }}
+                        >
+                            <FormattedMessage id={'project.yes'} defaultMessage={'Yes'}/>
+                        </button>
+                        <button
+                            className={classes.button_move_project_no}
+                            onClick={() => {
+                            close();
+                            }}
+                        >
+                            <FormattedMessage id={'project.cancel'} defaultMessage={'Cancel and close'}/>
+                        </button>
+                        </div>
+                    </div>
+                    )}
+                </Popup>
+            </>
+            );
+        }
+    }
+
     function AddTodo(uid) {
         let input;
-
         let selectId = uid;
 
         const [addTodo, { data, loading, error }] = useMutation(
@@ -665,55 +719,7 @@ const MyWishList = props => {
         if (loading) return 'Submitting...';
         if (error) return `Submission error! ${error.message}`;
         if( wId ) {
-        return (
-            <>
-             <Popup
-                trigger={<button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'}/> </button>}
-                modal
-                nested
-            >
-                {close => (
-                <div className="modalreact">
-                    <button className="close" onClick={close}>
-                    &times;
-                    </button>
-                    <div className="header"> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'}/> <ProjectName cid={wId} /></div>
-                    <div className="content content-align">
-                    {' '}
-                    <FormattedMessage id={'project.movecontent'} defaultMessage={'This will send your entire projects contents to the Shopping Cart.'}/>
-                    <br/><br/>
-                    <b><FormattedMessage id={'project.moveproceed'} defaultMessage={'Do you want to proceed?'}/></b>
-                    </div>
-                    <div className="actions">
-                    <button
-                        className={classes.button_move_project_yes}
-
-                        onClick={() => {
-                            
-                            var elements = document.getElementsByClassName("active_item"+wId);
-                
-                            for (var i = 0; i < elements.length; i++) {
-                                elements[i].click();
-                            } 
-
-                        }}
-                    >
-                        <FormattedMessage id={'project.yes'} defaultMessage={'Yes'}/>
-                    </button>
-                    <button
-                        className={classes.button_move_project_no}
-                        onClick={() => {
-                        close();
-                        }}
-                    >
-                        <FormattedMessage id={'project.cancel'} defaultMessage={'Cancel and close'}/>
-                    </button>
-                    </div>
-                </div>
-                )}
-            </Popup>
-        </>
-        );
+        return (<> </>);
         } else {
             return (<>
             
@@ -1386,7 +1392,7 @@ const MyWishList = props => {
                                                     to={resourceUrl('/orders?project='+wId)}
                                                 ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'}/></Link>
                                                 <RestoreProject cid={wId} />
-                                                
+                                                <MoveToCart uid={wId} />
                                             </div>
                                         </>
                                     )}

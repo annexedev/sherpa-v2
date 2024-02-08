@@ -53,14 +53,12 @@ class ProjectList extends Component {
 
     alternateVisibilityArchive = () => {
         this.setState((prevState) => ({
-
             myArchiveVisible: !prevState.myArchiveVisible,
         }));
     }
 
     alternateVisibilityProjects = () => {
         this.setState((prevState) => ({
-
             myProjectsVisible: !prevState.myProjectsVisible,
         }));
     }
