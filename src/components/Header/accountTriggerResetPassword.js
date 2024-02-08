@@ -3,8 +3,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccountTrigger';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import AccountChip from '../AccountChip';
 import defaultClasses from './accountTrigger.css';
+import Button from '../Button';
 
 const AccountMenu = React.lazy(() => import('../AccountMenu'));
 /**
@@ -41,21 +41,18 @@ const AccountTriggerResetPassword = props => {
 
     return (
         <Fragment>
-            <div className={rootClassName} ref={accountMenuTriggerRef}>
-                <button
-                    id="reset_password"
-                    aria-label={formatMessage({
-                        id: 'accountTrigger.ariaLabel',
-                        defaultMessage: 'Toggle My Account Menu'
-                    })}
-                    className={classes.trigger}
-                    onClick={handleTriggerClick}
-                >
-                      <FormattedMessage
-                                    id={'forgotPasswordForm.title'}
-                                    defaultMessage={'Reset password existing count'}
-                                />
-                </button>
+            <div className={classes.buttonContainer} >
+                
+                <Button
+                            id="reset_password"
+                            onClick={handleTriggerClick}
+                            priority="high"
+                        >
+                            <FormattedMessage
+                                id={'forgotPasswordForm.ResetPassword'}
+                                defaultMessage={'Submit'}
+                            />
+                </Button>
             </div>
             <Suspense fallback={null}>
                 <AccountMenu

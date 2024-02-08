@@ -116,6 +116,22 @@ const ForgotPasswordForm = props => {
                         />
                     )}
                 </h2>
+                <div className={classes.title_message}>
+                    <FormattedMessage
+                        id={'forgotPasswordForm.title_message_Success_notice'}
+                        defaultMessage={
+                            'A one-time password reset code (OTP) has been sent to your email address.'
+                        }
+                    />
+                </div>
+                <div className={classes.title_message}>
+                    <FormattedMessage
+                        id={'forgotPasswordForm.title_message_Success_more'}
+                        defaultMessage={
+                            'Enter this OTP into the field below, then choose your password, and click submit.Thank you, we look forward to working with you!'
+                        }
+                    />
+                </div>
                 <div className={classes.form_field}>
                     <Field label="OTP" required={true}>
                         <TextInput
@@ -125,14 +141,14 @@ const ForgotPasswordForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.title_message}>
+                {/* <div className={classes.title_message}>
                     <FormattedMessage
                         id={'forgotPasswordForm.title_message_Success'}
                         defaultMessage={
                             'Enter your otp received on your email id.'
                         }
                     />
-                </div>
+                </div> */}
                 <div className={classes.form_field}>
                     <Field label="Password" required={true}>
                         <TextInput
@@ -225,16 +241,33 @@ const ForgotPasswordForm = props => {
                 <p className={defaultClasses.title_message}>
                     {activeLng == '-fr' ? (
                         <FormattedMessage
-                            id={'forgotPasswordForm.title_message'}
+                            id={'forgotPasswordForm.title_message_notice'}
                             defaultMessage={
-                                'Entrez votre courriel ci-dessous pour réinitialiser votre mot de passe.'
+                                'Thank you for registering for an account on SherpaGroupAV.com'
                             }
                         />
                     ) : (
                         <FormattedMessage
-                            id={'forgotPasswordForm.title_message'}
+                            id={'forgotPasswordForm.title_message_notice'}
                             defaultMessage={
-                                'Enter your email below to receive OTP.'
+                                'Thank you for registering for an account on SherpaGroupAV.com'
+                            }
+                        />
+                    )}
+                </p>
+                <p className={defaultClasses.title_message}>
+                    {activeLng == '-fr' ? (
+                        <FormattedMessage
+                            id={'forgotPasswordForm.title_message_more'}
+                            defaultMessage={
+                                'Please enter the email address you registered with below, and click submit:'
+                            }
+                        />
+                    ) : (
+                        <FormattedMessage
+                            id={'forgotPasswordForm.title_message_more'}
+                            defaultMessage={
+                                'Please enter the email address you registered with below, and click submit:'
                             }
                         />
                     )}
