@@ -11,6 +11,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { useCmsBlock } from '../../peregrine/lib/talons/Home/useHome';
 import GET_CMSBLOCK_QUERY from '../../queries/getCmsBlocks.graphql';
+import AccountTriggerResetPassword from '../Header/accountTriggerResetPassword';
 /*
 
 <div id="order" value="4"></div>
@@ -37,6 +38,23 @@ class TriggerOpen extends Component {
     componentDidMount() {
         setTimeout(function() {
             document.getElementById('user_account').click();
+        }, 1500);
+    }
+    render() {
+        return <></>;
+    }
+}
+
+class TriggerOpenResetPassword extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+    componentDidMount() {
+        setTimeout(function() {
+            document.getElementById('reset_password').click();
         }, 1500);
     }
     render() {
@@ -390,6 +408,7 @@ const Main = props => {
     var displayTeam = false;
     var displayEducation = false;
     var display12Days = false;
+    var displayResetPassword = false;
 
     if (isSignedIn && window.location.href.indexOf('/events') != -1) {
         window.eventCalId = 13099;
@@ -434,6 +453,10 @@ const Main = props => {
         display12Days = true;
     }
 
+    if (window.location.href.indexOf('/set-password') != -1) {
+        displayResetPassword = true;
+    }
+
     function openLoginBox() {
         document.getElementById('user_account').click();
     }
@@ -459,6 +482,18 @@ const Main = props => {
             <Header />
             <div className={pageClass}>
                 {(() => {
+
+                    if(displayResetPassword) {
+                        return (
+                            <div>
+                            <TriggerOpenResetPassword />
+                            <br />
+                            <br />
+                            <br />
+                            <AccountTriggerResetPassword />
+                        </div>
+                        )
+                    }
 
                     if(isSignedIn && display12Days) {
                         return (

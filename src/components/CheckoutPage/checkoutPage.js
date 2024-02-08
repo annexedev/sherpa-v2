@@ -210,6 +210,7 @@ const CheckoutPage = props => {
                         accountMenuIsOpen={accountMenuIsOpen}
                         setAccountMenuIsOpen={setAccountMenuIsOpen}
                         handleTriggerClick={handleTriggerClick}
+                        displayBtnBack={true}
                     />
                 </div>
             ) : null;
@@ -452,7 +453,7 @@ const CheckoutPage = props => {
                             )}
                             <br />
                             <Link
-                                to="/brands-sherpa"
+                                to="/brands"
                                 className={classes.review_order_button_link}
                             >
                                 <span>
@@ -526,7 +527,7 @@ const CheckoutPage = props => {
                             )}
                             <br />
                             <Link
-                                to="/brands-sherpa"
+                                to="/brands"
                                 className={classes.review_order_button_link}
                             >
                                 <span>
