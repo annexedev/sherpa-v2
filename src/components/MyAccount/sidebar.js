@@ -120,7 +120,7 @@ class ProjectList extends Component {
                                         height="20"
                                     />
                                 </span>
-                                <Link onClick={onClose}>
+                                <Link to="/myprojects" onClick={onClose}>
                                     <FormattedMessage
                                         id={'sidebar.MyWishlist'}
                                         defaultMessage={'MyProjects (active)'}
