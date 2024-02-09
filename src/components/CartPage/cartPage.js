@@ -199,11 +199,11 @@ const CartPage = props => {
 
     // console.log('ITEMS JSON', cartItemsJSON);
 
-    //const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
+    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
 
     //const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || checkProjectQuantity(item.category,item.quantity));
 
-    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || item.category !== null);
+    // const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || item.category !== null);
 
     const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
     let listOfProjects = [];
@@ -211,8 +211,8 @@ const CartPage = props => {
     const projectsDansPanier = itemsWithProject.map(project => project.category.map(item => listOfProjects.push(item)));
 
     // console.log('LIST OF PROJECTS',listOfProjects);
-    // console.log('ITEMS WITH PROJECT', itemsWithProject);
-    // console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
+    console.log('ITEMS WITH PROJECT', itemsWithProject);
+    console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
 
     const myprojects = itemsWithProject.length >= 1 ? true : false; /* il faut verifier si il y a des projets */
 
@@ -394,7 +394,7 @@ const CartPage = props => {
                                 </div>
                                 {productsWithoutProject &&
                                     <div className={classes.items_container}>
-                                        {itemsWithoutProject ?
+                                        {itemsWithoutProject >= 1 ?
                                             <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithoutProject} cart={true} isProject={0}/>
                                             :
                                             <div className={classes.noResult}>
