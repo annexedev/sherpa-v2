@@ -394,7 +394,7 @@ const CartPage = props => {
                                 </div>
                                 {productsWithoutProject &&
                                     <div className={classes.items_container}>
-                                        {itemsWithoutProject >= 1 ?
+                                        {itemsWithoutProject.length >= 1 ?
                                             <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithoutProject} cart={true} isProject={0}/>
                                             :
                                             <div className={classes.noResult}>
