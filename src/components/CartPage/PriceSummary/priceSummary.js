@@ -40,7 +40,7 @@ const GET_PRICE_SUMMARY = gql`
  * import PriceSummary from "@magento/venia-ui/lib/components/CartPage/PriceSummary";
  */
 const PriceSummary = props => {
-    const { isUpdating } = props;
+    const { isUpdating, arrayItensParProjets, itemsWithoutProject, itemsWithProject } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
         queries: {
@@ -116,6 +116,10 @@ const PriceSummary = props => {
         </>
     ) : null;
 
+    const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
+
+    console.log(itemsWithoutProject);
+
     return (
         <div className={classes.root}>
                 <h3 className={classes.headingSubtotal}>
@@ -126,10 +130,26 @@ const PriceSummary = props => {
                 </h3>
             <div className={classes.lineItems}>
 
+                {/* ITEMS SANS PROJECT */}
                 <span className={classes.lineItemLabel}>
                     <FormattedMessage
                         id={'priceSummary.lineItemLabel'}
                         defaultMessage={'Products'}
+                    />
+                </span>
+                <span className={priceClass}>
+                    <Price
+                        value={totalPriceProductsWithoutProject}
+                        currencyCode={subtotal.currency}
+                    />
+                </span>
+            </div>           
+            <div className={classes.lineItems}>
+                {/* BOUCLE DANS LES ITEMS WITH PROJECTS */}
+                <span className={classes.lineItemLabel}>
+                    <FormattedMessage
+                        id={'priceSummary.produitLabel'}
+                        defaultMessage={'Nom produit'}
                     />
                 </span>
                 <span className={priceClass}>
@@ -163,12 +183,11 @@ const PriceSummary = props => {
                 <ShippingSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
-                        price: priceClass
+                        price: priceClass,
                     }}
                     data={shipping}
                     isCheckout={isCheckout}
                 />
-                
             </div>
             <div
                 className={classes.price_adjustments_container}

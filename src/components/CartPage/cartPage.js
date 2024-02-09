@@ -127,9 +127,6 @@ const CartPage = props => {
     //     <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
     // ) : null;
 
-    const priceSummary = hasItems ? (
-        <PriceSummary isUpdating={isCartUpdating} />
-    ) : null;
 
     const url = window.location.href;
 
@@ -211,8 +208,8 @@ const CartPage = props => {
     const projectsDansPanier = itemsWithProject.map(project => project.category.map(item => listOfProjects.push(item)));
 
     // console.log('LIST OF PROJECTS',listOfProjects);
-    console.log('ITEMS WITH PROJECT', itemsWithProject);
-    console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
+    // console.log('ITEMS WITH PROJECT', itemsWithProject);
+    // console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
 
     const myprojects = itemsWithProject.length >= 1 ? true : false; /* il faut verifier si il y a des projets */
 
@@ -231,7 +228,6 @@ const CartPage = props => {
             productsFiltre.push(_item)
         })
     });
-    // console.log('FIN', productsFiltre);
 
     // Groupe les itens par id de projet
     const itensParProjets = productsFiltre.reduce((groupe, produit) => {
@@ -239,24 +235,26 @@ const CartPage = props => {
         if (!groupe[produit.projetNom]) {
             groupe[produit.projetNom] = [];
         }
-        // console.log(produit);
         groupe[produit.projetNom].push(produit);
         return groupe;
     }, {});
 
-    // console.log(itensParProjets);
 
     // productsParProjet.push(itensAgrupadosPorProjeto);
     const arrayItensParProjets = Object.keys(itensParProjets).map((key) => {
         return { [key]: itensParProjets[key] }
      });
     
-    console.log('arrayItensParProjets');
+    // console.log('arrayItensParProjets');
 
     const unique = [...new Set(productsFiltre.map(item => item.projetID))];
 
-    console.log(arrayItensParProjets);
-    console.log(unique);
+    // console.log(arrayItensParProjets);
+    // console.log(unique);
+
+    const priceSummary = hasItems ? (
+        <PriceSummary isUpdating={isCartUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithoutProject} />
+    ) : null;
 
     
 
