@@ -215,8 +215,9 @@ const CartPage = props => {
 
     // const qntyProjects = itemsWithProject.map(project => (project.category.length))
 
-    const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
+    const totalPriceProductsWithoutProject = Number(itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2));
 
+    console.log(typeof totalPriceProductsWithoutProject);
     let productsFiltre = [];
     let productsParProjet = [];
 
@@ -245,7 +246,7 @@ const CartPage = props => {
         return { [key]: itensParProjets[key] }
      });
     
-    // console.log('arrayItensParProjets');
+    console.log(arrayItensParProjets);
 
     const unique = [...new Set(productsFiltre.map(item => item.projetID))];
 
@@ -253,7 +254,7 @@ const CartPage = props => {
     // console.log(unique);
 
     const priceSummary = hasItems ? (
-        <PriceSummary isUpdating={isCartUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithoutProject} />
+        <PriceSummary isUpdating={isCartUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} />
     ) : null;
 
     
@@ -441,7 +442,7 @@ const CartPage = props => {
                                            
                                            {arrayItensParProjets.map((item,index) => (
 
-                                                <div className={classes.items_container_projet}>
+                                                <div className={classes.items_container_projet} key={'item' + index}>
                                                     <div className={classes.wrapperProductsWithProject}>
                                                         <h1 className={classes.headingProductsWithProject}>
                                                             <ProjectName cid={itemProjet} />

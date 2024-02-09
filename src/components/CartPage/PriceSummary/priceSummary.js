@@ -40,7 +40,7 @@ const GET_PRICE_SUMMARY = gql`
  * import PriceSummary from "@magento/venia-ui/lib/components/CartPage/PriceSummary";
  */
 const PriceSummary = props => {
-    const { isUpdating, arrayItensParProjets, itemsWithoutProject, itemsWithProject } = props;
+    const { isUpdating, projects, itemsWithoutProject, itemsWithProject } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
         queries: {
@@ -117,8 +117,14 @@ const PriceSummary = props => {
     ) : null;
 
     const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
+/* Je suis ici en train de faire le calcul pour afficher les valeurs de chaque projet et après faire un boucle pour créer des lignes avec le nom e value de chaque projet */
+    const prixParProjet = []
+    const totalPriceProductsWithProject = projects.map((item) => {
+        console.log(item);
+    });
 
-    console.log(itemsWithoutProject);
+    console.log(projects);
+
 
     return (
         <div className={classes.root}>
