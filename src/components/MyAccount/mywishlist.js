@@ -22,7 +22,7 @@ import {
 import { useCategoryAddToCart , useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 
 import Quantity from '../CartPage/ProductListing/quantity';
-
+import { useCartPage } from '../../peregrine/lib/talons/CartPage/useCartPage.js';
 import WishlistSkelton from './WishlistSkeleton.js';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { useToasts } from '@magento/peregrine';
@@ -31,6 +31,7 @@ import { useGetScopeCache } from '../../peregrine/lib/talons/Home/useHome';
 import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+import { GET_CART_DETAILS } from '../CartPage/cartPage.gql';
 // import MpBetterWishlistGetCategories from '../../queries/getMpBetterWishlistGetCategories.graphql'
 import { Title } from '@magento/venia-ui/lib/components/Head';
 import { gql, useMutation } from '@apollo/client';
@@ -505,7 +506,7 @@ class AlreadyPurchased extends Component {
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
-    //window.location.href="/";
+
     const [seed, setSeed] = useState(1);
 
     const reset = () => {
@@ -653,6 +654,25 @@ const MyWishList = props => {
 
     function MoveToCart(uid) {
 
+        const talonProps = useCartPage({
+            queries: {
+                getCartDetails: GET_CART_DETAILS
+            }
+        });
+    
+        const {
+            cartItems,
+            hasItems,
+            isCartUpdating,
+            setIsCartUpdating,
+            shouldShowLoadingIndicator
+        } = talonProps;
+    
+        console.log('cartItems');
+        if(cartItems) {
+            console.log(cartItems);
+        }
+
         if( wId ) {
         return (
             <>
@@ -679,11 +699,71 @@ const MyWishList = props => {
 
                             onClick={() => {
                                 
-                                var elements = document.getElementsByClassName("active_item"+wId);
-                    
+                                var elements = document.getElementsByClassName("move_confirm_partial");
+                                
+
+                                console.log('MOVEBEFORE'+productId)
+                                console.log(cartItems);
+
+                                function checkProjectQuantity(arrayCategory, pid) {
+
+                                    const obj = JSON.parse(arrayCategory);
+                            
+                                    var x = 0;
+                            
+                                    if(obj) {
+                            
+                                        obj.forEach(function (arrayItem) {
+                                            console.log(arrayItem.product_id+' arrayItem.product_id')
+                                            if(arrayItem.product_id == pid) {
+                                                x = parseInt(arrayItem.qty);
+                                            }
+   
+                                        });
+                                        
+                                        return x;
+                                    }
+                                }
+
                                 for (var i = 0; i < elements.length; i++) {
+
+                                    var inCart = 0;
+                                    var inProject = 0;
+
+                                    var productId = (elements[i].id).replace("partial_", '');
+
+                                    cartItems.forEach(function (arrayItem) {
+                                        console.log('arrayItem.category')
+                                        console.log(arrayItem.category.product_id);
+                                        
+                                        inCart = arrayItem.quantity;
+                                        
+                                        if(arrayItem.product.id == productId) {
+                                            inProject = checkProjectQuantity(arrayItem.category,productId);
+
+                                            if(inProject >= inCart) {
+                                                document.getElementById('btn_move_'+productId).disabled = true;
+                                                document.getElementById('btn_move_'+productId).style.opacity = '0.3';
+                                                document.getElementById('btn_move_p'+productId).disabled = true;
+                                                document.getElementById('btn_move_p'+productId).style.opacity = '0.3';
+                                            } else {
+                                                document.getElementById('btn_move_'+productId).disabled = false;
+                                                document.getElementById('btn_move_'+productId).style.opacity = '1';
+                                                document.getElementById('btn_move_p'+productId).disabled = false;
+                                                document.getElementById('btn_move_p'+productId).style.opacity = '1';
+                                            }
+                                        }
+                                        
+                                        
+
+                                    });
+
+                                    console.log('['+productId+'] In cart : '+inCart+' In project : '+inProject);
+
                                     elements[i].click();
                                 } 
+                                console.log('MOVEAFTER')
+                                console.log(cartItems);
 
                             }}
                         >
@@ -1699,14 +1779,13 @@ const MyWishList = props => {
                                                                                         'SimpleProduct' && (
                                                                                             <>
                                                                                             <button
+                                                                                                id={'btn_move_'+val.product.id}
                                                                                                 className={
                                                                                                     'active_item' +
                                                                                                     wId
                                                                                                 }
                                                                                                 onClick={() => {
-                                                                                                    console.log('XXXXXXXXXXX');
-                                                                                                    console.log(val);
-                                                                                                    //val.product.qty = 10;
+
                                                                                                     var currentQty = document
                                                                                                         .querySelector(
                                                                                                             '#q' +
@@ -1756,7 +1835,114 @@ const MyWishList = props => {
                                                                                                     />
                                                                                                 </span>
                                                                                             </button>
+                                                                                            {/*<button
+                                                                                                onClick={() => {
+
+                                                                                                    var x = document.getElementById('qty_item_box_'+val.id);
+                                                                                                    if (window.getComputedStyle(x).display === "none") {
+                                                                                                        document.getElementById('qty_item_box_'+val.id).style.display='block';
+                                                                                                    } else {
+                                                                                                        document.getElementById('qty_item_box_'+val.id).style.display='none';
+                                                                                                    }
+
+                                                                                                    
+                                                                                                }}
+                                                                                            >
+                                                                                                <span
+                                                                                                    className={
+                                                                                                        classes.move_item
+                                                                                                    }
+                                                                                                >
+                                                                                                    <FormattedMessage
+                                                                                                        id={
+                                                                                                            'myWishlist.moveToCartBtnPartialEdit'
+                                                                                                        }
+                                                                                                        defaultMessage={
+                                                                                                            'Edit cart quantity'
+                                                                                                        }
+                                                                                                    />
+                                                                                                </span>
+                                                                                            </button>
+                                                                                            <div 
+                                                                                                id={'qty_item_box_'+val.id} 
+                                                                                                className={ classes.move_item_static + ' move_item_ref' }>
+                                                                                                <Quantity
+                                                                                                    initialValue={1} isChildren={1} productId={val.id} ignore={1} 
+                                                                                                    /> 
                                                                                             <button
+
+                                                                                                className={'move_confirm_partial_off'}
+                                                                                                onClick={() => {
+                                                                                                    var currentQty = document
+                                                                                                        .querySelector(
+                                                                                                            '#move_item_box_' +
+                                                                                                            val.id
+                                                                                                        )
+                                                                                                        .querySelector(
+                                                                                                            'input'
+                                                                                                        )
+                                                                                                        .value;
+
+                                                                                                    const tempProps = {...val.product};
+                                                                                                    tempProps.qty = currentQty;
+                                                                                                    tempProps.categoryId = wId;
+                                                                                                    
+                                                                                                    tempProps.categoryName = '';
+                                                                                                    tempProps.category = 'BINGO';
+
+                                                                                                    console.log('coucoucoucou');
+                                                                                                    console.log(tempProps);
+
+                                                                                                    handleAddToCart(
+                                                                                                        tempProps
+                                                                                                    );
+
+                                                                                                    addToast({
+                                                                                                        type: 'info',
+                                                                                                        message: val.product.name + ' added to the cart.',
+                                                                                                        dismissable: true,
+                                                                                                        timeout: 4000
+                                                                                                    });
+                                                                                                   
+                                                                                                }}
+                                                                                            >
+                                                                                                {!mobileView && (
+                                                                                                    <span
+                                                                                                        className={
+                                                                                                            classes.move_confirm
+                                                                                                        }
+                                                                                                    >
+                                                                                                        <FormattedMessage
+                                                                                                            id={
+                                                                                                                'myWishlist.moveConfirm'
+                                                                                                            }
+                                                                                                            defaultMessage={
+                                                                                                                'Confirm'
+                                                                                                            }
+                                                                                                        />
+                                                                                                    </span>
+                                                                                                )}
+                                                                                                {mobileView && (
+                                                                                                    <p
+                                                                                                        className={
+                                                                                                            classes.move_confirm
+                                                                                                        }
+                                                                                                    >
+                                                                                                        <FormattedMessage
+                                                                                                            id={
+                                                                                                                'myWishlist.moveConfirm'
+                                                                                                            }
+                                                                                                            defaultMessage={
+                                                                                                                'Confirm'
+                                                                                                            }
+                                                                                                        />
+                                                                                                    </p>
+                                                                                                )}
+                                                                                                
+                                                                                            </button> 
+                                                                                            </div>*/}
+                                                                                            <button
+                                                                                                id={'btn_move_p'+val.product.id}
                                                                                                 onClick={() => {
 
                                                                                                     var x = document.getElementById('move_item_box_'+val.id);
@@ -1791,6 +1977,8 @@ const MyWishList = props => {
                                                                                                     initialValue={1} isChildren={1} productId={val.id} ignore={1} /*onClick={reset} wid={wId} */
                                                                                                 />
                                                                                             <button
+                                                                                                id={'partial_'+val.product.id}
+                                                                                                className={'move_confirm_partial'}
                                                                                                 onClick={() => {
                                                                                                     var currentQty = document
                                                                                                         .querySelector(
