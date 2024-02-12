@@ -19,9 +19,14 @@
 }
 .lineItemLabel {
     justify-self: start;
+    margin: 3px 0;
 }
-
-
+.containerProjects{
+    margin: 3px 0 3px 8px;
+}
+.bold{
+    font-weight: 700;
+}
 .price {
     justify-self: end;
 }

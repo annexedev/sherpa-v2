@@ -35,7 +35,7 @@ const TaxSummary = props => {
 
     return (
         <>
-            <span className={classes.lineItemLabel}>
+            <span className={[classes.lineItemLabel, classes.bold].join(' ')}>
                 {isCheckout ? 'Tax' : 'Estimated Tax'}
             </span>
             <span className={classes.price}>

@@ -40,7 +40,7 @@ const GET_PRICE_SUMMARY = gql`
  * import PriceSummary from "@magento/venia-ui/lib/components/CartPage/PriceSummary";
  */
 const PriceSummary = props => {
-    const { isUpdating, projects, itemsWithoutProject, itemsWithProject } = props;
+    const { isUpdating, projects, itemsWithoutProject, itemsWithProject, inputCategory } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
         queries: {
@@ -117,27 +117,70 @@ const PriceSummary = props => {
     ) : null;
 
     const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
-/* Je suis ici en train de faire le calcul pour afficher les valeurs de chaque projet et après faire un boucle pour créer des lignes avec le nom e value de chaque projet */
-    const prixParProjet = []
-    const totalPriceProductsWithProject = projects.map((item) => {
+    /* Je suis ici en train de faire le calcul pour afficher les valeurs de chaque projet et après faire un boucle pour créer des lignes avec le nom e value de chaque projet */
+    // const prixParProjet = []
+    let nomProjet = '';
+    let prixParProjet = '';
+    const containerProjets = projects.map((item) => {
+        // console.log(Object.keys(item));
         console.log(item);
+        for (let chave in item) {
+            // console.log('Chave:', chave);
+            nomProjet = chave;
+            const arrayDeObjetos = item[chave];
+            prixParProjet = Number(arrayDeObjetos.reduce((total, product) => total + product.projet_qty * product.prices.price.value, 0).toFixed(2));
+            return (
+                < div className={[classes.lineItems, classes.containerProjects].join(' ')} >
+                    {/* {Object.keys(item)} */}
+                    < span className={classes.lineItemLabel} >
+                        <FormattedMessage
+                            id={'priceSummary.produitLabel'}
+                            defaultMessage={nomProjet}
+                        />
+                    </span >
+                    <span className={priceClass}>
+                        <Price
+                            value={prixParProjet}
+                            currencyCode={subtotal.currency}
+                        />
+                    </span>
+                </div >
+            );
+
+        }
     });
 
-    console.log(projects);
+    // console.log(typeof prixParProjet);
+    // console.log(nomProjet);
 
+    // console.log(projects);
+
+    // let inputCategory = 'this.props.inputCategory';
+    let products = 'this.props.products';
+    var priceTotal = 0;
+
+    itemsWithProject.forEach(function (entry) {
+        var entryCategory = entry.category;
+        // console.log(entryCategory);
+        entryCategory.forEach(function (entryCat) {
+            if (entryCat.category_id == inputCategory) {
+                priceTotal = parseFloat(priceTotal) + (parseInt(entryCat.qty) * parseFloat(entry.prices.price.value));
+            }
+        })
+    })
 
     return (
         <div className={classes.root}>
-                <h3 className={classes.headingSubtotal}>
-                    <FormattedMessage
-                        id={'priceSummary.heading'}
-                        defaultMessage={'Subtotal'}
-                    />
-                </h3>
+            <h3 className={classes.headingSubtotal}>
+                <FormattedMessage
+                    id={'priceSummary.heading'}
+                    defaultMessage={'Subtotal'}
+                />
+            </h3>
             <div className={classes.lineItems}>
 
                 {/* ITEMS SANS PROJECT */}
-                <span className={classes.lineItemLabel}>
+                <span className={[classes.lineItemLabel, classes.bold].join(' ')}>
                     <FormattedMessage
                         id={'priceSummary.lineItemLabel'}
                         defaultMessage={'Products'}
@@ -149,21 +192,12 @@ const PriceSummary = props => {
                         currencyCode={subtotal.currency}
                     />
                 </span>
-            </div>           
+            </div>
+            {/* BOUCLE DANS LES ITEMS WITH PROJECTS */}
+            <span className={classes.bold}>Projects</span>
+            {containerProjets}
             <div className={classes.lineItems}>
-                {/* BOUCLE DANS LES ITEMS WITH PROJECTS */}
-                <span className={classes.lineItemLabel}>
-                    <FormattedMessage
-                        id={'priceSummary.produitLabel'}
-                        defaultMessage={'Nom produit'}
-                    />
-                </span>
-                <span className={priceClass}>
-                    <Price
-                        value={subtotal.value}
-                        currencyCode={subtotal.currency}
-                    />
-                </span>
+                {/* -------------------------------------- */}
                 <DiscountSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
@@ -181,6 +215,7 @@ const PriceSummary = props => {
                 <TaxSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
+                        bold: classes.bold,
                         price: priceClass
                     }}
                     data={taxes}
