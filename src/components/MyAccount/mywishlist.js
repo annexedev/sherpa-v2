@@ -1720,7 +1720,7 @@ const MyWishList = props => {
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
                                                                                                     tempProps.categoryId = wId;
-                                                                                                    tempProps.categoryName = '';
+                                                                                                    tempProps.categoryName = projectname;
 
                                                                                                     console.log('coucoucoucou');
                                                                                                     console.log(tempProps);
@@ -1806,8 +1806,8 @@ const MyWishList = props => {
                                                                                                     tempProps.qty = currentQty;
                                                                                                     tempProps.categoryId = wId;
                                                                                                     
-                                                                                                    tempProps.categoryName = '';
-                                                                                                    tempProps.category = 'BINGO';
+                                                                                                    tempProps.categoryName = projectname;
+                                                                                                    //tempProps.category = 'BINGO';
 
                                                                                                     console.log('coucoucoucou');
                                                                                                     console.log(tempProps);

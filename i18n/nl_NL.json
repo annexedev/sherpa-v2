@@ -68,7 +68,7 @@
     "discountSummary.price":"-",
     "priceSummary.errorText":"Something went wrong. Please refresh and try again.",
     "priceSummary.checkoutButton_container":"Proceed to Checkout",
-    "priceSummary.lineItemLabel":"Subtotal",
+    "priceSummary.lineItemLabel":"Produits",
     "CashOnDelivery.edit":"Edit",
     "CashOnDelivery.place_order_button":"Place Order",
     "CheckMoneyOrder.edit":"Edit",

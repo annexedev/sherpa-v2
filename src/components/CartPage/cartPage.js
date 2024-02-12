@@ -127,9 +127,6 @@ const CartPage = props => {
     //     <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
     // ) : null;
 
-    const priceSummary = hasItems ? (
-        <PriceSummary isUpdating={isCartUpdating} />
-    ) : null;
 
     const url = window.location.href;
 
@@ -199,11 +196,11 @@ const CartPage = props => {
 
     // console.log('ITEMS JSON', cartItemsJSON);
 
-    //const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
+    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
 
     //const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || checkProjectQuantity(item.category,item.quantity));
 
-    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || item.category !== null);
+    // const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || item.category !== null);
 
     const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
     let listOfProjects = [];
@@ -218,8 +215,9 @@ const CartPage = props => {
 
     // const qntyProjects = itemsWithProject.map(project => (project.category.length))
 
-    const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
+    const totalPriceProductsWithoutProject = Number(itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2));
 
+    console.log(typeof totalPriceProductsWithoutProject);
     let productsFiltre = [];
     let productsParProjet = [];
 
@@ -231,7 +229,6 @@ const CartPage = props => {
             productsFiltre.push(_item)
         })
     });
-    // console.log('FIN', productsFiltre);
 
     // Groupe les itens par id de projet
     const itensParProjets = productsFiltre.reduce((groupe, produit) => {
@@ -239,24 +236,26 @@ const CartPage = props => {
         if (!groupe[produit.projetNom]) {
             groupe[produit.projetNom] = [];
         }
-        // console.log(produit);
         groupe[produit.projetNom].push(produit);
         return groupe;
     }, {});
 
-    // console.log(itensParProjets);
 
     // productsParProjet.push(itensAgrupadosPorProjeto);
     const arrayItensParProjets = Object.keys(itensParProjets).map((key) => {
         return { [key]: itensParProjets[key] }
      });
     
-    console.log('arrayItensParProjets');
+    console.log(arrayItensParProjets);
 
     const unique = [...new Set(productsFiltre.map(item => item.projetID))];
 
-    console.log(arrayItensParProjets);
-    console.log(unique);
+    // console.log(arrayItensParProjets);
+    // console.log(unique);
+
+    const priceSummary = hasItems ? (
+        <PriceSummary isUpdating={isCartUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} />
+    ) : null;
 
     
 
@@ -394,7 +393,7 @@ const CartPage = props => {
                                 </div>
                                 {productsWithoutProject &&
                                     <div className={classes.items_container}>
-                                        {itemsWithoutProject ?
+                                        {itemsWithoutProject.length >= 1 ?
                                             <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithoutProject} cart={true} isProject={0}/>
                                             :
                                             <div className={classes.noResult}>
@@ -443,7 +442,7 @@ const CartPage = props => {
                                            
                                            {arrayItensParProjets.map((item,index) => (
 
-                                                <div className={classes.items_container_projet}>
+                                                <div className={classes.items_container_projet} key={'item' + index}>
                                                     <div className={classes.wrapperProductsWithProject}>
                                                         <h1 className={classes.headingProductsWithProject}>
                                                             <ProjectName cid={itemProjet} />

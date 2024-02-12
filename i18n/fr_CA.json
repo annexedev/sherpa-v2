@@ -106,7 +106,7 @@
     "discountSummary.price": "-",
     "priceSummary.errorText": "Quelque chose s'est mal passé. ",
     "priceSummary.checkoutButton_container": "Passer à la caisse",
-    "priceSummary.lineItemLabel": "Total",
+    "priceSummary.lineItemLabel": "Produits",
     "CashOnDelivery.edit": "Modifier",
     "CashOnDelivery.place_order_button": "Passer la commande",
     "CheckMoneyOrder.edit": "Modifier",
