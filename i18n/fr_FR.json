@@ -90,7 +90,7 @@
     "discountSummary.lineItemLabel": "Réductions appliquées",
     "discountSummary.price": "-",
     "priceSummary.errorText": "Quelque chose s'est mal passé. ",
-    "priceSummary.checkoutButton_container": "Passer à la caisse",
+    "priceSummary.checkoutButton_container": "Ceci est correct",
     "priceSummary.lineItemLabel": "Produits",
     "CashOnDelivery.edit": "Modifier",
     "CashOnDelivery.place_order_button": "Passer la commande",
