@@ -265,7 +265,7 @@ const CartPage = props => {
     const unique = [...new Set(productsFiltre.map(item => item.projetID))];
 
 
-    console.log(arrayItensParProjetsID);
+    // console.log(arrayItensParProjetsID);
 
     
     const priceSummary = hasItems ? (
