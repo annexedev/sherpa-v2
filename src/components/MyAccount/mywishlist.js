@@ -1954,6 +1954,7 @@ const MyWishList = props => {
 
                                                                                                     
                                                                                                 }}
+                                                                                                className={classes.buttonMove}
                                                                                             >
                                                                                                 <span
                                                                                                     className={
@@ -1968,6 +1969,8 @@ const MyWishList = props => {
                                                                                                             'Move partial quantity to cart'
                                                                                                         }
                                                                                                     />
+                                                                                                     <span className={classes.arrowDown}></span>
+
                                                                                                 </span>
                                                                                             </button>
                                                                                             <div 

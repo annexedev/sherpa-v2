@@ -67,6 +67,23 @@
 .move_item:hover {
     background: black;
 }
+/* .move_item::after{
+    content: '▾';
+} */
+.buttonMove{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+}
+.arrowDown {
+    border-top: 10px solid white;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    margin: 0 10px;
+    position: absolute;
+    top: 52%;
+}
 .move_confirm {
     background: #007637;
     border-radius: 5px;

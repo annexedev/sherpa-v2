@@ -297,7 +297,7 @@
     "myOrderView.BillingAddress":"Billing Address",
     "myOrderView.PaymentMethod":"Payment Method",
     "myWishlist.page_title":"MyProject",
-    "myWishlist.moveToCartBtn":"Move to cart",
+    "myWishlist.moveToCartBtn":"Move all to cart",
     "myWishlist.noResult_text":"You have no items saved in wishlist.",
     "newAddress.page_title":"Edit Account Information",
     "newAddress.firstName":"First Name",
