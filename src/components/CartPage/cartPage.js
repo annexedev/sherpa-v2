@@ -217,7 +217,7 @@ const CartPage = props => {
 
     const totalPriceProductsWithoutProject = Number(itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2));
 
-    console.log(typeof totalPriceProductsWithoutProject);
+    // console.log(typeof totalPriceProductsWithoutProject);
     let productsFiltre = [];
     let productsParProjet = [];
 
@@ -230,7 +230,7 @@ const CartPage = props => {
         })
     });
 
-    // Groupe les itens par id de projet
+    // Groupe les itens par nom de projet
     const itensParProjets = productsFiltre.reduce((groupe, produit) => {
         // Verifie si il y a un key avec l'id du projet
         if (!groupe[produit.projetNom]) {
@@ -240,24 +240,59 @@ const CartPage = props => {
         return groupe;
     }, {});
 
-
-    // productsParProjet.push(itensAgrupadosPorProjeto);
     const arrayItensParProjets = Object.keys(itensParProjets).map((key) => {
         return { [key]: itensParProjets[key] }
     });
 
-    console.log(arrayItensParProjets);
+
+
+
+    // Groupe les itens par nom de projet
+    const itensParProjetsID = productsFiltre.reduce((groupe, produit) => {
+        // Verifie si il y a un key avec l'id du projet
+        if (!groupe[produit.projetID]) {
+            groupe[produit.projetID] = [];
+        }
+        groupe[produit.projetID].push(produit);
+        return groupe;
+    }, {});
+
+    const arrayItensParProjetsID = Object.keys(itensParProjetsID).map((key) => {
+        return { [key]: itensParProjetsID[key] }
+    });
+
 
     const unique = [...new Set(productsFiltre.map(item => item.projetID))];
 
-    console.log(arrayItensParProjets);
-    let itemProjet = '';
-    // unique.map((item) => itemProjet = item);
+
+    // console.log(unique);
+
     
-    console.log(unique);
     const priceSummary = hasItems ? (
         <PriceSummary isUpdating={isCartUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} />
     ) : null;
+
+    const [produitsDesProjets, setProduitsDesProjets] = useState();
+    console.log(produitsDesProjets);
+
+    /* ESSAY POUR FAIRE OUVRIR UN SEUL PRODUIT */
+    function handleClick(item){
+        console.log( typeof item);
+        let id = [];
+        arrayItensParProjetsID.map((projetID) => {
+
+        id.push(Object.keys(projetID));
+        setProduitsDesProjets(projetID);
+
+        })
+        for (let i = 0; i < id.length; i++) {
+            if(item == id[i]){
+                setProductsWithProject(!productsWithProject);
+            }
+        }
+    }
+
+
 
 
 
@@ -454,19 +489,20 @@ const CartPage = props => {
                                                                 <span><CountProjectItem products={itemsWithProject} inputCategory={itemProjet} /></span>
                                                                 <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                                                 <span><CountProjectValue products={itemsWithProject} inputCategory={itemProjet} /></span>
-                                                                <span onClick={() => { setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                                                <span onClick={() => { handleClick(itemProjet) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                                             </div>
                                                         </div>
 
+                                                        {/* ))} */}
                                                         {/* il faut verifier si le category est !null si true vient le produit ici*/}
                                                         {productsWithProject && itemsWithProject ?
+                                                      
                                                             <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} inputCategory={itemProjet} isProject={1} />
                                                             :
                                                             <div>
                                                             </div>
                                                         }
                                                     </div>
-                                                {/* ))} */}
 
                                             </>
 
