@@ -265,35 +265,23 @@ const CartPage = props => {
     const unique = [...new Set(productsFiltre.map(item => item.projetID))];
 
 
-    // console.log(unique);
+    console.log(arrayItensParProjetsID);
 
     
     const priceSummary = hasItems ? (
         <PriceSummary isUpdating={isCartUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} />
     ) : null;
 
-    const [produitsDesProjets, setProduitsDesProjets] = useState();
-    console.log(produitsDesProjets);
 
-    /* ESSAY POUR FAIRE OUVRIR UN SEUL PRODUIT */
-    function handleClick(item){
-        console.log( typeof item);
-        let id = [];
-        arrayItensParProjetsID.map((projetID) => {
+    const [openProjects, setOpenProjects] = useState({});
+    console.log(openProjects);
 
-        id.push(Object.keys(projetID));
-        setProduitsDesProjets(projetID);
-
-        })
-        for (let i = 0; i < id.length; i++) {
-            if(item == id[i]){
-                setProductsWithProject(!productsWithProject);
-            }
-        }
-    }
-
-
-
+    const toggleProjectVisibility = projectId => {
+      setOpenProjects(prevState => ({
+        ...prevState,
+        [projectId]: !prevState[projectId]
+      }));
+    };
 
 
     class CountProjectItem extends Component {
@@ -473,31 +461,32 @@ const CartPage = props => {
 
                                     <>
 
-                                        {unique.map(itemProjet => (
+                                        {/* {unique.map(itemProjet => ( */}
+                                        {Object.entries(arrayItensParProjetsID).map(([projectId, products]) =>(
 
                                             <>
 
                                                 {/* {arrayItensParProjets.map((item, index) => ( */}
 
-                                                    <div className={classes.items_container_projet} key={'item' + itemProjet}>
+                                                    <div className={classes.items_container_projet} key={'item' + projectId}>
                                                         <div className={classes.wrapperProductsWithProject}>
                                                             <h1 className={classes.headingProductsWithProject}>
-                                                                <ProjectName cid={itemProjet} />
+                                                                <ProjectName cid={Object.keys(products)[0]} />
                                                             </h1>
-                                                            <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + itemProjet}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>
+                                                            <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>
                                                             <div className={classes.wrapperValeurProduits}>
-                                                                <span><CountProjectItem products={itemsWithProject} inputCategory={itemProjet} /></span>
+                                                                <span><CountProjectItem products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
                                                                 <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                                                <span><CountProjectValue products={itemsWithProject} inputCategory={itemProjet} /></span>
-                                                                <span onClick={() => { handleClick(itemProjet) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                                                <span><CountProjectValue products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
+                                                                <span onClick={() => { toggleProjectVisibility(projectId) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                                             </div>
                                                         </div>
 
                                                         {/* ))} */}
                                                         {/* il faut verifier si le category est !null si true vient le produit ici*/}
-                                                        {productsWithProject && itemsWithProject ?
+                                                        {itemsWithProject && openProjects[projectId] ?
                                                       
-                                                            <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} inputCategory={itemProjet} isProject={1} />
+                                                            <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} inputCategory={Object.keys(products)[0]} isProject={1} />
                                                             :
                                                             <div>
                                                             </div>
