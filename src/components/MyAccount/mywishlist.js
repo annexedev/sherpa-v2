@@ -1762,7 +1762,7 @@ const MyWishList = props => {
                                                                                 </span>
                                                                                 
                                                                             </div>
-                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
+                                                                            {/* <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} /> */}
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
