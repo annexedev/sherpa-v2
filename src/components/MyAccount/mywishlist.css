@@ -56,8 +56,8 @@
 .move_item {
     background: #007637;
     border-radius: 5px;
-    padding: 10px 10px;
-    display: block;
+    padding: 10px 10px 10px 20px;
+    display: flex;
     min-height: 35px;
     line-height: 15px;
     width: 100%;
@@ -83,6 +83,7 @@
     margin: 0 10px;
     position: absolute;
     top: 52%;
+    left:80%;
 }
 .move_confirm {
     background: #007637;
