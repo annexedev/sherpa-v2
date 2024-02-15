@@ -34,6 +34,17 @@ const ForgotPasswordForm = props => {
     } = props;
     const [emailData, setEmailData] = useState('');
 
+    function openLoginBox() {
+      
+        setTimeout(function() {
+            document.getElementById('closePopupLink').click();
+        }, 500);
+
+        setTimeout(function() {
+            document.getElementById('user_account').click();
+        }, 500);
+    }
+
     const {
         submitResetForm,
         resetPasswordResponse,
@@ -67,18 +78,29 @@ const ForgotPasswordForm = props => {
         resetPasswordResponse.resetForgotPassword.success
     ) {
         return (
-            <div>
+            <div className={defaultClasses.instructionsContainer}>
+                <div className={defaultClasses.check}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M22.8075 6.3975L20.5575 4.18875C20.2764 3.9088 19.8958 3.75163 19.4991 3.75163C19.1023 3.75163 18.7218 3.9088 18.4406 4.18875L9.75002 12.75L9.73971 12.7397L6.30471 9.43312C6.02288 9.15421 5.64208 8.99822 5.24558 8.99928C4.84907 9.00033 4.46911 9.15834 4.18877 9.43875L1.93877 11.6887C1.65796 11.97 1.50024 12.3512 1.50024 12.7486C1.50024 13.146 1.65796 13.5272 1.93877 13.8084L8.65314 20.5584C8.79244 20.6978 8.95781 20.8083 9.13982 20.8837C9.32183 20.9591 9.51691 20.9979 9.71392 20.9979C9.91094 20.9979 10.106 20.9591 10.288 20.8837C10.47 20.8083 10.6354 20.6978 10.7747 20.5584L22.8122 8.52281C22.9518 8.38314 23.0624 8.21729 23.1378 8.03476C23.2131 7.85224 23.2516 7.65664 23.2512 7.45918C23.2508 7.26172 23.2114 7.06629 23.1352 6.8841C23.0591 6.70191 22.9477 6.53655 22.8075 6.3975ZM9.71439 19.5L3.00002 12.75L5.25002 10.5L5.26033 10.5103L8.69533 13.8169C8.97622 14.0951 9.35559 14.2512 9.75096 14.2512C10.1463 14.2512 10.5257 14.0951 10.8066 13.8169L19.5056 5.25L21.75 7.4625L9.71439 19.5Z" fill="#8DC74C"/>
+                    </svg>
+                </div>
+               
+                <FormattedMessage
+                            id={'forgotPasswordForm.instructions'}
+                            defaultMessage={'Réinitialisation du mot de passe'}
+                />
                 <button
                     className={defaultClasses.instructions}
-                    onClick={() => setShowForgot(false)}
+                    onClick={openLoginBox}
                 >
                     <FormattedMessage
-                        id={'forgotPasswordForm.instructions'}
+                        id={'forgotPasswordForm.instructions_notify'}
                         defaultMessage={
                             'Password Changed successfully. Please click here to login'
                         }
                     />
                 </button>
+                <a href="#" id="closePopupLink"></a>
             </div>
         );
     } else if (

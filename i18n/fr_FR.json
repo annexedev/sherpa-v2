@@ -132,6 +132,7 @@
     "filterModal.headerTitle": "Filtres",
     "filterSidebar.filters_heading": "Filtres",
     "forgotPasswordForm.instructions": "Le mot de passe a été changé avec succès. ",
+    "forgotPasswordForm.instructions_notify":"Veuillez cliquer ici pour vous connecter",
     "forgotPasswordForm.titleSuccess": "Réinitialisation du mot de passe",
     "forgotPasswordForm.title_message_Success": "Entrez votre otp reçu sur votre identifiant de messagerie.",
     "forgotPasswordForm.title_message_Success_notice":"Un code de réinitialisation de mot de passe à usage unique (OTP) a été envoyé à votre adresse e-mail.",
