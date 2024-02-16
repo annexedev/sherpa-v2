@@ -473,7 +473,7 @@ const CartPage = props => {
                                                             <h1 className={classes.headingProductsWithProject}>
                                                                 <ProjectName cid={Object.keys(products)[0]} />
                                                             </h1>
-                                                          {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>}
+                                                          {/* {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>} */}
                                                             <div className={classes.wrapperValeurProduits}>
                                                                 <span><CountProjectItem products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
                                                                 <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
@@ -481,6 +481,7 @@ const CartPage = props => {
                                                                 <span onClick={() => { toggleProjectVisibility(projectId) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
                                                             </div>
                                                         </div>
+                                                        {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>}
 
                                                         {/* ))} */}
                                                         {/* il faut verifier si le category est !null si true vient le produit ici*/}
