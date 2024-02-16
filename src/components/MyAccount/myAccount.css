@@ -65,6 +65,7 @@
     color: white;
     margin-top: 10px;
     z-index: 999;
+    font-weight: bold;
 }
 .discountedprice:after {
     background-color: red;
@@ -94,6 +95,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.blocQntProduits span{
+    font-weight: 700;
+    color: black;
 }
 .projectlist {
     margin-left: 75px;
