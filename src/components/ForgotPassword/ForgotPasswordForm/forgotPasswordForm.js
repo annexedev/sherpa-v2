@@ -6,6 +6,8 @@ import signClasses from '../../SignIn/signIn.css';
 import Button from '../../Button';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
+import { Util } from '@magento/peregrine';
+
 
 import {
     validateEmail,
@@ -23,6 +25,15 @@ const ForgotPasswordForm = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
+    const { BrowserPersistence } = Util;
+    const storage = new BrowserPersistence();
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    } else {
+        storeview = storeview;
+    }
+
     const {
         email,
         isResettingPassword,
@@ -35,9 +46,24 @@ const ForgotPasswordForm = props => {
     const [emailData, setEmailData] = useState('');
 
     function openLoginBox() {
+        if(displayBtnBack){
+            setTimeout(function() {
+                document.getElementById('closePopupLink').click();
+            }, 500);
+    
+            setTimeout(function() {
+                document.getElementById('user_account').click();
+            }, 500);
+        }
+        else {
+            setShowForgot(false)
+        }
+    }
+
+    function returnToLogin() {
       
         setTimeout(function() {
-            document.getElementById('closePopupLink').click();
+            document.getElementById('returnToLogin').click();
         }, 500);
 
         setTimeout(function() {
@@ -158,7 +184,7 @@ const ForgotPasswordForm = props => {
                     <Field label="OTP" required={true}>
                         <TextInput
                             field="otp"
-                            validate={isRequired}
+                            validate={(value) => isRequired(value, storeview )}
                             validateOnBlur
                         />
                     </Field>
@@ -177,7 +203,7 @@ const ForgotPasswordForm = props => {
                             field="password"
                             type="password"
                             autoComplete="new-password"
-                            validate={validatePassword}
+                            validate={(value) => validatePassword(value, storeview )}
                             validateOnBlur
                         />
                     </Field>
@@ -187,7 +213,7 @@ const ForgotPasswordForm = props => {
                         <TextInput
                             field="confirm"
                             type="password"
-                            validate={validateConfirmPassword}
+                            validate={(value) => validateConfirmPassword(value, storeview )}
                             validateOnBlur
                         />
                     </Field>
@@ -210,7 +236,7 @@ const ForgotPasswordForm = props => {
                     <span
                         role="button"
                         className={defaultClasses.instructions}
-                        onClick={() => setShowForgot(false)}
+                        onClick={returnToLogin}
                         onKeyDown={() => setShowForgot(false)}
                         tabIndex={0}
                     >
@@ -226,6 +252,7 @@ const ForgotPasswordForm = props => {
                             defaultMessage={'Back to Login'}
                         />
                     </span>
+                    <a href="#" id="returnToLogin"></a>
                 </div>
             </Form>
         );
@@ -307,7 +334,7 @@ const ForgotPasswordForm = props => {
                             <TextInput
                                 autoComplete="email"
                                 field="email"
-                                validate={validateEmail}
+                                validate={(value) => validateEmail(value, storeview )}
                                 validateOnBlur
                                 initialValue={email}
                             />
