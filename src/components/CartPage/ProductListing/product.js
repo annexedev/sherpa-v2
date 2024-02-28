@@ -255,12 +255,12 @@ const Product = props => {
                                 wid={wid}
                             />
                         </div>
-                    )}
-                    {disableQuantity != 1 && (
+                 )} 
+                    {/* {disableQuantity != 1 && (
                         <div className={classes.quantity}>
                             <p>{quantity} in your cart</p>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 {disableQuantity == 1 && (
                 <button
@@ -275,7 +275,7 @@ const Product = props => {
                         classes={{ icon: classes.editIcon }}
                     />
                 </button>
-                )}
+             )} 
                 {/* <Kebab classes={{ root: classes.kebab }} disabled={true}  onClick={handleRemoveFromCart}> */}
                 {/* {!isSignedIn && (
                         <Section
