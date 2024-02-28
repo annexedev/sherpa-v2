@@ -242,7 +242,7 @@ const Product = props => {
                     <span className={classes.stockStatusMessage}>
                         {stockStatusMessage}
                     </span>
-                    {disableQuantity != 1 && (
+                    {disableQuantity == 1 && (
                         <div className={classes.quantity}>
                             <Quantity
                                 item={item}
@@ -256,13 +256,13 @@ const Product = props => {
                             />
                         </div>
                     )}
-                    {disableQuantity == 1 && (
+                    {disableQuantity != 1 && (
                         <div className={classes.quantity}>
                             <p>{quantity} in your cart</p>
                         </div>
                     )}
                 </div>
-                {disableQuantity != 1 && (
+                {disableQuantity == 1 && (
                 <button
                     onClick={removeItem}
                     type="button"

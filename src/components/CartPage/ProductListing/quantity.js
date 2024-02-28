@@ -33,6 +33,7 @@ export const QuantityFields = props => {
 
     //console.log('PROD ID : '+productId+' '+wid);
 
+    
     const price = item ? item.prices.price.value : 0;
     const currency = item ? item.prices.price.currency : 'CAD';
 
@@ -92,13 +93,14 @@ export const QuantityFields = props => {
                         <TextInput
                             aria-label="Item Quantity"
                             classes={{ input: classes.input }}
-                            field="quantity"
+                            field={props.initialValue}
                             id={itemId}
                             inputMode="numeric"
                             mask={maskInput}
                             min={min}
                             onBlur={handleBlur}
                             pattern="[0-9]*"
+                        
                         />
                     </div>
                     { ignore == 1 ?
@@ -142,7 +144,7 @@ export const QuantityFields = props => {
 
                 <div className={classes.price}>
                     <span>
-                        <Price currencyCode={currency} value={price * props.initialValue} />
+                        <Price currencyCode={currency} value={price * +props.initialValue} />
                     </span>
                 </div>
             }
