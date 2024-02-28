@@ -1984,25 +1984,24 @@ const MyWishList = props => {
                                                                                                 className={'move_confirm_partial'}
                                                                                                 onClick={() => {
                                                                                                     var currentQty = document
-                                                                                                        .querySelector(
-                                                                                                            '#move_item_box_' +
-                                                                                                            val.id
-                                                                                                        )
-                                                                                                        .querySelector(
-                                                                                                            'input'
-                                                                                                        )
-                                                                                                        .value;
+                                                                                                    .querySelector(
+                                                                                                        '#q' +
+                                                                                                        val.id
+                                                                                                    )
+                                                                                                    .querySelector(
+                                                                                                        'input'
+                                                                                                    )
+                                                                                                    .value;
 
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
                                                                                                     tempProps.categoryId = wId;
                                                                                                     
                                                                                                     tempProps.categoryName = projectname;
-                                                                                                    //tempProps.category = 'BINGO';
 
                                                                                                     console.log('coucoucoucou');
                                                                                                     console.log(tempProps);
-
+                                                                                                   
                                                                                                     handleAddToCart(
                                                                                                         tempProps
                                                                                                     );
