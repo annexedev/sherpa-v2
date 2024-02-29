@@ -29,6 +29,7 @@ import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessa
 export const useProduct = props => {
     const {
         item,
+        wid,
         mutations: { removeItemMutation, updateItemQuantityMutation },
         setActiveEditItem,
         setIsCartUpdating
@@ -128,7 +129,8 @@ export const useProduct = props => {
                     variables: {
                         cartId,
                         itemId: item.id,
-                        quantity
+                        quantity,
+                        wid
                     }
                 });
             } catch (err) {
@@ -136,7 +138,7 @@ export const useProduct = props => {
                 setDisplayError(true);
             }
         },
-        [cartId, item.id, updateItemQuantity]
+        [cartId, item.id, wid , updateItemQuantity]
     );
 
     return {

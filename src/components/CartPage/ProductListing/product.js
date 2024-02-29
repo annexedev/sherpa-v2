@@ -43,6 +43,7 @@ const Product = props => {
     const { customizable_options, bundle_options } = item;
     const talonProps = useProduct({
         item,
+        wid,
         mutations: {
             removeItemMutation: REMOVE_ITEM_MUTATION,
             updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
@@ -358,11 +359,12 @@ export const UPDATE_QUANTITY_MUTATION = gql`
         $cartId: String!
         $itemId: Int!
         $quantity: Float!
+        $wid: String!
     ) {
         updateCartItems(
             input: {
                 cart_id: $cartId
-                cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
+                cart_items: [{ cart_item_id: $itemId, quantity: $quantity , category_id: $wid }]
             }
         ) @connection(key: "updateCartItems") {
             cart {
