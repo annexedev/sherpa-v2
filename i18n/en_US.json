@@ -318,6 +318,7 @@
     "productReview.page_title":"My Product Reviews",
     "productReview.SeeDetails":"See Details",
     "productReview.noResult":"You have not given any reviews yet.",
+    "quantity.valeurProjects": "Project's quantity limit exceed",
     "refund.PrintOrder":"Print Order",
     "refund.ItemOrdered":"Item ordered",
     "refund.Invoice":"Invoice",

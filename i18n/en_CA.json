@@ -97,6 +97,7 @@
     "Paypal.edit":"Edit",
     "Paypal.place_order_button":"Place Order",
     "PaypalReview.LoadingIndicator":"Please wait...",
+    "quantity.valeurProjects": "Project's quantity limit exceed",
     "success.order_successpage_title":"Order Success",
     "success.greetings":"Hello Guest!",
     "success.thankyou_text":"Thank you for your purchase !",
