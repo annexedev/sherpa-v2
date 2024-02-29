@@ -115,6 +115,19 @@
 .priceWithDiscount{
     color: #8DC74C;
 }
+.warning{
+    color: orange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+    margin-left: -58px;
+    font-size: 12px;
+}
+.warning svg{
+    stroke: orange;
+}
   
 
 @media screen and (min-width: 320px) and (max-width: 767px) {

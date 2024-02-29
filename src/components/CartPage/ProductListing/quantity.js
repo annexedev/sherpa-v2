@@ -1,11 +1,13 @@
 import React from 'react';
 import { Form } from 'informed';
 import { func, number, string } from 'prop-types';
-import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
+import { Minus as MinusIcon, Plus as PlusIcon, AlertTriangle as Warning } from 'react-feather';
 import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
 import { useProduct } from 'src/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price } from '@magento/peregrine';
 import { gql } from '@apollo/client';
+import { FormattedMessage } from 'react-intl';
+
 
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
@@ -18,7 +20,7 @@ import TextInput from '../../TextInput';
 import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
-    const { initialValue, itemId, label, min, onChange, item, isChildren, productId, wid, ignore } = props;
+    const { initialValue, itemId, label, min, onChange, item, isChildren, productId, wid, ignore, projectQuantity } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
@@ -33,7 +35,11 @@ export const QuantityFields = props => {
 
     //console.log('PROD ID : '+productId+' '+wid);
 
-    
+    console.log(initialValue);
+    console.log(projectQuantity);
+
+
+
     const price = item ? item.prices.price.value : 0;
     const currency = item ? item.prices.price.currency : 'CAD';
 
@@ -53,7 +59,7 @@ export const QuantityFields = props => {
     } = talonProps;
 
     return (
-        <div className={cart ? [classes.root, classes.rootCart].join(' ') : classes.root }>
+        <div className={cart ? [classes.root, classes.rootCart].join(' ') : classes.root}>
             {/* <label className={classes.label} htmlFor={itemId}>
                 {label}
             </label> */}
@@ -75,20 +81,20 @@ export const QuantityFields = props => {
                             <Icon classes={iconClasses} src={MinusIcon} size={22} />
                         </button>
                         : */}
-                        <button
-                            aria-label={'Decrease Quantity'}
-                            className={classes.button_decrement+' decrement'}
-                            // disabled={isDecrementDisabled}
-                            onClick={handleDecrement}
-                            type="button"
-                            // id={'minus_'+productId}
-                            // data-wid={wid}
+                    <button
+                        aria-label={'Decrease Quantity'}
+                        className={classes.button_decrement + ' decrement'}
+                        // disabled={isDecrementDisabled}
+                        onClick={handleDecrement}
+                        type="button"
+                    // id={'minus_'+productId}
+                    // data-wid={wid}
 
-                        >
-                            <Icon classes={iconClasses} src={MinusIcon} size={22} />
-                        </button>
+                    >
+                        <Icon classes={iconClasses} src={MinusIcon} size={22} />
+                    </button>
                     {/* } */}
-                   
+
                     <div className={classes.qty_field_wrap}>
                         <TextInput
                             aria-label="Item Quantity"
@@ -100,7 +106,7 @@ export const QuantityFields = props => {
                             min={min}
                             onBlur={handleBlur}
                             pattern="[0-9]*"
-                        
+
                         />
                     </div>
                     {/* { ignore == 1 ?
@@ -118,25 +124,35 @@ export const QuantityFields = props => {
                             <Icon classes={iconClasses} src={PlusIcon} size={20} />
                         </button>
                         : */}
-                        <button
-                            aria-label={'Increase Quantity'}
-                            className={classes.button_increment+' increment'}
-                            // disabled={isIncrementDisabled}
-                            onClick={handleIncrement}
-                            type="button"
-                            // id={'plus_'+productId}
-                            // data-wid={wid}
-                        >
-                            <Icon classes={iconClasses} src={PlusIcon} size={20} />
-                        </button>
+                    <button
+                        aria-label={'Increase Quantity'}
+                        className={classes.button_increment + ' increment'}
+                        // disabled={isIncrementDisabled}
+                        onClick={handleIncrement}
+                        type="button"
+                    // id={'plus_'+productId}
+                    // data-wid={wid}
+                    >
+                        <Icon classes={iconClasses} src={PlusIcon} size={20} />
+                    </button>
                     {/* } */}
-                    
+
                 </div>
                 {cart &&
                     <div className={classes.wrapperPrice}>
                         <p>YOUR COST </p>
                         <p className={classes.priceWithDiscount}>${price}</p>
                         {ProduitDiscount && <p className={classes.initialPrice}>$30.00</p>}
+                    </div>
+                }
+                {initialValue > projectQuantity &&
+                /* changer message json */
+                    <div className={classes.warning}>
+                        <Icon classes={iconClasses} src={Warning} size={14} />
+                        <FormattedMessage
+                            id={'quantity.valeurProjects'}
+                            defaultMessage={'Quantité du projet depassé'}
+                        />
                     </div>
                 }
             </div>

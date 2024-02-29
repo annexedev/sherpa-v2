@@ -90,7 +90,7 @@ const ProductListing = props => {
                                         key={entry.id + 1}
                                         setActiveEditItem={setActiveEditItem}
                                         setIsCartUpdating={setIsCartUpdating}
-                                        projectQty={entryCat.qty}
+                                        projectQty={entryCat.qtyCategory}
                                         wid={entryCat.category_id}
                                         disableQuantity={1}
                                     />

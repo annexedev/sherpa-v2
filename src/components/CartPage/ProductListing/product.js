@@ -254,6 +254,7 @@ const Product = props => {
                                 setIsCartUpdating={setIsCartUpdating}
                                 productId={'_'+item.product.id}
                                 wid={wid}
+                                projectQuantity={projectQty}
                             />
                         </div>
                  )} 
