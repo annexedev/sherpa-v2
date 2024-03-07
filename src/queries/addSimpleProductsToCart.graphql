@@ -1,6 +1,7 @@
 mutation addSimpleProductToCart(
     $cartId: String!
     $quantity: Float!
+    $quantityCategory: Float
     $sku: String!
     $categoryName: String
     $categoryId: String
@@ -8,7 +9,7 @@ mutation addSimpleProductToCart(
     addSimpleProductsToCart(
         input: {
             cart_id: $cartId
-            cart_items: [{ data: { quantity: $quantity, sku: $sku , category_name: $categoryName , category_id: $categoryId  } }]
+            cart_items: [{ data: { quantity: $quantity, quantityCategory: $quantityCategory, sku: $sku , category_name: $categoryName , category_id: $categoryId  } }]
         }
     ) {
         cart {

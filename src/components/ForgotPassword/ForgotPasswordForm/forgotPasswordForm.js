@@ -78,6 +78,8 @@ const ForgotPasswordForm = props => {
     } = useResetPassword({
         query: resetPasswordMutation
     });
+
+    
     const handleSubmitEmail = v => {
         setEmailData(v['email']);
         onSubmit(v);
@@ -213,7 +215,7 @@ const ForgotPasswordForm = props => {
                         <TextInput
                             field="confirm"
                             type="password"
-                            validate={(value) => validateConfirmPassword(value, storeview )}
+                            validate={(value , values ) => validateConfirmPassword(value, values, 'password' , storeview)}
                             validateOnBlur
                         />
                     </Field>

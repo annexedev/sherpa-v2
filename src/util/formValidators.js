@@ -86,6 +86,7 @@ export const validateConfirmPassword = (
     passwordKey = 'password' ,
     selectedLanguage
 ) => {
+    console.log(values);
     return value === values[passwordKey] ? SUCCESS  : selectedLanguage == 'en' ? 'Passwords must match.' : 'Les mots de passe doivent correspondre.';
 };
 

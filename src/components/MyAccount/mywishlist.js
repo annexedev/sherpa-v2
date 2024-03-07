@@ -47,6 +47,7 @@ const categoryBannerIdentifierHome = 'projects_instructions';
 const categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
 let showCategoryBanners = true;
 let projectname = '';
+
 class SpecialPriceTo extends Component {
     constructor() {
         super();
@@ -514,6 +515,8 @@ const MyWishList = props => {
     }
     const { email } = useDashboard();
 
+    var isPartialQuantity = true;
+
     const url = window.location.href;
 
     const myprojects = url.includes("?id");
@@ -597,19 +600,19 @@ const MyWishList = props => {
     const wId = queryParameters.get('id');
     const isArchive = queryParameters.get('archive');
 
-    const remove = async id => {
+    const remove = async (id , wishlistId) => {
 
-        var element = document.getElementById('t'+id).querySelector('button[data-wid="'+wId+'"]');
-        var itemId = element.id.replace("minus_", '');
+        //var element = document.getElementById('t'+id).querySelector('button[data-wid="'+wId+'"]');
+        //var itemId = element.id.replace("minus_", '');
         let dataURL =
-            'https://data.sherpagroupav.com/delete_fromproject.php?wid='+itemId+'&cid='+wId;
+            'https://data.sherpagroupav.com/delete_fromproject.php?wid='+wishlistId+'&cid='+wId;
             console.log(dataURL);
         fetch(dataURL)
             .then(res => res.json())
             .then(document.getElementById("t"+id).remove())
             .then(reset()); 
 
-        await handleRemoveItem({ product_id: id });
+        //await handleRemoveItem({ product_id: id });
         setRemoveMsg(true);
     };
 
@@ -725,6 +728,10 @@ const MyWishList = props => {
                                     }
                                 }
 
+                                console.log('---------------------');
+                                
+                                isPartialQuantity = false;
+                        
                                 for (var i = 0; i < elements.length; i++) {
 
                                     var inCart = 0;
@@ -733,8 +740,8 @@ const MyWishList = props => {
                                     var productId = (elements[i].id).replace("partial_", '');
 
                                     cartItems.forEach(function (arrayItem) {
-                                        console.log('arrayItem.category')
-                                        console.log(arrayItem.category.product_id);
+                                        //console.log('arrayItem.category')
+                                        //console.log(arrayItem.category.product_id);
                                         
                                         inCart = arrayItem.quantity;
                                         
@@ -762,6 +769,8 @@ const MyWishList = props => {
 
                                     elements[i].click();
                                 } 
+                                isPartialQuantity=true;
+
                                 console.log('MOVEAFTER')
                                 console.log(cartItems);
 
@@ -1743,7 +1752,8 @@ const MyWishList = props => {
                                                                                             remove(
                                                                                                 val
                                                                                                     .product
-                                                                                                    .id
+                                                                                                    .id,
+                                                                                                val.id
                                                                                             )
                                                                                         }
                                                                                     >
@@ -1798,6 +1808,7 @@ const MyWishList = props => {
 
                                                                                                     const tempProps = {...val.product};
                                                                                                     tempProps.qty = currentQty;
+                                                                                                    tempProps.qtyCategory = currentQty;
                                                                                                     tempProps.categoryId = wId;
                                                                                                     tempProps.categoryName = projectname;
 
@@ -1951,8 +1962,6 @@ const MyWishList = props => {
                                                                                                     } else {
                                                                                                         document.getElementById('move_item_box_'+val.id).style.display='none';
                                                                                                     }
-
-                                                                                                    
                                                                                                 }}
                                                                                                 className={classes.buttonMove}
                                                                                             >
@@ -1993,14 +2002,32 @@ const MyWishList = props => {
                                                                                                     )
                                                                                                     .value;
 
+                                                                                                    var currentQtyPartial = document
+                                                                                                    .querySelector(
+                                                                                                        '#move_item_box_' +
+                                                                                                        val.id
+                                                                                                    )
+                                                                                                    .querySelector(
+                                                                                                        'input'
+                                                                                                    )
+                                                                                                    .value;
+
+                                                                                                    console.log(isPartialQuantity);
+
                                                                                                     const tempProps = {...val.product};
-                                                                                                    tempProps.qty = currentQty;
-                                                                                                    tempProps.categoryId = wId;
+
+                                                                                                    if(isPartialQuantity){
+                                                                                                        tempProps.qty = currentQtyPartial;
+                                                                                                    }
+                                                                                                    else{
+                                                                                                        tempProps.qty = currentQty;
+                                                                                                    }
                                                                                                     
+                                                                                                    tempProps.categoryId = wId;
                                                                                                     tempProps.categoryName = projectname;
+                                                                                                    tempProps.qtyCategory = currentQty;
 
                                                                                                     console.log('coucoucoucou');
-                                                                                                    console.log(tempProps);
                                                                                                    
                                                                                                     handleAddToCart(
                                                                                                         tempProps
