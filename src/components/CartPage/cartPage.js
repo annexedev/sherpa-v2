@@ -80,6 +80,8 @@ const CartPage = props => {
 
     const [productsWithoutProject, setProductsWithoutProject] = useState(false);
     const [productsWithProject, setProductsWithProject] = useState(false);
+    const [openProjects, setOpenProjects] = useState({});
+
 
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -273,8 +275,6 @@ const CartPage = props => {
     ) : null;
 
 
-    const [openProjects, setOpenProjects] = useState({});
-    console.log(openProjects);
 
     const toggleProjectVisibility = projectId => {
       setOpenProjects(prevState => ({
