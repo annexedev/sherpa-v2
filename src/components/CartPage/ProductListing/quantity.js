@@ -192,7 +192,7 @@ Quantity.propTypes = {
     onChange: func,
     productId: number,
     ignore: number,
-    wid: number
+    // wid: number
 };
 
 Quantity.defaultProps = {
