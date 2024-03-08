@@ -113,14 +113,15 @@ export const useProduct = props => {
             removeItem({
                 variables: {
                     cartId,
-                    itemId: item.id
+                    itemId: item.id,
+                    wid
                 }
             });
         } catch (err) {
             // Make sure any errors from the mutation are displayed.
             setDisplayError(true);
         }
-    }, [cartId, item.id, removeItem]);
+    }, [cartId, item.id, wid , removeItem]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
@@ -130,7 +131,7 @@ export const useProduct = props => {
                         cartId,
                         itemId: item.id,
                         quantity,
-                        wid
+                        wid,
                     }
                 });
             } catch (err) {
