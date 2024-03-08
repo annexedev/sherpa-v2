@@ -46,7 +46,6 @@ const ForgotPasswordForm = props => {
     const [emailData, setEmailData] = useState('');
 
     function openLoginBox() {
-        if(displayBtnBack){
             setTimeout(function() {
                 document.getElementById('closePopupLink').click();
             }, 500);
@@ -54,10 +53,7 @@ const ForgotPasswordForm = props => {
             setTimeout(function() {
                 document.getElementById('user_account').click();
             }, 500);
-        }
-        else {
-            setShowForgot(false)
-        }
+        
     }
 
     function returnToLogin() {
