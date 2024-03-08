@@ -35,7 +35,7 @@ export const QuantityFields = props => {
 
     //console.log('PROD ID : '+productId+' '+wid);
 
-    const rabais = item.product.price_range.maximum_price.discount.amount_off;
+    const rabais = item ? item.product.price_range.maximum_price.discount.amount_off : "";
     // console.log(projectQuantity);
 
 
