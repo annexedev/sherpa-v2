@@ -362,7 +362,7 @@ export default Product;
 
 export const REMOVE_ITEM_MUTATION = gql`
     mutation removeItem($cartId: String!, $itemId: Int! , $wid: String) {
-        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId , category_id: $wid })
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId , category_id: $wid , is_cart: true })
             @connection(key: "removeItemFromCart") {
             cart {
                 id
@@ -380,8 +380,7 @@ export const UPDATE_QUANTITY_MUTATION = gql`
         $cartId: String!
         $itemId: Int!
         $quantity: Float!
-        $wid: String
-    ) {
+        $wid: String ) {
         updateCartItems(
             input: {
                 cart_id: $cartId
