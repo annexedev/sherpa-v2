@@ -81,7 +81,7 @@ const Product = props => {
     if (urlSuffix && urlSuffix != 'null') {
         productUrlSuffix = urlSuffix;
     }
-    
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const editItemSection = isEditable ? (
@@ -121,9 +121,9 @@ const Product = props => {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
-    
+
             let lng = '';
             if (document.getElementById('currentLng') != null) {
                 lng = document.getElementById('currentLng').innerHTML;
@@ -134,12 +134,12 @@ const Product = props => {
             } else {
                 activeLng = 0;
             }
-    
+
             let productId = this.props.pid;
-    
+
             let dataURL =
                 'https://data.sherpagroupav.com/get_soldin.php?pid=' + productId + '&sid=' + activeLng;
-            
+
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -148,17 +148,18 @@ const Product = props => {
                     });
                 });
         }
-    
+
         render() {
             let soldin = this.state.pageData.soldin && this.state.pageData.soldin;
-            if(soldin) {
-            return (
-                <>{soldin}</>
-            ) } else {
-                return(<></>);
+            if (soldin) {
+                return (
+                    <>{soldin}</>
+                )
+            } else {
+                return (<></>);
             }
         }
-    }  
+    }
 
     class BrandName extends Component {
         constructor() {
@@ -167,12 +168,12 @@ const Product = props => {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
             let productId = this.props.pid;
             let dataURL =
                 'https://data.sherpagroupav.com/get_brandname.php?pid=' + productId;
-            
+
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -181,17 +182,18 @@ const Product = props => {
                     });
                 });
         }
-    
+
         render() {
             let brandname = this.state.pageData.brandname && this.state.pageData.brandname;
-            if(brandname) {
-            return (
-                <>{brandname}</>
-            ) } else {
-                return(<></>);
+            if (brandname) {
+                return (
+                    <>{brandname}</>
+                )
+            } else {
+                return (<></>);
             }
         }
-    }  
+    }
 
     return (
         <li className={classes.root}>
@@ -237,7 +239,7 @@ const Product = props => {
                     )}
                     <span><strong>Part #</strong> {product.sku}</span>
                     <span><strong>Brand:</strong> <BrandName pid={item.product.id} /></span>
-                    
+
                     <span><strong>Sold in:</strong> <SoldIn pid={item.product.id} /></span>
                     {/* <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />
@@ -245,7 +247,7 @@ const Product = props => {
                     <span className={classes.stockStatusMessage}>
                         {stockStatusMessage}
                     </span>
-                    {disableQuantity == 1 && (
+                    {disableQuantity == 1 ? (
                         <div className={classes.quantity}>
                             <Quantity
                                 item={item}
@@ -254,19 +256,35 @@ const Product = props => {
                                 onChange={handleUpdateItemQuantity}
                                 setActiveEditItem={setActiveEditItem}
                                 setIsCartUpdating={setIsCartUpdating}
-                                productId={'_'+item.product.id}
+                                productId={'_' + item.product.id}
                                 wid={wid}
                                 projectQuantity={projectQty}
                             />
                         </div>
-                 )} 
+                    )
+                        :
+                        <div className={classes.quantity}>
+                            <Quantity
+                                item={item}
+                                itemId={item.id}
+                                initialValue={quantity}
+                                onChange={handleUpdateItemQuantity}
+                                setActiveEditItem={setActiveEditItem}
+                                setIsCartUpdating={setIsCartUpdating}
+                                productId={'_' + item.product.id}
+                                wid={'null'}
+                                projectQuantity={projectQty}
+                            />
+                        </div>
+
+                    }
                     {/* {disableQuantity != 1 && (
                         <div className={classes.quantity}>
                             <p>{quantity} in your cart</p>
                         </div>
                     )} */}
                 </div>
-                {disableQuantity == 1 && (
+                {/* {disableQuantity == 1 && ( */}
                 <button
                     onClick={removeItem}
                     type="button"
@@ -279,7 +297,7 @@ const Product = props => {
                         classes={{ icon: classes.editIcon }}
                     />
                 </button>
-             )} 
+                {/* )}  */}
                 {/* <Kebab classes={{ root: classes.kebab }} disabled={true}  onClick={handleRemoveFromCart}> */}
                 {/* {!isSignedIn && (
                         <Section
@@ -362,7 +380,7 @@ export const UPDATE_QUANTITY_MUTATION = gql`
         $cartId: String!
         $itemId: Int!
         $quantity: Float!
-        $wid: String!
+        $wid: String
     ) {
         updateCartItems(
             input: {
