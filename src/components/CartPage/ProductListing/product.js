@@ -255,7 +255,7 @@ const Product = props => {
                                 setActiveEditItem={setActiveEditItem}
                                 setIsCartUpdating={setIsCartUpdating}
                                 productId={'_' + item.product.id}
-                                // wid={wid}
+                                wid={wid}
                                 projectQuantity={projectQty}
                             />
                         </div>
@@ -270,7 +270,7 @@ const Product = props => {
                                 setActiveEditItem={setActiveEditItem}
                                 setIsCartUpdating={setIsCartUpdating}
                                 productId={'_' + item.product.id}
-                                // wid={wid}
+                                wid={'null'}
                                 projectQuantity={projectQty}
                             />
                         </div>
