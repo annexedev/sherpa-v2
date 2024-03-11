@@ -25,6 +25,8 @@ import searchClasses from '../SearchPage/searchPage.css';
 import summaryOperations, {
     CUSTOM_TYPES
 } from './PaymentInformation/summary.gql';
+import TaxSummary from '../CartPage/PriceSummary/taxSummary';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
@@ -135,7 +137,7 @@ const CheckoutPage = props => {
     } = talonPropsPrice;
 
 
-    // console.log('CHECKOUT!!!!!!!!!', typeof flatData.total.value);
+    // console.log('CHECKOUT!!!!!!!!!', flatData);
     // const total = flatData
 
     // const cartItemsJSON = cartItems.map(item => {
@@ -535,11 +537,22 @@ const CheckoutPage = props => {
                         {/* <PriceSummary isUpdating={isUpdating} isPageCheckout={false} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} /> */}
                         {/* <PriceSummary isUpdating={isUpdating} isPageCheckout={false}  /> */}
                         <div className={classes.totalEstime}>
+                            <TaxSummary
+                                classes={{
+                                    lineItemLabel: classes.lineItemLabel,
+                                    bold: classes.bold,
+                                    price: classes.price
+                                }}
+                                data={flatData.taxes}
+                                isCheckout={isCheckout}
+                            />
+                        </div>
+                        <div className={classes.totalEstime}>
                             <span className={classes.totalLabel}>
                                 {formatMessage({
-                                        id: 'priceSummary.estimatedTotal',
-                                        defaultMessage: 'Estimated Total'
-                                    })}
+                                    id: 'priceSummary.estimatedTotal',
+                                    defaultMessage: 'Estimated Total'
+                                })}
                             </span>
                             <span>
                                 <Price value={flatData.total.value} currencyCode={flatData.total.currency} />
