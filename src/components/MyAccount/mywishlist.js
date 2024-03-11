@@ -1662,7 +1662,9 @@ const MyWishList = props => {
                                                                                     />
                                                                                 </Link>
                                                                                 {/* <IsInCart pid={val.product.id} cid={wId} email={email} key={seed} /> */}
-                                                                                <div className={classes.brand_name}><BrandName pid={val.product.id} /></div>
+                                                                                <div className={classes.brand_name}>
+                                                                                    {/* <BrandName pid={val.product.id} /> */}
+                                                                                </div>
                                                                             </div>
 
                                                                             <div
