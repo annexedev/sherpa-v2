@@ -75,6 +75,7 @@
     "priceSummary.errorText":"Something went wrong. Please refresh and try again.",
     "priceSummary.checkoutButton_container":"This is correct",
     "priceSummary.lineItemLabel":"Products",
+    "priceSummary.lineItemLabelProjects":"Projects",
     "CashOnDelivery.edit":"Edit",
     "CashOnDelivery.place_order_button":"Place Order",
     "CheckMoneyOrder.edit":"Edit",

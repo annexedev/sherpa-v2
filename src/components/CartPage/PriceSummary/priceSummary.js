@@ -194,7 +194,12 @@ const PriceSummary = props => {
                 </span>
             </div>
             {/* BOUCLE DANS LES ITEMS WITH PROJECTS */}
-            <span className={classes.bold}>Projects</span>
+            <span className={classes.bold}>
+                <FormattedMessage
+                        id={'priceSummary.lineItemLabelProjects'}
+                        defaultMessage={'Projects'}
+                    />
+            </span>
             {containerProjets}
             <div className={classes.lineItems}>
                 {/* -------------------------------------- */}

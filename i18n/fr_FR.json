@@ -98,6 +98,7 @@
     "priceSummary.errorText": "Quelque chose s'est mal passé. ",
     "priceSummary.checkoutButton_container": "Ceci est correct",
     "priceSummary.lineItemLabel": "Produits",
+    "priceSummary.lineItemLabelProjects":"Projets",
     "CashOnDelivery.edit": "Modifier",
     "CashOnDelivery.place_order_button": "Passer la commande",
     "CheckMoneyOrder.edit": "Modifier",
