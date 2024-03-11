@@ -18,6 +18,18 @@
     display: grid;
     grid-template-columns: 1fr;
 }
+.totalEstime{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 50px;
+}
+.totalEstime span {
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+.price {
+    justify-self: end;
+}
 
 .heading_container {
     display: grid;

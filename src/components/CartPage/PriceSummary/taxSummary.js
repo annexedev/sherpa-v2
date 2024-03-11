@@ -1,6 +1,8 @@
 import React from 'react';
 import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
+import { FormattedMessage } from 'react-intl';
+
 
 import { mergeClasses } from '../../../classify';
 /**
@@ -36,7 +38,12 @@ const TaxSummary = props => {
     return (
         <>
             <span className={[classes.lineItemLabel, classes.bold].join(' ')}>
-                {isCheckout ? 'Tax' : 'Estimated Tax'}
+                {isCheckout ? 'Tax' :
+                    <FormattedMessage
+                        id={'cartPage.taxSummary'}
+                        defaultMessage={'Estimated tax'}
+                    />
+                }
             </span>
             <span className={classes.price}>
                 <Price value={tax.value} currencyCode={tax.currency} />

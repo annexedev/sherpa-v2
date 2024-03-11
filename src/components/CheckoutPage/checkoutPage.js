@@ -12,6 +12,7 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
 import AddressBook from './AddressBook';
 import OrderSummary from './OrderSummary';
+import PriceSummary from '../CartPage/PriceSummary';
 import PaymentInformation from './PaymentInformation';
 import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
@@ -24,6 +25,8 @@ import searchClasses from '../SearchPage/searchPage.css';
 import summaryOperations, {
     CUSTOM_TYPES
 } from './PaymentInformation/summary.gql';
+import TaxSummary from '../CartPage/PriceSummary/taxSummary';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
@@ -36,6 +39,11 @@ import {
     CHECKOUT_STEP,
     useCheckoutPage
 } from 'src/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
+import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
+import { gql } from '@apollo/client';
+import { PriceSummaryFragment } from '../CartPage/PriceSummary/priceSummaryFragments';
+import { Price } from '@magento/peregrine';
+
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
@@ -104,16 +112,128 @@ const CheckoutPage = props => {
     const { handleCreateToken, tokenResponse } = usePaypal();
     const [, { addToast }] = useToasts();
 
+    /* ****************** TESTE PASSAGE DE PRICESUMMARY DU CARTPAGE ICI ************************************** */
+    const GET_PRICE_SUMMARY = gql`
+    query getPriceSummary($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            ...PriceSummaryFragment
+        }
+    }
+    ${PriceSummaryFragment}
+`;
+
+    const talonPropsPrice = usePriceSummary({
+        queries: {
+            getPriceSummary: GET_PRICE_SUMMARY
+        }
+    });
+
+    const {
+        handleProceedToCheckout,
+        hasItems,
+        isCheckout,
+        flatData
+    } = talonPropsPrice;
+
+
+    // console.log('CHECKOUT!!!!!!!!!', flatData);
+    // const total = flatData
+
+    // const cartItemsJSON = cartItems.map(item => {
+
+    //     /*const obj = JSON.parse(item.category);
+
+    //     var x = 0;
+
+    //     if(obj) {
+
+    //         obj.forEach(function (arrayItem) {
+    //             x = x + parseInt(arrayItem.qty);
+    //         });
+
+    //         if(x < item.quantity) {
+    //             console.log('SURVIVANT');
+    //         }
+    //     }*/
+
+    //     const itemCategory = item.category === '' || item.category === null ? false : true
+
+    //     return {
+    //         ...item,
+    //         category: itemCategory ? JSON.parse(item.category) : null
+    //     };
+    // });isUpdating
+
+    // function checkProjectQuantity(arrayCategory, itemQuantity) {
+
+    //     const obj = arrayCategory;
+
+    //     var x = 0;
+
+    //     if (obj) {
+
+    //         obj.forEach(function (arrayItem) {
+    //             x = x + parseInt(arrayItem.qty);
+    //         });
+
+    //         if (x < itemQuantity) {
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+    //     }
+    // }
+    // const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || checkProjectQuantity(item.category, item.quantity));
+    // const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
+
+    let productsFiltre = [];
+    let productsParProjet = [];
+
+    // Filtre basée dans la quantité 
+    // itemsWithProject.map(item => {
+
+    //     item.category.map(projet => {
+    //         let _item = { ...item.product, projet_qty: projet.qty, productID: projet.product_id, projetID: projet.category_id, projetNom: projet.category_name, prices: item.prices };
+    //         productsFiltre.push(_item)
+    //     })
+    // });
+
+    // Groupe les itens par nom de projet
+    // const itensParProjets = productsFiltre.reduce((groupe, produit) => {
+    //     // Verifie si il y a un key avec l'id du projet
+    //     if (!groupe[produit.projetNom]) {
+    //         groupe[produit.projetNom] = [];
+    //     }
+    //     groupe[produit.projetNom].push(produit);
+    //     return groupe;
+    // }, {});
+
+    // const arrayItensParProjets = Object.keys(itensParProjets).map((key) => {
+    //     return { [key]: itensParProjets[key] }
+    // });
+
+    // const unique = [...new Set(productsFiltre.map(item => item.projetID))];
+
+    // console.log('LIST OF PROJECTS',arrayItensParProjets);
+    // console.log('ITEMS WITH PROJECT', itemsWithProject);
+    // console.log('ITEMS WITHOUT PROJECT', itemsWithoutProject);
+
+
+
+    /* ******************************************************** */
+
+
     useEffect(() => {
         if (hasError) {
             const message =
                 error && error.message
                     ? error.message
                     : formatMessage({
-                          id: 'checkoutPage.errorSubmit',
-                          defaultMessage:
-                              'Oops! An error occurred while submitting. Please try again.'
-                      });
+                        id: 'checkoutPage.errorSubmit',
+                        defaultMessage:
+                            'Oops! An error occurred while submitting. Please try again.'
+                    });
             addToast({
                 type: 'error',
                 icon: errorIcon,
@@ -137,13 +257,13 @@ const CheckoutPage = props => {
 
     const heading = isGuestCheckout
         ? formatMessage({
-              id: 'checkoutPage.guestCheckout',
-              defaultMessage: 'Guest Checkout'
-          })
+            id: 'checkoutPage.guestCheckout',
+            defaultMessage: 'Guest Checkout'
+        })
         : formatMessage({
-              id: 'checkoutPage.checkout',
-              defaultMessage: 'Checkout'
-          });
+            id: 'checkoutPage.checkout',
+            defaultMessage: 'Checkout'
+        });
 
     if (propsData && propsData.orderNumber) {
         return (
@@ -264,33 +384,33 @@ const CheckoutPage = props => {
             const stepOneClass =
                 checkoutStep == 1
                     ? classes.shipping_information_container +
-                      ' ' +
-                      classes.base_wrap +
-                      ' ' +
-                      classes.active_step
+                    ' ' +
+                    classes.base_wrap +
+                    ' ' +
+                    classes.active_step
                     : classes.shipping_information_container +
-                      ' ' +
-                      classes.base_wrap;
+                    ' ' +
+                    classes.base_wrap;
             const stepTwoClass =
                 checkoutStep == 2
                     ? classes.shipping_method_container +
-                      ' ' +
-                      classes.base_wrap +
-                      ' ' +
-                      classes.active_step
+                    ' ' +
+                    classes.base_wrap +
+                    ' ' +
+                    classes.active_step
                     : classes.shipping_method_container +
-                      ' ' +
-                      classes.base_wrap;
+                    ' ' +
+                    classes.base_wrap;
             const stepThreeClass =
                 checkoutStep == 3
                     ? classes.payment_information_container +
-                      ' ' +
-                      classes.base_wrap +
-                      ' ' +
-                      classes.active_step
+                    ' ' +
+                    classes.base_wrap +
+                    ' ' +
+                    classes.active_step
                     : classes.payment_information_container +
-                      ' ' +
-                      classes.base_wrap;
+                    ' ' +
+                    classes.base_wrap;
 
             const reviewOrderButton =
                 checkoutStep === CHECKOUT_STEP.PAYMENT ? (
@@ -413,7 +533,33 @@ const CheckoutPage = props => {
                                 defaultMessage: ' Order summary'
                             })}
                         </strong>
-                        <OrderSummary isUpdating={isUpdating} />
+                        {/* <OrderSummary isUpdating={isUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} /> */}
+                        {/* <PriceSummary isUpdating={isUpdating} isPageCheckout={false} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} /> */}
+                        {/* <PriceSummary isUpdating={isUpdating} isPageCheckout={false}  /> */}
+                        <div className={classes.totalEstime}>
+                            <TaxSummary
+                                classes={{
+                                    lineItemLabel: classes.lineItemLabel,
+                                    bold: classes.bold,
+                                    price: classes.price
+                                }}
+                                data={flatData.taxes}
+                                isCheckout={isCheckout}
+                            />
+                        </div>
+                        <div className={classes.totalEstime}>
+                            <span className={classes.totalLabel}>
+                                {formatMessage({
+                                    id: 'priceSummary.estimatedTotal',
+                                    defaultMessage: 'Estimated Total'
+                                })}
+                            </span>
+                            <span>
+                                <Price value={flatData.total.value} currencyCode={flatData.total.currency} />
+                            </span>
+                        </div>
+
+
                         <div className={classes.items_review_container_buttons}>
                             {checkoutStep === CHECKOUT_STEP.REVIEW && (
                                 <Button

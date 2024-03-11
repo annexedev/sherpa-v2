@@ -135,6 +135,8 @@ const CartPage = props => {
     // const myprojects = url.includes("?id");
 
 
+    console.log(cartItems);
+
     const cartItemsJSON = cartItems.map(item => {
 
         /*const obj = JSON.parse(item.category);
@@ -152,9 +154,11 @@ const CartPage = props => {
             }
         }*/
 
+        const itemCategory = item.category === '' || item.category === null ? false : true
+
         return {
             ...item,
-            category: item.category ? JSON.parse(item.category) : null
+            category: itemCategory ? JSON.parse(item.category) : null
         };
     });
 
@@ -198,14 +202,18 @@ const CartPage = props => {
 
     // console.log('ITEMS JSON', cartItemsJSON);
 
-    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null);
+    // const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || item.category.lengt === 0 || item.category === '');
 
-    //const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || checkProjectQuantity(item.category,item.quantity));
+    const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || checkProjectQuantity(item.category, item.quantity));
+    // console.log('itemsWithoutProject*****' , itemsWithoutProject);
+
 
     // const itemsWithoutProject = cartItemsJSON.filter(item => item.category === null || item.category !== null);
 
     const itemsWithProject = cartItemsJSON.filter(item => item.category !== null);
     let listOfProjects = [];
+    // console.log('itemsWithProject*****' , itemsWithProject);
+
 
     const projectsDansPanier = itemsWithProject.map(project => project.category.map(item => listOfProjects.push(item)));
 
@@ -269,18 +277,18 @@ const CartPage = props => {
 
     // console.log(arrayItensParProjetsID);
 
-    
+
     const priceSummary = hasItems ? (
-        <PriceSummary isUpdating={isCartUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} />
+        <PriceSummary isUpdating={isCartUpdating} isPageCheckout={true} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} />
     ) : null;
 
 
 
     const toggleProjectVisibility = projectId => {
-      setOpenProjects(prevState => ({
-        ...prevState,
-        [projectId]: !prevState[projectId]
-      }));
+        setOpenProjects(prevState => ({
+            ...prevState,
+            [projectId]: !prevState[projectId]
+        }));
     };
 
 
@@ -407,10 +415,25 @@ const CartPage = props => {
                                 {/* products individuelle */}
                                 <div className={classes.wrapperProducts}>
                                     <h1 className={classes.headingProducts}>
-                                        Products in your cart
+                                        <FormattedMessage
+                                            id={'cartPage.headingWithoutProjects'}
+                                            defaultMessage={'Products in your cart'}
+                                        />
                                     </h1>
                                     <div className={classes.wrapperValeurProduits}>
-                                        <span>{itemsWithoutProject.length} products</span>
+                                        <span>{itemsWithoutProject.length}
+                                        </span>
+                                        {itemsWithoutProject.length === 1 ?
+                                            <FormattedMessage
+                                                id={'cartPage.product'}
+                                                defaultMessage={'product'}
+                                            />
+                                            :
+                                            <FormattedMessage
+                                                id={'cartPage.products'}
+                                                defaultMessage={'products'}
+                                            />
+                                        }
                                         <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                         <span><Price value={totalPriceProductsWithoutProject} currencyCode={'CAD'} /></span>
                                         <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
@@ -446,7 +469,7 @@ const CartPage = props => {
                                     <div className={classes.wrapperProductsFromProjects}>
                                         <h1 className={classes.headingProducts}>
                                             <FormattedMessage
-                                                id={'cartPage.headingProducts'}
+                                                id={'cartPage.headingWithProjects'}
                                                 defaultMessage={'Products from projects'}
                                             />
                                         </h1>
@@ -462,37 +485,37 @@ const CartPage = props => {
                                     <>
 
                                         {/* {unique.map(itemProjet => ( */}
-                                        {Object.entries(arrayItensParProjetsID).map(([projectId, products]) =>(
+                                        {Object.entries(arrayItensParProjetsID).map(([projectId, products]) => (
 
                                             <>
 
                                                 {/* {arrayItensParProjets.map((item, index) => ( */}
 
-                                                    <div className={classes.items_container_projet} key={'item' + projectId}>
-                                                        <div className={classes.wrapperProductsWithProject}>
-                                                            <h1 className={classes.headingProductsWithProject}>
-                                                                <ProjectName cid={Object.keys(products)[0]} />
-                                                            </h1>
-                                                          {/* {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>} */}
-                                                            <div className={classes.wrapperValeurProduits}>
-                                                                <span><CountProjectItem products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
-                                                                <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
-                                                                <span><CountProjectValue products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
-                                                                <span onClick={() => { toggleProjectVisibility(projectId) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
-                                                            </div>
-                                                        </div>
+                                                <div className={classes.items_container_projet} key={'item' + projectId}>
+                                                    <div className={classes.wrapperProductsWithProject}>
+                                                        <h1 className={classes.headingProductsWithProject}>
+                                                            <ProjectName cid={Object.keys(products)[0]} />
+                                                        </h1>
                                                         {/* {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>} */}
-
-                                                        {/* ))} */}
-                                                        {/* il faut verifier si le category est !null si true vient le produit ici*/}
-                                                        {itemsWithProject && openProjects[projectId] ?
-                                                      
-                                                            <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} inputCategory={Object.keys(products)[0]} isProject={1} />
-                                                            :
-                                                            <div>
-                                                            </div>
-                                                        }
+                                                        <div className={classes.wrapperValeurProduits}>
+                                                            <span><CountProjectItem products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
+                                                            <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
+                                                            <span><CountProjectValue products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
+                                                            <span onClick={() => { toggleProjectVisibility(projectId) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                                        </div>
                                                     </div>
+                                                    {/* {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>} */}
+
+                                                    {/* ))} */}
+                                                    {/* il faut verifier si le category est !null si true vient le produit ici*/}
+                                                    {itemsWithProject && openProjects[projectId] ?
+
+                                                        <ProductListing setIsCartUpdating={setIsCartUpdating} products={itemsWithProject} cart={true} inputCategory={Object.keys(products)[0]} isProject={1} />
+                                                        :
+                                                        <div>
+                                                        </div>
+                                                    }
+                                                </div>
 
                                             </>
 
