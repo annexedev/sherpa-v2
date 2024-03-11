@@ -421,7 +421,19 @@ const CartPage = props => {
                                         />
                                     </h1>
                                     <div className={classes.wrapperValeurProduits}>
-                                        <span>{itemsWithoutProject.length} products</span>
+                                        <span>{itemsWithoutProject.length}
+                                        </span>
+                                        {itemsWithoutProject.length === 1 ?
+                                            <FormattedMessage
+                                                id={'cartPage.product'}
+                                                defaultMessage={'product'}
+                                            />
+                                            :
+                                            <FormattedMessage
+                                                id={'cartPage.products'}
+                                                defaultMessage={'products'}
+                                            />
+                                        }
                                         <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                         <span><Price value={totalPriceProductsWithoutProject} currencyCode={'CAD'} /></span>
                                         <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>

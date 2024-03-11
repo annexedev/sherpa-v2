@@ -106,7 +106,6 @@ export const QuantityFields = props => {
                             min={min}
                             onBlur={handleBlur}
                             pattern="[0-9]*"
-
                         />
                     </div>
                     {/* { ignore == 1 ?
@@ -140,19 +139,24 @@ export const QuantityFields = props => {
                 </div>
                 {cart &&
                     <div className={classes.wrapperPrice}>
-                        <p>YOUR COST </p>
+                        <p>YOUR COST
+                            <FormattedMessage
+                                id={'cartPage.price'}
+                                defaultMessage={'YOUR COST'}
+                            /> 
+                        </p>
                         <p className={classes.priceWithDiscount}>${price}</p>
-                        {ProduitDiscount && rabais !== 0 && 
+                        {ProduitDiscount && rabais !== 0 &&
                             <p className={classes.initialPrice}>${rabais}</p>
                         }
                     </div>
                 }
                 {initialValue > projectQuantity &&
-                /* changer message json */
+                    /* changer message json */
                     <div className={classes.warning}>
                         <Icon classes={iconClasses} src={Warning} size={14} />
                         <FormattedMessage
-                            id={'quantity.valeurProjects'}
+                            id={'cartPage.quantityExceeded'}
                             defaultMessage={'Quantité du projet depassé'}
                         />
                     </div>
