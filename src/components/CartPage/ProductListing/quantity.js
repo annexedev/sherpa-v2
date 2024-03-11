@@ -35,8 +35,8 @@ export const QuantityFields = props => {
 
     //console.log('PROD ID : '+productId+' '+wid);
 
-    const rabais = item.product.price_range.maximum_price.discount.amount_off;
-    // console.log(projectQuantity);
+    const rabais = item ? item.product.price_range.maximum_price.discount.amount_off : '';
+    // console.log(item);
 
 
 
@@ -142,7 +142,9 @@ export const QuantityFields = props => {
                     <div className={classes.wrapperPrice}>
                         <p>YOUR COST </p>
                         <p className={classes.priceWithDiscount}>${price}</p>
-                        {ProduitDiscount && <p className={classes.initialPrice}>${rabais}</p>}
+                        {ProduitDiscount && rabais !== 0 && 
+                            <p className={classes.initialPrice}>${rabais}</p>
+                        }
                     </div>
                 }
                 {initialValue > projectQuantity &&
