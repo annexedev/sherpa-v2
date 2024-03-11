@@ -139,7 +139,7 @@ export const QuantityFields = props => {
                 </div>
                 {cart &&
                     <div className={classes.wrapperPrice}>
-                        <p>YOUR COST
+                        <p>
                             <FormattedMessage
                                 id={'cartPage.price'}
                                 defaultMessage={'YOUR COST'}
