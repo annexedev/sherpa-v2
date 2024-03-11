@@ -135,7 +135,7 @@ const CartPage = props => {
     // const myprojects = url.includes("?id");
 
 
-    // console.log(cartItems);
+    console.log(cartItems);
 
     const cartItemsJSON = cartItems.map(item => {
 
@@ -279,7 +279,7 @@ const CartPage = props => {
 
 
     const priceSummary = hasItems ? (
-        <PriceSummary isUpdating={isCartUpdating} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} />
+        <PriceSummary isUpdating={isCartUpdating} isPageCheckout={true} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} />
     ) : null;
 
 

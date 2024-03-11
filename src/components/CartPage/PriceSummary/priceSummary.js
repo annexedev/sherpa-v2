@@ -40,7 +40,7 @@ const GET_PRICE_SUMMARY = gql`
  * import PriceSummary from "@magento/venia-ui/lib/components/CartPage/PriceSummary";
  */
 const PriceSummary = props => {
-    const { isUpdating, projects, itemsWithoutProject, itemsWithProject, inputCategory } = props;
+    const { isUpdating, projects, itemsWithoutProject, itemsWithProject, inputCategory, isPageCheckout } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
         queries: {
@@ -116,11 +116,15 @@ const PriceSummary = props => {
         </>
     ) : null;
 
-    const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
-    /* Je suis ici en train de faire le calcul pour afficher les valeurs de chaque projet et après faire un boucle pour créer des lignes avec le nom e value de chaque projet */
+
+        const totalPriceProductsWithoutProject = itemsWithoutProject.reduce((total, product) => total + product.quantity * product.prices.price.value, 0).toFixed(2);
+   
+    
+        /* Je suis ici en train de faire le calcul pour afficher les valeurs de chaque projet et après faire un boucle pour créer des lignes avec le nom e value de chaque projet */
     // const prixParProjet = []
     let nomProjet = '';
     let prixParProjet = '';
+    
     const containerProjets = projects.map((item) => {
         // console.log(Object.keys(item));
         console.log(item);
@@ -159,17 +163,22 @@ const PriceSummary = props => {
     let products = 'this.props.products';
     var priceTotal = 0;
 
-    itemsWithProject.forEach(function (entry) {
-        var entryCategory = entry.category;
-        // console.log(entryCategory);
-        entryCategory.forEach(function (entryCat) {
-            if (entryCat.category_id == inputCategory) {
-                priceTotal = parseFloat(priceTotal) + (parseInt(entryCat.qty) * parseFloat(entry.prices.price.value));
-            }
-        })
-    })
+    {
+        isPageCheckout ?
+            itemsWithProject.forEach(function (entry) {
+                var entryCategory = entry.category;
+                // console.log(entryCategory);
+                entryCategory.forEach(function (entryCat) {
+                    if (entryCat.category_id == inputCategory) {
+                        priceTotal = parseFloat(priceTotal) + (parseInt(entryCat.qty) * parseFloat(entry.prices.price.value));
+                    }
+                })
+            })
+            : null
+    }
 
     return (
+
         <div className={classes.root}>
             <h3 className={classes.headingSubtotal}>
                 <FormattedMessage
@@ -177,64 +186,70 @@ const PriceSummary = props => {
                     defaultMessage={'Subtotal'}
                 />
             </h3>
-            <div className={classes.lineItems}>
+            {!isPageCheckout &&
+                <div className={classes.lineItems}>
 
-                {/* ITEMS SANS PROJECT */}
-                <span className={[classes.lineItemLabel, classes.bold].join(' ')}>
-                    <FormattedMessage
-                        id={'priceSummary.lineItemLabel'}
-                        defaultMessage={'Products'}
-                    />
-                </span>
-                <span className={priceClass}>
-                    <Price
-                        value={totalPriceProductsWithoutProject}
-                        currencyCode={subtotal.currency}
-                    />
-                </span>
-            </div>
+                    {/* ITEMS SANS PROJECT */}
+                    <span className={[classes.lineItemLabel, classes.bold].join(' ')}>
+                        <FormattedMessage
+                            id={'priceSummary.lineItemLabel'}
+                            defaultMessage={'Products'}
+                        />
+                    </span>
+                    <span className={priceClass}>
+                        <Price
+                            value={totalPriceProductsWithoutProject}
+                            currencyCode={subtotal.currency}
+                        />
+                    </span>
+                </div>
+            }
             {/* BOUCLE DANS LES ITEMS WITH PROJECTS */}
-            <span className={classes.bold}>
-                <FormattedMessage
-                        id={'priceSummary.lineItemLabelProjects'}
-                        defaultMessage={'Projects'}
-                    />
-            </span>
-            {containerProjets}
-            <div className={classes.lineItems}>
-                {/* -------------------------------------- */}
-                <DiscountSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        price: priceClass
-                    }}
-                    data={discounts}
-                />
-                <GiftCardSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        price: priceClass
-                    }}
-                    data={giftCards}
-                />
-                <TaxSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        bold: classes.bold,
-                        price: priceClass
-                    }}
-                    data={taxes}
-                    isCheckout={isCheckout}
-                />
-                <ShippingSummary
-                    classes={{
-                        lineItemLabel: classes.lineItemLabel,
-                        price: priceClass,
-                    }}
-                    data={shipping}
-                    isCheckout={isCheckout}
-                />
-            </div>
+            {!isPageCheckout &&
+                <>
+                    <span className={classes.bold}>
+                        <FormattedMessage
+                            id={'priceSummary.lineItemLabelProjects'}
+                            defaultMessage={'Projects'}
+                        />
+                    </span>
+                    {containerProjets}
+                    <div className={classes.lineItems}>
+                        {/* -------------------------------------- */}
+                        <DiscountSummary
+                            classes={{
+                                lineItemLabel: classes.lineItemLabel,
+                                price: priceClass
+                            }}
+                            data={discounts}
+                        />
+                        <GiftCardSummary
+                            classes={{
+                                lineItemLabel: classes.lineItemLabel,
+                                price: priceClass
+                            }}
+                            data={giftCards}
+                        />
+                        <TaxSummary
+                            classes={{
+                                lineItemLabel: classes.lineItemLabel,
+                                bold: classes.bold,
+                                price: priceClass
+                            }}
+                            data={taxes}
+                            isCheckout={isCheckout}
+                        />
+                        <ShippingSummary
+                            classes={{
+                                lineItemLabel: classes.lineItemLabel,
+                                price: priceClass,
+                            }}
+                            data={shipping}
+                            isCheckout={isCheckout}
+                        />
+                    </div>
+                </>
+            }
             <div
                 className={classes.price_adjustments_container}
             >
