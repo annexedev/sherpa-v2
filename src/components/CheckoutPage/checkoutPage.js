@@ -537,17 +537,6 @@ const CheckoutPage = props => {
                         {/* <PriceSummary isUpdating={isUpdating} isPageCheckout={false} projects={arrayItensParProjets} itemsWithoutProject={itemsWithoutProject} itemsWithProject={itemsWithProject} inputCategory={unique} /> */}
                         {/* <PriceSummary isUpdating={isUpdating} isPageCheckout={false}  /> */}
                         <div className={classes.totalEstime}>
-                            <TaxSummary
-                                classes={{
-                                    lineItemLabel: classes.lineItemLabel,
-                                    bold: classes.bold,
-                                    price: classes.price
-                                }}
-                                data={flatData.taxes}
-                                isCheckout={isCheckout}
-                            />
-                        </div>
-                        <div className={classes.totalEstime}>
                             <span className={classes.totalLabel}>
                                 {formatMessage({
                                     id: 'priceSummary.estimatedTotal',
@@ -558,8 +547,17 @@ const CheckoutPage = props => {
                                 <Price value={flatData.total.value} currencyCode={flatData.total.currency} />
                             </span>
                         </div>
-
-
+                        <div className={classes.totalEstime}>
+                            <TaxSummary
+                                classes={{
+                                    lineItemLabel: classes.lineItemLabel,
+                                    bold: classes.bold,
+                                    price: classes.price
+                                }}
+                                data={flatData.taxes}
+                                isCheckout={isCheckout}
+                            />
+                        </div>
                         <div className={classes.items_review_container_buttons}>
                             {checkoutStep === CHECKOUT_STEP.REVIEW && (
                                 <Button
@@ -633,7 +631,29 @@ const CheckoutPage = props => {
                                 defaultMessage: ' Order summary'
                             })}
                         </strong>
-                        <OrderSummary isUpdating={isUpdating} />
+                        {/* <OrderSummary isUpdating={isUpdating} /> */}
+                        <div className={classes.totalEstime}>
+                            <span className={classes.totalLabel}>
+                                {formatMessage({
+                                    id: 'priceSummary.estimatedTotal',
+                                    defaultMessage: 'Estimated Total'
+                                })}
+                            </span>
+                            <span>
+                                <Price value={flatData.total.value} currencyCode={flatData.total.currency} />
+                            </span>
+                        </div>
+                        <div className={classes.totalEstime}>
+                            <TaxSummary
+                                classes={{
+                                    lineItemLabel: classes.lineItemLabel,
+                                    bold: classes.bold,
+                                    price: classes.price
+                                }}
+                                data={flatData.taxes}
+                                isCheckout={isCheckout}
+                            />
+                        </div>
                         <div className={classes.items_review_container_buttons}>
                             {checkoutStep === CHECKOUT_STEP.REVIEW && (
                                 <Button
