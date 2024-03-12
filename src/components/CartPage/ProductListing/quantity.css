@@ -144,6 +144,9 @@
     .qty_inner_wrap {
         justify-content: flex-start !important;
     }
+    .warning{
+        margin-top: 40px;
+    }
 }
 
 @media screen and (min-width: 770px) and (max-width: 1280px) {
