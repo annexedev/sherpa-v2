@@ -434,3 +434,9 @@
         min-width: 50%;
     }
 }
+@media screen and (min-width: 320px) and (max-width: 524px) {
+
+.arrowDown {
+    display: none;
+}
+}
