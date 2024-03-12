@@ -232,8 +232,9 @@
         padding: 25px 10px;
         margin-bottom: 0;
         height: auto;
-        max-width: 66px;
+        max-width: 86px;
         word-wrap: break-word;
+        text-align: center;
     }
     .wrapperProducts{
         margin: 20px 0;
