@@ -63,6 +63,8 @@
     width: 100%;
     color: white;
     margin-top:10px;
+    display: flex;
+    justify-content: space-between;
 }
 .move_item:hover {
     background: black;
