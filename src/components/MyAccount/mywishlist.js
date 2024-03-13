@@ -475,13 +475,18 @@ class AlreadyPurchased extends Component {
         let dataURL =
             'https://data.sherpagroupav.com/get_already_purchased.php?email='+email+'&productId=' + pid;
             console.log(dataURL);
-        fetch(dataURL)
+
+        setTimeout(function(){
+            fetch(dataURL)
             .then(res => res.json())
             .then(res => {
                 this.setState({
                     pageData: res
                 });
             });
+        }, 5);
+
+        
     }
 
     render() {
@@ -1774,7 +1779,7 @@ const MyWishList = props => {
                                                                                 </span>
                                                                                 
                                                                             </div>
-                                                                            {/* <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} /> */}
+                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
