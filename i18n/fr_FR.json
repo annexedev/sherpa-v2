@@ -86,6 +86,8 @@
     "cartPage.products":"produits",
     "cartPage.product":" produit",
     "cartPage.taxSummary":"Taxe estimée",
+    "cartPage.tooltipHeadingProject":"Détails du projet",
+    "cartPage.tooltipChevronDownProject":"Cliquez pour ouvrir",
     "giftCard.balance": "Équilibre: ",
     "giftCard.remove": "Retirer",
     "giftCard.LoadingIndicatorText": "Chargement des cartes-cadeaux...",
