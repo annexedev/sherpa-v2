@@ -51,7 +51,6 @@ const ProductListing = props => {
 
     if (items.length) {
         let productComponents = [];
-        console.log('projectIds ');
         console.log(products);
 
         /*products.forEach(function(entry,index) {
@@ -68,20 +67,20 @@ const ProductListing = props => {
 
         });*/
 
-        if(isProject==1) {
-        
+        if (isProject == 1) {
+
             if (cart) {
 
-                products.forEach(function(entry) {
+                products.forEach(function (entry) {
 
                     var entryCategory = entry.category;
 
-                    entryCategory.forEach(function(entryCat) { 
-                        
-                        if(entryCat.category_id == inputCategory) {
+                    entryCategory.forEach(function (entryCat) {
+
+                        if (entryCat.category_id == inputCategory) {
                             //entry.quantity = entryCat.qty;
                             entry.quantity = entryCat.qty;
-                            console.log('PROJET '+entryCat.category_id+' qty '+entryCat.qty)
+                            console.log('PROJET ' + entryCat.category_id + ' qty ' + entryCat.qty)
 
                             productComponents.push(
                                 <>
@@ -96,54 +95,83 @@ const ProductListing = props => {
                                     />
                                 </>
                             );
-
-                            /*productComponents = products.map(product => (
-                                <>
-                                    <Product
-                                        item={product}
-                                        key={product.id + 1}
-                                        setActiveEditItem={setActiveEditItem}
-                                        setIsCartUpdating={setIsCartUpdating}
-                                    />
-                                </>
-
-                            )); */
                         }
-
                     })
 
                 });
 
-            } 
-        } else {
-            productComponents = products.map(product => (
-                <>
-                    <Product
-                        item={product}
-                        key={product.id + 1}
-                        setActiveEditItem={setActiveEditItem}
-                        setIsCartUpdating={setIsCartUpdating}
-                    />
-                </>
-
-            ));
-
+            }
         }
-        if (cart) { 1 }
         else {
-            productComponents = items.map(product => (
+            if (cart && isProject == 0) {
 
-                <>
-                    <Product
-                        item={product}
-                        key={product.id + 1}
-                        setActiveEditItem={setActiveEditItem}
-                        setIsCartUpdating={setIsCartUpdating}
-                    />
-                </>
+                products.forEach(function (entry) {
+                    var entryCategory = entry.category;
+                    // console.log(entry);
+                    let qtyProduitsSansProject = '';
+                    let categoryLenght = entry.category === null ? 0 : entry.category.length; 
+                    // console.log(categoryLenght);
+                    if (categoryLenght >= 1) {
+                        entryCategory.forEach(function (entryCat) {
+                            qtyProduitsSansProject = entry.quantity - entryCat.qty;
+                            // console.log(qtyProduitsSansProject, '*****************');
+                            // productComponents = products.map(product => (
+                            productComponents.push(
+                                <>
+                                    <Product
+                                        item={entry}
+                                        key={entry.id}
+                                        setActiveEditItem={setActiveEditItem}
+                                        setIsCartUpdating={setIsCartUpdating}
+                                        projectQty={qtyProduitsSansProject}
+                                        wid={entryCat.category_id}
+                                        disableQuantity={0}
+                                    />
+                                </>
+                            )
 
-            ));
+                            // ));
+                        });
+                    } else if(categoryLenght == 0) {
+                        let qtyProduitsSansProject = entry.quantity;
+                        console.log(qtyProduitsSansProject, '*****************');
+                        // productComponents = products.map(product => (
+                        productComponents.push(
+                            <>
+                                <Product
+                                    item={entry}
+                                    key={entry.id}
+                                    setActiveEditItem={setActiveEditItem}
+                                    setIsCartUpdating={setIsCartUpdating}
+                                    projectQty={qtyProduitsSansProject}
+                                    wid={''}
+                                    disableQuantity={0}
+                                />
+                            </>
+                        )
+                    } else{
+                        <></>
+                    }
+                });
+
+            }
+
         }
+        // if (cart) { 1 }
+        // else {
+        //     productComponents = items.map(product => (
+
+        //         <>
+        //             <Product
+        //                 item={product}
+        //                 key={product.id + 1}
+        //                 setActiveEditItem={setActiveEditItem}
+        //                 setIsCartUpdating={setIsCartUpdating}
+        //             />
+        //         </>
+
+        //     ));
+        // }
         return (
             <Fragment>
                 <ul className={classes.root}>{productComponents}</ul>
