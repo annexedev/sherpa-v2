@@ -102,20 +102,18 @@ const ProductListing = props => {
 
             }
         }
+        /* VALIDATION POUR L'AFFICHAGE E CHANGEMENT DE QUANTITY DES PRODUITS SANS PROJECTS */
         else {
-            if (cart && isProject == 0) {
 
+            if (cart && isProject == 0) {
+/* AFFICHAGE QUAND JE RECEVOIS LE CATEGORY PAS VIDE */
                 products.forEach(function (entry) {
                     var entryCategory = entry.category;
-                    // console.log(entry);
                     let qtyProduitsSansProject = '';
                     let categoryLenght = entry.category === null ? 0 : entry.category.length; 
-                    // console.log(categoryLenght);
                     if (categoryLenght >= 1) {
                         entryCategory.forEach(function (entryCat) {
                             qtyProduitsSansProject = entry.quantity - entryCat.qty;
-                            // console.log(qtyProduitsSansProject, '*****************');
-                            // productComponents = products.map(product => (
                             productComponents.push(
                                 <>
                                     <Product
@@ -124,18 +122,17 @@ const ProductListing = props => {
                                         setActiveEditItem={setActiveEditItem}
                                         setIsCartUpdating={setIsCartUpdating}
                                         projectQty={qtyProduitsSansProject}
-                                        wid={entryCat.category_id}
+                                        wid={''}
                                         disableQuantity={0}
                                     />
                                 </>
                             )
 
-                            // ));
                         });
+                /* AFFICHAGE QUAND JE RECEVOIS LE CATEGORY VIDE */
                     } else if(categoryLenght == 0) {
                         let qtyProduitsSansProject = entry.quantity;
-                        console.log(qtyProduitsSansProject, '*****************');
-                        // productComponents = products.map(product => (
+                        // console.log(qtyProduitsSansProject, '*****************');
                         productComponents.push(
                             <>
                                 <Product
@@ -157,21 +154,23 @@ const ProductListing = props => {
             }
 
         }
-        // if (cart) { 1 }
-        // else {
-        //     productComponents = items.map(product => (
+        if (cart) { 1 }
+        else {
+            productComponents = products.map(product => (
 
-        //         <>
-        //             <Product
-        //                 item={product}
-        //                 key={product.id + 1}
-        //                 setActiveEditItem={setActiveEditItem}
-        //                 setIsCartUpdating={setIsCartUpdating}
-        //             />
-        //         </>
+                <>
+                    <Product
+                        item={product}
+                        key={product.id + 1}
+                        setActiveEditItem={setActiveEditItem}
+                        setIsCartUpdating={setIsCartUpdating}
+                        projectQty={product.id}
+                        wid={''}
+                    />
+                </>
 
-        //     ));
-        // }
+            ));
+        }
         return (
             <Fragment>
                 <ul className={classes.root}>{productComponents}</ul>
