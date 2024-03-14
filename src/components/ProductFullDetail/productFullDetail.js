@@ -1309,9 +1309,10 @@ const ProductFullDetail = props => {
                             {product.__typename != 'BundleProduct' && email && (
                                 <div
                                     className={
-                                        classes.qty_cart_wrap +
-                                        ' ' +
-                                        classes.shadow_section
+                                        classes.qty_cart_wrap
+                                        //  +
+                                        // ' ' +
+                                        // classes.shadow_section
                                     }
                                 >
                                     <section

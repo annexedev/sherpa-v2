@@ -82,11 +82,7 @@ class ProjectList extends Component {
         const projectId = queryParameters.get('id');
 
         const url = window.location.href;
-
-        // console.log(url);
-
-        const purchasedPage = url.includes('/orders') ? true : false
-
+        const purchasedPage = url.includes('/orders') && url.includes('project') ? true : false
 
 
 
