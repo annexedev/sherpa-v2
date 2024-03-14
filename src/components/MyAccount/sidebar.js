@@ -81,8 +81,8 @@ class ProjectList extends Component {
 
         const projectId = queryParameters.get('id');
 
-        const pathname = window.location.pathname;
-        const purchasedPage = pathname === '/orders' ? true : false
+        const url = window.location.href;
+        const purchasedPage = url.includes('/orders') && url.includes('project') ? true : false
 
 
 

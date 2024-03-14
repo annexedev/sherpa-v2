@@ -40,6 +40,8 @@ const ItemsReview = props => {
         <Item key={item.id} {...item} isHidden={!showAllItems && index >= 10} />
     ));
 
+    console.log(totalQuantity);
+
     const showAllItemsFooter = !showAllItems ? (
         <ShowAllButton onClick={setShowAllItems} />
     ) : null;
