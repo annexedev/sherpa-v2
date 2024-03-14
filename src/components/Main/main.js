@@ -437,6 +437,14 @@ const Main = props => {
         displayLogin = true;
     }
 
+    if (window.location.href.indexOf('/politique-expedition') != -1) {
+        displayLogin = true;
+    }
+
+    if (window.location.href.indexOf('/shipping-policy') != -1) {
+        displayLogin = true;
+    }
+
     if (window.location.href.indexOf('/brand-youtube-links') != -1) {
         displayLogin = true;
     }
