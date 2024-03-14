@@ -1276,6 +1276,9 @@ body[class='rtl_view'] .qty_icon {
     .shadow_section {
         box-shadow: var(--primary-box-shadow);
     }
+    .project_dropdown {
+        width: 100%;
+    }
     .options {
         margin: 10px 0;
         padding: 8px;
