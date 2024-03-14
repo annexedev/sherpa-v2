@@ -82,6 +82,10 @@ const Product = props => {
         productUrlSuffix = urlSuffix;
     }
 
+    // console.log(quantity, 'quantity*************');
+
+    // console.log(product, 'product**************');
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const editItemSection = isEditable ? (
@@ -259,6 +263,7 @@ const Product = props => {
                                 productId={'_' + item.product.id}
                                 wid={wid}
                                 projectQuantity={projectQty}
+                                ignore={1}
                             />
                         </div>
                     )
@@ -267,13 +272,14 @@ const Product = props => {
                             <Quantity
                                 item={item}
                                 itemId={item.id}
-                                initialValue={quantity}
+                                initialValue={projectQty}
                                 onChange={handleUpdateItemQuantity}
                                 setActiveEditItem={setActiveEditItem}
                                 setIsCartUpdating={setIsCartUpdating}
                                 productId={'_' + item.product.id}
                                 wid=''
                                 projectQuantity={projectQty}
+                                ignore={0}
                             />
                         </div>
 

@@ -275,7 +275,6 @@ const CartPage = props => {
     const unique = [...new Set(productsFiltre.map(item => item.projetID))];
 
 
-    // console.log(arrayItensParProjetsID);
 
 
     const priceSummary = hasItems ? (
@@ -436,7 +435,16 @@ const CartPage = props => {
                                         }
                                         <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                         <span><Price value={totalPriceProductsWithoutProject} currencyCode={'CAD'} /></span>
-                                        <span onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                        <span className={classes.chevronDown} onClick={() => { setProductsWithoutProject(!productsWithoutProject) }}>{productsWithoutProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}
+                                            {!productsWithoutProject &&
+                                                <span className={classes.tooltiptext}>
+                                                    <FormattedMessage
+                                                        id={'cartPage.tooltipChevronDownProject'}
+                                                        defaultMessage={'Click to expand'}
+                                                    />
+                                                </span>
+                                            }
+                                        </span>
                                     </div>
                                 </div>
                                 {productsWithoutProject &&
@@ -493,15 +501,30 @@ const CartPage = props => {
 
                                                 <div className={classes.items_container_projet} key={'item' + projectId}>
                                                     <div className={classes.wrapperProductsWithProject}>
-                                                        <h1 className={classes.headingProductsWithProject}>
+                                                        <a href={'/myprojects?id=' + Object.keys(products)[0]} className={classes.headingProductsWithProject}>
                                                             <ProjectName cid={Object.keys(products)[0]} />
-                                                        </h1>
+                                                            <span className={classes.tooltiptext}>
+                                                                <FormattedMessage
+                                                                    id={'cartPage.tooltipHeadingProject'}
+                                                                    defaultMessage={'Click for project details'}
+                                                                />
+                                                            </span>
+                                                        </a>
                                                         {/* {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>} */}
                                                         <div className={classes.wrapperValeurProduits}>
                                                             <span><CountProjectItem products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                                             <span><CountProjectValue products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
-                                                            <span onClick={() => { toggleProjectVisibility(projectId) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}</span>
+                                                            <span className={classes.chevronDown} onClick={() => { toggleProjectVisibility(projectId); setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}
+                                                                {!productsWithProject &&
+                                                                    <span className={classes.tooltiptext}>
+                                                                        <FormattedMessage
+                                                                            id={'cartPage.tooltipChevronDownProject'}
+                                                                            defaultMessage={'Click to expand'}
+                                                                        />
+                                                                    </span>
+                                                                }
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     {/* {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>} */}
