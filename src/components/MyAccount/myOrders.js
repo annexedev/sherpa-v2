@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@magento/venia-ui/lib/components/Head';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
+import { Price } from '@magento/peregrine';
+
 
 const MyOrders = props => {
     const orderProps = useCustomerOrder({
@@ -802,9 +804,10 @@ const MyOrders = props => {
                                                                                             defaultClasses.body_item
                                                                                         }
                                                                                     >
-                                                                                        $ {
+                                                                                         {/* {
                                                                                             e.grand_total
-                                                                                        }
+                                                                                        } $ */}
+                                                                                        <Price value={e.grand_total} currencyCode={'CAD'} />
                                                                                     </li>
                                                                                     <li
                                                                                         mobilelabel="Status"

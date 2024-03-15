@@ -100,6 +100,10 @@
     font-weight: 700;
     margin-bottom: 0;
 }
+.wrapperPrice .priceWithDiscount {
+    color: #8DC74C;
+    font-size: 11px !important;
+}
 
 .price{
     margin-top: 40px;

@@ -135,7 +135,7 @@ const CartPage = props => {
     // const myprojects = url.includes("?id");
 
 
-    console.log(cartItems);
+    // console.log(cartItems);
 
     const cartItemsJSON = cartItems.map(item => {
 
