@@ -288,6 +288,7 @@
     "invoice.order_PaymentMethod": "Mode de paiement",
     "MyDownloadableProduct.Downloadable": "Mon téléchargeable",
     "myOrders.page_title": "Mes commandes",
+    "myOrders.purchasedTitle": "Produits liés à ce projet - " ,
     "myOrders.Order": "Commande",
     "myOrders.Date": "Date",
     "myOrders.ShipTo": "Envoyez à",

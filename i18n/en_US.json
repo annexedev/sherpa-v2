@@ -265,6 +265,7 @@
     "invoice.order_PaymentMethod":"Payment Method",
     "MyDownloadableProduct.Downloadable":"My Downloadable",
     "myOrders.page_title":"My Order",
+    "myOrders.purchasedTitle": "Products linked to this Project - " ,
     "myOrders.Order":"Order #",
     "myOrders.Date":"Date",
     "myOrders.ShipTo":"Ship To",
