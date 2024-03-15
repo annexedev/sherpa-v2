@@ -97,7 +97,7 @@
     "cartPage.headingWithoutProjects":"Produits dans le panier",
     "cartPage.headingWithProjects":"Produits issus de projets",
     "cartPage.price":"VOTRE COÛT",
-    "cartPage.quantityExceeded":"Quantité depassé",
+    "cartPage.quantityExceeded":"Dépasse votre qté prevue",
     "cartPage.products":"produits",
     "cartPage.product":" produit",
     "cartPage.taxSummary":"Taxe estimée",

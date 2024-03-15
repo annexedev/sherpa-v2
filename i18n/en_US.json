@@ -59,7 +59,7 @@
     "cartPage.headingWithoutProjects":"Products in your cart",
     "cartPage.headingWithProjects":"Products from projects",
     "cartPage.price":"YOUR COST",
-    "cartPage.quantityExceeded":"Quantity exceeded",
+    "cartPage.quantityExceeded":"Exceeds your planned qty",
     "cartPage.products":" products",
     "cartPage.product":" product",
     "cartPage.taxSummary":" Estimated tax",
