@@ -147,8 +147,11 @@ export const QuantityFields = props => {
                             /> 
                         </p>
                         <p className={classes.priceWithDiscount}>{price} $</p>
+                        {/* <p className={classes.priceWithDiscount}><Price value={price} currencyCode={'CAD'} /></p> */}
+
                         {ProduitDiscount && initialPrice !== finalPrice &&
                             <p className={classes.initialPrice}>{initialPrice} $</p>
+                            // <Price value={initialPrice} currencyCode={'CAD'} className={classes.initialPrice} />
                         }
                     </div>
                 }
