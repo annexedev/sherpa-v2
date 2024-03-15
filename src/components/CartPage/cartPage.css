@@ -59,7 +59,47 @@
     color: #333;
     background-color:#8DC74C;
     padding:10px;
+    position: relative;
+    display: inline-block;
 }
+
+.headingProductsWithProject .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    left: 110%;
+    bottom: 8px;
+    z-index: 1;
+  }
+.headingProductsWithProject:hover .tooltiptext {
+    visibility: visible;
+}
+.chevronDown{
+    position: relative;
+    display: inline-block;
+}
+.chevronDown .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    left: 110%;
+    bottom: 8px;
+    z-index: 1;
+  }
+.chevronDown:hover .tooltiptext {
+    visibility: visible;
+}
+
 .signInLink span {
     color: var(--primary-base-color);
     font-size: 16px !important;

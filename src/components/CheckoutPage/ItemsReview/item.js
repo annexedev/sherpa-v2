@@ -67,11 +67,11 @@ const Item = props => {
                 }}
             />
             <span className={classes.quantity}>
-                <FormattedMessage
+                {/* <FormattedMessage
                     id={'checkoutPage.quantity'}
                     defaultMessage={'Qty :'}
-                />
-                {quantity}
+                /> */}
+                Qty :{quantity}
             </span>
 
             <span>
@@ -86,12 +86,12 @@ const Item = props => {
                     defaultMessage={'Price :'}
                 />
                 
-                {/*<Price
-                    value={product.price_range.minimum_price.final_price.value.toFixed(
+                <Price
+                    value={product.price_range.maximum_price.final_price.value.toFixed(
                         2
                     )}
                     currencyCode="CAD"
-                    /> */}
+                    />
             </span>
         </div>
     );

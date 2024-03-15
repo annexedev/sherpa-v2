@@ -41,12 +41,13 @@
 }
 .add_to_project {
     background: #007637;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 10px 10px;
     min-height: 40px;
     line-height: 20px;
     width: 100%;
     color: white;
+    margin-bottom: 10px;
 }
 .add_to_project:hover {
     background: black;
@@ -579,7 +580,7 @@
 }
 
 .project_dropdown {
-    width: 100%;
+    width: 187px;
     margin-top: 0px;
     border-radius: 3px;
     height: 35px;

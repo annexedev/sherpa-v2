@@ -17,9 +17,10 @@ import REMOVE_FROM_WISHLIST_MUTATION from '../../queries/removeFromWishlist.grap
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faTrashAlt,
-    faExclamationTriangle
+    faExclamationTriangle,
+    faChevronDown
 } from '@fortawesome/free-solid-svg-icons';
-import { useCategoryAddToCart , useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { useCategoryAddToCart, useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 
 import Quantity from '../CartPage/ProductListing/quantity';
 import { useCartPage } from '../../peregrine/lib/talons/CartPage/useCartPage.js';
@@ -69,7 +70,7 @@ class SpecialPriceTo extends Component {
             activeLng = 'en';
         }
 
-        let dataURL = 'https://data.sherpagroupav.com/get_specialproject.php?pid='+pid+'&lng='+activeLng;
+        let dataURL = 'https://data.sherpagroupav.com/get_specialproject.php?pid=' + pid + '&lng=' + activeLng;
 
         fetch(dataURL)
             .then(res => res.json())
@@ -82,14 +83,14 @@ class SpecialPriceTo extends Component {
 
     render() {
         let content = this.state.pageData.content && this.state.pageData.content;
-        if(content && content != '') {
+        if (content && content != '') {
             return (
                 <div className={defaultClasses.priceTag}>
                     <b>
                         {content}
                     </b>
                 </div>
-                
+
             );
         } else {
             return (<></>);
@@ -104,14 +105,14 @@ class RealQuantity extends Component {
             pageData: []
         };
     }
-    
+
 
     componentDidMount() {
         let cid = this.props.cid;
         let pid = this.props.pid;
-        let dataURL = 'https://data.sherpagroupav.com/get_belongs.php?pid='+pid+'&cid=' + cid;
+        let dataURL = 'https://data.sherpagroupav.com/get_belongs.php?pid=' + pid + '&cid=' + cid;
         console.log(dataURL);
-        
+
         fetch(dataURL)
             .then(res => res.json())
             .then(res => {
@@ -129,13 +130,13 @@ class RealQuantity extends Component {
         let cid = this.props.cid;
         return (
             <>
-            <Quantity
-                wid={cid}
-                productId={wid}
-                initialValue={qty}
-            />
+                <Quantity
+                    wid={cid}
+                    productId={wid}
+                    initialValue={qty}
+                />
             </>
-            
+
         );
     }
 }
@@ -147,11 +148,11 @@ class TotalProjet extends Component {
             pageData: []
         };
     }
-    
+
 
     componentDidMount() {
         let cid = this.props.cid;
-        let dataURL = 'https://data.sherpagroupav.com/get_projecttotal.php?cid='+cid;
+        let dataURL = 'https://data.sherpagroupav.com/get_projecttotal.php?cid=' + cid;
         console.log(dataURL);
         fetch(dataURL)
             .then(res => res.json())
@@ -166,25 +167,25 @@ class TotalProjet extends Component {
     render() {
         let itemCount = this.state.pageData.itemCount && this.state.pageData.itemCount;
         let priceTotal = this.state.pageData.priceTotal && this.state.pageData.priceTotal;
-        if(itemCount && itemCount > 0) {
+        if (itemCount && itemCount > 0) {
             return (
                 <>
-                    <div className={defaultClasses.blocQntProduits}>{itemCount} Products &nbsp;&nbsp;<b><Price currencyCode={'CAD'} value={priceTotal}/></b></div>
+                    <div className={defaultClasses.blocQntProduits}>{itemCount} Products &nbsp;&nbsp;<b><Price currencyCode={'CAD'} value={priceTotal} /></b></div>
                 </>
-                
+
             );
-        } else if(itemCount == 0) {
+        } else if (itemCount == 0) {
             return (
                 <>
-                <div className={defaultClasses.blocQntProduits}><h2>No items in your project!</h2></div>
-            </>
+                    <div className={defaultClasses.blocQntProduits}><h2>No items in your project!</h2></div>
+                </>
             );
-        } 
-        
+        }
+
         else {
             return (<><div className={defaultClasses.blocQntProduits}>Calculating ...</div></>);
         }
-        
+
     }
 }
 
@@ -197,7 +198,7 @@ class ProjectName extends Component {
             pageData: []
         };
     }
-    
+
 
     componentDidMount() {
         let cid = this.props.cid;
@@ -236,7 +237,7 @@ class BrandName extends Component {
         let productId = this.props.pid;
         let dataURL =
             'https://data.sherpagroupav.com/get_brandname.php?pid=' + productId;
-        
+
         fetch(dataURL)
             .then(res => res.json())
             .then(res => {
@@ -249,14 +250,15 @@ class BrandName extends Component {
     render() {
         console.log('UPDATED');
         let brandname = this.state.pageData.brandname && this.state.pageData.brandname;
-        if(brandname) {
-        return (
-            <p className={defaultClasses.product_brand_name}>{brandname}</p>
-        ) } else {
-            return(<p className={defaultClasses.product_brand_name}>&nbsp;</p>);
+        if (brandname) {
+            return (
+                <p className={defaultClasses.product_brand_name}>{brandname}</p>
+            )
+        } else {
+            return (<p className={defaultClasses.product_brand_name}>&nbsp;</p>);
         }
     }
-}  
+}
 
 class IsInCart extends Component {
     constructor() {
@@ -292,7 +294,7 @@ class IsInCart extends Component {
         let productId = this.props.pid;
         let email = this.props.email;
         let cid = this.props.cid;
-        let dataURL = 'https://data.sherpagroupav.com/get_projectsitemincart.php?pid='+productId+'&email='+email+'&cid=' + cid;
+        let dataURL = 'https://data.sherpagroupav.com/get_projectsitemincart.php?pid=' + productId + '&email=' + email + '&cid=' + cid;
 
         fetch(dataURL)
             .then(res => res.json())
@@ -302,24 +304,24 @@ class IsInCart extends Component {
                 });
             });
 
- 
-    } 
+
+    }
 
     render() {
         let additional_data = this.state.pageData.additional_data && this.state.pageData.additional_data;
-        if(additional_data && additional_data != 'undefined' && additional_data >= 0) {
-            return(
+        if (additional_data && additional_data != 'undefined' && additional_data >= 0) {
+            return (
                 <>
                     <div className={defaultClasses.ribbon_wrapper}>
-                    <div className={defaultClasses.ribbon}>{additional_data} <FormattedMessage id={'project.incart'} defaultMessage={'in cart'}/> </div>
+                        <div className={defaultClasses.ribbon}>{additional_data} <FormattedMessage id={'project.incart'} defaultMessage={'in cart'} /> </div>
                     </div>
                 </>
-                );
+            );
         } else {
-            return(<></>);
-        }   
+            return (<></>);
+        }
     }
-}  
+}
 
 class SpecialPrice extends Component {
     constructor() {
@@ -331,7 +333,7 @@ class SpecialPrice extends Component {
 
     componentDidMount() {
         let productId = this.props.productId;
-        
+
         let dataURL = 'https://data.sherpagroupav.com/get_newfromandto_project.php?pid=' + productId;
         console.log(dataURL);
         fetch(dataURL)
@@ -346,67 +348,68 @@ class SpecialPrice extends Component {
     render() {
         let regularPrice = this.props.regularPrice;
         let special_price = this.state.pageData.special_price && this.state.pageData.special_price;
-        if(special_price > 0) {
-        return (
-            <>
-                <span
-                    className={
-                        defaultClasses.productPrice +
-                        ' ' +
-                        defaultClasses.greenprice
-                    }
-                >   
-                    <span className={defaultClasses.yourcost}>
-                    <FormattedMessage
-                        id={'item.yourCost'}
-                        defaultMessage={'YOUR COST'}
-                    />
+        if (special_price > 0) {
+            return (
+                <>
+                    <span
+                        className={
+                            defaultClasses.productPrice +
+                            ' ' +
+                            defaultClasses.greenprice
+                        }
+                    >
+                        <span className={defaultClasses.yourcost}>
+                            <FormattedMessage
+                                id={'item.yourCost'}
+                                defaultMessage={'YOUR COST'}
+                            />
+                        </span>
+                        &nbsp;&nbsp;&nbsp;
+                        <Price
+                            currencyCode={'CAD'}
+                            value={special_price}
+                        />
                     </span>
-                    &nbsp;&nbsp;&nbsp;
-                    <Price
-                        currencyCode={'CAD'}
-                        value={special_price}
-                    />
-                </span>
-                <span
-                    className={
-                        defaultClasses.productPrice +
-                        ' ' +
-                        defaultClasses.regularprice +
-                        ' ' +
-                        defaultClasses.discountedprice
-                    }
-                >
-                    <Price
-                        currencyCode={'CAD'}
-                        value={regularPrice}
-                    />
-                </span>
-            </>
-        ) } else {
-            return(
-            <>
-                <span
-                    className={
-                        defaultClasses.productPrice
-                    }
-                >   
-                    <span className={defaultClasses.yourcost}>
-                    <FormattedMessage
-                        id={'item.yourCost'}
-                        defaultMessage={'YOUR COST'}
-                    />
+                    <span
+                        className={
+                            defaultClasses.productPrice +
+                            ' ' +
+                            defaultClasses.regularprice +
+                            ' ' +
+                            defaultClasses.discountedprice
+                        }
+                    >
+                        <Price
+                            currencyCode={'CAD'}
+                            value={regularPrice}
+                        />
                     </span>
-                    &nbsp;&nbsp;&nbsp;
-                    <Price
-                        currencyCode={'CAD'}
-                        value={regularPrice}
-                    />
-                </span>
-            </>);
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <span
+                        className={
+                            defaultClasses.productPrice
+                        }
+                    >
+                        <span className={defaultClasses.yourcost}>
+                            <FormattedMessage
+                                id={'item.yourCost'}
+                                defaultMessage={'YOUR COST'}
+                            />
+                        </span>
+                        &nbsp;&nbsp;&nbsp;
+                        <Price
+                            currencyCode={'CAD'}
+                            value={regularPrice}
+                        />
+                    </span>
+                </>);
         }
     }
-}  
+}
 
 class SoldIn extends Component {
     constructor() {
@@ -433,7 +436,7 @@ class SoldIn extends Component {
 
         let dataURL =
             'https://data.sherpagroupav.com/get_soldin.php?pid=' + productId + '&sid=' + activeLng;
-        
+
         fetch(dataURL)
             .then(res => res.json())
             .then(res => {
@@ -445,21 +448,22 @@ class SoldIn extends Component {
 
     render() {
         let soldin = this.state.pageData.soldin && this.state.pageData.soldin;
-        if(soldin) {
-        return (
-            <p className={defaultClasses.product_brand_name}>
-            <b>
-                <FormattedMessage
-                    id={'item.partNo'}
-                    defaultMessage={'Sold in: '}
-                />
-            </b>
-            {soldin}</p>
-        ) } else {
-            return(<></>);
+        if (soldin) {
+            return (
+                <p className={defaultClasses.product_brand_name}>
+                    <b>
+                        <FormattedMessage
+                            id={'item.partNo'}
+                            defaultMessage={'Sold in: '}
+                        />
+                    </b>
+                    {soldin}</p>
+            )
+        } else {
+            return (<></>);
         }
     }
-}  
+}
 
 class AlreadyPurchased extends Component {
     constructor() {
@@ -473,31 +477,31 @@ class AlreadyPurchased extends Component {
         let pid = this.props.pid;
         let email = this.props.email;
         let dataURL =
-            'https://data.sherpagroupav.com/get_already_purchased.php?email='+email+'&productId=' + pid;
-            console.log(dataURL);
+            'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid;
+        console.log(dataURL);
 
-        setTimeout(function(){
+        setTimeout(function () {
             fetch(dataURL)
-            .then(res => res.json())
-            .then(res => {
-                this.setState({
-                    pageData: res
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
                 });
-            });
         }, 5);
 
-        
+
     }
 
     render() {
         let purchased = this.state.pageData.purchased && this.state.pageData.purchased;
         let sku = this.props.sku;
         let wId = this.props.wId;
-        if(this.state.pageData.purchased && this.state.pageData.purchased > 0) {
+        if (this.state.pageData.purchased && this.state.pageData.purchased > 0) {
             return (
                 <Link
                     className={defaultClasses.linkPurchase}
-                    to={resourceUrl('/orders?project='+wId+'&id='+sku)}
+                    to={resourceUrl('/orders?project=' + wId + '&id=' + sku)}
                 >{purchased} purchased</Link>
             );
         } else {
@@ -505,7 +509,7 @@ class AlreadyPurchased extends Component {
                 <></>
             );
         }
-        
+
     }
 }
 
@@ -599,23 +603,23 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
- //console.log(MpBetterWishlistGetCategories);
+    //console.log(MpBetterWishlistGetCategories);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
     const isArchive = queryParameters.get('archive');
 
-    const remove = async (id , wishlistId) => {
+    const remove = async (id, wishlistId) => {
 
         //var element = document.getElementById('t'+id).querySelector('button[data-wid="'+wId+'"]');
         //var itemId = element.id.replace("minus_", '');
         let dataURL =
-            'https://data.sherpagroupav.com/delete_fromproject.php?wid='+wishlistId+'&cid='+wId;
-            console.log(dataURL);
+            'https://data.sherpagroupav.com/delete_fromproject.php?wid=' + wishlistId + '&cid=' + wId;
+        console.log(dataURL);
         fetch(dataURL)
             .then(res => res.json())
-            .then(document.getElementById("t"+id).remove())
-            .then(reset()); 
+            .then(document.getElementById("t" + id).remove())
+            .then(reset());
 
         //await handleRemoveItem({ product_id: id });
         setRemoveMsg(true);
@@ -667,7 +671,7 @@ const MyWishList = props => {
                 getCartDetails: GET_CART_DETAILS
             }
         });
-    
+
         const {
             cartItems,
             hasItems,
@@ -675,127 +679,127 @@ const MyWishList = props => {
             setIsCartUpdating,
             shouldShowLoadingIndicator
         } = talonProps;
-    
+
         console.log('cartItems');
-        if(cartItems) {
+        if (cartItems) {
             console.log(cartItems);
         }
 
-        if( wId ) {
-        return (
-            <>
-                <Popup
-                    trigger={<button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'}/> </button>}
-                    modal
-                    nested
-                >
-                    {close => (
-                    <div className="modalreact">
-                        <button className="close" onClick={close}>
-                        &times;
-                        </button>
-                        <div className="header"> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'}/> <ProjectName cid={wId} /></div>
-                        <div className="content content-align">
-                        {' '}
-                        <FormattedMessage id={'project.movecontent'} defaultMessage={'This will send your entire projects contents to the Shopping Cart.'}/>
-                        <br/><br/>
-                        <b><FormattedMessage id={'project.moveproceed'} defaultMessage={'Do you want to proceed?'}/></b>
-                        </div>
-                        <div className="actions">
-                        <button
-                            className={classes.button_move_project_yes}
+        if (wId) {
+            return (
+                <>
+                    <Popup
+                        trigger={<button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /> </button>}
+                        modal
+                        nested
+                    >
+                        {close => (
+                            <div className="modalreact">
+                                <button className="close" onClick={close}>
+                                    &times;
+                                </button>
+                                <div className="header"> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /> <ProjectName cid={wId} /></div>
+                                <div className="content content-align">
+                                    {' '}
+                                    <FormattedMessage id={'project.movecontent'} defaultMessage={'This will send your entire projects contents to the Shopping Cart.'} />
+                                    <br /><br />
+                                    <b><FormattedMessage id={'project.moveproceed'} defaultMessage={'Do you want to proceed?'} /></b>
+                                </div>
+                                <div className="actions">
+                                    <button
+                                        className={classes.button_move_project_yes}
 
-                            onClick={() => {
-                                
-                                var elements = document.getElementsByClassName("move_confirm_partial");
-                                
+                                        onClick={() => {
 
-                                console.log('MOVEBEFORE'+productId)
-                                console.log(cartItems);
+                                            var elements = document.getElementsByClassName("move_confirm_partial");
 
-                                function checkProjectQuantity(arrayCategory, pid) {
 
-                                    const obj = JSON.parse(arrayCategory);
-                            
-                                    var x = 0;
-                            
-                                    if(obj) {
-                            
-                                        obj.forEach(function (arrayItem) {
-                                            console.log(arrayItem.product_id+' arrayItem.product_id')
-                                            if(arrayItem.product_id == pid) {
-                                                x = parseInt(arrayItem.qty);
+                                            console.log('MOVEBEFORE' + productId)
+                                            console.log(cartItems);
+
+                                            function checkProjectQuantity(arrayCategory, pid) {
+
+                                                const obj = JSON.parse(arrayCategory);
+
+                                                var x = 0;
+
+                                                if (obj) {
+
+                                                    obj.forEach(function (arrayItem) {
+                                                        console.log(arrayItem.product_id + ' arrayItem.product_id')
+                                                        if (arrayItem.product_id == pid) {
+                                                            x = parseInt(arrayItem.qty);
+                                                        }
+
+                                                    });
+
+                                                    return x;
+                                                }
                                             }
-   
-                                        });
-                                        
-                                        return x;
-                                    }
-                                }
 
-                                console.log('---------------------');
-                                
-                                isPartialQuantity = false;
-                        
-                                for (var i = 0; i < elements.length; i++) {
+                                            console.log('---------------------');
 
-                                    var inCart = 0;
-                                    var inProject = 0;
+                                            isPartialQuantity = false;
 
-                                    var productId = (elements[i].id).replace("partial_", '');
+                                            for (var i = 0; i < elements.length; i++) {
 
-                                    cartItems.forEach(function (arrayItem) {
-                                        //console.log('arrayItem.category')
-                                        //console.log(arrayItem.category.product_id);
-                                        
-                                        inCart = arrayItem.quantity;
-                                        
-                                        if(arrayItem.product.id == productId) {
-                                            inProject = checkProjectQuantity(arrayItem.category,productId);
+                                                var inCart = 0;
+                                                var inProject = 0;
 
-                                            if(inProject >= inCart) {
-                                                document.getElementById('btn_move_'+productId).disabled = true;
-                                                document.getElementById('btn_move_'+productId).style.opacity = '0.3';
-                                                document.getElementById('btn_move_p'+productId).disabled = true;
-                                                document.getElementById('btn_move_p'+productId).style.opacity = '0.3';
-                                            } else {
-                                                document.getElementById('btn_move_'+productId).disabled = false;
-                                                document.getElementById('btn_move_'+productId).style.opacity = '1';
-                                                document.getElementById('btn_move_p'+productId).disabled = false;
-                                                document.getElementById('btn_move_p'+productId).style.opacity = '1';
+                                                var productId = (elements[i].id).replace("partial_", '');
+
+                                                cartItems.forEach(function (arrayItem) {
+                                                    //console.log('arrayItem.category')
+                                                    //console.log(arrayItem.category.product_id);
+
+                                                    inCart = arrayItem.quantity;
+
+                                                    if (arrayItem.product.id == productId) {
+                                                        inProject = checkProjectQuantity(arrayItem.category, productId);
+
+                                                        if (inProject >= inCart) {
+                                                            document.getElementById('btn_move_' + productId).disabled = true;
+                                                            document.getElementById('btn_move_' + productId).style.opacity = '0.3';
+                                                            document.getElementById('btn_move_p' + productId).disabled = true;
+                                                            document.getElementById('btn_move_p' + productId).style.opacity = '0.3';
+                                                        } else {
+                                                            document.getElementById('btn_move_' + productId).disabled = false;
+                                                            document.getElementById('btn_move_' + productId).style.opacity = '1';
+                                                            document.getElementById('btn_move_p' + productId).disabled = false;
+                                                            document.getElementById('btn_move_p' + productId).style.opacity = '1';
+                                                        }
+                                                    }
+
+
+
+                                                });
+
+                                                console.log('[' + productId + '] In cart : ' + inCart + ' In project : ' + inProject);
+
+                                                elements[i].click();
                                             }
-                                        }
-                                        
-                                        
+                                            isPartialQuantity = true;
 
-                                    });
+                                            console.log('MOVEAFTER')
+                                            console.log(cartItems);
 
-                                    console.log('['+productId+'] In cart : '+inCart+' In project : '+inProject);
-
-                                    elements[i].click();
-                                } 
-                                isPartialQuantity=true;
-
-                                console.log('MOVEAFTER')
-                                console.log(cartItems);
-
-                            }}
-                        >
-                            <FormattedMessage id={'project.yes'} defaultMessage={'Yes'}/>
-                        </button>
-                        <button
-                            className={classes.button_move_project_no}
-                            onClick={() => {
-                            close();
-                            }}
-                        >
-                            <FormattedMessage id={'project.cancel'} defaultMessage={'Cancel and close'}/>
-                        </button>
-                        </div>
-                    </div>
-                    )}
-                </Popup>
-            </>
+                                        }}
+                                    >
+                                        <FormattedMessage id={'project.yes'} defaultMessage={'Yes'} />
+                                    </button>
+                                    <button
+                                        className={classes.button_move_project_no}
+                                        onClick={() => {
+                                            close();
+                                        }}
+                                    >
+                                        <FormattedMessage id={'project.cancel'} defaultMessage={'Cancel and close'} />
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </Popup>
+                </>
             );
         }
     }
@@ -812,37 +816,37 @@ const MyWishList = props => {
         }
         if (loading) return 'Submitting...';
         if (error) return `Submission error! ${error.message}`;
-        if( wId ) {
-        return (<> </>);
+        if (wId) {
+            return (<> </>);
         } else {
             return (<>
-            
-            <div>
-                <input
-                    className={classes.input_rename}
-                    type="text"
-                    ref={node => {
-                        input = node;
-                    }}
-                    placeholder={'New project name'}
-                />
-                <input type="hidden" value={selectId} />
-                <button
-                    className={classes.rename_project}
-                    onClick={e => {
-                        e.preventDefault();
-                        addTodo({ variables: { category_name: input.value } });
-                        input.value = '';
 
-                        window.alert('New project created.');
-                        setSelectValue(999);
-                        //window.location.reload();
-                    }}
-                >
-                    Create new project
-                </button>
-            </div>
-            
+                <div>
+                    <input
+                        className={classes.input_rename}
+                        type="text"
+                        ref={node => {
+                            input = node;
+                        }}
+                        placeholder={'New project name'}
+                    />
+                    <input type="hidden" value={selectId} />
+                    <button
+                        className={classes.rename_project}
+                        onClick={e => {
+                            e.preventDefault();
+                            addTodo({ variables: { category_name: input.value } });
+                            input.value = '';
+
+                            window.alert('New project created.');
+                            setSelectValue(999);
+                            //window.location.reload();
+                        }}
+                    >
+                        Create new project
+                    </button>
+                </div>
+
             </>);
         }
     }
@@ -988,7 +992,7 @@ const MyWishList = props => {
         );
     }
 
-    
+
 
     {/* class RestoreProject extends Component {
         constructor() {
@@ -1081,39 +1085,39 @@ const MyWishList = props => {
             return value;
         }
 
-        if(isArchive == 1) {
+        if (isArchive == 1) {
 
             return (
                 <>
-      
-                <div id={'restore'+cid}>
-                    <form
-                        onSubmit={e => {
-                            e.preventDefault();
-                            console.log('PIN ' + returnVal());
-                            restoreProject({
-                                variables: {
-                                    category_name: returnVal(),
-                                    category_id: wId
-                                }
-                            });
-                            window.alert('Project restored.');
-                            window.location.href = '/myprojects';
-                        }}
-                    >
-                        <button type="submit" className={classes.add_to_project}>
-                            {' '}
-                            Restore project
-                        </button>
-                    </form>
-                </div>
+
+                    <div id={'restore' + cid}>
+                        <form
+                            onSubmit={e => {
+                                e.preventDefault();
+                                console.log('PIN ' + returnVal());
+                                restoreProject({
+                                    variables: {
+                                        category_name: returnVal(),
+                                        category_id: wId
+                                    }
+                                });
+                                window.alert('Project restored.');
+                                window.location.href = '/myprojects';
+                            }}
+                        >
+                            <button type="submit" className={classes.add_to_project}>
+                                {' '}
+                                Restore project
+                            </button>
+                        </form>
+                    </div>
                 </>
 
-            ); 
+            );
         } else {
-            return (<Select cid={cid} />  );
+            return (<Select cid={cid} />);
         }
-    } 
+    }
 
     function MoveProjectToCart({ cid }) {
         return (
@@ -1201,7 +1205,7 @@ const MyWishList = props => {
         );
     }
 
-    const Select = ({cid}) => {
+    const Select = ({ cid }) => {
         const [selectValue, setSelectValue] = React.useState('');
         const onChange = event => {
             const value = event.target.value;
@@ -1209,7 +1213,7 @@ const MyWishList = props => {
         };
 
         return (
-            <div className={defaultClasses.wrapper_project_dropdown} id={'actions'+cid}>
+            <div className={defaultClasses.wrapper_project_dropdown} id={'actions' + cid}>
                 <select
                     onChange={onChange}
                     className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
@@ -1256,14 +1260,14 @@ const MyWishList = props => {
     }
 
 
-    
+
 
     if (!loading) {
 
         var total = 0;
         let qntProduit = 0;
-        setTimeout(function(){ 
-            
+        setTimeout(function () {
+
             var elements = document.getElementsByClassName("increment");
             var elementsD = document.getElementsByClassName("decrement");
 
@@ -1275,7 +1279,7 @@ const MyWishList = props => {
             for (var i = 0; i < elementsD.length; i++) {
                 elementsD[i].addEventListener('click', myFunctionD, false);
             }
-    
+
             for (var i = 0; i < elements.length; i++) {
                 elements[i].addEventListener('click', myFunction, false);
             }
@@ -1285,8 +1289,8 @@ const MyWishList = props => {
             }
 
         }, 50);
-  
-        var myFunctionPartial = function() {
+
+        var myFunctionPartial = function () {
 
             console.log('myFunctionPartial ' + this.value);
 
@@ -1311,13 +1315,13 @@ const MyWishList = props => {
 
         };
 
-        var myFunction = function() {
-            
+        var myFunction = function () {
+
             console.log('here hello ' + this.id);
 
-            if(this.id != 'plus_undefined') {
+            if (this.id != 'plus_undefined') {
 
-                setTimeout(function(){ reset(); }, 1500);
+                setTimeout(function () { reset(); }, 1500);
                 /*var containerIdMinus = this.id;
                 var containerIdMinusComplete = containerIdMinus.replace("plus_", "");
                 
@@ -1333,42 +1337,42 @@ const MyWishList = props => {
                     document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
                 }*/
 
-                } else if(this.id == 'plus_undefined') {
+            } else if (this.id == 'plus_undefined') {
 
-                    
 
-                    //var containerIdMinus = this.id;
-                    var containerIdMinusComplete = this.getAttribute('data-pid');
-                    
-                    var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
-                    var futureQty = parseInt(currentQty);
-                    var currentQtySelector = parseInt(document.querySelector('#move_item_box_' + containerIdMinusComplete).querySelector('input').value) + 1;
 
-                    //console.log(currentQtySelector +' > '+futureQty)
+                //var containerIdMinus = this.id;
+                var containerIdMinusComplete = this.getAttribute('data-pid');
 
-                    if(currentQtySelector >= futureQty) {
-                        document.body.querySelector('button[data-pidselect="p'+containerIdMinusComplete+'"]').disabled = true;
-                        //document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
-                    } else {
-                        document.body.querySelector('button[data-pidselect="p'+containerIdMinusComplete+'"]').disabled = false;
-                        //document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
-                    }
-                    
-                    /*let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=1&cid='+wId;
-                    console.log(dataURL);
-                    fetch(dataURL)
-                        .then(res => res.json())
-                        .then(setTimeout(function(){ reset(); }, 10));*/
+                var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
+                var futureQty = parseInt(currentQty);
+                var currentQtySelector = parseInt(document.querySelector('#move_item_box_' + containerIdMinusComplete).querySelector('input').value) + 1;
+
+                //console.log(currentQtySelector +' > '+futureQty)
+
+                if (currentQtySelector >= futureQty) {
+                    document.body.querySelector('button[data-pidselect="p' + containerIdMinusComplete + '"]').disabled = true;
+                    //document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
+                } else {
+                    document.body.querySelector('button[data-pidselect="p' + containerIdMinusComplete + '"]').disabled = false;
+                    //document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
                 }
 
+                /*let dataURL = 'https://data.sherpagroupav.com/set_projectItemQty.php?wid='+this.dataset.wid+'&increment=1&cid='+wId;
+                console.log(dataURL);
+                fetch(dataURL)
+                    .then(res => res.json())
+                    .then(setTimeout(function(){ reset(); }, 10));*/
+            }
+
         };
-    
-        var myFunctionD = function() { 
+
+        var myFunctionD = function () {
 
             console.log('there');
-            
-            if(this.id != 'minus_undefined') {
-                setTimeout(function(){ reset(); }, 1500);
+
+            if (this.id != 'minus_undefined') {
+                setTimeout(function () { reset(); }, 1500);
                 /*var containerIdMinus = this.id;
                 var containerIdMinusComplete = containerIdMinus.replace("minus_", "");
                 
@@ -1383,22 +1387,22 @@ const MyWishList = props => {
                     document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
                 }*/
 
-            } else if(this.id == 'minus_undefined') {
+            } else if (this.id == 'minus_undefined') {
                 //console.log('CALLED');
 
                 //var containerIdMinus = this.id;
                 var containerIdMinusComplete = this.getAttribute('data-pid');
-                
+
                 var currentQty = document.querySelector('#q' + containerIdMinusComplete).querySelector('input').value;
                 var currentQtySelector = parseInt(document.querySelector('#move_item_box_' + containerIdMinusComplete).querySelector('input').value) - 1;
 
                 //console.log(currentQtySelector+' < '+currentQty)
 
-                if(parseInt(currentQtySelector) < currentQty) {
-                    document.body.querySelector('button[data-pidselect="p'+containerIdMinusComplete+'"]').disabled = false;
+                if (parseInt(currentQtySelector) < currentQty) {
+                    document.body.querySelector('button[data-pidselect="p' + containerIdMinusComplete + '"]').disabled = false;
                     //document.getElementById("plus_"+containerIdMinusComplete).disabled = false;
                 } else {
-                    document.body.querySelector('button[data-pidselect="p'+containerIdMinusComplete+'"]').disabled = true;
+                    document.body.querySelector('button[data-pidselect="p' + containerIdMinusComplete + '"]').disabled = true;
                     //document.getElementById("plus_"+containerIdMinusComplete).disabled = true;
                 }
 
@@ -1416,7 +1420,7 @@ const MyWishList = props => {
 
         const { mobileView } = useMobile();
 
-       // console.log('mobileView'+mobileView);
+        // console.log('mobileView'+mobileView);
 
         return (
             <div className={defaultClasses.columns}>
@@ -1470,21 +1474,21 @@ const MyWishList = props => {
                                                     <AddTodo uid={wId} />
                                                 </div>
                                             </div>
-                                            
+
                                             <TotalProjet cid={wId} key={seed} />
 
-                                            
-                                           
+
+
                                         </div>
                                     }
                                     {wId !== undefined && wId !== null && (
                                         <>
                                             <div className={defaultClasses.wrapperBtnDropdown}>
-                                            
+
                                                 <Link
                                                     className={defaultClasses.btnPurchase}
-                                                    to={resourceUrl('/orders?project='+wId)}
-                                                ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'}/></Link>
+                                                    to={resourceUrl('/orders?project=' + wId)}
+                                                ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'} /></Link>
                                                 <RestoreProject cid={wId} />
                                                 <MoveToCart uid={wId} />
                                             </div>
@@ -1505,7 +1509,7 @@ const MyWishList = props => {
                                                     }
                                                 >
                                                     {data.map((val, index) => {
-                                                        
+
                                                         function belongToProject(
                                                             pid,
                                                             cid
@@ -1517,7 +1521,7 @@ const MyWishList = props => {
                                                                 '&cid=' +
                                                                 cid;
 
-                                                            
+
 
                                                             fetch(dataURL)
                                                                 .then(res =>
@@ -1528,27 +1532,27 @@ const MyWishList = props => {
                                                                         res.display == 1
                                                                     ) {
                                                                         projectQty = res.qty;
-                                                                        console.log('projectQty '+pid+' '+cid)
+                                                                        console.log('projectQty ' + pid + ' ' + cid)
                                                                         //document.getElementById('.q'+val.id+' #quantity').value=val.qty;
                                                                         //var targetDiv = getElementsByClassName('q'+val.id).document.getElementById("quantity")[0];
                                                                         //targetDiv.value = val.qty;
                                                                         //document.getElementById('q'+val.id).getElementById("quantity")[0].value = 8;
-                                                                        
+
                                                                         var checkExisting = document.getElementById(
                                                                             't' +
-                                                                                pid
+                                                                            pid
                                                                         );
-                                                                        
-                                                                        if(checkExisting) {
+
+                                                                        if (checkExisting) {
 
                                                                             document.getElementById(
                                                                                 't' +
-                                                                                    pid
+                                                                                pid
                                                                             ).style.display =
                                                                                 'block';
                                                                             var element = document.getElementById(
                                                                                 't' +
-                                                                                    pid
+                                                                                pid
                                                                             );
                                                                             element.classList.add(
                                                                                 'activeProject'
@@ -1556,7 +1560,7 @@ const MyWishList = props => {
 
                                                                         }
 
-                                                                        
+
                                                                         /*console.log(
                                                                             'Is active' +
                                                                                 val.product.price.regularPrice.amount.value.toFixed(
@@ -1586,23 +1590,23 @@ const MyWishList = props => {
                                                                             2
                                                                         ) + '$';*/
 
-                                                                        
+
 
                                                                     } else {
                                                                         var toBeRemoved = document.getElementById('t' + pid);
 
-                                                                        if(toBeRemoved) {
+                                                                        if (toBeRemoved) {
                                                                             document.getElementById('t' + pid).remove();
                                                                         }
 
-                                                                        
+
                                                                     }
                                                                 });
-                                                                return 1;
-                                                                console.log('returned' + projectQty);
+                                                            return 1;
+                                                            console.log('returned' + projectQty);
                                                         }
 
-                                                        
+
 
                                                         if (
                                                             belongToProject(
@@ -1611,7 +1615,7 @@ const MyWishList = props => {
                                                             )
                                                         ) {
 
-                                                            
+
                                                             return (
                                                                 <>
                                                                     <div
@@ -1628,7 +1632,7 @@ const MyWishList = props => {
                                                                                 .id
                                                                         }
                                                                     >
-                                                                        
+
 
                                                                         <div
                                                                             className={
@@ -1714,7 +1718,7 @@ const MyWishList = props => {
                                                                                     <p>
                                                                                         <SoldIn pid={val.product.id} />
                                                                                     </p>
-                                                                                    
+
                                                                                 </div>
                                                                                 <SpecialPrice productId={val.product.id} regularPrice={val.product.price.regularPrice.amount.value.toFixed(2)} />
                                                                                 {/*<span
@@ -1741,7 +1745,7 @@ const MyWishList = props => {
                                                                                     classes.wishlist_quantity
                                                                                 }
                                                                             >
-                                                                                
+
                                                                                 <RealQuantity cid={wId} pid={val.product.id} wid={val.id} />
 
                                                                                 <span
@@ -1777,9 +1781,9 @@ const MyWishList = props => {
                                                                                         </span>
                                                                                     </button>
                                                                                 </span>
-                                                                                
+
                                                                             </div>
-                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
+                                                                            {/* <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} /> */}
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
@@ -1795,65 +1799,65 @@ const MyWishList = props => {
                                                                                         .__typename ==
                                                                                         'SimpleProduct' && (
                                                                                             <>
-                                                                                            <button
-                                                                                                id={'btn_move_'+val.product.id}
-                                                                                                className={
-                                                                                                    'active_item' +
-                                                                                                    wId
-                                                                                                }
-                                                                                                onClick={() => {
-
-                                                                                                    var currentQty = document
-                                                                                                        .querySelector(
-                                                                                                            '#q' +
-                                                                                                            val.id
-                                                                                                        )
-                                                                                                        .querySelector(
-                                                                                                            'input'
-                                                                                                        )
-                                                                                                        .value;
-
-                                                                                                    const tempProps = {...val.product};
-                                                                                                    tempProps.qty = currentQty;
-                                                                                                    tempProps.qtyCategory = currentQty;
-                                                                                                    tempProps.categoryId = wId;
-                                                                                                    tempProps.categoryName = projectname;
-
-                                                                                                    console.log('coucoucoucou');
-                                                                                                    console.log(tempProps);
-
-                                                                                                    handleAddToCart(
-                                                                                                        tempProps 
-                                                                                                    );
-
-                                                                                                    addToast({
-                                                                                                        type: 'info',
-                                                                                                        message: val.product.name + ' added to the cart.',
-                                                                                                        dismissable: true,
-                                                                                                        timeout: 4000
-                                                                                                    });
-
-                                                                                                    setTimeout(function(){ reset(); }, 2000);
-                                                                                                    
-                                                                                                   
-                                                                                                }}
-                                                                                            >
-                                                                                                <span
+                                                                                                <button
+                                                                                                    id={'btn_move_' + val.product.id}
                                                                                                     className={
-                                                                                                        classes.add_btn
+                                                                                                        'active_item' +
+                                                                                                        wId
                                                                                                     }
+                                                                                                    onClick={() => {
+
+                                                                                                        var currentQty = document
+                                                                                                            .querySelector(
+                                                                                                                '#q' +
+                                                                                                                val.id
+                                                                                                            )
+                                                                                                            .querySelector(
+                                                                                                                'input'
+                                                                                                            )
+                                                                                                            .value;
+
+                                                                                                        const tempProps = { ...val.product };
+                                                                                                        tempProps.qty = currentQty;
+                                                                                                        tempProps.qtyCategory = currentQty;
+                                                                                                        tempProps.categoryId = wId;
+                                                                                                        tempProps.categoryName = projectname;
+
+                                                                                                        console.log('coucoucoucou');
+                                                                                                        console.log(tempProps);
+
+                                                                                                        handleAddToCart(
+                                                                                                            tempProps
+                                                                                                        );
+
+                                                                                                        addToast({
+                                                                                                            type: 'info',
+                                                                                                            message: val.product.name + ' added to the cart.',
+                                                                                                            dismissable: true,
+                                                                                                            timeout: 4000
+                                                                                                        });
+
+                                                                                                        setTimeout(function () { reset(); }, 2000);
+
+
+                                                                                                    }}
                                                                                                 >
-                                                                                                    <FormattedMessage
-                                                                                                        id={
-                                                                                                            'myWishlist.moveToCartBtn'
+                                                                                                    <span
+                                                                                                        className={
+                                                                                                            classes.add_btn
                                                                                                         }
-                                                                                                        defaultMessage={
-                                                                                                            'Move to cart'
-                                                                                                        }
-                                                                                                    />
-                                                                                                </span>
-                                                                                            </button>
-                                                                                            {/*<button
+                                                                                                    >
+                                                                                                        <FormattedMessage
+                                                                                                            id={
+                                                                                                                'myWishlist.moveToCartBtn'
+                                                                                                            }
+                                                                                                            defaultMessage={
+                                                                                                                'Move to cart'
+                                                                                                            }
+                                                                                                        />
+                                                                                                    </span>
+                                                                                                </button>
+                                                                                                {/*<button
                                                                                                 onClick={() => {
 
                                                                                                     var x = document.getElementById('qty_item_box_'+val.id);
@@ -1959,131 +1963,136 @@ const MyWishList = props => {
                                                                                                 
                                                                                             </button> 
                                                                                             </div>*/}
-                                                                                            <button
-                                                                                                id={'btn_move_p'+val.product.id}
-                                                                                                onClick={() => {
+                                                                                                <button
+                                                                                                    id={'btn_move_p' + val.product.id}
+                                                                                                    onClick={() => {
 
-                                                                                                    var x = document.getElementById('move_item_box_'+val.id);
-                                                                                                    if (window.getComputedStyle(x).display === "none") {
-                                                                                                        document.getElementById('move_item_box_'+val.id).style.display='block';
-                                                                                                    } else {
-                                                                                                        document.getElementById('move_item_box_'+val.id).style.display='none';
-                                                                                                    }
-                                                                                                }}
-                                                                                                className={classes.buttonMove}
-                                                                                            >
-                                                                                                <span
-                                                                                                    className={
-                                                                                                        classes.move_item
-                                                                                                    }
+                                                                                                        var x = document.getElementById('move_item_box_' + val.id);
+                                                                                                        if (window.getComputedStyle(x).display === "none") {
+                                                                                                            document.getElementById('move_item_box_' + val.id).style.display = 'block';
+                                                                                                        } else {
+                                                                                                            document.getElementById('move_item_box_' + val.id).style.display = 'none';
+                                                                                                        }
+                                                                                                    }}
+                                                                                                    className={classes.buttonMove}
                                                                                                 >
-                                                                                                    <FormattedMessage
-                                                                                                        id={
-                                                                                                            'myWishlist.moveToCartBtnPartial'
-                                                                                                        }
-                                                                                                        defaultMessage={
-                                                                                                            'Move partial quantity to cart'
-                                                                                                        }
-                                                                                                    />
-                                                                                                     <span className={classes.arrowDown}></span>
-
-                                                                                                </span>
-                                                                                            </button>
-                                                                                            <div 
-                                                                                                id={'move_item_box_'+val.id} 
-                                                                                                className={ classes.move_item_static + ' move_item_ref' }>
-                                                                                                <Quantity
-                                                                                                    initialValue={1} isChildren={1} productId={val.id} ignore={1} /*onClick={reset} wid={wId} */
-                                                                                                />
-                                                                                            <button
-                                                                                                id={'partial_'+val.product.id}
-                                                                                                className={'move_confirm_partial'}
-                                                                                                onClick={() => {
-                                                                                                    var currentQty = document
-                                                                                                    .querySelector(
-                                                                                                        '#q' +
-                                                                                                        val.id
-                                                                                                    )
-                                                                                                    .querySelector(
-                                                                                                        'input'
-                                                                                                    )
-                                                                                                    .value;
-
-                                                                                                    var currentQtyPartial = document
-                                                                                                    .querySelector(
-                                                                                                        '#move_item_box_' +
-                                                                                                        val.id
-                                                                                                    )
-                                                                                                    .querySelector(
-                                                                                                        'input'
-                                                                                                    )
-                                                                                                    .value;
-
-                                                                                                    console.log(isPartialQuantity);
-
-                                                                                                    const tempProps = {...val.product};
-
-                                                                                                    if(isPartialQuantity){
-                                                                                                        tempProps.qty = currentQtyPartial;
-                                                                                                    }
-                                                                                                    else{
-                                                                                                        tempProps.qty = currentQty;
-                                                                                                    }
-                                                                                                    
-                                                                                                    tempProps.categoryId = wId;
-                                                                                                    tempProps.categoryName = projectname;
-                                                                                                    tempProps.qtyCategory = currentQty;
-
-                                                                                                    console.log('coucoucoucou');
-                                                                                                   
-                                                                                                    handleAddToCart(
-                                                                                                        tempProps
-                                                                                                    );
-
-                                                                                                    addToast({
-                                                                                                        type: 'info',
-                                                                                                        message: val.product.name + ' added to the cart.',
-                                                                                                        dismissable: true,
-                                                                                                        timeout: 4000
-                                                                                                    });
-                                                                                                   
-                                                                                                }}
-                                                                                            >
-                                                                                                {!mobileView && (
                                                                                                     <span
                                                                                                         className={
-                                                                                                            classes.move_confirm
+                                                                                                            classes.move_item
                                                                                                         }
                                                                                                     >
                                                                                                         <FormattedMessage
                                                                                                             id={
-                                                                                                                'myWishlist.moveConfirm'
+                                                                                                                'myWishlist.moveToCartBtnPartial'
                                                                                                             }
                                                                                                             defaultMessage={
-                                                                                                                'Confirm'
+                                                                                                                'Move partial quantity to cart'
                                                                                                             }
                                                                                                         />
+                                                                                                        {/* <span className={classes.arrowDown}></span> */}
+                                                                                                        <FontAwesomeIcon
+                                                                                                            icon={
+                                                                                                                faChevronDown
+                                                                                                            }
+                                                                                                        />
+
                                                                                                     </span>
-                                                                                                )}
-                                                                                                {mobileView && (
-                                                                                                    <p
-                                                                                                        className={
-                                                                                                            classes.move_confirm
-                                                                                                        }
+                                                                                                </button>
+                                                                                                <div
+                                                                                                    id={'move_item_box_' + val.id}
+                                                                                                    className={classes.move_item_static + ' move_item_ref'}>
+                                                                                                    <Quantity
+                                                                                                        initialValue={1} isChildren={1} productId={val.id} ignore={1} /*onClick={reset} wid={wId} */
+                                                                                                    />
+                                                                                                    <button
+                                                                                                        id={'partial_' + val.product.id}
+                                                                                                        className={'move_confirm_partial'}
+                                                                                                        onClick={() => {
+                                                                                                            var currentQty = document
+                                                                                                                .querySelector(
+                                                                                                                    '#q' +
+                                                                                                                    val.id
+                                                                                                                )
+                                                                                                                .querySelector(
+                                                                                                                    'input'
+                                                                                                                )
+                                                                                                                .value;
+
+                                                                                                            var currentQtyPartial = document
+                                                                                                                .querySelector(
+                                                                                                                    '#move_item_box_' +
+                                                                                                                    val.id
+                                                                                                                )
+                                                                                                                .querySelector(
+                                                                                                                    'input'
+                                                                                                                )
+                                                                                                                .value;
+
+                                                                                                            console.log(isPartialQuantity);
+
+                                                                                                            const tempProps = { ...val.product };
+
+                                                                                                            if (isPartialQuantity) {
+                                                                                                                tempProps.qty = currentQtyPartial;
+                                                                                                            }
+                                                                                                            else {
+                                                                                                                tempProps.qty = currentQty;
+                                                                                                            }
+
+                                                                                                            tempProps.categoryId = wId;
+                                                                                                            tempProps.categoryName = projectname;
+                                                                                                            tempProps.qtyCategory = currentQty;
+
+                                                                                                            console.log('coucoucoucou');
+
+                                                                                                            handleAddToCart(
+                                                                                                                tempProps
+                                                                                                            );
+
+                                                                                                            addToast({
+                                                                                                                type: 'info',
+                                                                                                                message: val.product.name + ' added to the cart.',
+                                                                                                                dismissable: true,
+                                                                                                                timeout: 4000
+                                                                                                            });
+
+                                                                                                        }}
                                                                                                     >
-                                                                                                        <FormattedMessage
-                                                                                                            id={
-                                                                                                                'myWishlist.moveConfirm'
-                                                                                                            }
-                                                                                                            defaultMessage={
-                                                                                                                'Confirm'
-                                                                                                            }
-                                                                                                        />
-                                                                                                    </p>
-                                                                                                )}
-                                                                                                
-                                                                                            </button>
-                                                                                            </div>
+                                                                                                        {!mobileView && (
+                                                                                                            <span
+                                                                                                                className={
+                                                                                                                    classes.move_confirm
+                                                                                                                }
+                                                                                                            >
+                                                                                                                <FormattedMessage
+                                                                                                                    id={
+                                                                                                                        'myWishlist.moveConfirm'
+                                                                                                                    }
+                                                                                                                    defaultMessage={
+                                                                                                                        'Confirm'
+                                                                                                                    }
+                                                                                                                />
+                                                                                                            </span>
+                                                                                                        )}
+                                                                                                        {mobileView && (
+                                                                                                            <p
+                                                                                                                className={
+                                                                                                                    classes.move_confirm
+                                                                                                                }
+                                                                                                            >
+                                                                                                                <FormattedMessage
+                                                                                                                    id={
+                                                                                                                        'myWishlist.moveConfirm'
+                                                                                                                    }
+                                                                                                                    defaultMessage={
+                                                                                                                        'Confirm'
+                                                                                                                    }
+                                                                                                                />
+                                                                                                            </p>
+                                                                                                        )}
+
+                                                                                                    </button>
+                                                                                                </div>
                                                                                             </>
                                                                                         )}
                                                                                     {val
@@ -2091,48 +2100,48 @@ const MyWishList = props => {
                                                                                         .__typename !=
                                                                                         'SimpleProduct' && (
                                                                                             <>
-                                                                                            <Link
-                                                                                                to={resourceUrl(
-                                                                                                    val
-                                                                                                        .product[
-                                                                                                    'url_key'
-                                                                                                    ] +
-                                                                                                    productUrlSuffix
-                                                                                                )}
-                                                                                                className={
-                                                                                                    classes.add_btn
-                                                                                                }
-                                                                                            >
-                                                                                                <FormattedMessage
-                                                                                                    id={
-                                                                                                        'myWishlist.moveToCartBtn'
+                                                                                                <Link
+                                                                                                    to={resourceUrl(
+                                                                                                        val
+                                                                                                            .product[
+                                                                                                        'url_key'
+                                                                                                        ] +
+                                                                                                        productUrlSuffix
+                                                                                                    )}
+                                                                                                    className={
+                                                                                                        classes.add_btn
                                                                                                     }
-                                                                                                    defaultMessage={
-                                                                                                        'Move to cart'
+                                                                                                >
+                                                                                                    <FormattedMessage
+                                                                                                        id={
+                                                                                                            'myWishlist.moveToCartBtn'
+                                                                                                        }
+                                                                                                        defaultMessage={
+                                                                                                            'Move to cart'
+                                                                                                        }
+                                                                                                    />
+                                                                                                </Link>
+                                                                                                <Link
+                                                                                                    to={resourceUrl(
+                                                                                                        val
+                                                                                                            .product[
+                                                                                                        'url_key'
+                                                                                                        ] +
+                                                                                                        productUrlSuffix
+                                                                                                    )}
+                                                                                                    className={
+                                                                                                        classes.add_btn
                                                                                                     }
-                                                                                                />
-                                                                                            </Link>
-                                                                                            <Link
-                                                                                                to={resourceUrl(
-                                                                                                    val
-                                                                                                        .product[
-                                                                                                    'url_key'
-                                                                                                    ] +
-                                                                                                    productUrlSuffix
-                                                                                                )}
-                                                                                                className={
-                                                                                                    classes.add_btn
-                                                                                                }
-                                                                                            >
-                                                                                                <FormattedMessage
-                                                                                                    id={
-                                                                                                        'myWishlist.moveToCartBtn'
-                                                                                                    }
-                                                                                                    defaultMessage={
-                                                                                                        'Move to cart'
-                                                                                                    }
-                                                                                                />
-                                                                                            </Link>
+                                                                                                >
+                                                                                                    <FormattedMessage
+                                                                                                        id={
+                                                                                                            'myWishlist.moveToCartBtn'
+                                                                                                        }
+                                                                                                        defaultMessage={
+                                                                                                            'Move to cart'
+                                                                                                        }
+                                                                                                    />
+                                                                                                </Link>
                                                                                             </>
                                                                                         )}
                                                                                 </div>
@@ -2242,7 +2251,7 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                 </Suspense>
-                                                
+
                                             </>
                                         )}
                                     </div>

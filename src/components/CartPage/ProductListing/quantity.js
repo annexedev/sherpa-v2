@@ -38,7 +38,7 @@ export const QuantityFields = props => {
     const initialPrice = item ? item.product.price_range.maximum_price.regular_price.value : '';
     const finalPrice = item ? item.product.price_range.maximum_price.final_price.value : '';
 
-    console.log(finalPrice);
+    // console.log(initialValue);
 
 
 
@@ -67,7 +67,7 @@ export const QuantityFields = props => {
             </label> */}
             <div>
                 <div className={classes.qty_inner_wrap + ' ' + classes.wrap}>
-                    {/* { ignore == 1 ?
+                    { ignore == 1 ?
                         <button
                             aria-label={'Decrease Quantity'}
                             className={classes.button_decrement+' decrement'}
@@ -82,20 +82,19 @@ export const QuantityFields = props => {
                         
                             <Icon classes={iconClasses} src={MinusIcon} size={22} />
                         </button>
-                        : */}
+                        :
                     <button
                         aria-label={'Decrease Quantity'}
                         className={classes.button_decrement + ' decrement'}
                         // disabled={isDecrementDisabled}
                         onClick={handleDecrement}
                         type="button"
-                    // id={'minus_'+productId}
-                    // data-wid={wid}
-
+                        id={'minus_'+productId}
+                        data-wid={wid}
                     >
                         <Icon classes={iconClasses} src={MinusIcon} size={22} />
                     </button>
-                    {/* } */}
+                     } 
 
                     <div className={classes.qty_field_wrap}>
                         <TextInput
@@ -110,7 +109,7 @@ export const QuantityFields = props => {
                             pattern="[0-9]*"
                         />
                     </div>
-                    {/* { ignore == 1 ?
+                    { ignore == 1 ?
                         <button
                             aria-label={'Increase Quantity'}
                             className={classes.button_increment+' increment'}
@@ -124,19 +123,19 @@ export const QuantityFields = props => {
                         >
                             <Icon classes={iconClasses} src={PlusIcon} size={20} />
                         </button>
-                        : */}
+                        :
                     <button
                         aria-label={'Increase Quantity'}
                         className={classes.button_increment + ' increment'}
                         // disabled={isIncrementDisabled}
                         onClick={handleIncrement}
                         type="button"
-                    // id={'plus_'+productId}
-                    // data-wid={wid}
+                        id={'plus_'+productId}
+                        data-wid={wid}
                     >
                         <Icon classes={iconClasses} src={PlusIcon} size={20} />
                     </button>
-                    {/* } */}
+                     } 
 
                 </div>
                 {cart &&
