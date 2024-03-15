@@ -55,7 +55,7 @@
 .total_available {
     background: #8cc650;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 3px;
     color: white;
     font-weight: 600;
     max-width: 150px;
@@ -580,7 +580,7 @@
 }
 
 .project_dropdown {
-    width: 187px;
+    width: 49%;
     margin-top: 0px;
     border-radius: 3px;
     height: 35px;
@@ -1275,6 +1275,9 @@ body[class='rtl_view'] .qty_icon {
     }
     .shadow_section {
         box-shadow: var(--primary-box-shadow);
+    }
+    .project_dropdown {
+        width: 100%;
     }
     .options {
         margin: 10px 0;

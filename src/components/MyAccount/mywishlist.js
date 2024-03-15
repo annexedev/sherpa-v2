@@ -2310,7 +2310,7 @@ const MyWishList = props => {
                                                 <FormattedMessage
                                                     id={'myWishlist.page_title'}
                                                     defaultMessage={
-                                                        'MyProjects (loading)'
+                                                        'My Projects (loading)'
                                                     }
                                                 />
                                             </span>

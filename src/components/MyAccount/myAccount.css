@@ -22,7 +22,12 @@
       color: #fff;
     }
   }
-  
+/* .nomProjet{
+    font-size: 25px;
+    font-weight: 900;
+    color: #8dc74c;
+
+} */
 .regularprice {
     display: inline-block;
     margin-left: 10px;
@@ -303,7 +308,7 @@ form.root input:focus {
 }
 /* -------- */
 .nomProject{
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 900;
     color: #8dc74c;
 }

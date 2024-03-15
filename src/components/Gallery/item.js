@@ -94,7 +94,7 @@ class ServiceDetailsEmployeurs extends Component {
             if (loading)
                 return (
                     <button type="" className={classes.add_to_project}>
-                        ADDING TO PROJECT
+                        Adding to project
                     </button>
                 );
             if (error) return `Submission error! ${error.message}`;
@@ -147,7 +147,7 @@ class ServiceDetailsEmployeurs extends Component {
                             type="submit"
                             className={classes.add_to_project}
                         >
-                            ADD TO PROJECT
+                            Add to project
                         </button>
                     </form>
                 </div>
@@ -587,7 +587,7 @@ const GalleryItem = props => {
         if (loading)
             return (
                 <button type="" className={classes.add_to_project}>
-                    ADDING TO PROJECT
+                    Adding to project
                 </button>
             );
         if (error) return `Submission error! ${error.message}`;
@@ -610,7 +610,7 @@ const GalleryItem = props => {
                     }}
                 >
                     <button type="submit" className={classes.add_to_project}>
-                        ADD TO PROJECT
+                        Add to project
                     </button>
                 </form>
             </div>

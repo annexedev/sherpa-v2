@@ -43,12 +43,12 @@ const MyOrders = props => {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
             let orderNumber = this.props.pid;
             let dataURL =
                 'https://data.sherpagroupav.com/get_pocomments.php?pid=' + orderNumber;
-            
+
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -57,7 +57,7 @@ const MyOrders = props => {
                     });
                 });
         }
-    
+
         render() {
             let orderpo = this.state.pageData.orderpo && this.state.pageData.orderpo;
             return (
@@ -288,7 +288,7 @@ const MyOrders = props => {
                                                                                         }
                                                                                     </Link>
 
-                                                                                    
+
                                                                                 </li>
                                                                                 <li
                                                                                     mobilelabel="Date"
@@ -388,8 +388,8 @@ const MyOrders = props => {
                                                 {typeof data != 'undefined' &&
                                                     data.items.length > 0 &&
                                                     data.items.length <
-                                                        data.total_count *
-                                                            data.limit && (
+                                                    data.total_count *
+                                                    data.limit && (
                                                         <button
                                                             className={
                                                                 defaultClasses.load_more_btn
@@ -454,7 +454,7 @@ const MyOrders = props => {
                 </div>
             </div>
         );
-    } else if(!loading && isProject != '') {
+    } else if (!loading && isProject != '') {
 
         class OrderLines extends Component {
             constructor() {
@@ -463,13 +463,13 @@ const MyOrders = props => {
                     pageData: []
                 };
             }
-            
+
             componentDidMount() {
                 let orderNumber = this.props.orderNumber;
                 let category_id = this.props.category_id;
                 let dataURL =
-                    'https://data.sherpagroupav.com/get_order_projects_lines.php?category_id='+category_id+'&orderId='+orderNumber;
-                
+                    'https://data.sherpagroupav.com/get_order_projects_lines.php?category_id=' + category_id + '&orderId=' + orderNumber;
+
                 fetch(dataURL)
                     .then(res => res.json())
                     .then(res => {
@@ -478,52 +478,52 @@ const MyOrders = props => {
                         });
                     });
             }
-        
+
             render() {
 
                 let productReference = this.props.productReference;
                 let orderId = this.props.orderId;
-                
+
                 return (
                     <React.Fragment>
 
-                       {this.state.pageData && this.state.pageData.map(e => {
+                        {this.state.pageData && this.state.pageData.map(e => {
+
+                            /*if(this.state.pageData && this.state.pageData.length < 1) {
+                                document.getElementById(orderId).style.display='none';
+                            }
                                 
-                                /*if(this.state.pageData && this.state.pageData.length < 1) {
-                                    document.getElementById(orderId).style.display='none';
-                                }
-                                    
-                                else */
+                            else */
 
-                                if(productReference != '') {
+                            if (productReference != '') {
 
-                                    if(productReference == e.sku) {
-                                        return (
-    
-                                            <p className={defaultClasses.stripe}>{parseInt(e.qty_invoiced)} x {e.name}</p>
-                                            
-                                        );
-                                    } else {
-                                        return (
-    
-                                            <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
-                                            
-                                        );
-                                    }
+                                if (productReference == e.sku) {
+                                    return (
 
+                                        <p className={defaultClasses.stripe}>{parseInt(e.qty_invoiced)} x {e.name}</p>
+
+                                    );
                                 } else {
                                     return (
-    
+
                                         <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
-                                        
+
                                     );
                                 }
-                                
-                                
-                                    
-                                
+
+                            } else {
+                                return (
+
+                                    <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+
+                                );
                             }
-                        )} 
+
+
+
+
+                        }
+                        )}
                     </React.Fragment>
                 );
             }
@@ -536,7 +536,7 @@ const MyOrders = props => {
                     pageData: []
                 };
             }
-        
+
             componentDidMount() {
                 let cid = this.props.cid;
                 let dataURL =
@@ -549,12 +549,19 @@ const MyOrders = props => {
                         });
                     });
             }
-        
+
             render() {
                 let projectname = this.state.pageData.pname && this.state.pageData.pname;
-                if(this.state.pageData.pname && this.state.pageData.pname) {
+                if (this.state.pageData.pname && this.state.pageData.pname) {
                     return (
-                            <>{`Products found in this Project - ${projectname}`} </>
+                        <span className={defaultClasses.base}>
+                            {/* {`Products found in this Project - ${projectname}`}  */}
+                            <FormattedMessage
+                                id={'myOrders.purchasedTitle'}
+                                defaultMessage={'Products linked to this Project - '}
+                            />
+                            <span className={defaultClasses.nomProject}>{projectname}</span>
+                        </span>
                     );
                 } else {
                     return (<></>);
@@ -569,13 +576,13 @@ const MyOrders = props => {
                     pageData: []
                 };
             }
-        
+
             componentDidMount() {
                 let email = this.props.email;
                 let category_id = this.props.category_id;
                 let dataURL =
-                    'https://data.sherpagroupav.com/get_order_projects.php?category_id='+category_id+'&email=' + email;
-                
+                    'https://data.sherpagroupav.com/get_order_projects.php?category_id=' + category_id + '&email=' + email;
+
                 fetch(dataURL)
                     .then(res => res.json())
                     .then(res => {
@@ -584,11 +591,11 @@ const MyOrders = props => {
                         });
                     });
             }
-        
+
             render() {
                 return (
                     <div className={defaultClasses.columns}>
-                        
+
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -687,7 +694,7 @@ const MyOrders = props => {
                                                                                 }
                                                                             />
                                                                         </li>
-                                                                        
+
                                                                         <li
                                                                             className={
                                                                                 defaultClasses.item +
@@ -736,130 +743,130 @@ const MyOrders = props => {
                                                                         }
                                                                     >
 
-                                                                                {this.state.pageData && this.state.pageData.map(e => {
-                                                                                                            
-                                                                                                            return (
-                                                                                    <ul
-                                                                                        className={
-                                                                                            defaultClasses.orders_row
-                                                                                        }
+                                                                        {this.state.pageData && this.state.pageData.map(e => {
 
-                                                                                        id={e.order_id}
+                                                                            return (
+                                                                                <ul
+                                                                                    className={
+                                                                                        defaultClasses.orders_row
+                                                                                    }
+
+                                                                                    id={e.order_id}
+                                                                                >
+                                                                                    <li
+                                                                                        mobilelabel="Order #"
+                                                                                        className={
+                                                                                            defaultClasses.item +
+                                                                                            ' ' +
+                                                                                            defaultClasses.body_item
+                                                                                        }
                                                                                     >
-                                                                                        <li
-                                                                                            mobilelabel="Order #"
+
+                                                                                        <Link
                                                                                             className={
-                                                                                                defaultClasses.item +
+                                                                                                defaultClasses.body_item_link +
                                                                                                 ' ' +
-                                                                                                defaultClasses.body_item
+                                                                                                defaultClasses.order_view_linkq
                                                                                             }
-                                                                                        >
-        
-                                                                                            <Link
-                                                                                                className={
-                                                                                                    defaultClasses.body_item_link +
-                                                                                                    ' ' +
-                                                                                                    defaultClasses.order_view_linkq
-                                                                                                }
-                                                                                                to={
-                                                                                                    '/orderview/' +
-                                                                                                    e.order_id
-                                                                                                }
-                                                                                            >
-                                                                                                {
-                                                                                                    e.increment_id
-                                                                                                }
-                                                                                            </Link>
-        
-                                                                                            
-                                                                                        </li>
-                                                                                        
-                                                                                        <li
-                                                                                            mobilelabel="Date"
-                                                                                            className={
-                                                                                                defaultClasses.item +
-                                                                                                ' ' +
-                                                                                                defaultClasses.body_item
+                                                                                            to={
+                                                                                                '/orderview/' +
+                                                                                                e.order_id
                                                                                             }
                                                                                         >
                                                                                             {
-                                                                                                e.created_at.slice(0, -3)
+                                                                                                e.increment_id
                                                                                             }
-                                                                                        </li>
-                                                                                        
-                                                                                        <li
-                                                                                            mobilelabel="Order Total"
-                                                                                            className={
-                                                                                                defaultClasses.item +
-                                                                                                ' ' +
-                                                                                                defaultClasses.body_item
-                                                                                            }
-                                                                                        >
-                                                                                           $ {
-                                                                                                e.grand_total
-                                                                                            }
-                                                                                        </li>
-                                                                                        <li
-                                                                                            mobilelabel="Status"
-                                                                                            className={
-                                                                                                defaultClasses.item +
-                                                                                                ' ' +
-                                                                                                defaultClasses.body_item
-                                                                                            }
-                                                                                        >
-                                                                                            {
-                                                                                                e.status
-                                                                                            }
-                                                                                        </li>
-                                                                                        <li
-                                                                                            mobilelabel="Products found in this project"
-                                                                                            className={
-                                                                                                defaultClasses.item +
-                                                                                                ' ' +
-                                                                                                defaultClasses.body_item
-                                                                                            }
-                                                                                        >
-        
+                                                                                        </Link>
+
+
+                                                                                    </li>
+
+                                                                                    <li
+                                                                                        mobilelabel="Date"
+                                                                                        className={
+                                                                                            defaultClasses.item +
+                                                                                            ' ' +
+                                                                                            defaultClasses.body_item
+                                                                                        }
+                                                                                    >
+                                                                                        {
+                                                                                            e.created_at.slice(0, -3)
+                                                                                        }
+                                                                                    </li>
+
+                                                                                    <li
+                                                                                        mobilelabel="Order Total"
+                                                                                        className={
+                                                                                            defaultClasses.item +
+                                                                                            ' ' +
+                                                                                            defaultClasses.body_item
+                                                                                        }
+                                                                                    >
+                                                                                        $ {
+                                                                                            e.grand_total
+                                                                                        }
+                                                                                    </li>
+                                                                                    <li
+                                                                                        mobilelabel="Status"
+                                                                                        className={
+                                                                                            defaultClasses.item +
+                                                                                            ' ' +
+                                                                                            defaultClasses.body_item
+                                                                                        }
+                                                                                    >
+                                                                                        {
+                                                                                            e.status
+                                                                                        }
+                                                                                    </li>
+                                                                                    <li
+                                                                                        mobilelabel="Products found in this project"
+                                                                                        className={
+                                                                                            defaultClasses.item +
+                                                                                            ' ' +
+                                                                                            defaultClasses.body_item
+                                                                                        }
+                                                                                    >
+
                                                                                         <OrderLines orderId={e.order_id} productReference={isId} orderNumber={e.order_id} category_id={isProject} />
-        
-                                                                                           
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                );
-                                                                            }
+
+
+                                                                                    </li>
+                                                                                </ul>
+                                                                            );
+                                                                        }
                                                                         )}
-                                                                        
+
                                                                     </div>
-                                                                    
+
                                                                 </div>
                                                             )}
                                                     </div>
-                                                    
+
                                                 </div>
-                                                <br/>
+                                                <br />
                                                 <Link
                                                     className={defaultClasses.btnPurchase}
-                                                    to={resourceUrl('/myprojects?id='+isProject)}
+                                                    to={resourceUrl('/myprojects?id=' + isProject)}
                                                 >Return to project</Link>
-                                                <br/><br/>
+                                                <br /><br />
                                             </div>
-                                            
+
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
                 );
             }
         }
-    
+
 
         return (
-            <FromProject email={email} category_id={isProject}/>
+            <FromProject email={email} category_id={isProject} />
         );
     } else {
         return (
