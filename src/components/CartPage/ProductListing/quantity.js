@@ -38,7 +38,7 @@ export const QuantityFields = props => {
     const initialPrice = item ? item.product.price_range.maximum_price.regular_price.value : '';
     const finalPrice = item ? item.product.price_range.maximum_price.final_price.value : '';
 
-    // console.log(initialValue);
+    // console.log(initialPrice);
 
 
 
@@ -146,9 +146,9 @@ export const QuantityFields = props => {
                                 defaultMessage={'YOUR COST'}
                             /> 
                         </p>
-                        <p className={classes.priceWithDiscount}>${price}</p>
+                        <p className={classes.priceWithDiscount}>{price} $</p>
                         {ProduitDiscount && initialPrice !== finalPrice &&
-                            <p className={classes.initialPrice}>${initialPrice}</p>
+                            <p className={classes.initialPrice}>{initialPrice} $</p>
                         }
                     </div>
                 }

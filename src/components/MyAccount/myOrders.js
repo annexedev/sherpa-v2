@@ -802,9 +802,9 @@ const MyOrders = props => {
                                                                                             defaultClasses.body_item
                                                                                         }
                                                                                     >
-                                                                                        $ {
+                                                                                         {
                                                                                             e.grand_total
-                                                                                        }
+                                                                                        } $
                                                                                     </li>
                                                                                     <li
                                                                                         mobilelabel="Status"
