@@ -114,6 +114,7 @@
 
 .priceWithDiscount{
     color: #8DC74C;
+    font-size: 11px !important;
 }
 .warning{
     color: orange;
