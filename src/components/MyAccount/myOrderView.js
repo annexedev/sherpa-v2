@@ -76,6 +76,42 @@ const MyOrderView = props => {
         }
     }
 
+    class ProjectOrder extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let order_id = this.props.order_id;
+            let item_id = this.props.item_id;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_projet_by_order.php?order_id=' + order_id + '&item_id=' + item_id;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let orderProject = this.state.pageData.orderProject && this.state.pageData.orderProject;
+            return (
+                <React.Fragment>
+                    <span className={defaultClasses.action+' '+defaultClasses.back} dangerouslySetInnerHTML={{__html: orderProject}}></span>
+                </React.Fragment>
+            );
+        }
+    }
+
+    console.log('DATA');
+    console.log(data);
+
     return (
         <div className={defaultClasses.columns}>
             <div className="container">
@@ -340,22 +376,7 @@ const MyOrderView = props => {
                                                                 defaultClasses.print_link
                                                             }
                                                         >
-                                                            <Link
-                                                                to={{
-                                                                    pathname:
-                                                                        '/refunds/' +
-                                                                        orderId
-                                                                }}
-                                                            >
-                                                                <FormattedMessage
-                                                                    id={
-                                                                        'myOrderView.Refunds'
-                                                                    }
-                                                                    defaultMessage={
-                                                                        'Refunds'
-                                                                    }
-                                                                />
-                                                            </Link>
+                                                            <ProjectOrder item_id={val.id} order_id={orderId} />
                                                         </span>
                                                     )}
                                             </div>
@@ -524,6 +545,22 @@ const MyOrderView = props => {
                                                             }
                                                             defaultMessage={
                                                                 'Qty'
+                                                            }
+                                                        />
+                                                    </li>
+                                                    <li
+                                                        className={
+                                                            defaultClasses.subtotal +
+                                                            ' ' +
+                                                            Classes.item
+                                                        }
+                                                    >
+                                                        <FormattedMessage
+                                                            id={
+                                                                'myOrderView.associated'
+                                                            }
+                                                            defaultMessage={
+                                                                'Associated with project'
                                                             }
                                                         />
                                                     </li>
@@ -758,6 +795,19 @@ const MyOrderView = props => {
                                                                                     </li>
                                                                                 )}
                                                                         </ul>
+                                                                    </li>
+                                                                    <li
+                                                                        className={
+                                                                            'col' +
+                                                                            ' ' +
+                                                                            defaultClasses.sku
+                                                                        }
+                                                                        data-th="Associated"
+                                                                    >
+                                                                        
+
+                                                                        <ProjectOrder item_id={val.id} order_id={orderId} />
+
                                                                     </li>
                                                                     <li
                                                                         className={

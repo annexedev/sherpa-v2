@@ -486,7 +486,7 @@ form.root input:focus {
 .table_wrapper_head .item {
     font-family: 'Karla-Bold' !important;
 
-    flex: 0 0 20%;
+    flex: 0 0 16%;
     font-size: 14px;
 }
 .table_wrapper_body {
