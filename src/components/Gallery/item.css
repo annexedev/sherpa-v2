@@ -115,7 +115,8 @@ button[class='quantity-modifier modifier-right']:hover {
 }
 .add_to_project {
     background: #007637;
-    border-radius: 5px;
+    border-radius: 3px;
+    margin-bottom: 5px;
     padding: 10px 10px;
     display: block;
     min-height: 40px;
@@ -366,8 +367,8 @@ button[class='quantity-modifier modifier-right']:hover {
         min-width: 48%;
         border-radius: 0;
     }
-    .add_to_cart_btn,
+    /* .add_to_cart_btn,
     .add_to_cart_btn:hover {
         width: 70%;
-    }
+    } */
 }
