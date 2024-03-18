@@ -113,7 +113,7 @@ const MyOrders = props => {
                                             >
                                                 <FormattedMessage
                                                     id={'myOrders.page_title'}
-                                                    defaultMessage={'My Order'}
+                                                    defaultMessage={'My Orders'}
                                                 />
                                             </span>
                                         </h1>
@@ -908,7 +908,7 @@ const MyOrders = props => {
                                             >
                                                 <FormattedMessage
                                                     id={'myOrders.MyOrder'}
-                                                    defaultMessage={'My Order'}
+                                                    defaultMessage={'My Orders'}
                                                 />
                                             </span>
                                         </h1>

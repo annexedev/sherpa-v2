@@ -1,5 +1,6 @@
 {
     "project.projectoptions":"Options du projet",
+    "project.backtocart":"Aller au panier",
     "project.duplicate":"Dupliquer le projet",
     "project.rename":"Renommer le projet",
     "project.archive":"Archiver le projet",
@@ -179,6 +180,7 @@
     "header.offer_message_text": "Offre à durée limitée : jusqu'à 50 % de réduction sur les styles incontournables. ",
     "header.logo": "Sherpa Technology Group",
     "header.Wishlist": "MesProjets",
+    "header.MyProjects":"MesProjets",
     "navigationTrigger.navigation": "la navigation",
     "LegacyMiniCart.isUpdatingItem": "Mise à jour du panier...",
     "LegacyMiniCart.isLoading": "Récupération du panier...",
