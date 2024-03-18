@@ -465,6 +465,7 @@ class SoldIn extends Component {
     }
 }
 
+
 class AlreadyPurchased extends Component {
     constructor() {
         super();
@@ -480,7 +481,6 @@ class AlreadyPurchased extends Component {
             'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid;
         console.log(dataURL);
 
-        setTimeout(function () {
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -488,7 +488,7 @@ class AlreadyPurchased extends Component {
                         pageData: res
                     });
                 });
-        }, 5);
+
 
 
     }
@@ -1804,7 +1804,7 @@ const MyWishList = props => {
 
                                                                             </div>
                                                                             )}
-                                                                            {/* <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} /> */}
+                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
