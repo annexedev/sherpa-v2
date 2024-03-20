@@ -538,6 +538,8 @@
     "shipping.useMethod":"Use Method",
     "shipping.cancel":"Cancel",
     "checkoutPage.orderSummary":"Order summary",
-    "forgotPassword.email":"Email Address"
+    "forgotPassword.email":"Email Address",
+    "forgotPassword.password": "Password",
+    "forgotPassword.confirmPassword": "Confirm Password"
 
 }
