@@ -12,7 +12,6 @@ export const hasLengthAtLeast = (value, values, minimumLength , selectedLanguage
     if (!value || value.length < minimumLength) {
         return selectedLanguage == 'en' ? `Must contain at least ${minimumLength} character(s).` : `Doit contenir au moins ${minimumLength} caractère(s).`;
     }
-
     return SUCCESS;
 };
 
@@ -20,7 +19,6 @@ export const hasLengthAtMost = (value, values, maximumLength , selectedLanguage)
     if (value && value.length > maximumLength) {
         return selectedLanguage == 'en' ? `Must not exceed ${maximumLength} character(s).` : `Ne doit pas dépasser ${maximumLength} caractère(s).`;
     }
-
     return SUCCESS;
 };
 
@@ -28,7 +26,6 @@ export const hasLengthExactly = (value, values, length , selectedLanguage ) => {
     if (value && value.length !== length) {
         return selectedLanguage == 'en' ?  `Must contain exactly ${length} character(s).` : `Doit contenir exactement ${length} caractère(s).`;
     }
-
     return SUCCESS;
 };
 
