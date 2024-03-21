@@ -197,8 +197,11 @@ const ForgotPasswordForm = props => {
                         }
                     />
                 </div> */}
-                <div className={classes.form_field}>
-                    <Field label="Password" required={true}>
+                 <div className={classes.form_field}>
+                    <Field  label={formatMessage({
+                              id: 'forgotPassword.password',
+                                defaultMessage: 'Password'
+                            })}  required={true}>
                         <TextInput
                             field="password"
                             type="password"
@@ -209,11 +212,14 @@ const ForgotPasswordForm = props => {
                     </Field>
                 </div>
                 <div className={classes.form_field}>
-                    <Field label="Confirm Password" required={true}>
+                    <Field label={formatMessage({
+                                id: 'forgotPassword.confirmPassword',
+                                defaultMessage: 'Confirm password'
+                            })} required={true}>
                         <TextInput
                             field="confirm"
                             type="password"
-                            validate={(value) => validateConfirmPassword(value, storeview )}
+                            validate={(value , values ) => validateConfirmPassword(value, values, 'password' , storeview)}
                             validateOnBlur
                         />
                     </Field>

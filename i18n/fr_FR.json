@@ -536,6 +536,8 @@
     "shipping.cancel": "Annuler",
     "checkoutPage.orderSummary": "Récapitulatif de la commande",
     "forgotPassword.email": "Adresse e-mail",
+    "forgotPassword.password": "Mot de passe",
+    "forgotPassword.confirmPassword": "Confirmer mot de passe",
     "item.rebate": "rabais",
     "item.ribbon": "Nouveau",
     "item.until": "jusqu'au",
