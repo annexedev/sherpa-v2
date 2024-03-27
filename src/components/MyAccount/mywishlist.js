@@ -603,7 +603,7 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
-    //console.log(MpBetterWishlistGetCategories);
+    // console.log(data);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
@@ -1290,8 +1290,8 @@ const MyWishList = props => {
 
             var inputChangePartial = document.getElementsByClassName("partialQuantity");
 
-            console.log('elementsD');
-            console.log(elementsD);
+            // console.log('elementsD');
+            // console.log(elementsD);
 
             for (var i = 0; i < elementsD.length; i++) {
                 elementsD[i].addEventListener('click', myFunctionD, false);
@@ -1309,7 +1309,7 @@ const MyWishList = props => {
 
         var myFunctionPartial = function () {
 
-            console.log('myFunctionPartial ' + this.value);
+            // console.log('myFunctionPartial ' + this.value);
 
             /*if(this.id != 'plus_undefined') {
 
@@ -1334,7 +1334,7 @@ const MyWishList = props => {
 
         var myFunction = function () {
 
-            console.log('here hello ' + this.id);
+            // console.log('here hello ' + this.id);
 
             if (this.id != 'plus_undefined') {
 
@@ -1386,7 +1386,7 @@ const MyWishList = props => {
 
         var myFunctionD = function () {
 
-            console.log('there');
+            // console.log('there');
 
             if (this.id != 'minus_undefined') {
                 setTimeout(function () { reset(); }, 1500);
@@ -1432,8 +1432,8 @@ const MyWishList = props => {
 
         };
 
-        console.log('val.product');
-        console.log(data);
+        // console.log('val.product');
+        // console.log(data);
 
         const { mobileView } = useMobile();
 
@@ -1532,6 +1532,7 @@ const MyWishList = props => {
                                                             cid
                                                         ) {
                                                             let projectQty = 0;
+                                                            
                                                             let dataURL =
                                                                 'https://data.sherpagroupav.com/get_belongs.php?pid=' +
                                                                 pid +
@@ -1619,9 +1620,12 @@ const MyWishList = props => {
 
                                                                     }
                                                                 });
+                                                                // console.log('returned' + projectQty);
                                                             return 1;
-                                                            console.log('returned' + projectQty);
                                                         }
+
+                                                        // console.log(val.product.id);
+                                                        // console.log(wId);
 
 
 
@@ -1631,8 +1635,6 @@ const MyWishList = props => {
                                                                 wId
                                                             )
                                                         ) {
-
-
                                                             return (
                                                                 <>
                                                                     <div
@@ -1649,8 +1651,6 @@ const MyWishList = props => {
                                                                                 .id
                                                                         }
                                                                     >
-
-
                                                                         <div
                                                                             className={
                                                                                 classes.inner
@@ -2174,10 +2174,10 @@ const MyWishList = props => {
                                                                 </>
                                                             );
                                                         } else {
-                                                            return <>Rien!</>;
+                                                            return <><div>Return here!!!!!!!</div></>;
                                                         }
                                                     })}
-                                                    {data.length == 0 && (
+                                                    {data && (
                                                         <div
                                                             className={
                                                                 searchClasses.noResult
@@ -2206,7 +2206,7 @@ const MyWishList = props => {
                                                                         'myWishlist.noResult_text'
                                                                     }
                                                                     defaultMessage={
-                                                                        'You have no items saved in wishlist.'
+                                                                        'Browse products and add them to this project'
                                                                     }
                                                                 />
                                                             </span>

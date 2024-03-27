@@ -426,16 +426,7 @@ const MyOrderView = props => {
                                                 'justify-content-between'
                                             }
                                         >
-                                            <strong>
-                                                <FormattedMessage
-                                                    id={
-                                                        'myOrderView.ItemsOrdered'
-                                                    }
-                                                    defaultMessage={
-                                                        'Items Ordered'
-                                                    }
-                                                />
-                                            </strong>
+                                            <strong></strong>
                                             <span
                                                 className={
                                                     defaultClasses.action +

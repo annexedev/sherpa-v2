@@ -285,7 +285,7 @@
     "myOrderView.PaymentMethod":"Payment Method",
     "myWishlist.page_title":"My Wish List",
     "myWishlist.moveToCartBtn":"Move to cart",
-    "myWishlist.noResult_text":"You have no items saved in wishlist.",
+    "myWishlist.noResult_text":"You have no items saved. Browse products and add them to this project",
     "newAddress.page_title":"Edit Account Information",
     "newAddress.firstName":"First Name",
     "newAddress.lastName":"Last Name",
