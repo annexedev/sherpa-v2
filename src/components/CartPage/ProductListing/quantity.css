@@ -89,20 +89,20 @@
 
 .wrapperPrice{
     display: flex;
-    gap: 10px;
+    gap: 8px;
     width: 195px;
-    margin-left: 5px;
+    /* margin-left: 5px; */
     align-items: center;
 }
 .wrapperPrice p{
-    font-size: 12px;
+    font-size: 13.3px;
     font-style: normal;
     font-weight: 700;
     margin-bottom: 0;
 }
 .wrapperPrice .priceWithDiscount {
     color: #8DC74C;
-    font-size: 12.8px !important;
+    font-size: 13.3px !important;
 }
 
 .price{
