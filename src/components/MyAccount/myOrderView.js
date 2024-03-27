@@ -43,7 +43,7 @@ const MyOrderView = props => {
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
-    
+
     class OrderPo extends Component {
         constructor() {
             super();
@@ -51,12 +51,12 @@ const MyOrderView = props => {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
             let orderNumber = this.props.pid;
             let dataURL =
                 'https://data.sherpagroupav.com/get_pocomments.php?pid=' + orderNumber;
-            
+
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -65,7 +65,7 @@ const MyOrderView = props => {
                     });
                 });
         }
-    
+
         render() {
             let orderpo = this.state.pageData.orderpo && this.state.pageData.orderpo;
             return (
@@ -83,13 +83,13 @@ const MyOrderView = props => {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
             let order_id = this.props.order_id;
             let item_id = this.props.item_id;
             let dataURL =
                 'https://data.sherpagroupav.com/get_projet_by_order.php?order_id=' + order_id + '&item_id=' + item_id;
-            
+
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -98,12 +98,12 @@ const MyOrderView = props => {
                     });
                 });
         }
-    
+
         render() {
             let orderProject = this.state.pageData.orderProject && this.state.pageData.orderProject;
             return (
                 <React.Fragment>
-                    <span className={defaultClasses.action+' '+defaultClasses.back} dangerouslySetInnerHTML={{__html: orderProject}}></span>
+                    <span className={defaultClasses.action + ' ' + defaultClasses.back} dangerouslySetInnerHTML={{ __html: orderProject }}></span>
                 </React.Fragment>
             );
         }
@@ -149,9 +149,8 @@ const MyOrderView = props => {
                                                     defaultClasses.page_title
                                                 }
                                             >
-                                                <Title>{` Order # ${
-                                                    data.increment_id
-                                                } - ${STORE_NAME}`}</Title>
+                                                <Title>{` Order # ${data.increment_id
+                                                    } - ${STORE_NAME}`}</Title>
                                                 <span
                                                     className={
                                                         defaultClasses.base
@@ -312,7 +311,7 @@ const MyOrderView = props => {
                                                 </span>
                                                 {data &&
                                                     data.hasInvoices ==
-                                                        true && (
+                                                    true && (
                                                         <span
                                                             className={
                                                                 defaultClasses.action +
@@ -340,7 +339,7 @@ const MyOrderView = props => {
                                                     )}
                                                 {data &&
                                                     data.hasShipments ==
-                                                        true && (
+                                                    true && (
                                                         <span
                                                             className={
                                                                 defaultClasses.action +
@@ -368,7 +367,7 @@ const MyOrderView = props => {
                                                     )}
                                                 {data &&
                                                     data.hasCreditmemos ==
-                                                        true && (
+                                                    true && (
                                                         <span
                                                             className={
                                                                 defaultClasses.action +
@@ -410,7 +409,7 @@ const MyOrderView = props => {
                                             </strong>
                                         </li>
                                     </ul>
-                                    
+
                                     <div
                                         className={
                                             defaultClasses.order_details_items +
@@ -486,6 +485,23 @@ const MyOrderView = props => {
                                                 >
                                                     <li
                                                         className={
+                                                            defaultClasses.sku +
+                                                            ' ' +
+                                                            Classes.item
+                                                        }
+                                                    >
+                                                        <FormattedMessage
+                                                            id={
+                                                                'myOrderView.SKU'
+                                                            }
+                                                            defaultMessage={
+                                                                'Part #'
+                                                            }
+                                                        />
+                                                    </li>
+
+                                                    <li
+                                                        className={
                                                             defaultClasses.name +
                                                             ' ' +
                                                             Classes.item
@@ -500,38 +516,7 @@ const MyOrderView = props => {
                                                             }
                                                         />
                                                     </li>
-                                                    <li
-                                                        className={
-                                                            defaultClasses.sku +
-                                                            ' ' +
-                                                            Classes.item
-                                                        }
-                                                    >
-                                                        <FormattedMessage
-                                                            id={
-                                                                'myOrderView.SKU'
-                                                            }
-                                                            defaultMessage={
-                                                                'SKU'
-                                                            }
-                                                        />
-                                                    </li>
-                                                    <li
-                                                        className={
-                                                            defaultClasses.price +
-                                                            ' ' +
-                                                            Classes.item
-                                                        }
-                                                    >
-                                                        <FormattedMessage
-                                                            id={
-                                                                'myOrderView.Price'
-                                                            }
-                                                            defaultMessage={
-                                                                'Price'
-                                                            }
-                                                        />
-                                                    </li>
+
                                                     <li
                                                         className={
                                                             defaultClasses.qty +
@@ -548,22 +533,24 @@ const MyOrderView = props => {
                                                             }
                                                         />
                                                     </li>
+
                                                     <li
                                                         className={
-                                                            defaultClasses.subtotal +
+                                                            defaultClasses.price +
                                                             ' ' +
                                                             Classes.item
                                                         }
                                                     >
                                                         <FormattedMessage
                                                             id={
-                                                                'myOrderView.associated'
+                                                                'myOrderView.Price'
                                                             }
                                                             defaultMessage={
-                                                                'Associated with project'
+                                                                'Price'
                                                             }
                                                         />
                                                     </li>
+
                                                     <li
                                                         className={
                                                             defaultClasses.subtotal +
@@ -580,6 +567,24 @@ const MyOrderView = props => {
                                                             }
                                                         />
                                                     </li>
+
+                                                    <li
+                                                        className={
+                                                            defaultClasses.subtotal +
+                                                            ' ' +
+                                                            Classes.item
+                                                        }
+                                                    >
+                                                        <FormattedMessage
+                                                            id={
+                                                                'myOrderView.associated'
+                                                            }
+                                                            defaultMessage={
+                                                                'Associated with project'
+                                                            }
+                                                        />
+                                                    </li>
+
                                                 </ul>
                                                 <div
                                                     className={
@@ -604,6 +609,19 @@ const MyOrderView = props => {
                                                                     }
                                                                     id="order-item-row-111"
                                                                 >
+                                                                    <li
+                                                                        className={
+                                                                            'col' +
+                                                                            ' ' +
+                                                                            defaultClasses.sku
+                                                                        }
+                                                                        data-th="SKU"
+                                                                    >
+                                                                        {
+                                                                            val.sku
+                                                                        }
+                                                                    </li>
+
                                                                     <li
                                                                         className={
                                                                             'col' +
@@ -658,49 +676,7 @@ const MyOrderView = props => {
                                                                                 }
                                                                             )}
                                                                     </li>
-                                                                    <li
-                                                                        className={
-                                                                            'col' +
-                                                                            ' ' +
-                                                                            defaultClasses.sku
-                                                                        }
-                                                                        data-th="SKU"
-                                                                    >
-                                                                        {
-                                                                            val.sku
-                                                                        }
-                                                                    </li>
-                                                                    <li
-                                                                        className={
-                                                                            'col' +
-                                                                            ' ' +
-                                                                            defaultClasses.price
-                                                                        }
-                                                                        data-th="Price"
-                                                                    >
-                                                                        <span
-                                                                            className={
-                                                                                defaultClasses.price_excluding_tax
-                                                                            }
-                                                                            data-label="Excl. Tax"
-                                                                        >
-                                                                            <span
-                                                                                className={
-                                                                                    defaultClasses.cart_price
-                                                                                }
-                                                                            >
-                                                                                <span
-                                                                                    className={
-                                                                                        defaultClasses.price
-                                                                                    }
-                                                                                >
-                                                                                    {
-                                                                                        val.price
-                                                                                    }
-                                                                                </span>
-                                                                            </span>
-                                                                        </span>
-                                                                    </li>
+
                                                                     <li
                                                                         className={
                                                                             'col' +
@@ -740,7 +716,7 @@ const MyOrderView = props => {
                                                                             </li>
                                                                             {val &&
                                                                                 val.qty_shipped >
-                                                                                    0 && (
+                                                                                0 && (
                                                                                     <li
                                                                                         className={
                                                                                             defaultClasses.item
@@ -768,7 +744,7 @@ const MyOrderView = props => {
                                                                                 )}
                                                                             {val &&
                                                                                 val.qty_refund >
-                                                                                    0 && (
+                                                                                0 && (
                                                                                     <li
                                                                                         className={
                                                                                             defaultClasses.item
@@ -796,19 +772,39 @@ const MyOrderView = props => {
                                                                                 )}
                                                                         </ul>
                                                                     </li>
+
                                                                     <li
                                                                         className={
                                                                             'col' +
                                                                             ' ' +
-                                                                            defaultClasses.sku
+                                                                            defaultClasses.price
                                                                         }
-                                                                        data-th="Associated"
+                                                                        data-th="Price"
                                                                     >
-                                                                        
-
-                                                                        <ProjectOrder item_id={val.id} order_id={orderId} />
-
+                                                                        <span
+                                                                            className={
+                                                                                defaultClasses.price_excluding_tax
+                                                                            }
+                                                                            data-label="Excl. Tax"
+                                                                        >
+                                                                            <span
+                                                                                className={
+                                                                                    defaultClasses.cart_price
+                                                                                }
+                                                                            >
+                                                                                <span
+                                                                                    className={
+                                                                                        defaultClasses.price
+                                                                                    }
+                                                                                >
+                                                                                    {
+                                                                                        val.price
+                                                                                    }
+                                                                                </span>
+                                                                            </span>
+                                                                        </span>
                                                                     </li>
+
                                                                     <li
                                                                         className={
                                                                             'col' +
@@ -840,6 +836,21 @@ const MyOrderView = props => {
                                                                             </span>
                                                                         </span>
                                                                     </li>
+
+                                                                    <li
+                                                                        className={
+                                                                            'col' +
+                                                                            ' ' +
+                                                                            defaultClasses.sku
+                                                                        }
+                                                                        data-th="Associated"
+                                                                    >
+
+
+                                                                        <ProjectOrder item_id={val.id} order_id={orderId} />
+
+                                                                    </li>
+                                                                
                                                                 </ul>
                                                             );
                                                         }
@@ -885,39 +896,39 @@ const MyOrderView = props => {
                                                     </div>
                                                     {data.discount_amount !=
                                                         '0' && (
-                                                        <div
-                                                            className={
-                                                                defaultClasses.shipping
-                                                            }
-                                                        >
-                                                            <span
+                                                            <div
                                                                 className={
-                                                                    defaultClasses.mark
-                                                                }
-                                                            >
-                                                                {data.discount_description
-                                                                    ? 'Discount (' +
-                                                                      data.discount_description +
-                                                                      ')'
-                                                                    : 'Discount'}
-                                                            </span>
-                                                            <span
-                                                                className={
-                                                                    defaultClasses.amount
+                                                                    defaultClasses.shipping
                                                                 }
                                                             >
                                                                 <span
                                                                     className={
-                                                                        defaultClasses.price
+                                                                        defaultClasses.mark
                                                                     }
                                                                 >
-                                                                    {
-                                                                        data.discount_amount
-                                                                    }
+                                                                    {data.discount_description
+                                                                        ? 'Discount (' +
+                                                                        data.discount_description +
+                                                                        ')'
+                                                                        : 'Discount'}
                                                                 </span>
-                                                            </span>
-                                                        </div>
-                                                    )}
+                                                                <span
+                                                                    className={
+                                                                        defaultClasses.amount
+                                                                    }
+                                                                >
+                                                                    <span
+                                                                        className={
+                                                                            defaultClasses.price
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            data.discount_amount
+                                                                        }
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        )}
                                                     {data.shipping != '0' && (
                                                         <div
                                                             className={
@@ -1057,13 +1068,13 @@ const MyOrderView = props => {
                                                 defaultClasses.address_wrap
                                             }
                                         >
-                                                    <div
-                                                        className={
-                                                            defaultClasses.order_view_columns
-                                                        }
-                                                    >
-                                                        <OrderPo pid={data.increment_id} />
-                                                    </div>
+                                            <div
+                                                className={
+                                                    defaultClasses.order_view_columns
+                                                }
+                                            >
+                                                <OrderPo pid={data.increment_id} />
+                                            </div>
                                         </div>
 
                                         <div
@@ -1082,7 +1093,7 @@ const MyOrderView = props => {
                                                 />
                                             </strong>
                                         </div>
-                                        
+
                                         <div
                                             className={
                                                 defaultClasses.address_wrap
@@ -1172,40 +1183,40 @@ const MyOrderView = props => {
                                             >
                                                 {typeof data.billing_address !=
                                                     'undefined' && (
-                                                    <div
-                                                        className={
-                                                            defaultClasses.box +
-                                                            ' ' +
-                                                            defaultClasses.box_order_billing_address
-                                                        }
-                                                    >
-                                                        <strong
-                                                            className={
-                                                                defaultClasses.box_title
-                                                            }
-                                                        >
-                                                            <span>
-                                                                <FormattedMessage
-                                                                    id={
-                                                                        'myOrderView.BillingAddress'
-                                                                    }
-                                                                    defaultMessage={
-                                                                        'Billing Address'
-                                                                    }
-                                                                />
-                                                            </span>
-                                                        </strong>
                                                         <div
                                                             className={
-                                                                defaultClasses.box_content
+                                                                defaultClasses.box +
+                                                                ' ' +
+                                                                defaultClasses.box_order_billing_address
                                                             }
-                                                            dangerouslySetInnerHTML={{
-                                                                __html:
-                                                                    data.billing_address
-                                                            }}
-                                                        />
-                                                    </div>
-                                                )}
+                                                        >
+                                                            <strong
+                                                                className={
+                                                                    defaultClasses.box_title
+                                                                }
+                                                            >
+                                                                <span>
+                                                                    <FormattedMessage
+                                                                        id={
+                                                                            'myOrderView.BillingAddress'
+                                                                        }
+                                                                        defaultMessage={
+                                                                            'Billing Address'
+                                                                        }
+                                                                    />
+                                                                </span>
+                                                            </strong>
+                                                            <div
+                                                                className={
+                                                                    defaultClasses.box_content
+                                                                }
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html:
+                                                                        data.billing_address
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    )}
                                                 <div
                                                     className={
                                                         defaultClasses.box +
