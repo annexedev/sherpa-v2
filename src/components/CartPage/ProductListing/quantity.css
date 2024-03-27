@@ -95,7 +95,7 @@
     align-items: center;
 }
 .wrapperPrice p{
-    font-size: 13.3px;
+    font-size: 12.8px;
     font-style: normal;
     font-weight: 700;
     margin-bottom: 0;
@@ -114,6 +114,7 @@
     position: relative;
     text-decoration: line-through;
     color: #BF363C;
+    font-size: 13.3px !important;
 }
 
 .priceWithDiscount{

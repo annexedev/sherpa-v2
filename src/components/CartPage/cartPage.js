@@ -79,7 +79,7 @@ const CartPage = props => {
 
 
     const [productsWithoutProject, setProductsWithoutProject] = useState(false);
-    const [productsWithProject, setProductsWithProject] = useState(false);
+    // const [productsWithProject, setProductsWithProject] = useState(false);
     const [openProjects, setOpenProjects] = useState({});
 
 
@@ -283,7 +283,7 @@ const CartPage = props => {
 
 
 
-    const toggleProjectVisibility = projectId => {
+    const toggleProjectVisibility = (projectId, e) => {
         setOpenProjects(prevState => ({
             ...prevState,
             [projectId]: !prevState[projectId]
@@ -515,8 +515,8 @@ const CartPage = props => {
                                                             <span><CountProjectItem products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                                             <span><CountProjectValue products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
-                                                            <span className={classes.chevronDown} onClick={() => { toggleProjectVisibility(projectId); setProductsWithProject(!productsWithProject) }}>{productsWithProject ? <FontAwesomeIcon icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}
-                                                                {!productsWithProject &&
+                                                            <span className={classes.chevronDown} onClick={() => { toggleProjectVisibility(projectId);  }}>{openProjects[projectId] ? <FontAwesomeIcon id={projectId} icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon id={projectId} icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}
+                                                                {!openProjects[projectId] &&
                                                                     <span className={classes.tooltiptext}>
                                                                         <FormattedMessage
                                                                             id={'cartPage.tooltipChevronDownProject'}
