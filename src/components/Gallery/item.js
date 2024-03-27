@@ -174,7 +174,6 @@ class ServiceDetailsEmployeurs extends Component {
                     items {
                         added_at
                         description
-                        product_id
                         qty
                         store_id
                         wishlist_item_id
@@ -183,7 +182,7 @@ class ServiceDetailsEmployeurs extends Component {
             }
         `;
 
-        function AddTodo(uid) {
+            function AddTodo({ item_id, uid }) {
             function sortOptions(selectId) {
                 var options = document.getElementById(selectId).options;
                 var optionsArray = [];
@@ -209,6 +208,9 @@ class ServiceDetailsEmployeurs extends Component {
 
             const [addTodo, { data, loading, error }] = useMutation(
                 TOGGLE_LIKED_PHOTO
+            );
+            const [addTodoUpdate] = useMutation(
+                ADD_TO_CUSTOM_PROJECT
             );
             const [selectValue, setSelectValue] = React.useState('');
             if (data) {
@@ -269,13 +271,25 @@ class ServiceDetailsEmployeurs extends Component {
             return (
                 <div>
                     <form
-                        onSubmit={e => {
+                        onSubmit={async e => {
                             e.preventDefault();
-                            addTodo({
+                            var response = await addTodo({
                                 variables: { category_name: input.value }
                             });
-                            input.value = '';
 
+                            var loopProject = document
+                                    .getElementsByClassName('c' + item_id)[0]
+                                    .querySelector('input').value;
+
+                            for (let i = 0; i < loopProject; i++) {
+                                addTodoUpdate({
+                                    variables: {
+                                        category_id: response.data.MpBetterWishlistCreateCategory.category_id,
+                                        product_id: item_id,
+                                    }
+                                });
+                            
+                            }
                             window.alert('New category created.');
                             setSelectValue(999);
                         }}
@@ -349,7 +363,7 @@ class ServiceDetailsEmployeurs extends Component {
                     </select>
                     {selectValue && selectValue == 1 && (
                         <div id={'hidden_div'}>
-                            <AddTodo uid={uniqueId} />
+                            <AddTodo uid={uniqueId} item_id={this.props.item_id} />
                         </div>
                     )}
                 </div>

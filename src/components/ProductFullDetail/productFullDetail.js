@@ -245,7 +245,6 @@ const ProductFullDetail = props => {
                         items {
                             added_at
                             description
-                            product_id
                             qty
                             store_id
                             wishlist_item_id
@@ -254,13 +253,16 @@ const ProductFullDetail = props => {
                 }
             `;
 
-            function AddTodo(uid) {
+            function AddTodo({ item_id, uid }) {
                 let input;
 
                 let selectId = uid;
 
                 const [addTodo, { data, loading, error }] = useMutation(
                     TOGGLE_LIKED_PHOTO
+                );
+                const [addTodoUpdate] = useMutation(
+                    ADD_TO_CUSTOM_PROJECT
                 );
                 const [selectValue, setSelectValue] = React.useState('');
                 if (data) {
@@ -333,13 +335,23 @@ const ProductFullDetail = props => {
                         <input type="hidden" value={selectId} />
                         <button
                             className={classes.project_button}
-                            onClick={e => {
+                            onClick={ async e => {
                                 e.preventDefault();
-                                addTodo({
+                                var response = await addTodo({
                                     variables: { category_name: input.value }
                                 });
-                                input.value = '';
 
+                                var loopProject = document.getElementById('qty').value;
+
+                                for (let i = 0; i < loopProject; i++) {
+                                    addTodoUpdate({
+                                        variables: {
+                                            category_id: response.data.MpBetterWishlistCreateCategory.category_id,
+                                            product_id: item_id,
+                                        }
+                                    });
+                                
+                                }
                                 window.alert('New category created.');
                                 setSelectValue(999);
                             }}
@@ -407,7 +419,7 @@ const ProductFullDetail = props => {
                             </select>
                             {selectValue && selectValue == 1 && (
                                 <div id={'hidden_div'}>
-                                    <AddTodo uid={uniqueId} />
+                                    <AddTodo uid={uniqueId} item_id={this.props.item_id} />
                                 </div>
                             )}
                         </div>
