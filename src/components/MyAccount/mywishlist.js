@@ -466,52 +466,52 @@ class SoldIn extends Component {
 }
 
 
-class AlreadyPurchased extends Component {
-    constructor() {
-        super();
-        this.state = {
-            pageData: []
-        };
-    }
+// class AlreadyPurchased extends Component {
+//     constructor() {
+//         super();
+//         this.state = {
+//             pageData: []
+//         };
+//     }
 
-    componentDidMount() {
-        let pid = this.props.pid;
-        let email = this.props.email;
-        let dataURL =
-            'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid;
-        console.log(dataURL);
+//     componentDidMount() {
+//         let pid = this.props.pid;
+//         let email = this.props.email;
+//         let dataURL =
+//             'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid;
+//         console.log(dataURL);
 
-            fetch(dataURL)
-                .then(res => res.json())
-                .then(res => {
-                    this.setState({
-                        pageData: res
-                    });
-                });
+//             fetch(dataURL)
+//                 .then(res => res.json())
+//                 .then(res => {
+//                     this.setState({
+//                         pageData: res
+//                     });
+//                 });
 
 
 
-    }
+//     }
 
-    render() {
-        let purchased = this.state.pageData.purchased && this.state.pageData.purchased;
-        let sku = this.props.sku;
-        let wId = this.props.wId;
-        if (this.state.pageData.purchased && this.state.pageData.purchased > 0) {
-            return (
-                <Link
-                    className={defaultClasses.linkPurchase}
-                    to={resourceUrl('/orders?project=' + wId + '&id=' + sku)}
-                >{purchased} purchased</Link>
-            );
-        } else {
-            return (
-                <></>
-            );
-        }
+//     render() {
+//         let purchased = this.state.pageData.purchased && this.state.pageData.purchased;
+//         let sku = this.props.sku;
+//         let wId = this.props.wId;
+//         if (this.state.pageData.purchased && this.state.pageData.purchased > 0) {
+//             return (
+//                 <Link
+//                     className={defaultClasses.linkPurchase}
+//                     to={resourceUrl('/orders?project=' + wId + '&id=' + sku)}
+//                 >{purchased} purchased</Link>
+//             );
+//         } else {
+//             return (
+//                 <></>
+//             );
+//         }
 
-    }
-}
+//     }
+// }
 
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
@@ -1804,7 +1804,7 @@ const MyWishList = props => {
 
                                                                             </div>
                                                                             )}
-                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
+                                                                            {/* <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} /> */}
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
