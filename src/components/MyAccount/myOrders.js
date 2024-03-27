@@ -498,6 +498,7 @@ const MyOrders = props => {
                             else */
 
                             if (productReference != '') {
+                                console.log(e);
 
                                 if (productReference == e.sku) {
                                     return (
@@ -508,7 +509,9 @@ const MyOrders = props => {
                                 } else {
                                     return (
 
-                                        <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                        // <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                        <p>{e.sku}</p>
+
 
                                     );
                                 }
@@ -517,6 +520,7 @@ const MyOrders = props => {
                                 return (
 
                                     <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                    // <p>{e.sku}</p>
 
                                 );
                             }
@@ -664,6 +668,7 @@ const MyOrders = props => {
                                                                             defaultClasses.table_wrapper_head
                                                                         }
                                                                     >
+                                                                        {/* Order */}
                                                                         <li
                                                                             className={
                                                                                 defaultClasses.item +
@@ -680,6 +685,7 @@ const MyOrders = props => {
                                                                                 }
                                                                             />
                                                                         </li>
+                                                                        {/* Date */}
                                                                         <li
                                                                             className={
                                                                                 defaultClasses.item +
@@ -696,7 +702,7 @@ const MyOrders = props => {
                                                                                 }
                                                                             />
                                                                         </li>
-
+                                                                        {/* Order total */}
                                                                         <li
                                                                             className={
                                                                                 defaultClasses.item +
@@ -713,6 +719,7 @@ const MyOrders = props => {
                                                                                 }
                                                                             />
                                                                         </li>
+                                                                        {/* Status */}
                                                                         <li
                                                                             className={
                                                                                 defaultClasses.item +
@@ -729,6 +736,7 @@ const MyOrders = props => {
                                                                                 }
                                                                             />
                                                                         </li>
+                                                                        {/* Product Linked */}
                                                                         <li
                                                                             className={
                                                                                 defaultClasses.item +
@@ -744,7 +752,7 @@ const MyOrders = props => {
                                                                                     'Products linked to this project'
                                                                                 }
                                                                             />
-                                                                            
+
                                                                         </li>
                                                                     </ul>
                                                                     <div
@@ -763,6 +771,7 @@ const MyOrders = props => {
 
                                                                                     id={e.order_id}
                                                                                 >
+                                                                                    {/* order */}
                                                                                     <li
                                                                                         mobilelabel="Order #"
                                                                                         className={
@@ -790,7 +799,7 @@ const MyOrders = props => {
 
 
                                                                                     </li>
-
+                                                                                    {/* Date */}
                                                                                     <li
                                                                                         mobilelabel="Date"
                                                                                         className={
@@ -803,7 +812,7 @@ const MyOrders = props => {
                                                                                             e.created_at.slice(0, -3)
                                                                                         }
                                                                                     </li>
-
+                                                                                    {/* Order total */}
                                                                                     <li
                                                                                         mobilelabel="Order Total"
                                                                                         className={
@@ -817,6 +826,7 @@ const MyOrders = props => {
                                                                                         } $ */}
                                                                                         <Price value={e.grand_total} currencyCode={'CAD'} />
                                                                                     </li>
+                                                                                    {/* Status */}
                                                                                     <li
                                                                                         mobilelabel="Status"
                                                                                         className={
@@ -829,8 +839,9 @@ const MyOrders = props => {
                                                                                             e.status
                                                                                         }
                                                                                     </li>
+                                                                                    {/* Products linked */}
                                                                                     <li
-                                                                                        mobilelabel="Products found in this project"
+                                                                                        mobilelabel="Products linked to this project"
                                                                                         className={
                                                                                             defaultClasses.item +
                                                                                             ' ' +
