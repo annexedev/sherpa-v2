@@ -94,7 +94,7 @@ class ServiceDetailsEmployeurs extends Component {
             if (loading)
                 return (
                     <button type="" className={classes.add_to_project}>
-                        ADDING TO PROJECT
+                        Adding to project
                     </button>
                 );
             if (error) return `Submission error! ${error.message}`;
@@ -112,7 +112,7 @@ class ServiceDetailsEmployeurs extends Component {
                 var text = e.options[e.selectedIndex].text;
                 return text;
             }
-
+            const [, { addToast }] = useToasts();
             return (
                 <div>
                     <form
@@ -120,9 +120,16 @@ class ServiceDetailsEmployeurs extends Component {
                             e.preventDefault();
 
                             if (returnVal(uid) == 0 || returnVal(uid) == 1) {
-                                window.alert(
+
+                                addToast({
+                                    type: 'error',
+                                    message: 'Please choose or create a project.',
+                                    dismissable: true,
+                                    timeout: 4000
+                                });
+                                /*window.alert(
                                     'Please choose or create a project.'
-                                );
+                                );*/
                             } else {
                                 var loopProject = document
                                     .getElementsByClassName('c' + item_id)[0]
@@ -136,10 +143,12 @@ class ServiceDetailsEmployeurs extends Component {
                                         }
                                     });
                                 }
-
-                                window.alert(
-                                    'Product added to project ' + pname(uid)
-                                );
+                                addToast({
+                                    type: 'info',
+                                    message: 'Product added to project ' + pname(uid),
+                                    dismissable: true,
+                                    timeout: 4000
+                                });
                             }
                         }}
                     >
@@ -147,7 +156,7 @@ class ServiceDetailsEmployeurs extends Component {
                             type="submit"
                             className={classes.add_to_project}
                         >
-                            ADD TO PROJECT
+                            Add to project
                         </button>
                     </form>
                 </div>
@@ -587,7 +596,7 @@ const GalleryItem = props => {
         if (loading)
             return (
                 <button type="" className={classes.add_to_project}>
-                    ADDING TO PROJECT
+                    Adding to project
                 </button>
             );
         if (error) return `Submission error! ${error.message}`;
@@ -610,7 +619,7 @@ const GalleryItem = props => {
                     }}
                 >
                     <button type="submit" className={classes.add_to_project}>
-                        ADD TO PROJECT
+                        Add to project
                     </button>
                 </form>
             </div>

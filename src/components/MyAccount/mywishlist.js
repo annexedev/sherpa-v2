@@ -465,6 +465,7 @@ class SoldIn extends Component {
     }
 }
 
+
 class AlreadyPurchased extends Component {
     constructor() {
         super();
@@ -480,7 +481,6 @@ class AlreadyPurchased extends Component {
             'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid;
         console.log(dataURL);
 
-        setTimeout(function () {
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -488,7 +488,7 @@ class AlreadyPurchased extends Component {
                         pageData: res
                     });
                 });
-        }, 5);
+
 
 
     }
@@ -685,11 +685,19 @@ const MyWishList = props => {
             console.log(cartItems);
         }
 
+        function displayMoveToCart(isArchive) {
+            if(isArchive == 1) {
+                return;
+            } else {
+                return (<><button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /> </button><Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}><FormattedMessage id={'project.backtocart'} defaultMessage={'Go to Cart'} /></Link></>);
+            }
+        }
+
         if (wId) {
             return (
                 <>
                     <Popup
-                        trigger={<button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /> </button>}
+                        trigger={displayMoveToCart(isArchive)}
                         modal
                         nested
                     >
@@ -934,9 +942,18 @@ const MyWishList = props => {
                 <form
                     onSubmit={e => {
                         e.preventDefault();
-                        removeProject({ variables: { category_id: cid } });
-                        window.alert('Project deleted.');
-                        window.location.href = '/myprojects';
+
+                        if (confirm('This action will delete your project, are you sure?')) {
+
+                            removeProject({ variables: { category_id: cid } });
+                            window.alert('Project deleted.');
+                            window.location.href = '/myprojects';
+
+                        } else {
+
+                            console.log('Thing was not saved to the database.');
+                        }
+
                     }}
                 >
                     <button type="submit" className={classes.add_to_project}>
@@ -1645,9 +1662,9 @@ const MyWishList = props => {
                                                                                 }
                                                                             >
                                                                                 {/* --------- ICI le green pills ------- */}
-
-                                                                                <SpecialPriceTo pid={val.product.id} />
-
+                                                                                {isArchive != 1 && (
+                                                                                    <SpecialPriceTo pid={val.product.id} />
+                                                                                )}
                                                                                 <Link
                                                                                     to={resourceUrl(
                                                                                         val
@@ -1720,7 +1737,9 @@ const MyWishList = props => {
                                                                                     </p>
 
                                                                                 </div>
+                                                                                {isArchive != 1 && (
                                                                                 <SpecialPrice productId={val.product.id} regularPrice={val.product.price.regularPrice.amount.value.toFixed(2)} />
+                                                                                )}
                                                                                 {/*<span
                                                                                     className={
                                                                                         classes.price_label
@@ -1736,6 +1755,7 @@ const MyWishList = props => {
                                                                                     {val.product.price.regularPrice.amount.value.toFixed(2)}
                                                                                 </span> */}
                                                                             </div>
+                                                                            {isArchive != 1 && (
                                                                             <div
                                                                                 id={
                                                                                     'q' +
@@ -1783,12 +1803,14 @@ const MyWishList = props => {
                                                                                 </span>
 
                                                                             </div>
-                                                                            {/* <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} /> */}
+                                                                            )}
+                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
                                                                                 }
                                                                             >
+                                                                                {isArchive != 1 && (
                                                                                 <div
                                                                                     className={
                                                                                         classes.add_btn_wrap
@@ -2145,6 +2167,7 @@ const MyWishList = props => {
                                                                                             </>
                                                                                         )}
                                                                                 </div>
+                                                                                )}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -2310,7 +2333,7 @@ const MyWishList = props => {
                                                 <FormattedMessage
                                                     id={'myWishlist.page_title'}
                                                     defaultMessage={
-                                                        'MyProjects (loading)'
+                                                        'My Projects (loading)'
                                                     }
                                                 />
                                             </span>

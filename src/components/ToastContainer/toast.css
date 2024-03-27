@@ -64,7 +64,8 @@
 
 .errorToast {
     composes: root;
-    border-bottom: 4px solid error;
+    border-bottom: 4px solid black;
+    background-color: red;
 }
 
 .errorToast > .icon {

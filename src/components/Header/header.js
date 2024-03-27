@@ -51,7 +51,7 @@ class ProjectLink extends Component {
 
         let grantAccess =
             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
-        //console.log(grantAccess);
+        
         fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
@@ -83,6 +83,59 @@ class ProjectLink extends Component {
                         </span>
                         <span title="MyProjects">{heartIcon}</span>
                     </Link>
+                );
+            } else {
+                return <></>;
+            }
+        };
+
+        return (
+            <React.Fragment>
+                <ProjectItems />
+            </React.Fragment>
+        );
+    }
+}
+
+class ProjectLinkTopBar extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageDataAccess: [],
+            name: 'React Component reload sample',
+            reload: false
+        };
+    }
+
+    componentDidMount() {
+        let pid = this.props.pid;
+
+        let grantAccess =
+            'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
+        
+        fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageDataAccess: res
+                });
+            });
+    }
+
+    render() {
+        const classes = mergeClasses(defaultClasses);
+
+        const ProjectItems = props => {
+            if (this.state.pageDataAccess['access'] == 1) {
+                return (
+                    <>
+                        <Link className={classes.contactus} to={resourceUrl('/myprojects')}>
+                            <FormattedMessage
+                                id={'header.MyProjects'}
+                                defaultMessage={'MyProjects'}
+                            />
+                        </Link> |&nbsp;
+                    </>
                 );
             } else {
                 return <></>;
@@ -254,6 +307,7 @@ const Header = props => {
                                         >
                                             Bienvenue {currentUser.firstname}{' '}
                                             {currentUser.lastname} |{' '}
+                                            <ProjectLinkTopBar pid={email} />
                                             <Link className={classes.contactus} to={resourceUrl('/contact')}>
                                                 Nous joindre
                                             </Link>
@@ -295,6 +349,7 @@ const Header = props => {
                                         >
                                             Welcome {currentUser.firstname}{' '}
                                             {currentUser.lastname} |{' '}
+                                            <ProjectLinkTopBar pid={email} />
                                             <Link className={classes.contactus} to={resourceUrl('/contact')}>
                                                 Contact us
                                             </Link>

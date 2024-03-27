@@ -5,6 +5,17 @@
     bottom: 0;
     right: 0;
 }
+.printThis 
+    {
+        border: 1px solid var(--primary-dark-color);
+        color: var(--primary-dark-color);
+        display: inline-flex;
+        padding: 10px 30px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: 0.3s all;
+    }
+
 .column {
     background-color: var(--primary-light-color);
     box-shadow: var(--primary-box-shadow);
@@ -103,7 +114,7 @@ span.print_link {
 }
 ul.order_view li,
 ul.order_view li span {
-    flex: 0 0 20%;
+    flex: 0 0 16%;
     padding: 0;
     color: var(--primary-text-color);
     text-overflow: ellipsis;

@@ -59,7 +59,7 @@
     "cartPage.headingWithoutProjects":"Products in your cart",
     "cartPage.headingWithProjects":"Products from projects",
     "cartPage.price":"YOUR COST",
-    "cartPage.quantityExceeded":"Quantity exceeded",
+    "cartPage.quantityExceeded":"Exceeds your planned qty",
     "cartPage.products":" products",
     "cartPage.product":" product",
     "cartPage.taxSummary":" Estimated tax",
@@ -265,6 +265,7 @@
     "invoice.order_PaymentMethod":"Payment Method",
     "MyDownloadableProduct.Downloadable":"My Downloadable",
     "myOrders.page_title":"My Order",
+    "myOrders.purchasedTitle": "Products linked to this Project - " ,
     "myOrders.Order":"Order #",
     "myOrders.Date":"Date",
     "myOrders.ShipTo":"Ship To",
@@ -293,7 +294,7 @@
     "myOrderView.ShippingMethod":"Shipping Method",
     "myOrderView.BillingAddress":"Billing Address",
     "myOrderView.PaymentMethod":"Payment Method",
-    "myWishlist.page_title":"My Wish List",
+    "myWishlist.page_title":"My Project",
     "myWishlist.moveToCartBtn":"Move all to cart",
     "myWishlist.noResult_text":"You have no items saved in wishlist.",
     "newAddress.page_title":"Edit Account Information",
@@ -520,6 +521,8 @@
     "shipping.useMethod":"Use Method",
     "shipping.cancel":"Cancel",
     "checkoutPage.orderSummary":"Order summary",
-    "forgotPassword.email":"Email Address"
+    "forgotPassword.email":"Email Address",
+    "forgotPassword.password": "Password",
+    "forgotPassword.confirmPassword": "Confirm Password"
 
 }

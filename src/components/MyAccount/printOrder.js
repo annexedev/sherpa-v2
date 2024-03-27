@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { shape, string } from 'prop-types';
 import Classes from './myAccount.css';
 import defaultClasses from './myOrderView.css';
 import { useOrderDetails } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 import OrderDetailsQuery from '../../queries/getOrderDetails.graphql';
-import { Redirect } from 'src/drivers';
+import { Redirect,Link } from 'src/drivers';
 import { FormattedMessage } from 'react-intl';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { useParams } from 'react-router-dom';
@@ -24,6 +24,39 @@ const PrintOrder = () => {
         return <Redirect to="/" />;
     }
 
+    class ProjectOrder extends Component {
+        constructor() {
+            super();
+            this.state = {
+                pageData: []
+            };
+        }
+    
+        componentDidMount() {
+            let order_id = this.props.order_id;
+            let item_id = this.props.item_id;
+            let dataURL =
+                'https://data.sherpagroupav.com/get_projet_by_order.php?order_id=' + order_id + '&item_id=' + item_id;
+            
+            fetch(dataURL)
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        pageData: res
+                    });
+                });
+        }
+    
+        render() {
+            let orderProject = this.state.pageData.orderProject && this.state.pageData.orderProject;
+            return (
+                <React.Fragment>
+                    <span className={defaultClasses.action+' '+defaultClasses.back} dangerouslySetInnerHTML={{__html: orderProject}}></span>
+                </React.Fragment>
+            );
+        }
+    }
+
     return (
         <div className={defaultClasses.columns}>
             <div className="container">
@@ -38,6 +71,42 @@ const PrintOrder = () => {
                                         defaultClasses.print_order_wrapper
                                     }
                                 >
+
+                                        <div
+                                            className={
+                                                defaultClasses.actions_toolbar +
+                                                ' ' +
+                                                defaultClasses.order_actions_toolbar
+                                            }
+                                        >
+                                            <div
+                                                className={
+                                                    defaultClasses.actions +
+                                                    ' ' +
+                                                    defaultClasses.print
+                                                }
+                                            >
+                                               
+                                                <span
+                                                    className={
+                                                        defaultClasses.action
+                                                    }
+                                                >
+                                                    <button onClick={() => window.print()} className={defaultClasses.printThis} >
+                                                        <FormattedMessage
+                                                            id={
+                                                                'myOrderView.PrintOrder'
+                                                            }
+                                                            defaultMessage={
+                                                                'Print Order'
+                                                            }
+                                                        />
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    
                                     <div
                                         className={
                                             defaultClasses.print_page_title +
@@ -228,6 +297,22 @@ const PrintOrder = () => {
                                                             }
                                                             defaultMessage={
                                                                 'Qty'
+                                                            }
+                                                        />
+                                                    </li>
+                                                    <li
+                                                        className={
+                                                            defaultClasses.subtotal +
+                                                            ' ' +
+                                                            Classes.item
+                                                        }
+                                                    >
+                                                        <FormattedMessage
+                                                            id={
+                                                                'myOrderView.associated'
+                                                            }
+                                                            defaultMessage={
+                                                                'Associated with project'
                                                             }
                                                         />
                                                     </li>
@@ -443,6 +528,19 @@ const PrintOrder = () => {
                                                                                     </li>
                                                                                 )}
                                                                         </ul>
+                                                                    </li>
+                                                                    <li
+                                                                        className={
+                                                                            'col' +
+                                                                            ' ' +
+                                                                            defaultClasses.sku
+                                                                        }
+                                                                        data-th="Associated"
+                                                                    >
+                                                                        
+
+                                                                        <ProjectOrder item_id={val.id} order_id={orderProps.orderId} />
+
                                                                     </li>
                                                                     <li
                                                                         className={
