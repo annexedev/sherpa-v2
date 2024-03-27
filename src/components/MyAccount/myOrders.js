@@ -736,7 +736,15 @@ const MyOrders = props => {
                                                                                 defaultClasses.head_item
                                                                             }
                                                                         >
-                                                                            Products found in this Project
+                                                                            <FormattedMessage
+                                                                                id={
+                                                                                    'myOrders.ProductsLinked'
+                                                                                }
+                                                                                defaultMessage={
+                                                                                    'Products linked to this project'
+                                                                                }
+                                                                            />
+                                                                            
                                                                         </li>
                                                                     </ul>
                                                                     <div
@@ -804,7 +812,7 @@ const MyOrders = props => {
                                                                                             defaultClasses.body_item
                                                                                         }
                                                                                     >
-                                                                                         {/* {
+                                                                                        {/* {
                                                                                             e.grand_total
                                                                                         } $ */}
                                                                                         <Price value={e.grand_total} currencyCode={'CAD'} />

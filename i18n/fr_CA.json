@@ -312,6 +312,7 @@
     "myOrders.ShipTo": "Envoyez à",
     "myOrders.OrderTotal": "Total de la commande",
     "myOrders.Status": "Statut",
+    "myOrders.ProductsLinked":"Produits liés à ce projet",
     "myOrders.Action": "Bon de commande",
     "myOrders.ViewOrder": "Voir la commande",
     "myOrders.noOrderMessage": "Vous n'avez aucune commande.",
