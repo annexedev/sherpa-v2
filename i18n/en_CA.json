@@ -6,6 +6,7 @@
     "project.archive":"Archive current project",
     "project.delete":"Delete current project",
     "project.movetocart":"Move project to Cart",
+    "project.noItems": "No items in your project!",
     "project.movecontent":"This will send your entire projects contents to the Shopping Cart.",
     "project.moveproceed":"Do you want to proceed?",
     "project.yes":"Yes",

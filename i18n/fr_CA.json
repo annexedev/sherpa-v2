@@ -6,6 +6,7 @@
     "project.archive":"Archiver le projet",
     "project.delete":"Supprimer le projet",
     "project.movetocart":"Déplacer le projet au panier",
+    "project.noItems": "Aucun élément dans votre projet!",
     "project.movecontent":"Envoyer l’intégralité du contenu de votre projet au panier.",
     "project.moveproceed":"Voulez-vous poursuivre?",
     "project.yes":"Oui",

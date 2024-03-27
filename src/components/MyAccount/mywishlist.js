@@ -177,7 +177,7 @@ class TotalProjet extends Component {
         } else if (itemCount == 0) {
             return (
                 <>
-                    <div className={defaultClasses.blocQntProduits}><h2>No items in your project!</h2></div>
+                    <div className={defaultClasses.blocQntProduits}><FormattedMessage id={'project.noItems'} defaultMessage={'No items in your project!'} /></div>
                 </>
             );
         }
@@ -848,7 +848,7 @@ const MyWishList = props => {
 
                             window.alert('New project created.');
                             setSelectValue(999);
-                            //window.location.reload();
+                            window.location.reload();
                         }}
                     >
                         Create new project
@@ -1733,7 +1733,7 @@ const MyWishList = props => {
                                                                                         val.product.sku
                                                                                     }
                                                                                     <p>
-                                                                                        <SoldIn pid={val.product.id} />
+                                                                                        {/* <SoldIn pid={val.product.id} /> */}
                                                                                     </p>
 
                                                                                 </div>
