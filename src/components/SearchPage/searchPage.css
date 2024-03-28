@@ -16,10 +16,11 @@
 .noResult {
     display: flex;
     border-bottom: 1px solid var(--primary-slider-nav-color);
-    padding: 10px;
+    padding: 30px;
     color: var(--primary-slider-nav-color);
     width: 100%;
     align-items: center;
+    justify-content: center;
 }
 .noResult_icon svg,
 .noResult_text {

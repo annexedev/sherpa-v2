@@ -189,8 +189,6 @@ class TotalProjet extends Component {
     }
 }
 
-
-
 class ProjectName extends Component {
     constructor() {
         super();
@@ -518,6 +516,8 @@ const titleIcon = <Icon src={ArrowUp} size={24} />;
 const MyWishList = props => {
 
     const [seed, setSeed] = useState(1);
+    const [hasProduct, setHasProduct] = useState(false)
+
 
     const reset = () => {
         setSeed(Math.random());
@@ -686,7 +686,7 @@ const MyWishList = props => {
         }
 
         function displayMoveToCart(isArchive) {
-            if(isArchive == 1) {
+            if (isArchive == 1) {
                 return;
             } else {
                 return (<><button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /> </button><Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}><FormattedMessage id={'project.backtocart'} defaultMessage={'Go to Cart'} /></Link></>);
@@ -1439,6 +1439,11 @@ const MyWishList = props => {
 
         // console.log('mobileView'+mobileView);
 
+        let wrapperProject = document.getElementById("productsWrapper");
+        console.log(wrapperProject, 'je suis iciiiiiii!!!!!!!!!!!');
+
+
+
         return (
             <div className={defaultClasses.columns}>
                 <Title>{`MyProjects`}</Title>
@@ -1519,38 +1524,38 @@ const MyWishList = props => {
                                         }
                                     >
                                         {typeof data != 'undefined' && (
+                                            
                                             <>
                                                 <div
                                                     className={
                                                         classes.products_wrapper
                                                     }
+                                                    id="productsWrapper"
                                                 >
                                                     {data.map((val, index) => {
+
 
                                                         function belongToProject(
                                                             pid,
                                                             cid
                                                         ) {
-                                                            let projectQty = 0;
                                                             
                                                             let dataURL =
                                                                 'https://data.sherpagroupav.com/get_belongs.php?pid=' +
                                                                 pid +
                                                                 '&cid=' +
                                                                 cid;
-
-
-
                                                             fetch(dataURL)
                                                                 .then(res =>
                                                                     res.json()
                                                                 )
                                                                 .then(res => {
+                                                                    
+
                                                                     if (
                                                                         res.display == 1
                                                                     ) {
-                                                                        projectQty = res.qty;
-                                                                        console.log('projectQty ' + pid + ' ' + cid)
+                                                                        // console.log('projectQty ' + pid + ' ' + cid)
                                                                         //document.getElementById('.q'+val.id+' #quantity').value=val.qty;
                                                                         //var targetDiv = getElementsByClassName('q'+val.id).document.getElementById("quantity")[0];
                                                                         //targetDiv.value = val.qty;
@@ -1562,6 +1567,7 @@ const MyWishList = props => {
                                                                         );
 
                                                                         if (checkExisting) {
+                                                                            setHasProduct(true);
 
                                                                             document.getElementById(
                                                                                 't' +
@@ -1609,31 +1615,32 @@ const MyWishList = props => {
                                                                         ) + '$';*/
 
 
-
                                                                     } else {
                                                                         var toBeRemoved = document.getElementById('t' + pid);
 
                                                                         if (toBeRemoved) {
                                                                             document.getElementById('t' + pid).remove();
-                                                                        }
 
+                                                                        }
 
                                                                     }
                                                                 });
-                                                                // console.log('returned' + projectQty);
+                                                            // console.log('returned' + projectQty);
                                                             return 1;
                                                         }
+                                                        // verifier si il y a des enfants
+                                                        let wrapperProjects = document.getElementById("productsWrapper")
+                                                        console.log(belongToProject(
+                                                            val.product.id,
+                                                            wId
+                                                        ),'belong');
 
-                                                        // console.log(val.product.id);
-                                                        // console.log(wId);
-
-
-
+                                                
                                                         if (
                                                             belongToProject(
                                                                 val.product.id,
                                                                 wId
-                                                            )
+                                                            ) 
                                                         ) {
                                                             return (
                                                                 <>
@@ -1738,7 +1745,7 @@ const MyWishList = props => {
 
                                                                                 </div>
                                                                                 {isArchive != 1 && (
-                                                                                <SpecialPrice productId={val.product.id} regularPrice={val.product.price.regularPrice.amount.value.toFixed(2)} />
+                                                                                    <SpecialPrice productId={val.product.id} regularPrice={val.product.price.regularPrice.amount.value.toFixed(2)} />
                                                                                 )}
                                                                                 {/*<span
                                                                                     className={
@@ -1756,53 +1763,53 @@ const MyWishList = props => {
                                                                                 </span> */}
                                                                             </div>
                                                                             {isArchive != 1 && (
-                                                                            <div
-                                                                                id={
-                                                                                    'q' +
-                                                                                    val.id
-                                                                                }
-                                                                                className={
-                                                                                    classes.wishlist_quantity
-                                                                                }
-                                                                            >
-
-                                                                                <RealQuantity cid={wId} pid={val.product.id} wid={val.id} />
-
-                                                                                <span
+                                                                                <div
+                                                                                    id={
+                                                                                        'q' +
+                                                                                        val.id
+                                                                                    }
                                                                                     className={
-                                                                                        classes.delete_icon
+                                                                                        classes.wishlist_quantity
                                                                                     }
                                                                                 >
-                                                                                    <button
-                                                                                        id={
-                                                                                            val
-                                                                                                .product
-                                                                                                .id
-                                                                                        }
-                                                                                        onClick={() =>
-                                                                                            remove(
-                                                                                                val
-                                                                                                    .product
-                                                                                                    .id,
-                                                                                                val.id
-                                                                                            )
+
+                                                                                    <RealQuantity cid={wId} pid={val.product.id} wid={val.id} />
+
+                                                                                    <span
+                                                                                        className={
+                                                                                            classes.delete_icon
                                                                                         }
                                                                                     >
-                                                                                        <span
-                                                                                            className={
-                                                                                                classes.delete_text
+                                                                                        <button
+                                                                                            id={
+                                                                                                val
+                                                                                                    .product
+                                                                                                    .id
+                                                                                            }
+                                                                                            onClick={() =>
+                                                                                                remove(
+                                                                                                    val
+                                                                                                        .product
+                                                                                                        .id,
+                                                                                                    val.id
+                                                                                                )
                                                                                             }
                                                                                         >
-                                                                                            <FontAwesomeIcon
-                                                                                                icon={
-                                                                                                    faTrashAlt
+                                                                                            <span
+                                                                                                className={
+                                                                                                    classes.delete_text
                                                                                                 }
-                                                                                            />
-                                                                                        </span>
-                                                                                    </button>
-                                                                                </span>
+                                                                                            >
+                                                                                                <FontAwesomeIcon
+                                                                                                    icon={
+                                                                                                        faTrashAlt
+                                                                                                    }
+                                                                                                />
+                                                                                            </span>
+                                                                                        </button>
+                                                                                    </span>
 
-                                                                            </div>
+                                                                                </div>
                                                                             )}
                                                                             {/* <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} /> */}
                                                                             <div
@@ -1811,75 +1818,75 @@ const MyWishList = props => {
                                                                                 }
                                                                             >
                                                                                 {isArchive != 1 && (
-                                                                                <div
-                                                                                    className={
-                                                                                        classes.add_btn_wrap
-                                                                                    }
-                                                                                >
-                                                                                    {val
-                                                                                        .product
-                                                                                        .__typename ==
-                                                                                        'SimpleProduct' && (
-                                                                                            <>
-                                                                                                <button
-                                                                                                    id={'btn_move_' + val.product.id}
-                                                                                                    className={
-                                                                                                        'active_item' +
-                                                                                                        wId
-                                                                                                    }
-                                                                                                    onClick={() => {
-
-                                                                                                        var currentQty = document
-                                                                                                            .querySelector(
-                                                                                                                '#q' +
-                                                                                                                val.id
-                                                                                                            )
-                                                                                                            .querySelector(
-                                                                                                                'input'
-                                                                                                            )
-                                                                                                            .value;
-
-                                                                                                        const tempProps = { ...val.product };
-                                                                                                        tempProps.qty = currentQty;
-                                                                                                        tempProps.qtyCategory = currentQty;
-                                                                                                        tempProps.categoryId = wId;
-                                                                                                        tempProps.categoryName = projectname;
-
-                                                                                                        console.log('coucoucoucou');
-                                                                                                        console.log(tempProps);
-
-                                                                                                        handleAddToCart(
-                                                                                                            tempProps
-                                                                                                        );
-
-                                                                                                        addToast({
-                                                                                                            type: 'info',
-                                                                                                            message: val.product.name + ' added to the cart.',
-                                                                                                            dismissable: true,
-                                                                                                            timeout: 4000
-                                                                                                        });
-
-                                                                                                        setTimeout(function () { reset(); }, 2000);
-
-
-                                                                                                    }}
-                                                                                                >
-                                                                                                    <span
+                                                                                    <div
+                                                                                        className={
+                                                                                            classes.add_btn_wrap
+                                                                                        }
+                                                                                    >
+                                                                                        {val
+                                                                                            .product
+                                                                                            .__typename ==
+                                                                                            'SimpleProduct' && (
+                                                                                                <>
+                                                                                                    <button
+                                                                                                        id={'btn_move_' + val.product.id}
                                                                                                         className={
-                                                                                                            classes.add_btn
+                                                                                                            'active_item' +
+                                                                                                            wId
                                                                                                         }
+                                                                                                        onClick={() => {
+
+                                                                                                            var currentQty = document
+                                                                                                                .querySelector(
+                                                                                                                    '#q' +
+                                                                                                                    val.id
+                                                                                                                )
+                                                                                                                .querySelector(
+                                                                                                                    'input'
+                                                                                                                )
+                                                                                                                .value;
+
+                                                                                                            const tempProps = { ...val.product };
+                                                                                                            tempProps.qty = currentQty;
+                                                                                                            tempProps.qtyCategory = currentQty;
+                                                                                                            tempProps.categoryId = wId;
+                                                                                                            tempProps.categoryName = projectname;
+
+                                                                                                            console.log('coucoucoucou');
+                                                                                                            console.log(tempProps);
+
+                                                                                                            handleAddToCart(
+                                                                                                                tempProps
+                                                                                                            );
+
+                                                                                                            addToast({
+                                                                                                                type: 'info',
+                                                                                                                message: val.product.name + ' added to the cart.',
+                                                                                                                dismissable: true,
+                                                                                                                timeout: 4000
+                                                                                                            });
+
+                                                                                                            setTimeout(function () { reset(); }, 2000);
+
+
+                                                                                                        }}
                                                                                                     >
-                                                                                                        <FormattedMessage
-                                                                                                            id={
-                                                                                                                'myWishlist.moveToCartBtn'
+                                                                                                        <span
+                                                                                                            className={
+                                                                                                                classes.add_btn
                                                                                                             }
-                                                                                                            defaultMessage={
-                                                                                                                'Move to cart'
-                                                                                                            }
-                                                                                                        />
-                                                                                                    </span>
-                                                                                                </button>
-                                                                                                {/*<button
+                                                                                                        >
+                                                                                                            <FormattedMessage
+                                                                                                                id={
+                                                                                                                    'myWishlist.moveToCartBtn'
+                                                                                                                }
+                                                                                                                defaultMessage={
+                                                                                                                    'Move to cart'
+                                                                                                                }
+                                                                                                            />
+                                                                                                        </span>
+                                                                                                    </button>
+                                                                                                    {/*<button
                                                                                                 onClick={() => {
 
                                                                                                     var x = document.getElementById('qty_item_box_'+val.id);
@@ -1985,199 +1992,199 @@ const MyWishList = props => {
                                                                                                 
                                                                                             </button> 
                                                                                             </div>*/}
-                                                                                                <button
-                                                                                                    id={'btn_move_p' + val.product.id}
-                                                                                                    onClick={() => {
+                                                                                                    <button
+                                                                                                        id={'btn_move_p' + val.product.id}
+                                                                                                        onClick={() => {
 
-                                                                                                        var x = document.getElementById('move_item_box_' + val.id);
-                                                                                                        if (window.getComputedStyle(x).display === "none") {
-                                                                                                            document.getElementById('move_item_box_' + val.id).style.display = 'block';
-                                                                                                        } else {
-                                                                                                            document.getElementById('move_item_box_' + val.id).style.display = 'none';
-                                                                                                        }
-                                                                                                    }}
-                                                                                                    className={classes.buttonMove}
-                                                                                                >
-                                                                                                    <span
+                                                                                                            var x = document.getElementById('move_item_box_' + val.id);
+                                                                                                            if (window.getComputedStyle(x).display === "none") {
+                                                                                                                document.getElementById('move_item_box_' + val.id).style.display = 'block';
+                                                                                                            } else {
+                                                                                                                document.getElementById('move_item_box_' + val.id).style.display = 'none';
+                                                                                                            }
+                                                                                                        }}
+                                                                                                        className={classes.buttonMove}
+                                                                                                    >
+                                                                                                        <span
+                                                                                                            className={
+                                                                                                                classes.move_item
+                                                                                                            }
+                                                                                                        >
+                                                                                                            <FormattedMessage
+                                                                                                                id={
+                                                                                                                    'myWishlist.moveToCartBtnPartial'
+                                                                                                                }
+                                                                                                                defaultMessage={
+                                                                                                                    'Move partial quantity to cart'
+                                                                                                                }
+                                                                                                            />
+                                                                                                            {/* <span className={classes.arrowDown}></span> */}
+                                                                                                            <FontAwesomeIcon
+                                                                                                                icon={
+                                                                                                                    faChevronDown
+                                                                                                                }
+                                                                                                            />
+
+                                                                                                        </span>
+                                                                                                    </button>
+                                                                                                    <div
+                                                                                                        id={'move_item_box_' + val.id}
+                                                                                                        className={classes.move_item_static + ' move_item_ref'}>
+                                                                                                        <Quantity
+                                                                                                            initialValue={1} isChildren={1} productId={val.id} ignore={1} /*onClick={reset} wid={wId} */
+                                                                                                        />
+                                                                                                        <button
+                                                                                                            id={'partial_' + val.product.id}
+                                                                                                            className={'move_confirm_partial'}
+                                                                                                            onClick={() => {
+                                                                                                                var currentQty = document
+                                                                                                                    .querySelector(
+                                                                                                                        '#q' +
+                                                                                                                        val.id
+                                                                                                                    )
+                                                                                                                    .querySelector(
+                                                                                                                        'input'
+                                                                                                                    )
+                                                                                                                    .value;
+
+                                                                                                                var currentQtyPartial = document
+                                                                                                                    .querySelector(
+                                                                                                                        '#move_item_box_' +
+                                                                                                                        val.id
+                                                                                                                    )
+                                                                                                                    .querySelector(
+                                                                                                                        'input'
+                                                                                                                    )
+                                                                                                                    .value;
+
+                                                                                                                console.log(isPartialQuantity);
+
+                                                                                                                const tempProps = { ...val.product };
+
+                                                                                                                if (isPartialQuantity) {
+                                                                                                                    tempProps.qty = currentQtyPartial;
+                                                                                                                }
+                                                                                                                else {
+                                                                                                                    tempProps.qty = currentQty;
+                                                                                                                }
+
+                                                                                                                tempProps.categoryId = wId;
+                                                                                                                tempProps.categoryName = projectname;
+                                                                                                                tempProps.qtyCategory = currentQty;
+
+                                                                                                                console.log('coucoucoucou');
+
+                                                                                                                handleAddToCart(
+                                                                                                                    tempProps
+                                                                                                                );
+
+                                                                                                                addToast({
+                                                                                                                    type: 'info',
+                                                                                                                    message: val.product.name + ' added to the cart.',
+                                                                                                                    dismissable: true,
+                                                                                                                    timeout: 4000
+                                                                                                                });
+
+                                                                                                            }}
+                                                                                                        >
+                                                                                                            {!mobileView && (
+                                                                                                                <span
+                                                                                                                    className={
+                                                                                                                        classes.move_confirm
+                                                                                                                    }
+                                                                                                                >
+                                                                                                                    <FormattedMessage
+                                                                                                                        id={
+                                                                                                                            'myWishlist.moveConfirm'
+                                                                                                                        }
+                                                                                                                        defaultMessage={
+                                                                                                                            'Confirm'
+                                                                                                                        }
+                                                                                                                    />
+                                                                                                                </span>
+                                                                                                            )}
+                                                                                                            {mobileView && (
+                                                                                                                <p
+                                                                                                                    className={
+                                                                                                                        classes.move_confirm
+                                                                                                                    }
+                                                                                                                >
+                                                                                                                    <FormattedMessage
+                                                                                                                        id={
+                                                                                                                            'myWishlist.moveConfirm'
+                                                                                                                        }
+                                                                                                                        defaultMessage={
+                                                                                                                            'Confirm'
+                                                                                                                        }
+                                                                                                                    />
+                                                                                                                </p>
+                                                                                                            )}
+
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                </>
+                                                                                            )}
+                                                                                        {val
+                                                                                            .product
+                                                                                            .__typename !=
+                                                                                            'SimpleProduct' && (
+                                                                                                <>
+                                                                                                    <Link
+                                                                                                        to={resourceUrl(
+                                                                                                            val
+                                                                                                                .product[
+                                                                                                            'url_key'
+                                                                                                            ] +
+                                                                                                            productUrlSuffix
+                                                                                                        )}
                                                                                                         className={
-                                                                                                            classes.move_item
+                                                                                                            classes.add_btn
                                                                                                         }
                                                                                                     >
                                                                                                         <FormattedMessage
                                                                                                             id={
-                                                                                                                'myWishlist.moveToCartBtnPartial'
+                                                                                                                'myWishlist.moveToCartBtn'
                                                                                                             }
                                                                                                             defaultMessage={
-                                                                                                                'Move partial quantity to cart'
+                                                                                                                'Move to cart'
                                                                                                             }
                                                                                                         />
-                                                                                                        {/* <span className={classes.arrowDown}></span> */}
-                                                                                                        <FontAwesomeIcon
-                                                                                                            icon={
-                                                                                                                faChevronDown
-                                                                                                            }
-                                                                                                        />
-
-                                                                                                    </span>
-                                                                                                </button>
-                                                                                                <div
-                                                                                                    id={'move_item_box_' + val.id}
-                                                                                                    className={classes.move_item_static + ' move_item_ref'}>
-                                                                                                    <Quantity
-                                                                                                        initialValue={1} isChildren={1} productId={val.id} ignore={1} /*onClick={reset} wid={wId} */
-                                                                                                    />
-                                                                                                    <button
-                                                                                                        id={'partial_' + val.product.id}
-                                                                                                        className={'move_confirm_partial'}
-                                                                                                        onClick={() => {
-                                                                                                            var currentQty = document
-                                                                                                                .querySelector(
-                                                                                                                    '#q' +
-                                                                                                                    val.id
-                                                                                                                )
-                                                                                                                .querySelector(
-                                                                                                                    'input'
-                                                                                                                )
-                                                                                                                .value;
-
-                                                                                                            var currentQtyPartial = document
-                                                                                                                .querySelector(
-                                                                                                                    '#move_item_box_' +
-                                                                                                                    val.id
-                                                                                                                )
-                                                                                                                .querySelector(
-                                                                                                                    'input'
-                                                                                                                )
-                                                                                                                .value;
-
-                                                                                                            console.log(isPartialQuantity);
-
-                                                                                                            const tempProps = { ...val.product };
-
-                                                                                                            if (isPartialQuantity) {
-                                                                                                                tempProps.qty = currentQtyPartial;
-                                                                                                            }
-                                                                                                            else {
-                                                                                                                tempProps.qty = currentQty;
-                                                                                                            }
-
-                                                                                                            tempProps.categoryId = wId;
-                                                                                                            tempProps.categoryName = projectname;
-                                                                                                            tempProps.qtyCategory = currentQty;
-
-                                                                                                            console.log('coucoucoucou');
-
-                                                                                                            handleAddToCart(
-                                                                                                                tempProps
-                                                                                                            );
-
-                                                                                                            addToast({
-                                                                                                                type: 'info',
-                                                                                                                message: val.product.name + ' added to the cart.',
-                                                                                                                dismissable: true,
-                                                                                                                timeout: 4000
-                                                                                                            });
-
-                                                                                                        }}
+                                                                                                    </Link>
+                                                                                                    <Link
+                                                                                                        to={resourceUrl(
+                                                                                                            val
+                                                                                                                .product[
+                                                                                                            'url_key'
+                                                                                                            ] +
+                                                                                                            productUrlSuffix
+                                                                                                        )}
+                                                                                                        className={
+                                                                                                            classes.add_btn
+                                                                                                        }
                                                                                                     >
-                                                                                                        {!mobileView && (
-                                                                                                            <span
-                                                                                                                className={
-                                                                                                                    classes.move_confirm
-                                                                                                                }
-                                                                                                            >
-                                                                                                                <FormattedMessage
-                                                                                                                    id={
-                                                                                                                        'myWishlist.moveConfirm'
-                                                                                                                    }
-                                                                                                                    defaultMessage={
-                                                                                                                        'Confirm'
-                                                                                                                    }
-                                                                                                                />
-                                                                                                            </span>
-                                                                                                        )}
-                                                                                                        {mobileView && (
-                                                                                                            <p
-                                                                                                                className={
-                                                                                                                    classes.move_confirm
-                                                                                                                }
-                                                                                                            >
-                                                                                                                <FormattedMessage
-                                                                                                                    id={
-                                                                                                                        'myWishlist.moveConfirm'
-                                                                                                                    }
-                                                                                                                    defaultMessage={
-                                                                                                                        'Confirm'
-                                                                                                                    }
-                                                                                                                />
-                                                                                                            </p>
-                                                                                                        )}
-
-                                                                                                    </button>
-                                                                                                </div>
-                                                                                            </>
-                                                                                        )}
-                                                                                    {val
-                                                                                        .product
-                                                                                        .__typename !=
-                                                                                        'SimpleProduct' && (
-                                                                                            <>
-                                                                                                <Link
-                                                                                                    to={resourceUrl(
-                                                                                                        val
-                                                                                                            .product[
-                                                                                                        'url_key'
-                                                                                                        ] +
-                                                                                                        productUrlSuffix
-                                                                                                    )}
-                                                                                                    className={
-                                                                                                        classes.add_btn
-                                                                                                    }
-                                                                                                >
-                                                                                                    <FormattedMessage
-                                                                                                        id={
-                                                                                                            'myWishlist.moveToCartBtn'
-                                                                                                        }
-                                                                                                        defaultMessage={
-                                                                                                            'Move to cart'
-                                                                                                        }
-                                                                                                    />
-                                                                                                </Link>
-                                                                                                <Link
-                                                                                                    to={resourceUrl(
-                                                                                                        val
-                                                                                                            .product[
-                                                                                                        'url_key'
-                                                                                                        ] +
-                                                                                                        productUrlSuffix
-                                                                                                    )}
-                                                                                                    className={
-                                                                                                        classes.add_btn
-                                                                                                    }
-                                                                                                >
-                                                                                                    <FormattedMessage
-                                                                                                        id={
-                                                                                                            'myWishlist.moveToCartBtn'
-                                                                                                        }
-                                                                                                        defaultMessage={
-                                                                                                            'Move to cart'
-                                                                                                        }
-                                                                                                    />
-                                                                                                </Link>
-                                                                                            </>
-                                                                                        )}
-                                                                                </div>
+                                                                                                        <FormattedMessage
+                                                                                                            id={
+                                                                                                                'myWishlist.moveToCartBtn'
+                                                                                                            }
+                                                                                                            defaultMessage={
+                                                                                                                'Move to cart'
+                                                                                                            }
+                                                                                                        />
+                                                                                                    </Link>
+                                                                                                </>
+                                                                                            )}
+                                                                                    </div>
                                                                                 )}
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </>
                                                             );
-                                                        } else {
-                                                            return <><div>Return here!!!!!!!</div></>;
                                                         }
                                                     })}
-                                                    {data && (
+
+                                                    
+                                                    {!hasProduct && (
                                                         <div
                                                             className={
                                                                 searchClasses.noResult
