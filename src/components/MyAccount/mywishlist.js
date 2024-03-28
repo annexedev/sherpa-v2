@@ -2044,7 +2044,10 @@ const MyWishList = props => {
                                                                                                         />
                                                                                                         <button
                                                                                                             id={'partial_' + val.product.id}
-                                                                                                            className={'move_confirm_partial'}
+                                                                                                            // className={'move_confirm_partial'}
+                                                                                                            className={
+                                                                                                                classes.move_confirm
+                                                                                                            }
                                                                                                             onClick={() => {
                                                                                                                 var currentQty = document
                                                                                                                     .querySelector(
@@ -2098,9 +2101,10 @@ const MyWishList = props => {
                                                                                                         >
                                                                                                             {!mobileView && (
                                                                                                                 <span
-                                                                                                                    className={
-                                                                                                                        classes.move_confirm
-                                                                                                                    }
+                                                                                                                    // className={
+                                                                                                                    //     classes.move_confirm
+                                                                                                                    // }
+                                                                                                                    // style={{backgroundColor:'yellow', width:'200px', height:'200px'}}
                                                                                                                 >
                                                                                                                     <FormattedMessage
                                                                                                                         id={
@@ -2114,9 +2118,8 @@ const MyWishList = props => {
                                                                                                             )}
                                                                                                             {mobileView && (
                                                                                                                 <p
-                                                                                                                    className={
-                                                                                                                        classes.move_confirm
-                                                                                                                    }
+                                                                                                                    
+                                                                                                                    // style={{backgroundColor:'yellow', width:'200px', height:'200px'}}
                                                                                                                 >
                                                                                                                     <FormattedMessage
                                                                                                                         id={
