@@ -511,7 +511,7 @@
     "shippingForm.loading":"Loading Methods...",
     "shippingForm.getOption":"Get Shipping Options",
     "priceSummary.Total":"Total",
-    "priceSummary.estimatedTotal":"Estimated Total",
+    "priceSummary.estimatedTotal":"Subtotal",
     "product.Removefav":"Remove from favorites",
     "product.movefav":"Move to favorites",
     "product.removeCart":"Remove from cart",

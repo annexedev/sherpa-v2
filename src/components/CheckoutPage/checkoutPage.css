@@ -21,11 +21,20 @@
 .totalEstime{
     display: flex;
     justify-content: space-between;
-    padding: 10px 50px;
+    padding: 5px 15px;
 }
 .totalEstime span {
-    font-size: 20px !important;
-    font-weight: 500 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+.totalEstimeBold{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+.totalEstimeBold span{
+    font-size: 18px !important;
+    font-weight: 600 !important;
 }
 .price {
     justify-self: end;

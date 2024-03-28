@@ -137,8 +137,10 @@ const CheckoutPage = props => {
     } = talonPropsPrice;
 
 
-    // console.log('CHECKOUT!!!!!!!!!', flatData);
-    // const total = flatData
+    const total = Number(flatData.taxes) + Number(flatData.total.value);
+    console.log('CHECKOUT', flatData);
+
+    
 
     // const cartItemsJSON = cartItems.map(item => {
 
@@ -540,11 +542,11 @@ const CheckoutPage = props => {
                             <span className={classes.totalLabel}>
                                 {formatMessage({
                                     id: 'priceSummary.estimatedTotal',
-                                    defaultMessage: 'Estimated Total'
+                                    defaultMessage: 'Subtotal'
                                 })}
                             </span>
                             <span>
-                                <Price value={flatData.total.value} currencyCode={flatData.total.currency} />
+                                <Price value={flatData.subtotal.value} currencyCode={flatData.total.currency} />
                             </span>
                         </div>
                         <div className={classes.totalEstime}>
@@ -557,6 +559,17 @@ const CheckoutPage = props => {
                                 data={flatData.taxes}
                                 isCheckout={isCheckout}
                             />
+                        </div>
+                        <div className={classes.totalEstimeBold}>
+                        <span className={classes.totalLabel}>
+                                {formatMessage({
+                                    id: 'priceSummary.Total',
+                                    defaultMessage: 'Total'
+                                })}
+                            </span>
+                            <span>
+                                <Price value={flatData.total.value} currencyCode={flatData.total.currency} />
+                            </span>
                         </div>
                         <div className={classes.items_review_container_buttons}>
                             {checkoutStep === CHECKOUT_STEP.REVIEW && (
