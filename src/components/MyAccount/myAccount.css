@@ -338,6 +338,11 @@ form.root input:focus {
     flex-wrap:wrap;
     justify-content: space-between;
 }
+.wrapperGauche{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
 .project_dropdown{
 
 }

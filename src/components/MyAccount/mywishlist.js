@@ -1515,12 +1515,13 @@ const MyWishList = props => {
                                     {wId !== undefined && wId !== null && (
                                         <>
                                             <div className={defaultClasses.wrapperBtnDropdown}>
-
+                                                <div className={defaultClasses.wrapperGauche}>
                                                 <Link
                                                     className={defaultClasses.btnPurchase}
                                                     to={resourceUrl('/orders?project=' + wId)}
                                                 ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'} /></Link>
                                                 <RestoreProject cid={wId} />
+                                                </div>
                                                 <MoveToCart uid={wId} />
                                             </div>
                                         </>
