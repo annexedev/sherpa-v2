@@ -530,6 +530,8 @@ const MyWishList = props => {
 
     const myprojects = url.includes("?id");
 
+    // console.log(myprojects, 'myprojects');
+
     const [, { addToast }] = useToasts();
     const classes = mergeClasses(
         defaultClasses,
@@ -2189,9 +2191,8 @@ const MyWishList = props => {
                                                             );
                                                         }
                                                     })}
-
                                                     
-                                                    {!hasProduct && typeof data == 'undefined' && (
+                                                    {!hasProduct && myprojects && (
                                                         <div
                                                             className={
                                                                 searchClasses.noResult
