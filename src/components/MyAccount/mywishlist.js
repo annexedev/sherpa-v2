@@ -690,11 +690,13 @@ const MyWishList = props => {
                 return;
             } else {
                 return (
-                    <button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /> </button>
-                    // <Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}>
-                    //  <FormattedMessage id={'project.backtocart'} defaultMessage={'Go to Cart'} />
-                    // </Link>
-                    );
+                    <div className={classes.wrapperMoveToCart}>
+                    <button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /></button>
+                    <Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}>
+                     <FormattedMessage id={'project.backtocart'} defaultMessage={'Go to Cart'} />
+                    </Link>
+                    </div>
+                );
             }
         }
 
