@@ -1477,7 +1477,7 @@ const MyWishList = props => {
                                         defaultClasses.account_contentBar
                                     }
                                 >
-                                    {myprojects &&
+                                    {myprojects && wId !== undefined &&
                                         <div
                                             className={
                                                 defaultClasses.page_title_wrapper
@@ -2191,7 +2191,7 @@ const MyWishList = props => {
                                                     })}
 
                                                     
-                                                    {!hasProduct && (
+                                                    {!hasProduct && typeof data == 'undefined' && (
                                                         <div
                                                             className={
                                                                 searchClasses.noResult
@@ -2229,7 +2229,7 @@ const MyWishList = props => {
                                                 </div>
                                             </>
                                         )}
-                                        {typeof data == 'undefined' && (
+                                        {/* {typeof data == 'undefined' && (
                                             <div
                                                 className={
                                                     searchClasses.noResult
@@ -2263,7 +2263,7 @@ const MyWishList = props => {
                                                     />
                                                 </span>
                                             </div>
-                                        )}
+                                        )} */}
 
                                         {wId == undefined && (
                                             <>
