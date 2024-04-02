@@ -5,6 +5,7 @@ import { Minus as MinusIcon, Plus as PlusIcon, AlertTriangle as Warning } from '
 import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
 import { useProduct } from 'src/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price } from '@magento/peregrine';
+import { Util } from '@magento/peregrine';
 import { gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
@@ -33,6 +34,16 @@ export const QuantityFields = props => {
         wid
     });
 
+
+    const { BrowserPersistence } = Util;
+    const storage = new BrowserPersistence();
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    } else {
+        storeview = storeview;
+    }
+    console.log( typeof storeview);
     //console.log('PROD ID : '+productId+' '+wid);
 
     const initialPrice = item ? item.product.price_range.maximum_price.regular_price.value : '';
@@ -146,11 +157,11 @@ export const QuantityFields = props => {
                                 defaultMessage={'YOUR COST'}
                             /> 
                         </p>
-                        <p className={classes.priceWithDiscount}>{price} $</p>
+                        {storeview === 'en' ?  <p className={classes.priceWithDiscount}>${price} </p> : <p className={classes.priceWithDiscount}>{price} $</p>}
                         {/* <p className={classes.priceWithDiscount}><Price value={price} currencyCode={'CAD'} /></p> */}
 
                         {ProduitDiscount && initialPrice !== finalPrice &&
-                            <p className={classes.initialPrice}>{initialPrice} $</p>
+                           storeview === 'en' ? <p className={classes.initialPrice}>${initialPrice} </p> : <p className={classes.initialPrice}>{initialPrice} $</p> 
                             // <Price value={initialPrice} currencyCode={'CAD'} className={classes.initialPrice} />
                         }
                     </div>
