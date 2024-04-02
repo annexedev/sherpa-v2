@@ -78,7 +78,7 @@ const CartPage = props => {
     } = wishlistProps;
 
 
-    const [productsWithoutProject, setProductsWithoutProject] = useState(false);
+    const [productsWithoutProject, setProductsWithoutProject] = useState(true);
     // const [productsWithProject, setProductsWithProject] = useState(false);
     const [openProjects, setOpenProjects] = useState({});
 

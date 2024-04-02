@@ -152,11 +152,13 @@ class TotalProjet extends Component {
 
     componentDidMount() {
         let cid = this.props.cid;
+        console.log(cid);
         let dataURL = 'https://data.sherpagroupav.com/get_projecttotal.php?cid=' + cid;
-        console.log(dataURL);
+        // console.log(dataURL);
         fetch(dataURL)
             .then(res => res.json())
             .then(res => {
+                console.log(res);
                 this.setState({
                     pageData: res
                 });
@@ -165,8 +167,8 @@ class TotalProjet extends Component {
     }
 
     render() {
-        let itemCount = this.state.pageData.itemCount && this.state.pageData.itemCount;
-        let priceTotal = this.state.pageData.priceTotal && this.state.pageData.priceTotal;
+        let itemCount = this.state.pageData.itemCount;
+        let priceTotal = this.state.pageData.priceTotal;
         if (itemCount && itemCount > 0) {
             return (
                 <>
