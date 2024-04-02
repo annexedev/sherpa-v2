@@ -469,7 +469,7 @@ const MyOrderView = props => {
                                             >
                                                 <ul
                                                     className={
-                                                        Classes.table_wrapper_head +
+                                                        Classes.table_wrapper_head_checkout +
                                                         ' ' +
                                                         defaultClasses.table_head
                                                     }
@@ -579,7 +579,7 @@ const MyOrderView = props => {
                                                 </ul>
                                                 <div
                                                     className={
-                                                        Classes.table_wrapper_body
+                                                        Classes.table_wrapper_body_checkout
                                                     }
                                                 >
                                                     {data.items.map(
@@ -686,7 +686,7 @@ const MyOrderView = props => {
                                                                                     defaultClasses.item
                                                                                 }
                                                                             >
-                                                                                <span
+                                                                                {/* <span
                                                                                     className={
                                                                                         defaultClasses.title
                                                                                     }
@@ -694,7 +694,7 @@ const MyOrderView = props => {
                                                                                     {
                                                                                         'Ordered : '
                                                                                     }{' '}
-                                                                                </span>
+                                                                                </span> */}
                                                                                 <span
                                                                                     className={
                                                                                         defaultClasses.content
