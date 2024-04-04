@@ -34,6 +34,9 @@ export const QuantityFields = props => {
         wid
     });
 
+    const initialPrice = item ? item.product.price_range.maximum_price.regular_price.value : '';
+    const finalPrice = item ? item.product.price_range.maximum_price.final_price.value : '';
+
 
     const { BrowserPersistence } = Util;
     const storage = new BrowserPersistence();
@@ -43,13 +46,11 @@ export const QuantityFields = props => {
     } else {
         storeview = storeview;
     }
-    console.log( typeof storeview);
+    console.log(storeview);
     //console.log('PROD ID : '+productId+' '+wid);
 
-    const initialPrice = item ? item.product.price_range.maximum_price.regular_price.value : '';
-    const finalPrice = item ? item.product.price_range.maximum_price.final_price.value : '';
 
-    // console.log(initialPrice);
+    console.log(initialPrice, finalPrice);
 
 
 
@@ -157,12 +158,18 @@ export const QuantityFields = props => {
                                 defaultMessage={'YOUR COST'}
                             /> 
                         </p>
-                        {storeview === 'en' ?  <p className={classes.priceWithDiscount}>${price} </p> : <p className={classes.priceWithDiscount}>{price} $</p>}
+                        {storeview === 'en' 
+                        ?  <p className={classes.priceWithDiscount}>${price} </p> 
+                        : <p className={classes.priceWithDiscount}>{price} $</p>}
                         {/* <p className={classes.priceWithDiscount}><Price value={price} currencyCode={'CAD'} /></p> */}
 
-                        {ProduitDiscount && initialPrice !== finalPrice &&
-                           storeview === 'en' ? <p className={classes.initialPrice}>${initialPrice} </p> : <p className={classes.initialPrice}>{initialPrice} $</p> 
-                            // <Price value={initialPrice} currencyCode={'CAD'} className={classes.initialPrice} />
+                        {initialPrice !== finalPrice ?
+                            ProduitDiscount && storeview === 'en'
+                            ? <p className={classes.initialPrice}>${initialPrice} </p>
+                            : <p className={classes.initialPrice}>{initialPrice} $</p> 
+                                // <Price value={initialPrice} currencyCode={'CAD'} className={classes.initialPrice} />
+                                :
+                            <p></p>
                         }
                     </div>
                 }
