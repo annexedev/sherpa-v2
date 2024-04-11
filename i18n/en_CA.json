@@ -65,6 +65,7 @@
     "SIGN OUT":"SIGN OUT",
     "checkoutPage.quantity":"Qty: {quantity}",
     "checkoutPage.orderNumber":"Order Number: {orderNumber}",
+    "checkoutPage.cardMessageDropship": "Enter your updated shipping or dropship address",
     "authBar.signout_btn":"Sign out",
     "authBar.userAccount":"Hello, {name}!",
     "authBar.signin_text":"Sign in",

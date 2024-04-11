@@ -90,6 +90,7 @@
     "SIGN OUT": "SE DÉCONNECTER",
     "checkoutPage.quantity": "Qté : ",
     "checkoutPage.orderNumber": "Numéro de commande : ",
+    "checkoutPage.cardMessageDropship": "Entrez votre adresse de livraison mise à jour ou d'expédition directe",
     "authBar.signout_btn": "se déconnecter",
     "authBar.userAccount": "Bonjour, {name} !",
     "authBar.signin_text": "Se connecter",
