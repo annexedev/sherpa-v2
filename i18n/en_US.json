@@ -62,6 +62,7 @@
     "cartPage.quantityExceeded":"Exceeds your planned qty",
     "cartPage.products":" products",
     "cartPage.product":" product",
+    "myWishlist.restoreProject":"Restore project",
     "cartPage.taxSummary":" Estimated tax",
     "cartPage.tooltipHeadingProject":"Click for project details",
     "cartPage.tooltipChevronDownProject":"Click to expand",
