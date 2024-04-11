@@ -13,6 +13,7 @@ import StockStatusMessage from '../StockStatusMessage';
 import AddressBook from './AddressBook';
 import OrderSummary from './OrderSummary';
 import PriceSummary from '../CartPage/PriceSummary';
+import DiscountSummary from '../CartPage/PriceSummary/discountSummary'
 import PaymentInformation from './PaymentInformation';
 import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
@@ -123,6 +124,7 @@ const CheckoutPage = props => {
     ${PriceSummaryFragment}
 `;
 
+
     const talonPropsPrice = usePriceSummary({
         queries: {
             getPriceSummary: GET_PRICE_SUMMARY
@@ -140,7 +142,7 @@ const CheckoutPage = props => {
     const total = Number(flatData.taxes) + Number(flatData.total.value);
     console.log('CHECKOUT', flatData);
 
-    
+
 
     // const cartItemsJSON = cartItems.map(item => {
 
@@ -526,6 +528,11 @@ const CheckoutPage = props => {
                 isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
             );
 
+            const isPriceUpdating = isUpdating || isLoading;
+            const priceClass = isPriceUpdating ? classes.priceUpdating : classes.price;
+            const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
+
+
             const orderSummary = shouldRenderPriceSummary ? (
                 <>
                     <div className={classes.summaryContainer}>
@@ -550,6 +557,15 @@ const CheckoutPage = props => {
                             </span>
                         </div>
                         <div className={classes.totalEstime}>
+                            <DiscountSummary
+                                classes={{
+                                    lineItemLabel: classes.lineItemLabel,
+                                    price: priceClass
+                                }}
+                                data={discounts}
+                            />
+                        </div>
+                        <div className={classes.totalEstime}>
                             <TaxSummary
                                 classes={{
                                     lineItemLabel: classes.lineItemLabel,
@@ -560,8 +576,9 @@ const CheckoutPage = props => {
                                 isCheckout={isCheckout}
                             />
                         </div>
+
                         <div className={classes.totalEstimeBold}>
-                        <span className={classes.totalLabel}>
+                            <span className={classes.totalLabel}>
                                 {formatMessage({
                                     id: 'priceSummary.Total',
                                     defaultMessage: 'Total'

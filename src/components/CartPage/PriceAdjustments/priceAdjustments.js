@@ -5,6 +5,9 @@ import { Accordion, Section } from '../../Accordion';
 import defaultClasses from './priceAdjustments.css';
 import LoadingIndicator from '../../LoadingIndicator';
 import { useIntl } from 'react-intl';
+import GiftCardSection from './giftCardSection.ee';
+import GiftOptions from './GiftOptions/giftOptions';
+
 
 const CouponCode = React.lazy(() => import('./CouponCode'));
 const ShippingMethods = React.lazy(() => import('./ShippingMethods'));
@@ -33,7 +36,7 @@ const PriceAdjustments = props => {
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
-                {/*<Section
+{/*                 <Section
                     id={'shipping_method'}
                     title={formatMessage({
                         id: 'priceAdjustment.estimateShipping',
@@ -45,25 +48,28 @@ const PriceAdjustments = props => {
                             setIsCartUpdating={setIsCartUpdating}
                         />
                     </Suspense>
-                </Section> */}
-                {/*<Section
+                </Section>
+ */}      
+           <Section
                     id={'coupon_code'}
                     title={formatMessage({
                         id: 'priceAdjustment.couponCode',
                         defaultMessage: 'Enter Coupon Code'
                     })}
+                    isOpen={true}
                 >
                     <Suspense fallback={<LoadingIndicator />}>
                         <CouponCode setIsCartUpdating={setIsCartUpdating} />
                     </Suspense>
-                </Section> */}
-                {/* <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
-        <Section id={'gift_options'} title={'See Gift Options'}>
-          <Suspense fallback={<LoadingIndicator />}>
-            <GiftOptions />
-          </Suspense>
-        </Section> */}
-            </Accordion>
+                </Section>
+{/*                 <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
+ */}{/*                 <Section id={'gift_options'} title={'See Gift Options'}>
+                    <Suspense fallback={<LoadingIndicator />}>
+                        <GiftOptions />
+                    </Suspense>
+                </Section>
+ */}           
+  </Accordion>
         </div>
     );
 };

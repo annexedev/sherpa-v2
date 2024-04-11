@@ -235,11 +235,11 @@ const PriceSummary = props => {
                     isCheckout={isCheckout}
                 />
             </div>
-            <div
+            {/* <div
                 className={classes.price_adjustments_container}
             >
                 {priceAdjustments}
-            </div>
+            </div> */}
             <div className={classes.flexBetween}>
                 <span className={classes.totalLabel}>
                     {isCheckout

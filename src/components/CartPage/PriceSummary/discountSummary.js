@@ -41,7 +41,7 @@ const DiscountSummary = props => {
     const classes = mergeClasses({}, props.classes);
     const discount = getDiscount(props.data);
     //let discountLabel = props.data[0].label;
-    //console.log(props.data);
+    console.log(props.data);
     return discount.value ? (
         <Fragment>
             <span className={classes.lineItemLabel}>

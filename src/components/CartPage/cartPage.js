@@ -125,9 +125,12 @@ const CartPage = props => {
     //     )
 
 
-    // const priceAdjustments = hasItems ? (
-    //     <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
-    // ) : null;
+    console.log(setIsCartUpdating);
+    console.log(hasItems);
+    
+    const priceAdjustments = hasItems ? (
+        <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
+    ) : null;
 
 
     const url = window.location.href;
@@ -467,11 +470,6 @@ const CartPage = props => {
                                     </div>
                                 }
                             </div>
-                            {/* <div
-                                className={classes.price_adjustments_container}
-                            >
-                                {priceAdjustments}
-                            </div> */}
                             <div className={classes.productsWithProject}>
                                 {myprojects &&
                                     <div className={classes.wrapperProductsFromProjects}>
@@ -549,7 +547,9 @@ const CartPage = props => {
                                 )
                                 }
                             </div>
-
+                            <div className={classes.price_adjustments_container}>
+                                {priceAdjustments} 
+                            </div> 
                         </div>
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>
