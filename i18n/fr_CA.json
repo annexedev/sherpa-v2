@@ -422,6 +422,7 @@
     "ProductFullDetail.ProductDescription": "Description du produit",
     "ProductFullDetail.ProductDetails": "détails du produit",
     "ProductFullDetail.sku": "Réf : ",
+    "ProductFullDetail.addToProjectBTN": "Ajouter au projet",
     "productReview.CustomerReviews": "Avis des clients",
     "ProductReview.product_ratingform_submit": "Poster le commentaire",
     "ProductReview.outOfTotalStars": "sur 5 étoiles",

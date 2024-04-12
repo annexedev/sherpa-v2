@@ -380,6 +380,7 @@
     "ProductFullDetail.ProductDescription":"Product Description",
     "ProductFullDetail.ProductDetails":"Product Details",
     "ProductFullDetail.sku":"SKU : ",
+    "ProductFullDetail.addToProjectBTN": "Add to project",
     "productReview.CustomerReviews":"Customer Reviews",
     "ProductReview.product_ratingform_submit":"Submit Review",
     "ProductReview.outOfTotalStars":"out of 5 stars",
