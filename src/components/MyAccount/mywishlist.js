@@ -8,6 +8,7 @@ import wishlistClasses from './mywishlist.css';
 import searchClasses from '../SearchPage/searchPage.css';
 import Sidebar from './sidebar.js';
 import accountClasses from './accountinformation.css';
+import { Util } from '@magento/peregrine';
 import {
     useWishlist,
     useDeleteFromWishlist
@@ -1242,19 +1243,29 @@ const MyWishList = props => {
             setSelectValue(value);
         };
 
+        const { BrowserPersistence } = Util;
+        const storage = new BrowserPersistence();
+        let storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        } else {
+            storeview = storeview;
+        }
+
+
         return (
             <div className={defaultClasses.wrapper_project_dropdown} id={'actions' + cid}>
                 <select
                     onChange={onChange}
                     className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
                 >
-                    <option value="" disabled selected hidden>Project Options</option>
+                   {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
 
                     {/* <option value="1">Create a new project</option> */}
-                    <option value="5">Duplicate project</option>
-                    <option value="2">Rename current project</option>
-                    <option value="3">Archive current project</option>
-                    <option value="4">Delete current project</option>
+                    {storeview === 'fr' ? <option value="5">Dupliquer le projet</option> : <option value="5">Duplicate project</option>}
+                    {storeview === 'fr' ? <option value="2">Renommer le projet actuel</option> : <option value="2">Rename current project</option>}
+                    {storeview === 'fr' ? <option value="3">Archiver le projet actuel</option> : <option value="3">Archive current project</option>}
+                    {storeview === 'fr' ? <option value="4">Supprimer le projet actuel</option> : <option value="4">Delete current project</option>}
                 </select>
                 {/* {selectValue && selectValue == 1 && (
                     <div id={'hidden_div'}>
