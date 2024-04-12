@@ -1133,7 +1133,11 @@ const MyWishList = props => {
                         >
                             <button type="submit" className={classes.add_to_project}>
                                 {' '}
-                                Restore project
+                                {/* Restore project */}
+                                <FormattedMessage
+                                id={'myWishlist.restoreProject'}
+                                defaultMessage={'Restore project'}
+                            />
                             </button>
                         </form>
                     </div>
