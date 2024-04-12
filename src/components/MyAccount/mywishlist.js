@@ -173,7 +173,7 @@ class TotalProjet extends Component {
         if (itemCount && itemCount > 0) {
             return (
                 <>
-                    <div className={defaultClasses.blocQntProduits}>{itemCount} Products &nbsp;&nbsp;<b><Price currencyCode={'CAD'} value={priceTotal} /></b></div>
+                    <div className={defaultClasses.blocQntProduits}>{itemCount} <FormattedMessage id={'project.products'} defaultMessage={'Products'} /> &nbsp;&nbsp;<b><Price currencyCode={'CAD'} value={priceTotal} /></b></div>
                 </>
 
             );

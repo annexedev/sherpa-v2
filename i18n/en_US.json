@@ -54,6 +54,7 @@
     "authBar.userAccount":"Hello, {name}!",
     "authBar.signin_text":"Sign in",
     "authBar.register_text":"Register",
+    "project.products": "Products",
     "cartPage.signInLink":"Sign In",
     "cartPage.noResult_text":"There are no items on your non-project cart.",
     "cartPage.heading":"Shopping cart",
