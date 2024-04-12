@@ -26,7 +26,7 @@ import {
     ADD_SIMPLE_CUSTOM_MUTATION,
     ADD_BUNDLE_MUTATION
 } from './productFullDetail.gql';
-
+import { Util } from '@magento/peregrine';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faStar,
@@ -196,6 +196,10 @@ const ProductFullDetail = props => {
                     return text;
                 }
 
+
+                // console.log(storeview);
+            
+
                 return (
                     <div>
                         <button
@@ -228,7 +232,11 @@ const ProductFullDetail = props => {
                             }}
                             className={classes.add_to_project}
                         >
-                            Add to project
+                            {/* Add to project */}
+                            <FormattedMessage
+                                            id={'ProductFullDetail.addToProjectBTN'}
+                                            defaultMessage={'Add to project'}
+                                        />
                         </button>
                     </div>
                 );
@@ -385,6 +393,15 @@ const ProductFullDetail = props => {
                     return result;
                 }
 
+                const { BrowserPersistence } = Util;
+                const storage = new BrowserPersistence();
+                let storeview = storage.getItem('store_view_code');
+                if (!storeview) {
+                    storeview = '';
+                } else {
+                    storeview = storeview;
+                }
+
                 var uniqueId = makeid(15);
                 if (this.state.pageDataAccess['access'] == 1) {
                     return (
@@ -398,9 +415,7 @@ const ProductFullDetail = props => {
                                 className={classes.project_dropdown}
                                 id={uniqueId}
                             >
-                                <option defaultValue value="0">
-                                    Choose a project.
-                                </option>
+                               {storeview === 'fr' ? <option defaultValue value="0">Choisir un projet.</option> : <option defaultValue value="0">Choose a project.</option>}
                                 {this.state.pageData &&
                                     this.state.pageData.map(e => {
                                         if (
@@ -415,7 +430,7 @@ const ProductFullDetail = props => {
                                             );
                                         }
                                     })}
-                                <option value="1">Create a new project</option>
+                               {storeview === 'fr' ? <option value="1">Créer un nouveau projet</option> : <option value="1">Create a new project</option> } 
                             </select>
                             {selectValue && selectValue == 1 && (
                                 <div id={'hidden_div'}>
