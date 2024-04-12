@@ -127,7 +127,7 @@ const CartPage = props => {
 
     console.log(setIsCartUpdating);
     console.log(hasItems);
-    
+
     const priceAdjustments = hasItems ? (
         <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
     ) : null;
@@ -293,7 +293,6 @@ const CartPage = props => {
         }));
     };
 
-
     class CountProjectItem extends Component {
 
         render() {
@@ -310,7 +309,6 @@ const CartPage = props => {
                         //qtyTotal = qtyTotal + parseInt(entryCat.qty);
 
                         qtyTotal = qtyTotal + 1;
-
                     }
 
                 })
@@ -318,9 +316,9 @@ const CartPage = props => {
             })
 
             if (qtyTotal == 1) {
-                return qtyTotal + ' product';
+                return qtyTotal;
             } else {
-                return qtyTotal + ' products';
+                return qtyTotal;
             }
 
             //return inputCategory.length;
@@ -510,10 +508,13 @@ const CartPage = props => {
                                                         </a>
                                                         {/* {openProjects[projectId] &&  <div className={classes.ctaUpdate}><a href={"/myprojects?id=" + Object.keys(products)[0]}>Update your project items / quantity <FontAwesomeIcon icon={faLongArrowAltRight} style={{ color: "#8DC74C", marginLeft: "10px", }} /></a></div>} */}
                                                         <div className={classes.wrapperValeurProduits}>
-                                                            <span><CountProjectItem products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
+                                                            <span><CountProjectItem products={itemsWithProject} inputCategory={Object.keys(products)[0]} /> <FormattedMessage
+                                                                id={'cartPage.itemsWithProjectQntyProducts'}
+                                                                defaultMessage={'products'}
+                                                            /></span>
                                                             <span className={classes.circleIcon}><FontAwesomeIcon icon={faCircle} /></span>
                                                             <span><CountProjectValue products={itemsWithProject} inputCategory={Object.keys(products)[0]} /></span>
-                                                            <span className={classes.chevronDown} onClick={() => { toggleProjectVisibility(projectId);  }}>{openProjects[projectId] ? <FontAwesomeIcon id={projectId} icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon id={projectId} icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}
+                                                            <span className={classes.chevronDown} onClick={() => { toggleProjectVisibility(projectId); }}>{openProjects[projectId] ? <FontAwesomeIcon id={projectId} icon={faChevronUp} style={{ color: "#8DC74C", marginLeft: "10px", }} /> : <FontAwesomeIcon id={projectId} icon={faChevronDown} style={{ color: "#8DC74C", marginLeft: "10px", }} />}
                                                                 {!openProjects[projectId] &&
                                                                     <span className={classes.tooltiptext}>
                                                                         <FormattedMessage
@@ -548,8 +549,8 @@ const CartPage = props => {
                                 }
                             </div>
                             <div className={classes.price_adjustments_container}>
-                                {priceAdjustments} 
-                            </div> 
+                                {priceAdjustments}
+                            </div>
                         </div>
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>

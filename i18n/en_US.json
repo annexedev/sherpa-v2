@@ -68,6 +68,7 @@
     "cartPage.taxSummary":" Estimated tax",
     "cartPage.tooltipHeadingProject":"Click for project details",
     "cartPage.tooltipChevronDownProject":"Click to expand",
+    "cartPage.itemsWithProjectQntyProducts":"products",
     "giftCard.balance":"Balance: ",
     "giftCard.remove":"Remove",
     "giftCard.LoadingIndicatorText":"Loading Gift Cards...",
