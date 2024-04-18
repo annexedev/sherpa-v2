@@ -109,8 +109,8 @@ const MyOrderView = props => {
         }
     }
 
-    console.log('DATA');
-    console.log(data);
+    // console.log('DATA');
+    // console.log(data);
 
     return (
         <div className={defaultClasses.columns}>
@@ -189,7 +189,7 @@ const MyOrderView = props => {
                                                     defaultClasses.print
                                                 }
                                             >
-                                                <button
+                                                {data.status != 'Pending' && <button
                                                     className={
                                                         defaultClasses.reorder_action
                                                     }
@@ -211,7 +211,7 @@ const MyOrderView = props => {
                                                             }
                                                         />
                                                     </span>
-                                                </button>
+                                                </button> }
                                                 <span
                                                     className={
                                                         defaultClasses.action
