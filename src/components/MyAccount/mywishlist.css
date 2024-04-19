@@ -54,6 +54,12 @@
     margin-top: 10px;
     position: absolute;
 }
+.chevronUp{
+    display: none;
+}
+.chevronDown{
+    display: block;
+}
 .move_item {
     background: #007637;
     border-radius: 5px;

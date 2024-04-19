@@ -19,7 +19,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faTrashAlt,
     faExclamationTriangle,
-    faChevronDown
+    faChevronDown,
+    faChevronUp
 } from '@fortawesome/free-solid-svg-icons';
 import { useCategoryAddToCart, useProductMoreInfo } from '../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 
@@ -478,17 +479,17 @@ class AlreadyPurchased extends Component {
     componentDidMount() {
         let pid = this.props.pid;
         let email = this.props.email;
-        let dataURL = 
+        let dataURL =
             'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid;
         console.log(dataURL);
 
-            fetch(dataURL)
-                .then(res => res.json())
-                .then(res => {
-                    this.setState({
-                        pageData: res
-                    });
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
                 });
+            });
     }
 
     render() {
@@ -516,7 +517,15 @@ const titleIcon = <Icon src={ArrowUp} size={24} />;
 const MyWishList = props => {
 
     const [seed, setSeed] = useState(1);
-    const [hasProduct, setHasProduct] = useState(false)
+    const [hasProduct, setHasProduct] = useState(false);
+    const [chevronOpen, setChevronOpen] = useState(false);
+
+    const handleChevron = (idItem) => {
+
+        console.log(idItem);
+
+    }
+
 
 
     const reset = () => {
@@ -705,10 +714,10 @@ const MyWishList = props => {
             } else {
                 return (
                     <div className={classes.wrapperMoveToCart}>
-                    <button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /></button>
-                    <Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}>
-                     <FormattedMessage id={'project.backtocart'} defaultMessage={'Go to Cart'} />
-                    </Link>
+                        <button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /></button>
+                        <Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}>
+                            <FormattedMessage id={'project.backtocart'} defaultMessage={'Go to Cart'} />
+                        </Link>
                     </div>
                 );
             }
@@ -1154,9 +1163,9 @@ const MyWishList = props => {
                                 {' '}
                                 {/* Restore project */}
                                 <FormattedMessage
-                                id={'myWishlist.restoreProject'}
-                                defaultMessage={'Restore project'}
-                            />
+                                    id={'myWishlist.restoreProject'}
+                                    defaultMessage={'Restore project'}
+                                />
                             </button>
                         </form>
                     </div>
@@ -1269,7 +1278,7 @@ const MyWishList = props => {
                     onChange={onChange}
                     className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
                 >
-                   {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
+                    {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
 
                     {/* <option value="1">Create a new project</option> */}
                     {storeview === 'fr' ? <option value="5">Dupliquer le projet</option> : <option value="5">Duplicate project</option>}
@@ -1474,8 +1483,7 @@ const MyWishList = props => {
         // console.log('mobileView'+mobileView);
 
         let wrapperProject = document.getElementById("productsWrapper");
-        console.log(wrapperProject, 'je suis iciiiiiii!!!!!!!!!!!');
-
+        // console.log(wrapperProject, 'je suis iciiiiiii!!!!!!!!!!!');
 
 
         return (
@@ -1541,11 +1549,11 @@ const MyWishList = props => {
                                         <>
                                             <div className={defaultClasses.wrapperBtnDropdown}>
                                                 <div className={defaultClasses.wrapperGauche}>
-                                                <Link
-                                                    className={defaultClasses.btnPurchase}
-                                                    to={resourceUrl('/orders?project=' + wId)}
-                                                ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'} /></Link>
-                                                <RestoreProject cid={wId} />
+                                                    <Link
+                                                        className={defaultClasses.btnPurchase}
+                                                        to={resourceUrl('/orders?project=' + wId)}
+                                                    ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'} /></Link>
+                                                    <RestoreProject cid={wId} />
                                                 </div>
                                                 <MoveToCart uid={wId} />
                                             </div>
@@ -1559,7 +1567,7 @@ const MyWishList = props => {
                                         }
                                     >
                                         {typeof data != 'undefined' && (
-                                            
+
                                             <>
                                                 <div
                                                     className={
@@ -1574,7 +1582,7 @@ const MyWishList = props => {
                                                             pid,
                                                             cid
                                                         ) {
-                                                            
+
                                                             let dataURL =
                                                                 'https://data.sherpagroupav.com/get_belongs.php?pid=' +
                                                                 pid +
@@ -1585,7 +1593,7 @@ const MyWishList = props => {
                                                                     res.json()
                                                                 )
                                                                 .then(res => {
-                                                                    
+
 
                                                                     if (
                                                                         res.display == 1
@@ -1668,15 +1676,16 @@ const MyWishList = props => {
                                                         console.log(belongToProject(
                                                             val.product.id,
                                                             wId
-                                                        ),'belong');
+                                                        ), 'belong');
 
-                                                
+
                                                         if (
                                                             belongToProject(
                                                                 val.product.id,
                                                                 wId
-                                                            ) 
+                                                            )
                                                         ) {
+
                                                             return (
                                                                 <>
                                                                     <div
@@ -1887,8 +1896,8 @@ const MyWishList = props => {
                                                                                                             tempProps.categoryId = wId;
                                                                                                             tempProps.categoryName = projectname;
 
-                                                                                                            console.log('coucoucoucou');
-                                                                                                            console.log(tempProps);
+                                                                                                            // console.log('coucoucoucou');
+                                                                                                            // console.log(tempProps);
 
                                                                                                             handleAddToCart(
                                                                                                                 tempProps
@@ -2029,14 +2038,19 @@ const MyWishList = props => {
                                                                                             </div>*/}
                                                                                                     <button
                                                                                                         id={'btn_move_p' + val.product.id}
-                                                                                                        onClick={() => {
+                                                                                                        onClick={(e) => {
 
                                                                                                             var x = document.getElementById('move_item_box_' + val.id);
                                                                                                             if (window.getComputedStyle(x).display === "none") {
                                                                                                                 document.getElementById('move_item_box_' + val.id).style.display = 'block';
+                                                                                                                console.log(document.getElementById('up' + val.id));
+                                                                                                                document.getElementById('up' + val.id).style.display = 'block';
+                                                                                                                document.getElementById('down' + val.id).style.display = 'none';
                                                                                                             } else {
                                                                                                                 document.getElementById('move_item_box_' + val.id).style.display = 'none';
-                                                                                                            }
+                                                                                                                document.getElementById('up' + val.id).style.display = 'none';
+                                                                                                                document.getElementById('down' + val.id).style.display = 'block';
+                                                                                                            };
                                                                                                         }}
                                                                                                         className={classes.buttonMove}
                                                                                                     >
@@ -2044,6 +2058,9 @@ const MyWishList = props => {
                                                                                                             className={
                                                                                                                 classes.move_item
                                                                                                             }
+                                                                                                            id={val.product.id}
+                                                                                                            onClick={handleChevron(val.product.id)}
+
                                                                                                         >
                                                                                                             <FormattedMessage
                                                                                                                 id={
@@ -2054,12 +2071,20 @@ const MyWishList = props => {
                                                                                                                 }
                                                                                                             />
                                                                                                             {/* <span className={classes.arrowDown}></span> */}
-                                                                                                            <FontAwesomeIcon
-                                                                                                                icon={
-                                                                                                                    faChevronDown
-                                                                                                                }
-                                                                                                            />
-
+                                                                                                                <FontAwesomeIcon
+                                                                                                                    icon={
+                                                                                                                        faChevronDown
+                                                                                                                    }
+                                                                                                                    id={'down' + val.id}
+                                                                                                                    className={classes.chevronDown}
+                                                                                                                />
+                                                                                                                <FontAwesomeIcon
+                                                                                                                    icon={
+                                                                                                                        faChevronUp
+                                                                                                                    }
+                                                                                                                    id={'up' + val.id}
+                                                                                                                    className={classes.chevronUp}
+                                                                                                                />
                                                                                                         </span>
                                                                                                     </button>
                                                                                                     <div
@@ -2127,10 +2152,10 @@ const MyWishList = props => {
                                                                                                         >
                                                                                                             {!mobileView && (
                                                                                                                 <span
-                                                                                                                    // className={
-                                                                                                                    //     classes.move_confirm
-                                                                                                                    // }
-                                                                                                                    // style={{backgroundColor:'yellow', width:'200px', height:'200px'}}
+                                                                                                                // className={
+                                                                                                                //     classes.move_confirm
+                                                                                                                // }
+                                                                                                                // style={{backgroundColor:'yellow', width:'200px', height:'200px'}}
                                                                                                                 >
                                                                                                                     <FormattedMessage
                                                                                                                         id={
@@ -2144,8 +2169,8 @@ const MyWishList = props => {
                                                                                                             )}
                                                                                                             {mobileView && (
                                                                                                                 <p
-                                                                                                                    
-                                                                                                                    // style={{backgroundColor:'yellow', width:'200px', height:'200px'}}
+
+                                                                                                                // style={{backgroundColor:'yellow', width:'200px', height:'200px'}}
                                                                                                                 >
                                                                                                                     <FormattedMessage
                                                                                                                         id={
@@ -2220,7 +2245,7 @@ const MyWishList = props => {
                                                             );
                                                         }
                                                     })}
-                                                    
+
                                                     {!hasProduct && myprojects && (
                                                         <div
                                                             className={
