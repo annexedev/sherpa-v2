@@ -647,6 +647,21 @@ const MyWishList = props => {
         //await handleRemoveItem({ product_id: id });
         setRemoveMsg(true);
     };
+    /* ---------- Pour avoir acces aux projets ---------- */
+
+    const [cacheAccordeon, setCacheAccordeon] = useState(false);
+    const [pageDataAccess, setPageDataAccess] = useState();
+
+    const accesProjets = async () => {
+        let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+        fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+                setPageDataAccess(res)
+            });
+    }
+
+
 
     useEffect(() => {
         if (
@@ -664,6 +679,7 @@ const MyWishList = props => {
             window.location.reload(false);
             //refetch();
         }
+        accesProjets()
     }, [addToast, removeMsg, removeResponse, refetch]);
 
     // removed product_id
@@ -842,20 +858,7 @@ const MyWishList = props => {
             );
         }
     }
-    /* ---------- Pour avoir acces aux projets ---------- */
 
-    const [cacheAccordeon, setCacheAccordeon] = useState(false);
-
-    const accesProjets = async () => {
-        let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
-        fetch(grantAccess)
-            .then(res => res.json())
-            .then(res => {
-                this.setState({
-                    pageDataAccess: res
-                });
-            });
-    }
 
     function AddTodo(uid) {
         let input;
@@ -1334,12 +1337,55 @@ const MyWishList = props => {
     }
 
 
-
-
     if (!loading) {
 
         var total = 0;
         let qntProduit = 0;
+
+        const switchBTN = document.getElementById("switchBTN");
+
+        if(pageDataAccess["access"] && pageDataAccess["access"] != null ){
+            console.log(pageDataAccess["access"] + '******************');
+        } 
+
+        
+        if (pageDataAccess && pageDataAccess["access"] != null) {
+            // console.log('iciiiiiiiiiiiiiii');
+            if (pageDataAccess["access"] === '1') {
+                console.log('erreur ici?**********');
+                document.getElementById("switchBTN").checked = false
+            } else if(pageDataAccess["access"] === '0') {
+                console.log('peut etre ici?===============');
+                document.getElementById("switchBTN").checked = true
+            }
+        }
+
+        const handleSwitch = async () => {
+            console.log("AIE AIE IAE");
+            console.log(switchBTN);
+            if (document.getElementById("switchBTN") === false) {
+                document.getElementById("switchBTN").checked = true
+                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res + ' reeeeeeeeees1');
+                        document.getElementById("switchBTN").checked = true
+                        // setPageDataAccess(res)
+                    });
+            }
+            if (document.getElementById("switchBTN").checked === true) {
+                document.getElementById("switchBTN").checked = false
+                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res + ' reeeeeeeeees0');
+                        document.getElementById("switchBTN").checked = false
+
+                        // setPageDataAccess(res)
+                    });
+            }
+        }
+
         setTimeout(function () {
 
             var elements = document.getElementsByClassName("increment");
@@ -2358,8 +2404,8 @@ const MyWishList = props => {
                                                                 }
                                                             />
                                                         </h4>
-                                                        <div className={classes.switch}>
-                                                            <input type="checkbox"></input>
+                                                        <div className={classes.switch} onClick={handleSwitch} >
+                                                            <input type="checkbox" id="switchBTN" ></input>
                                                             <span className={[classes.slider, classes.round].join(' ')}></span>
                                                         </div>
                                                         <h4>
