@@ -546,7 +546,7 @@ const MyWishList = props => {
         storeview = '';
     }
 
-    if( storeview === 'fr'){
+    if (storeview === 'fr') {
         categoryBannerIdentifierHomeBanner = 'projects_instructions_banner-fr';
         categoryBannerIdentifierHome = 'projects_instructions-fr';
     }
@@ -842,6 +842,20 @@ const MyWishList = props => {
             );
         }
     }
+    /* ---------- Pour avoir acces aux projets ---------- */
+
+    const [cacheAccordeon, setCacheAccordeon] = useState(false);
+
+    const accesProjets = async () => {
+        let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+        fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageDataAccess: res
+                });
+            });
+    }
 
     function AddTodo(uid) {
         let input;
@@ -867,7 +881,7 @@ const MyWishList = props => {
                         ref={node => {
                             input = node;
                         }}
-                        placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project' }
+                        placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
                     />
                     <input type="hidden" value={selectId} />
                     <button
@@ -877,7 +891,7 @@ const MyWishList = props => {
                             addTodo({ variables: { category_name: input.value } });
                             input.value = '';
 
-                            if( storeview === 'fr' ){
+                            if (storeview === 'fr') {
                                 window.alert('New project created.');
                             }
                             else {
@@ -888,7 +902,7 @@ const MyWishList = props => {
                             window.location.reload();
                         }}
                     >
-                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project' }
+                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
                     </button>
                 </div>
 
@@ -2071,20 +2085,20 @@ const MyWishList = props => {
                                                                                                                 }
                                                                                                             />
                                                                                                             {/* <span className={classes.arrowDown}></span> */}
-                                                                                                                <FontAwesomeIcon
-                                                                                                                    icon={
-                                                                                                                        faChevronDown
-                                                                                                                    }
-                                                                                                                    id={'down' + val.id}
-                                                                                                                    className={classes.chevronDown}
-                                                                                                                />
-                                                                                                                <FontAwesomeIcon
-                                                                                                                    icon={
-                                                                                                                        faChevronUp
-                                                                                                                    }
-                                                                                                                    id={'up' + val.id}
-                                                                                                                    className={classes.chevronUp}
-                                                                                                                />
+                                                                                                            <FontAwesomeIcon
+                                                                                                                icon={
+                                                                                                                    faChevronDown
+                                                                                                                }
+                                                                                                                id={'down' + val.id}
+                                                                                                                className={classes.chevronDown}
+                                                                                                            />
+                                                                                                            <FontAwesomeIcon
+                                                                                                                icon={
+                                                                                                                    faChevronUp
+                                                                                                                }
+                                                                                                                id={'up' + val.id}
+                                                                                                                className={classes.chevronUp}
+                                                                                                            />
                                                                                                         </span>
                                                                                                     </button>
                                                                                                     <div
@@ -2320,6 +2334,7 @@ const MyWishList = props => {
                                             </div>
                                         )} */}
 
+
                                         {wId == undefined && (
                                             <>
                                                 <Suspense fallback={''}>
@@ -2331,19 +2346,29 @@ const MyWishList = props => {
                                                             showCategoryBanners
                                                         }
                                                     />
+                                                    <div>Ici le switch button</div>
+                                                    <div className={classes.switch}>
+                                                        <input type="checkbox" ></input>
+                                                        <span className={[classes.slider, classes.round].join(' ')}></span>
+                                                    </div>
+                                                    <div>Ici le link pour changer accordeon</div>
 
                                                     {/* ----- CACHÉ AVEC LE SWITCH BUTTON ------ */}
-                                                    <p>&nbsp;</p>
-                                                    <AddTodo uid={wId} />
-                                                    <p>&nbsp;</p>
-                                                    <Banner
-                                                        identifier={
-                                                            categoryBannerIdentifierHome
-                                                        }
-                                                        showBanner={
-                                                            showCategoryBanners
-                                                        }
-                                                    />
+                                                    {cacheAccordeon &&
+                                                        <>
+                                                            <p>&nbsp;</p>
+                                                            <AddTodo uid={wId} />
+                                                            <p>&nbsp;</p>
+                                                            <Banner
+                                                                identifier={
+                                                                    categoryBannerIdentifierHome
+                                                                }
+                                                                showBanner={
+                                                                    showCategoryBanners
+                                                                }
+                                                            />
+                                                        </>
+                                                    }
                                                     {/* ----------------------------------------- */}
                                                 </Suspense>
 
