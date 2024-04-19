@@ -88,7 +88,7 @@ class ProjectList extends Component {
 
 
         //console.log('Access ::::::: ');
-        //console.log(this.state.pageDataAccess["access"]);
+        console.log(this.state.pageDataAccess["access"]);
 
         const ProjectItems = props => {
             const { onClose } = props;

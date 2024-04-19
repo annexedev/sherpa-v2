@@ -2321,6 +2321,8 @@ const MyWishList = props => {
                                                             showCategoryBanners
                                                         }
                                                     />
+
+                                                    {/* ----- CACHÉ AVEC LE SWITCH BUTTON ------ */}
                                                     <p>&nbsp;</p>
                                                     <AddTodo uid={wId} />
                                                     <p>&nbsp;</p>
@@ -2332,6 +2334,7 @@ const MyWishList = props => {
                                                             showCategoryBanners
                                                         }
                                                     />
+                                                    {/* ----------------------------------------- */}
                                                 </Suspense>
 
                                             </>
