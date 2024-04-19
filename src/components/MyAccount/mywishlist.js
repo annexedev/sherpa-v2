@@ -2348,16 +2348,43 @@ const MyWishList = props => {
                                                     />
                                                     {/* <div>Ici le switch button</div> */}
                                                     <div className={classes.wrapperSwitchBtn}>
-                                                        <h4>Activate</h4>
+                                                        <h4>
+                                                            <FormattedMessage
+                                                                id={
+                                                                    'myWishlist.labelSwitchActivate'
+                                                                }
+                                                                defaultMessage={
+                                                                    'Activate'
+                                                                }
+                                                            />
+                                                        </h4>
                                                         <div className={classes.switch}>
                                                             <input type="checkbox"></input>
                                                             <span className={[classes.slider, classes.round].join(' ')}></span>
                                                         </div>
-                                                        <h4>Deactivate</h4>
+                                                        <h4>
+                                                            <FormattedMessage
+                                                                id={
+                                                                    'myWishlist.labelSwitchDeactivate'
+                                                                }
+                                                                defaultMessage={
+                                                                    'Deactivate'
+                                                                }
+                                                            />
+                                                        </h4>
                                                     </div>
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
-                                                        <p>Learn more about my projects</p>
-                                                        {!cacheAccordeon ? <FontAwesomeIcon icon={faChevronDown}  /> : <FontAwesomeIcon icon={faChevronUp}  />}
+                                                        <p>
+                                                            <FormattedMessage
+                                                                id={
+                                                                    'myWishlist.showAccordeon'
+                                                                }
+                                                                defaultMessage={
+                                                                    'Learn more about my projects'
+                                                                }
+                                                            />
+                                                        </p>
+                                                        {!cacheAccordeon ? <FontAwesomeIcon icon={faChevronDown} /> : <FontAwesomeIcon icon={faChevronUp} />}
                                                     </div>
 
                                                     {/* ----- CACHÉ AVEC LE SWITCH BUTTON ------ */}
