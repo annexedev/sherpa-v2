@@ -714,7 +714,7 @@ const MyWishList = props => {
     const [pageDataAccess, setPageDataAccess] = useState();
     const [checked, setChecked] = useState()
 
-    console.log(pageDataAccess + '**************************');
+    // console.log(pageDataAccess + '**************************');
 
     const accesProjets = async () => {
         let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
@@ -724,8 +724,6 @@ const MyWishList = props => {
                 setPageDataAccess(res)
                 console.log(res);
                 // console.log(pageDataAccess["access"]);
-
-                console.log(checked + 'checkkkeeeeed');
 
                 if (pageDataAccess && pageDataAccess["access"] != null) {
                     console.log(pageDataAccess["access"] + '****************');
@@ -739,6 +737,8 @@ const MyWishList = props => {
                         setChecked(true)
                     }
                 }
+                console.log(checked + 'checkkkeeeeed');
+
             });
     }
 
@@ -771,20 +771,26 @@ const MyWishList = props => {
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
                     .then(res => res.json())
                     .then(res => {
-                        console.log(res + ' reeeeeeeeees0');
                         // setPageDataAccess('0')
+                        setChecked(true)
+                        console.log(checked + ' reeeeeeeeees0');
                         document.getElementById("switchBTN").checked = true
-                        // window.location.reload();
+                        if(res){
+                            // window.location.reload();
+                        }
                     });
             } else if (document.getElementById("switchBTN").checked === true) {
                 document.getElementById("switchBTN").checked = false
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
                     .then(res => res.json())
                     .then(res => {
-                        console.log(res + ' reeeeeeeeees1');
                         // setPageDataAccess('1')
+                        setChecked(false)
+                        console.log(checked + ' reeeeeeeeees0');
                         document.getElementById("switchBTN").checked = false
+                        if(res){
                         // window.location.reload();
+                        }
                     });
             }
         }
@@ -802,7 +808,7 @@ const MyWishList = props => {
                     />
                 </h4>
                 <div className={classes.switch} onClick={handleSwitch} >
-                    {checked ? <input type="checkbox" id="switchBTN" checked ></input> : <input type="checkbox" id="switchBTN" ></input> }
+                    <input type="checkbox" id="switchBTN" ></input>
                     <span className={[classes.slider, classes.round].join(' ')}></span>
                 </div>
                 <h4>
