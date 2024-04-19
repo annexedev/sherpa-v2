@@ -512,6 +512,67 @@ class AlreadyPurchased extends Component {
     }
 }
 
+// class SwitchButton extends Component {
+//     constructor() {
+//         super();
+//         this.state = {
+//             pageDataAcces: []
+//         };
+//     }
+
+
+//     componentDidMount() {
+//         // let cid = this.props.cid;
+//         const { email } = useDashboard();
+
+//         let dataURL =
+//         'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+//         fetch(dataURL)
+//             .then(res => res.json())
+//             .then(res => {
+//                 this.setState({
+//                     pageDataAcces: res
+//                 });
+//             });
+
+//     }
+
+//     render() {
+
+//         return (
+//             <React.Fragment>
+//                 <div className={classes.wrapperSwitchBtn}>
+//                     <h4>
+//                         <FormattedMessage
+//                             id={
+//                                 'myWishlist.labelSwitchActivate'
+//                             }
+//                             defaultMessage={
+//                                 'Activate'
+//                             }
+//                         />
+//                     </h4>
+//                     <div className={classes.switch} onClick={handleSwitch} >
+//                         {checked ? <input type="checkbox" id="switchBTN" checked ></input> : <input type="checkbox" id="switchBTN" ></input>}
+//                         <span className={[classes.slider, classes.round].join(' ')}></span>
+//                     </div>
+//                     <h4>
+//                         <FormattedMessage
+//                             id={
+//                                 'myWishlist.labelSwitchDeactivate'
+//                             }
+//                             defaultMessage={
+//                                 'Deactivate'
+//                             }
+//                         />
+//                     </h4>
+//                 </div>
+//             </React.Fragment>
+//         );
+//     }
+// }
+
+
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
@@ -522,7 +583,7 @@ const MyWishList = props => {
 
     const handleChevron = (idItem) => {
 
-        console.log(idItem);
+        // console.log(idItem);
 
     }
 
@@ -607,8 +668,8 @@ const MyWishList = props => {
         getCartDetailsQuery: GET_CART_DETAILS_QUERY
     });
 
-    console.log('getCartDetailsQuery');
-    console.log(catProps);
+    // console.log('getCartDetailsQuery');
+    // console.log(catProps);
 
     const { handleAddToCart } = catProps;
     let productUrlSuffix = '';
@@ -651,17 +712,35 @@ const MyWishList = props => {
 
     const [cacheAccordeon, setCacheAccordeon] = useState(false);
     const [pageDataAccess, setPageDataAccess] = useState();
+    const [checked, setChecked] = useState()
+
+    console.log(pageDataAccess + '**************************');
 
     const accesProjets = async () => {
         let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
-        fetch(grantAccess)
+        await fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
                 setPageDataAccess(res)
+                console.log(res);
+                // console.log(pageDataAccess["access"]);
+
+                console.log(checked + 'checkkkeeeeed');
+
+                if (pageDataAccess && pageDataAccess["access"] != null) {
+                    console.log(pageDataAccess["access"] + '****************');
+                    if (pageDataAccess["access"] === "1") {
+                        // console.log('erreur ici?**********');
+                        document.getElementById("switchBTN").checked = false
+                        setChecked(false)
+                    } else if (pageDataAccess["access"] === "0") {
+                        // console.log('peut etre ici?===============');
+                        document.getElementById("switchBTN").checked = true
+                        setChecked(true)
+                    }
+                }
             });
     }
-
-
 
     useEffect(() => {
         if (
@@ -681,6 +760,66 @@ const MyWishList = props => {
         }
         accesProjets()
     }, [addToast, removeMsg, removeResponse, refetch]);
+
+    const SwitchButton = () => {
+
+        const handleSwitch = async () => {
+            console.log("AIE AIE IAE");
+            // console.log(switchBTN);
+            if (document.getElementById("switchBTN").checked === false) {
+                document.getElementById("switchBTN").checked = true
+                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res + ' reeeeeeeeees0');
+                        // setPageDataAccess('0')
+                        document.getElementById("switchBTN").checked = true
+                        // window.location.reload();
+                    });
+            } else if (document.getElementById("switchBTN").checked === true) {
+                document.getElementById("switchBTN").checked = false
+                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res + ' reeeeeeeeees1');
+                        // setPageDataAccess('1')
+                        document.getElementById("switchBTN").checked = false
+                        // window.location.reload();
+                    });
+            }
+        }
+
+        return (
+            <div className={classes.wrapperSwitchBtn}>
+                <h4>
+                    <FormattedMessage
+                        id={
+                            'myWishlist.labelSwitchActivate'
+                        }
+                        defaultMessage={
+                            'Activate'
+                        }
+                    />
+                </h4>
+                <div className={classes.switch} onClick={handleSwitch} >
+                    {checked ? <input type="checkbox" id="switchBTN" checked ></input> : <input type="checkbox" id="switchBTN" ></input> }
+                    <span className={[classes.slider, classes.round].join(' ')}></span>
+                </div>
+                <h4>
+                    <FormattedMessage
+                        id={
+                            'myWishlist.labelSwitchDeactivate'
+                        }
+                        defaultMessage={
+                            'Deactivate'
+                        }
+                    />
+                </h4>
+            </div>
+        )
+
+    }
+
 
     // removed product_id
 
@@ -1337,54 +1476,56 @@ const MyWishList = props => {
     }
 
 
+
     if (!loading) {
 
         var total = 0;
         let qntProduit = 0;
 
-        const switchBTN = document.getElementById("switchBTN");
+        // const switchBTN = document.getElementById("switchBTN");
+        // console.log(switchBTN);
 
-        if(pageDataAccess["access"] && pageDataAccess["access"] != null ){
-            console.log(pageDataAccess["access"] + '******************');
-        } 
+        // if(pageDataAccess["access"] && pageDataAccess["access"] != null ){
+        //     console.log(pageDataAccess["access"] + '******************');
+        // } 
 
-        
-        if (pageDataAccess && pageDataAccess["access"] != null) {
-            // console.log('iciiiiiiiiiiiiiii');
-            if (pageDataAccess["access"] === '1') {
-                console.log('erreur ici?**********');
-                document.getElementById("switchBTN").checked = false
-            } else if(pageDataAccess["access"] === '0') {
-                console.log('peut etre ici?===============');
-                document.getElementById("switchBTN").checked = true
-            }
-        }
 
-        const handleSwitch = async () => {
-            console.log("AIE AIE IAE");
-            console.log(switchBTN);
-            if (document.getElementById("switchBTN") === false) {
-                document.getElementById("switchBTN").checked = true
-                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
-                    .then(res => res.json())
-                    .then(res => {
-                        console.log(res + ' reeeeeeeeees1');
-                        document.getElementById("switchBTN").checked = true
-                        // setPageDataAccess(res)
-                    });
-            }
-            if (document.getElementById("switchBTN").checked === true) {
-                document.getElementById("switchBTN").checked = false
-                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
-                    .then(res => res.json())
-                    .then(res => {
-                        console.log(res + ' reeeeeeeeees0');
-                        document.getElementById("switchBTN").checked = false
+        // if (pageDataAccess && pageDataAccess["access"] != null) {
+        //     // console.log('iciiiiiiiiiiiiiii');
+        //     if (pageDataAccess["access"] === "1") {
+        //         // console.log('erreur ici?**********');
+        //         document.getElementById("switchBTN").checked = false
+        //     } else if (pageDataAccess["access"] === "0") {
+        //         // console.log('peut etre ici?===============');
+        //         document.getElementById("switchBTN").checked = true
+        //     }
+        // }
 
-                        // setPageDataAccess(res)
-                    });
-            }
-        }
+        // const handleSwitch = async () => {
+        //     console.log("AIE AIE IAE");
+        //     // console.log(switchBTN);
+        //     if (document.getElementById("switchBTN").checked === false) {
+        //         document.getElementById("switchBTN").checked = true
+        //         await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
+        //             .then(res => res.json())
+        //             .then(res => {
+        //                 console.log(res + ' reeeeeeeeees1');
+        //                 // setPageDataAccess('0')
+        //                 document.getElementById("switchBTN").checked = true
+        //                 window.location.reload();
+        //             });
+        //     } else if (document.getElementById("switchBTN").checked === true) {
+        //         document.getElementById("switchBTN").checked = false
+        //         await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
+        //             .then(res => res.json())
+        //             .then(res => {
+        //                 console.log(res + ' reeeeeeeeees0');
+        //                 // setPageDataAccess('1')
+        //                 document.getElementById("switchBTN").checked = false
+        //                 window.location.reload();
+        //             });
+        //     }
+        // }
 
         setTimeout(function () {
 
@@ -1733,10 +1874,10 @@ const MyWishList = props => {
                                                         }
                                                         // verifier si il y a des enfants
                                                         let wrapperProjects = document.getElementById("productsWrapper")
-                                                        console.log(belongToProject(
-                                                            val.product.id,
-                                                            wId
-                                                        ), 'belong');
+                                                        // console.log(belongToProject(
+                                                        //     val.product.id,
+                                                        //     wId
+                                                        // ), 'belong');
 
 
                                                         if (
@@ -2393,7 +2534,8 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     {/* <div>Ici le switch button</div> */}
-                                                    <div className={classes.wrapperSwitchBtn}>
+                                                    <SwitchButton />
+                                                    {/* <div className={classes.wrapperSwitchBtn}>
                                                         <h4>
                                                             <FormattedMessage
                                                                 id={
@@ -2418,7 +2560,7 @@ const MyWishList = props => {
                                                                 }
                                                             />
                                                         </h4>
-                                                    </div>
+                                                    </div> */}
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
