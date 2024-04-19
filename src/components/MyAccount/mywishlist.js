@@ -46,8 +46,8 @@ import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard'
 import { Price } from '@magento/peregrine';
 import { useMobile } from '../../peregrine/lib/talons/Mobile/useMobile';
 const Banner = React.lazy(() => import('../CedHome/banner'));
-const categoryBannerIdentifierHome = 'projects_instructions';
-const categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
+let categoryBannerIdentifierHome = 'projects_instructions';
+let categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
 let showCategoryBanners = true;
 let projectname = '';
 
@@ -539,6 +539,18 @@ const MyWishList = props => {
 
     const myprojects = url.includes("?id");
 
+    const { BrowserPersistence } = Util;
+    const storage = new BrowserPersistence();
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }
+
+    if( storeview === 'fr'){
+        categoryBannerIdentifierHomeBanner = 'projects_instructions_banner-fr';
+        categoryBannerIdentifierHome = 'projects_instructions-fr';
+    }
+
     // console.log(myprojects, 'myprojects');
 
     const [, { addToast }] = useToasts();
@@ -855,7 +867,7 @@ const MyWishList = props => {
                         ref={node => {
                             input = node;
                         }}
-                        placeholder={'New project name'}
+                        placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project' }
                     />
                     <input type="hidden" value={selectId} />
                     <button
@@ -865,12 +877,18 @@ const MyWishList = props => {
                             addTodo({ variables: { category_name: input.value } });
                             input.value = '';
 
+                            if( storeview === 'fr' ){
+                                window.alert('New project created.');
+                            }
+                            else {
+                                window.alert('New project created.');
+                            }
                             window.alert('New project created.');
                             setSelectValue(999);
                             window.location.reload();
                         }}
                     >
-                        Create new project
+                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project' }
                     </button>
                 </div>
 
@@ -931,7 +949,7 @@ const MyWishList = props => {
                         //window.location.reload();
                     }}
                 >
-                    Duplicate project
+                    {storeview === 'fr' ? 'Dupliquer le projet' : 'Duplicate project'}
                 </button>
             </div>
         );
@@ -951,7 +969,7 @@ const MyWishList = props => {
         if (loading)
             return (
                 <button type="" className={classes.add_to_project}>
-                    DELETING PROJECT
+                    {storeview === 'fr' ? 'Supprimer le projet' : 'Delete project'}
                 </button>
             );
         if (error) return `Submission error! ${error.message}`;
@@ -977,7 +995,7 @@ const MyWishList = props => {
                 >
                     <button type="submit" className={classes.add_to_project}>
                         {' '}
-                        Permanently Delete Project
+                        {storeview === 'fr' ? 'Supprimer définitivement le projet' : 'Permanently Delete Project'}
                     </button>
                 </form>
             </div>
@@ -992,7 +1010,7 @@ const MyWishList = props => {
         if (loading)
             return (
                 <button type="" className={classes.add_to_project}>
-                    ARCHIVING PROJECT
+                    {storeview === 'fr' ? "PROJET D'ARCHIVAGE" : "ARCHIVING PROJECT"}
                 </button>
             );
         if (error) return `Archive error! ${error.message}`;
@@ -1021,7 +1039,7 @@ const MyWishList = props => {
                 >
                     <button type="submit" className={classes.add_to_project}>
                         {' '}
-                        Archive project
+                        {storeview === 'fr' ? "Projet d'archives" : "Archive project"}
                     </button>
                 </form>
             </div>
@@ -1110,7 +1128,7 @@ const MyWishList = props => {
         if (loading)
             return (
                 <button type="" className={classes.add_to_project}>
-                    RESTORING PROJECT
+                    {storeview === 'fr' ? "PROJET DE RESTAURATION" : "RESTORING PROJECT"}
                 </button>
             );
         if (error) return `Restore error! ${error.message}`;
@@ -1177,7 +1195,7 @@ const MyWishList = props => {
                 >
                     <button type="submit" className={classes.add_to_project}>
                         {' '}
-                        Move Project to Cart
+                        {storeview === 'fr' ? "Déplacer le projet vers le panier" : "Move Project to Cart"}
                     </button>
                 </form>
             </div>
@@ -1205,7 +1223,7 @@ const MyWishList = props => {
         if (loading)
             return (
                 <button type="" className={classes.add_to_project}>
-                    RENAMING PROJECT
+                    {storeview === 'fr' ? "RENOMMER LE PROJET" : "RENAMING PROJECT"}
                 </button>
             );
         if (error) return `Submission error! ${error.message}`;
@@ -1239,6 +1257,7 @@ const MyWishList = props => {
                     />
                     <button type="submit" className={classes.rename_project}>
                         Rename project
+                        {storeview === 'fr' ? 'Renommer le projet' : 'Rename project'}
                     </button>
                 </form>
             </div>
@@ -1251,15 +1270,6 @@ const MyWishList = props => {
             const value = event.target.value;
             setSelectValue(value);
         };
-
-        const { BrowserPersistence } = Util;
-        const storage = new BrowserPersistence();
-        let storeview = storage.getItem('store_view_code');
-        if (!storeview) {
-            storeview = '';
-        } else {
-            storeview = storeview;
-        }
 
 
         return (

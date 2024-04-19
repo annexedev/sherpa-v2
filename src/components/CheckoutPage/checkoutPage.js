@@ -139,7 +139,8 @@ const CheckoutPage = props => {
     } = talonPropsPrice;
 
 
-    const total = Number(flatData.taxes) + Number(flatData.total.value);
+    //blocked work order
+    //const total = Number(flatData.taxes) + Number(flatData.total.value);
     console.log('CHECKOUT', flatData);
 
 
