@@ -322,6 +322,38 @@
 
 /* ----  switch button ------ */
 
+.wrapperSwitchBtn{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.wrapperSwitchBtn h4 {
+    margin-bottom: 0;
+}
+
+.linkAccordeon{
+    margin: 40px 0 0 0;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-base-color);
+    cursor:pointer
+}
+
+.linkAccordeon p {
+    margin-bottom: 0;
+    color: var(--primary-base-color);
+}
+
+.linkAccordeon svg {
+    color: var(--primary-base-color);
+}
+
+
 .switch {
     position: relative;
     display: inline-block;
@@ -344,7 +376,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: var(--primary-base-color);
     -webkit-transition: .4s;
     transition: .4s;
   }

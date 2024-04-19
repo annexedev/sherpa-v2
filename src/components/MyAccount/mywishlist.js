@@ -2346,12 +2346,19 @@ const MyWishList = props => {
                                                             showCategoryBanners
                                                         }
                                                     />
-                                                    <div>Ici le switch button</div>
-                                                    <div className={classes.switch}>
-                                                        <input type="checkbox" ></input>
-                                                        <span className={[classes.slider, classes.round].join(' ')}></span>
+                                                    {/* <div>Ici le switch button</div> */}
+                                                    <div className={classes.wrapperSwitchBtn}>
+                                                        <h4>Activate</h4>
+                                                        <div className={classes.switch}>
+                                                            <input type="checkbox"></input>
+                                                            <span className={[classes.slider, classes.round].join(' ')}></span>
+                                                        </div>
+                                                        <h4>Deactivate</h4>
                                                     </div>
-                                                    <div>Ici le link pour changer accordeon</div>
+                                                    <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
+                                                        <p>Learn more about my projects</p>
+                                                        {!cacheAccordeon ? <FontAwesomeIcon icon={faChevronDown}  /> : <FontAwesomeIcon icon={faChevronUp}  />}
+                                                    </div>
 
                                                     {/* ----- CACHÉ AVEC LE SWITCH BUTTON ------ */}
                                                     {cacheAccordeon &&
