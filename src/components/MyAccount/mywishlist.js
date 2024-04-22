@@ -479,8 +479,9 @@ class AlreadyPurchased extends Component {
     componentDidMount() {
         let pid = this.props.pid;
         let email = this.props.email;
+        let projectId = this.props.wId;
         let dataURL =
-            'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid;
+            'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid + '&projectId=' + projectId;
         console.log(dataURL);
 
         fetch(dataURL)

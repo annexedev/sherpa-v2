@@ -486,6 +486,12 @@ const MyOrders = props => {
                 let productReference = this.props.productReference;
                 let orderId = this.props.orderId;
 
+                if(document.getElementById(orderId)) {
+                    document.getElementById(orderId).style.display = 'none';
+                }
+
+                
+
                 return (
                     <React.Fragment>
 
@@ -497,26 +503,37 @@ const MyOrders = props => {
                                 
                             else */
 
+                            
+
                             if (productReference != '') {
-                                console.log(e);
+                                
 
                                 if (productReference == e.sku) {
+
+                                    document.getElementById(orderId).style.display = 'flex';
+
                                     return (
 
                                         <p className={defaultClasses.stripe}>{parseInt(e.qty_invoiced)} x {e.name}</p>
 
                                     );
                                 } else {
+
+                                    
+
                                     return (
 
                                         // <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
-                                        <p>{e.sku}</p>
-
+                                        //<p>{e.sku}</p>
+                                        <></>
 
                                     );
                                 }
 
                             } else {
+
+                                //document.getElementById(orderId).style.display = 'initial';
+
                                 return (
 
                                     <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
