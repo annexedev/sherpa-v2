@@ -741,6 +741,10 @@ const MyWishList = props => {
         await fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
+
+                // if(res["access"] == undefined ){
+                //     console.log('nuuullllll');
+                // }
                 setPageDataAccess(res["access"])
                 console.log(res["access"]);
 
@@ -824,7 +828,7 @@ const MyWishList = props => {
                     />
                 </h4>
                 <div className={classes.switch} onClick={handleSwitch} >
-                    {checked ? <input type="checkbox" id="switchBTN" checked ></input> : <input type="checkbox" id="switchBTN" ></input> }
+                    {checked ? <input type="checkbox" id="switchBTN" ></input> : <input type="checkbox" id="switchBTN" checked ></input> }
                     <span className={[classes.slider, classes.round].join(' ')}></span>
                 </div>
                 <h4>
