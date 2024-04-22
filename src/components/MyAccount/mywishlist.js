@@ -537,11 +537,37 @@ class AlreadyPurchased extends Component {
 
 //     }
 
+//     handleSwitch = async () => {
+//         if (checked === true) {
+//             console.log('truuuuuue *************');
+//             await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
+//                 .then(res => res.json())
+//                 .then(res => {
+//                     setChecked(false)
+//                     if(res){
+//                         window.location.reload();
+//                     }
+//                 });
+//         } else if (checked === false) {
+//             console.log('faaaaaalse *************');
+//             await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
+//                 .then(res => res.json())
+//                 .then(res => {
+//                     setChecked(true)
+//                     console.log(checked + ' reeeeeeeeees0');
+//                     if(res){
+//                         window.location.reload();
+//                     }
+//                 });
+//         }
+//     }
+
+
 //     render() {
 
 //         return (
 //             <React.Fragment>
-//                 <div className={classes.wrapperSwitchBtn}>
+//                 <div className={wishlistClasses.wrapperSwitchBtn}>
 //                     <h4>
 //                         <FormattedMessage
 //                             id={
@@ -552,9 +578,9 @@ class AlreadyPurchased extends Component {
 //                             }
 //                         />
 //                     </h4>
-//                     <div className={classes.switch} onClick={handleSwitch} >
+//                     <div className={wishlistClasses.switch} onClick={handleSwitch} >
 //                         {checked ? <input type="checkbox" id="switchBTN" checked ></input> : <input type="checkbox" id="switchBTN" ></input>}
-//                         <span className={[classes.slider, classes.round].join(' ')}></span>
+//                         <span className={[wishlistClasses.slider, classes.round].join(' ')}></span>
 //                     </div>
 //                     <h4>
 //                         <FormattedMessage
@@ -586,8 +612,6 @@ const MyWishList = props => {
         // console.log(idItem);
 
     }
-
-
 
     const reset = () => {
         setSeed(Math.random());
@@ -668,9 +692,6 @@ const MyWishList = props => {
         getCartDetailsQuery: GET_CART_DETAILS_QUERY
     });
 
-    // console.log('getCartDetailsQuery');
-    // console.log(catProps);
-
     const { handleAddToCart } = catProps;
     let productUrlSuffix = '';
 
@@ -687,7 +708,6 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
-    // console.log(data);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
@@ -712,33 +732,34 @@ const MyWishList = props => {
 
     const [cacheAccordeon, setCacheAccordeon] = useState(false);
     const [pageDataAccess, setPageDataAccess] = useState();
-    const [checked, setChecked] = useState()
+    console.log(pageDataAccess + '**************************');
+    const [checked, setChecked] = useState(pageDataAccess == 1 ? true : pageDataAccess == 0 ? false : true)
 
-    // console.log(pageDataAccess + '**************************');
 
     const accesProjets = async () => {
         let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
         await fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
-                setPageDataAccess(res)
-                console.log(res);
-                // console.log(pageDataAccess["access"]);
+                setPageDataAccess(res["access"])
+                console.log(res["access"]);
 
-                if (pageDataAccess && pageDataAccess["access"] != null) {
-                    console.log(pageDataAccess["access"] + '****************');
-                    if (pageDataAccess["access"] === "1") {
+                setChecked(pageDataAccess == 1 ? true : pageDataAccess == 0 ? false : true )
+                // console.log(pageDataAccess);
+                // if (pageDataAccess && pageDataAccess != null) {
+                //     console.log(checked + '****************');
+                    // if (checked) {
                         // console.log('erreur ici?**********');
-                        document.getElementById("switchBTN").checked = false
-                        setChecked(false)
-                    } else if (pageDataAccess["access"] === "0") {
+                        // document.getElementById("switchBTN").checked = checked
+                        // setChecked(false)
+                    // } else if (pageDataAccess["access"] === "0") {
                         // console.log('peut etre ici?===============');
-                        document.getElementById("switchBTN").checked = true
-                        setChecked(true)
-                    }
-                }
+                        // document.getElementById("switchBTN").checked = checked
+                        // setChecked(true)
+                    // }
+                // }
                 console.log(checked + 'checkkkeeeeed');
-
+                console.log(pageDataAccess + 'pageDataAccess');
             });
     }
 
@@ -764,32 +785,27 @@ const MyWishList = props => {
     const SwitchButton = () => {
 
         const handleSwitch = async () => {
-            console.log("AIE AIE IAE");
-            // console.log(switchBTN);
-            if (document.getElementById("switchBTN").checked === false) {
-                document.getElementById("switchBTN").checked = true
+
+            console.log(checked);
+            if (checked == true && pageDataAccess != null) {
+                console.log('truuuuuue *************');
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
                     .then(res => res.json())
                     .then(res => {
-                        // setPageDataAccess('0')
-                        setChecked(true)
-                        console.log(checked + ' reeeeeeeeees0');
-                        document.getElementById("switchBTN").checked = true
+                        setChecked(false)
                         if(res){
-                            // window.location.reload();
+                            window.location.reload();
                         }
                     });
-            } else if (document.getElementById("switchBTN").checked === true) {
-                document.getElementById("switchBTN").checked = false
+            } else if (checked == false && pageDataAccess != null) {
+                console.log('faaaaaalse *************');
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
                     .then(res => res.json())
                     .then(res => {
-                        // setPageDataAccess('1')
-                        setChecked(false)
+                        setChecked(true)
                         console.log(checked + ' reeeeeeeeees0');
-                        document.getElementById("switchBTN").checked = false
                         if(res){
-                        // window.location.reload();
+                            window.location.reload();
                         }
                     });
             }
@@ -808,7 +824,7 @@ const MyWishList = props => {
                     />
                 </h4>
                 <div className={classes.switch} onClick={handleSwitch} >
-                    <input type="checkbox" id="switchBTN" ></input>
+                    {checked ? <input type="checkbox" id="switchBTN" checked ></input> : <input type="checkbox" id="switchBTN" ></input> }
                     <span className={[classes.slider, classes.round].join(' ')}></span>
                 </div>
                 <h4>
