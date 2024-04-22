@@ -260,14 +260,8 @@ class ToggleAccess extends Component {
         );
 
         const handleSwitch = async () => {
-            console.log("CHECKED +++");
 
             var checkedStatus = document.getElementById('switchBTN');
-            if(checkedStatus.checked == true) {
-                console.log("Shit is checked"+checkedStatus.checked);
-            } else {
-                console.log("Shit is NOT checked"+checkedStatus.checked);
-            }
 
             if (checkedStatus.checked == true) {
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
