@@ -227,6 +227,109 @@ class ProjectName extends Component {
     }
 }
 
+
+
+class ToggleAccess extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+
+    componentDidMount() {
+        let email = this.props.email;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+    }
+
+    render() {
+        let email = this.props.email;
+
+        const classes = mergeClasses(
+            defaultClasses, wishlistClasses
+        );
+
+        const handleSwitch = async () => {
+            console.log("CHECKED +++");
+
+            var checkedStatus = document.getElementById('switchBTN');
+            if(checkedStatus.checked == true) {
+                console.log("Shit is checked"+checkedStatus.checked);
+            } else {
+                console.log("Shit is NOT checked"+checkedStatus.checked);
+            }
+
+            if (checkedStatus.checked == true) {
+                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
+                    .then(res => res.json())
+                    .then(res => {
+                        document.getElementById('switchBTN').checked = false;
+                        if(res){
+                            window.location.reload();
+                        }
+                    });
+
+            } else if (checkedStatus.checked == false) {
+                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
+                    .then(res => res.json())
+                    .then(res => {
+                        document.getElementById('switchBTN').checked = true;
+                        if(res){
+                            window.location.reload();
+                        }
+                    });
+            }
+        }
+        
+        let result = this.state.pageData.access && this.state.pageData.access;
+
+        if (result==1) {
+            return (
+                <div className={classes.wrapperSwitchBtn}>
+                    <h4>
+                        <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'}/>
+                    </h4>
+                    <div className={classes.switch} onClick={handleSwitch} >
+                        <input type="checkbox" id="switchBTN" ></input>
+                        <span className={[classes.slider, classes.round].join(' ')}></span>
+                    </div>
+                    <h4>
+                        <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'}/>
+                    </h4>
+                </div>
+            )
+        } else if(result==0){
+            return (
+                <div className={classes.wrapperSwitchBtn}>
+                    <h4>
+                        <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'}/>
+                    </h4>
+                    <div className={classes.switch} onClick={handleSwitch} >
+                        <input type="checkbox" id="switchBTN" checked></input>
+                        <span className={[classes.slider, classes.round].join(' ')}></span>
+                    </div>
+                    <h4>
+                        <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'}/>
+                    </h4>
+                </div>
+            );
+        } else {
+            return(<></>);
+        }
+    }
+
+}
+
 class BrandName extends Component {
     constructor() {
         super();
@@ -731,20 +834,22 @@ const MyWishList = props => {
     /* ---------- Pour avoir acces aux projets ---------- */
 
     const [cacheAccordeon, setCacheAccordeon] = useState(false);
-    const [pageDataAccess, setPageDataAccess] = useState();
+    /* const [pageDataAccess, setPageDataAccess] = useState();
     console.log(pageDataAccess + '**************************');
-    const [checked, setChecked] = useState(pageDataAccess == 1 ? true : pageDataAccess == 0 ? false : true)
+    const [checked, setChecked] = useState(pageDataAccess == 1 ? false : pageDataAccess == 0 ? false : true)
 
 
     const accesProjets = async () => {
         let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
-        await fetch(grantAccess)
+
+        if(email) {
+            fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
-                setPageDataAccess(res["access"])
+                setPageDataAccess(res["access"]);
                 console.log(res["access"]);
 
-                setChecked(pageDataAccess == 1 ? true : pageDataAccess == 0 ? false : true )
+                setChecked(res["access"] == 1 ? false : res["access"] == 0 ? false : true )
                 // console.log(pageDataAccess);
                 // if (pageDataAccess && pageDataAccess != null) {
                 //     console.log(checked + '****************');
@@ -758,9 +863,11 @@ const MyWishList = props => {
                         // setChecked(true)
                     // }
                 // }
-                console.log(checked + 'checkkkeeeeed');
-                console.log(pageDataAccess + 'pageDataAccess');
+                console.log(res["access"] + ' checkkkeeeeed');
+                //console.log(pageDataAccess + ' pageDataAccess');
             });
+        }
+        
     }
 
     useEffect(() => {
@@ -785,63 +892,53 @@ const MyWishList = props => {
     const SwitchButton = () => {
 
         const handleSwitch = async () => {
+            console.log("CHECKED +++");
+
+            //document.getElementById('switchBTN')
+            var checkedStatus = document.getElementById('switchBTN');
+            if(checkedStatus.checked == true) {
+                console.log("Shit is checked"+checkedStatus.checked);
+            } else {
+                console.log("Shit is NOT checked"+checkedStatus.checked+" "+pageDataAccess);
+            }
 
             console.log(checked);
-            if (checked == true && pageDataAccess != null) {
+            if (checkedStatus.checked == false) {
                 console.log('truuuuuue *************');
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
                     .then(res => res.json())
                     .then(res => {
-                        setChecked(false)
+                        console.log(res.result+" DISABLE");
+                        //setChecked(false)
+                        document.getElementById('switchBTN').checked = true;
                         if(res){
-                            window.location.reload();
+                            //window.location.reload();
                         }
                     });
-            } else if (checked == false && pageDataAccess != null) {
+            } else if (checkedStatus.checked == true) {
                 console.log('faaaaaalse *************');
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
                     .then(res => res.json())
                     .then(res => {
-                        setChecked(true)
-                        console.log(checked + ' reeeeeeeeees0');
+                        //setChecked(false)
+                        document.getElementById('switchBTN').checked = false;
+                        console.log(checked + ' reeeeeeeeees');
+                        console.log(res.result+" ENABLE");
                         if(res){
-                            window.location.reload();
+                            //window.location.reload();
                         }
                     });
             }
         }
 
+        console.log('CHECKED STATUS :: '+pageDataAccess);
+
         return (
-            <div className={classes.wrapperSwitchBtn}>
-                <h4>
-                    <FormattedMessage
-                        id={
-                            'myWishlist.labelSwitchActivate'
-                        }
-                        defaultMessage={
-                            'Activate'
-                        }
-                    />
-                </h4>
-                <div className={classes.switch} onClick={handleSwitch} >
-                    {checked ? <input type="checkbox" id="switchBTN" checked ></input> : <input type="checkbox" id="switchBTN" ></input> }
-                    <span className={[classes.slider, classes.round].join(' ')}></span>
-                </div>
-                <h4>
-                    <FormattedMessage
-                        id={
-                            'myWishlist.labelSwitchDeactivate'
-                        }
-                        defaultMessage={
-                            'Deactivate'
-                        }
-                    />
-                </h4>
-            </div>
+            <ToggleAccess email={email} />
         )
 
     }
-
+    */
 
     // removed product_id
 
@@ -2556,7 +2653,8 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     {/* <div>Ici le switch button</div> */}
-                                                    <SwitchButton />
+                                                    {/* <SwitchButton /> */}
+                                                    <ToggleAccess email={email} />
                                                     {/* <div className={classes.wrapperSwitchBtn}>
                                                         <h4>
                                                             <FormattedMessage
