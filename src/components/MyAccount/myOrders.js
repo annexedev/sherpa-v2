@@ -487,10 +487,12 @@ const MyOrders = props => {
                 let orderId = this.props.orderId;
 
                 if(document.getElementById(orderId)) {
+                    //document.getElementById(orderId).style.display = 'none';
+                }
+                ///window.alert(this.state.pageData.length);
+                if(this.state.pageData.length == 0 && document.getElementById(orderId)) {
                     document.getElementById(orderId).style.display = 'none';
                 }
-
-                
 
                 return (
                     <React.Fragment>
@@ -520,12 +522,13 @@ const MyOrders = props => {
                                 } else {
 
                                     
-
+                                    document.getElementById(orderId).style.display = 'flex';
+                                    
                                     return (
-
-                                        // <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
-                                        //<p>{e.sku}</p>
-                                        <></>
+                                        <>
+                                        <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                        {/* <p>{e.sku}</p> */}
+                                        </>
 
                                     );
                                 }
@@ -533,7 +536,7 @@ const MyOrders = props => {
                             } else {
 
                                 //document.getElementById(orderId).style.display = 'initial';
-
+                                
                                 return (
 
                                     <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
@@ -781,9 +784,11 @@ const MyOrders = props => {
                                                                         {this.state.pageData && this.state.pageData.map(e => {
 
                                                                             return (
+
+
                                                                                 <ul
                                                                                     className={
-                                                                                        defaultClasses.orders_row
+                                                                                        defaultClasses.orders_row + " " + (isId ? defaultClasses.order_project : defaultClasses.order_project)
                                                                                     }
 
                                                                                     id={e.order_id}

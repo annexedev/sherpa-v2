@@ -573,9 +573,16 @@ form.root input:focus {
     flex: 0 0 12%;
 }
 
+.order_project {
+    display: none;
+}
+
+.order_flex {
+    display: flex;
+}
 
 .orders_row {
-    display: flex;
+    /* display: flex; */
     margin-bottom: 0px;
     border-bottom: 1px solid var(--primary-border-color);
     padding: 10px 0px;
