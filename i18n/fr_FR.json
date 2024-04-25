@@ -164,6 +164,8 @@
     "item.extra_colors": "3",
     "item.colors_inner": "nom de la couleur",
     "item.add_to_cart_btn": "Ajouter au panier",
+    "item.adding_to_project":"En train d'ajouter au projet",
+    "item.add_to_project":"Ajouter au projet",
     "item.add_to_cart_btn_SimpleProduct": "Ajouter au panier",
     "item.add_to_cart_btn_ConfigurableProduct": "Ajouter au panier",
     "header.offer_message_text": "Offre à durée limitée : jusqu'à 50 % de réduction sur les styles incontournables. ",

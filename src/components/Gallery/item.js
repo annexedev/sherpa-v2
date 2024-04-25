@@ -94,7 +94,14 @@ class ServiceDetailsEmployeurs extends Component {
             if (loading)
                 return (
                     <button type="" className={classes.add_to_project}>
-                        Adding to project
+                        <FormattedMessage
+                            id={
+                                'item.adding_to_project'
+                            }
+                            defaultMessage={
+                                'Adding to project'
+                            }
+                        />
                     </button>
                 );
             if (error) return `Submission error! ${error.message}`;
@@ -156,7 +163,14 @@ class ServiceDetailsEmployeurs extends Component {
                             type="submit"
                             className={classes.add_to_project}
                         >
-                            Add to project
+                            <FormattedMessage
+                                id={
+                                    'item.add_to_project'
+                                }
+                                defaultMessage={
+                                    'Add to project'
+                                }
+                            />
                         </button>
                     </form>
                 </div>
@@ -182,14 +196,14 @@ class ServiceDetailsEmployeurs extends Component {
             }
         `;
 
-            function AddTodo({ item_id, uid }) {
+        function AddTodo({ item_id, uid }) {
             function sortOptions(selectId) {
                 var options = document.getElementById(selectId).options;
                 var optionsArray = [];
                 for (var i = 0; i < options.length; i++) {
                     optionsArray.push(options[i]);
                 }
-                optionsArray = optionsArray.sort(function(a, b) {
+                optionsArray = optionsArray.sort(function (a, b) {
                     return (
                         a.innerHTML.toLowerCase().charCodeAt(0) -
                         b.innerHTML.toLowerCase().charCodeAt(0)
@@ -278,8 +292,8 @@ class ServiceDetailsEmployeurs extends Component {
                             });
 
                             var loopProject = document
-                                    .getElementsByClassName('c' + item_id)[0]
-                                    .querySelector('input').value;
+                                .getElementsByClassName('c' + item_id)[0]
+                                .querySelector('input').value;
 
                             for (let i = 0; i < loopProject; i++) {
                                 addTodoUpdate({
@@ -288,7 +302,7 @@ class ServiceDetailsEmployeurs extends Component {
                                         product_id: item_id,
                                     }
                                 });
-                            
+
                             }
                             window.alert('New category created.');
                             setSelectValue(999);
@@ -542,7 +556,7 @@ const GalleryItem = props => {
         (price_range.minimum_price.regular_price.value +
             customPrice +
             customPricePercent *
-                price_range.minimum_price.regular_price.value) *
+            price_range.minimum_price.regular_price.value) *
         1;
 
     const final_maximum_price =
@@ -558,8 +572,8 @@ const GalleryItem = props => {
     const discount_percent =
         Math.round(
             (1 - final_minimum_price / final_regular_price).toFixed(2) *
-                100 *
-                100
+            100 *
+            100
         ) / 100;
 
     function openLoginBox() {
@@ -578,7 +592,7 @@ const GalleryItem = props => {
         }
     };
 
-    
+
 
     function updateDataValue(valeur) {
         data_value = valeur;
@@ -737,31 +751,31 @@ const GalleryItem = props => {
             'https://data.sherpagroupav.com/media/catalog/product/placeholder/stores/2/image_non_disponible_2.png';
     }
 
-    function onTodoChange(value){
+    function onTodoChange(value) {
         this.setState({
-             name: value
+            name: value
         });
     }
 
     const handleChange = (e) => {
         //e.preventDefault(); // prevent the default action
         setName(e.target.value); // set name to e.target.value (event)
-      };
+    };
 
-      class AmastyLabel extends Component {
+    class AmastyLabel extends Component {
         constructor() {
             super();
             this.state = {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
             let productId = this.props.pid;
             let storeid = this.props.storeid;
             let email = this.props.email;
-            let dataURL ='https://data.sherpagroupav.com/get_amastylabel.php?pid=' + productId + '&storeid=' + storeid + '&email=' + email;
-           
+            let dataURL = 'https://data.sherpagroupav.com/get_amastylabel.php?pid=' + productId + '&storeid=' + storeid + '&email=' + email;
+
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -770,18 +784,19 @@ const GalleryItem = props => {
                     });
                 });
         }
-    
+
         render() {
             let label_path = this.state.pageData.label_path && this.state.pageData.label_path;
             let url_path = this.state.pageData.url_path && this.state.pageData.url_path;
-            if(label_path != '' && this.state.pageData.label_path) {
-            return (
-                <a href={url_path}><img src={"https://data.sherpagroupav.com"+label_path} className={classes.amastyLabel} /></a>
-            ) } else {
-                return(<></>);
+            if (label_path != '' && this.state.pageData.label_path) {
+                return (
+                    <a href={url_path}><img src={"https://data.sherpagroupav.com" + label_path} className={classes.amastyLabel} /></a>
+                )
+            } else {
+                return (<></>);
             }
         }
-    }  
+    }
 
     class DisplayRibbon extends Component {
         constructor() {
@@ -790,12 +805,12 @@ const GalleryItem = props => {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
             let productId = this.props.pid;
             let dataURL =
                 'https://data.sherpagroupav.com/get_newfromandto.php?pid=' + productId;
-            
+
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -804,25 +819,26 @@ const GalleryItem = props => {
                     });
                 });
         }
-    
+
         render() {
             let display = this.state.pageData.display && this.state.pageData.display;
-            if(display>=2) {
-            return (
-                <React.Fragment>
-                   <div className="ribbon ribbon-top-left">
-                        <span>
-                            <FormattedMessage id={'item.ribbon'} defaultMessage={'New'} />
-                        </span>
-                    </div>
-                </React.Fragment>
-            ) } else {
-                return(<></>);
+            if (display >= 2) {
+                return (
+                    <React.Fragment>
+                        <div className="ribbon ribbon-top-left">
+                            <span>
+                                <FormattedMessage id={'item.ribbon'} defaultMessage={'New'} />
+                            </span>
+                        </div>
+                    </React.Fragment>
+                )
+            } else {
+                return (<></>);
             }
         }
-    }  
+    }
 
-    
+
 
     if (item.sku.endsWith('-PROMO') && email == '') {
         return <></>;
@@ -832,7 +848,7 @@ const GalleryItem = props => {
             <>
                 <div
                     className={classes.root}
-                    aria-live="polite" 
+                    aria-live="polite"
                     aria-busy="false"
                     id="ribbonPosition"
                 >
@@ -841,9 +857,9 @@ const GalleryItem = props => {
                         <DisplayRibbon pid={item.id} />
                     </Suspense>
                     <Suspense fallback={null}>
-                        <AmastyLabel pid={item.id} storeid={storeid} email={email}/>
+                        <AmastyLabel pid={item.id} storeid={storeid} email={email} />
                     </Suspense>
-                    
+
                     <div className={classes.noo_product_image}>
                         {discount_percent > 0 && email && (
                             <div className={classes.priceTag}>
@@ -877,7 +893,7 @@ const GalleryItem = props => {
                             className={classes.images}
                         >
                             {item.sku.endsWith('-PROMO') &&
-                            activeLng == '-fr' ? (
+                                activeLng == '-fr' ? (
                                 <Image
                                     alt={name}
                                     classes={{
@@ -968,93 +984,93 @@ const GalleryItem = props => {
 
                                     {final_minimum_price !=
                                         final_regular_price && (
-                                        <>
-                                            {/*<p><b>Special price</b></p>
+                                            <>
+                                                {/*<p><b>Special price</b></p>
                                     {item.special_from_date && (
                                         <p>From: {item.special_from_date.slice(0, -8)}</p>
                                     )}
                                     {item.special_to_date && (
                                         <p>To: {item.special_to_date.slice(0, -8)}</p>
                                     )} */}
-                                            <b
-                                                className={
-                                                    classes.total_available_b
-                                                }
-                                            >
-                                                <FormattedMessage
-                                                    id={'item.yourCost'}
-                                                    defaultMessage={'YOUR COST'}
-                                                />
-                                                &nbsp;&nbsp;
-                                            </b>
-                                            <span
-                                                className={
-                                                    classes.productPrice +
-                                                    ' ' +
-                                                    classes.greenprice
-                                                }
-                                            >
-                                                <Price
-                                                    value={
-                                                        price_range
-                                                            .maximum_price
-                                                            .final_price.value *
-                                                        1
+                                                <b
+                                                    className={
+                                                        classes.total_available_b
                                                     }
-                                                    currencyCode={
-                                                        price_range
-                                                            .maximum_price
-                                                            .regular_price
-                                                            .currency
+                                                >
+                                                    <FormattedMessage
+                                                        id={'item.yourCost'}
+                                                        defaultMessage={'YOUR COST'}
+                                                    />
+                                                    &nbsp;&nbsp;
+                                                </b>
+                                                <span
+                                                    className={
+                                                        classes.productPrice +
+                                                        ' ' +
+                                                        classes.greenprice
                                                     }
-                                                />
-                                            </span>
-                                            <span
-                                                className={
-                                                    classes.regularprice +
-                                                    ' ' +
-                                                    classes.discountedprice
-                                                }
-                                            >
-                                                <Price
-                                                    currencyCode={
-                                                        price_range
-                                                            .minimum_price
-                                                            .regular_price
-                                                            .currency
+                                                >
+                                                    <Price
+                                                        value={
+                                                            price_range
+                                                                .maximum_price
+                                                                .final_price.value *
+                                                            1
+                                                        }
+                                                        currencyCode={
+                                                            price_range
+                                                                .maximum_price
+                                                                .regular_price
+                                                                .currency
+                                                        }
+                                                    />
+                                                </span>
+                                                <span
+                                                    className={
+                                                        classes.regularprice +
+                                                        ' ' +
+                                                        classes.discountedprice
                                                     }
-                                                    value={final_regular_price}
-                                                />
-                                            </span>
-                                        </>
-                                    )}
+                                                >
+                                                    <Price
+                                                        currencyCode={
+                                                            price_range
+                                                                .minimum_price
+                                                                .regular_price
+                                                                .currency
+                                                        }
+                                                        value={final_regular_price}
+                                                    />
+                                                </span>
+                                            </>
+                                        )}
                                     {final_minimum_price ==
                                         final_regular_price && (
-                                        <>
-                                            <b
-                                                className={
-                                                    classes.total_available_b
-                                                }
-                                            >
-                                                <FormattedMessage
-                                                    id={'item.yourCost'}
-                                                    defaultMessage={'YOUR COST'}
-                                                />
-                                                &nbsp;&nbsp;
-                                            </b>
+                                            <>
+                                                <b
+                                                    className={
+                                                        classes.total_available_b
+                                                    }
+                                                >
+                                                    <FormattedMessage
+                                                        id={'item.yourCost'}
+                                                        defaultMessage={'YOUR COST'}
+                                                    />
+                                                    &nbsp;&nbsp;
+                                                </b>
 
-                                            <Price
-                                                value={
-                                                    price_range.maximum_price
-                                                        .final_price.value
-                                                }
-                                                currencyCode={
-                                                    price_range.maximum_price
-                                                        .regular_price.currency
-                                                }
-                                            />
-                                        </>
-                                    )}
+                                                <Price
+                                                    value={
+                                                        price_range.maximum_price
+                                                            .final_price.value
+                                                    }
+                                                    currencyCode={
+                                                        price_range.maximum_price
+                                                            .regular_price.currency
+                                                    }
+                                                />
+                                            </>
+                                        )}
 
                                     <p>
                                         <b
@@ -1119,7 +1135,7 @@ const GalleryItem = props => {
                                         }
                                     >
                                         <QuantityPicker />
-                                        
+
                                     </div>
                                     <div className={classes.add_to_cart_btn}>
                                         {item.__typename == 'SimpleProduct' &&
@@ -1135,7 +1151,7 @@ const GalleryItem = props => {
                                                                 quantity: document
                                                                     .querySelector(
                                                                         '.c' +
-                                                                            item.id
+                                                                        item.id
                                                                     )
                                                                     .querySelector(
                                                                         '.quantity-display'
@@ -1144,10 +1160,10 @@ const GalleryItem = props => {
                                                             });
                                                     }}
 
-                                                    /*onClick={() => {
-                                            setProductName(item.name),
-                                            handleAddToCart(item);
-                                        }} */
+                                                /*onClick={() => {
+                                        setProductName(item.name),
+                                        handleAddToCart(item);
+                                    }} */
                                                 >
                                                     <FormattedMessage
                                                         id={
@@ -1331,7 +1347,7 @@ const GalleryItem = props => {
 
                         {email ? (
                             <div>
-                               <div>
+                                <div>
                                     <Select />
                                     <ServiceDetailsEmployeurs
                                         pid={email}

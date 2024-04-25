@@ -140,6 +140,8 @@
     "item.extra_colors":"+3",
     "item.colors_inner":"color name",
     "item.add_to_cart_btn":"Add to cart",
+    "item.adding_to_project":"Adding to project",
+    "item.add_to_project":"Add to project",
     "item.add_to_cart_btn_SimpleProduct":"Add to cart",
     "item.add_to_cart_btn_ConfigurableProduct":"Add to cart",
     "header.offer_message_text":"Limited time only: up to 50% off must-have styles. Shop Women | Shop Men | Shop Aerie",
