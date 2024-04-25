@@ -12,6 +12,7 @@ import mapProduct from '@magento/venia-ui/lib/util/mapProduct';
 import proClasses from '../ProductFullDetail/productFullDetail.css';
 import { useStyle } from '../../classify';
 import Image from '../Image';
+import { Util } from '@magento/peregrine';
 import GalleryItemShimmer from './item.shimmer';
 import defaultClasses from './item.css';
 import CompareButton from '../Compare/compareButton';
@@ -352,6 +353,13 @@ class ServiceDetailsEmployeurs extends Component {
 
             var uniqueId = makeid(15);
 
+            const { BrowserPersistence } = Util;
+            const storage = new BrowserPersistence();
+            let storeview = storage.getItem('store_view_code');
+            if (!storeview) {
+                storeview = '';
+            }
+
             return (
                 <div>
                     <AddToProject item_id={this.props.item_id} uid={uniqueId} />
@@ -360,9 +368,16 @@ class ServiceDetailsEmployeurs extends Component {
                         className={classes.project_dropdown}
                         id={uniqueId}
                     >
-                        <option defaultValue value="0">
-                            Choose a project.
-                        </option>
+                        {storeview === 'fr' ?
+                            <option defaultValue value="0" 
+                            >
+                               Choisir un projet.
+                            </option>
+                            :
+                            <option defaultValue value="0">
+                                Choose a project.
+                            </option>
+                        }
                         {this.state.pageData &&
                             this.state.pageData.map(e => {
                                 if (!e.category_name.startsWith('ARCHIVE')) {
@@ -373,7 +388,11 @@ class ServiceDetailsEmployeurs extends Component {
                                     );
                                 }
                             })}
-                        <option value="1">Create a new project</option>
+                        {storeview === 'fr' ?
+                            <option value="1" className={classes.bold}>Créer un nouveau projet</option>
+                            :
+                            <option value="1" className={classes.bold}>Create a new project</option>
+                        }
                     </select>
                     {selectValue && selectValue == 1 && (
                         <div id={'hidden_div'}>
