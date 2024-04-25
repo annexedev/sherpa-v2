@@ -46,11 +46,11 @@ export const QuantityFields = props => {
     } else {
         storeview = storeview;
     }
-    console.log(storeview);
+    // console.log(storeview);
     //console.log('PROD ID : '+productId+' '+wid);
 
 
-    console.log(initialPrice, finalPrice);
+    // console.log(initialPrice, finalPrice);
 
 
 

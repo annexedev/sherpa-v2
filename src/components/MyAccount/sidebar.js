@@ -24,7 +24,7 @@ class ProjectList extends Component {
 
     componentDidMount() {
         let pid = this.props.pid;
-        console.log(this.props);
+        // console.log(this.props);
         let dataURL =
             'https://data.sherpagroupav.com/get_projects.php?email=' + pid;
         fetch(dataURL)
@@ -49,9 +49,6 @@ class ProjectList extends Component {
 
 
     /* ----- HIDE/SHOW ---------- */
-
-
-
 
     alternateVisibilityArchive = () => {
         this.setState((prevState) => ({
@@ -88,7 +85,7 @@ class ProjectList extends Component {
 
 
         //console.log('Access ::::::: ');
-        //console.log(this.state.pageDataAccess["access"]);
+        // console.log(this.state.pageDataAccess["access"]);
 
         const ProjectItems = props => {
             const { onClose } = props;
@@ -186,7 +183,7 @@ class ProjectList extends Component {
                                                         ' ' +
                                                         classes.projectlistactive
                                                     }
-
+                                                    key={index}
                                                 >
                                                     <a
                                                         href={
