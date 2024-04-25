@@ -324,7 +324,7 @@
     "myOrderView.ShippingMethod": "Mode de livraison",
     "myOrderView.BillingAddress": "adresse de facturation",
     "myOrderView.PaymentMethod": "Mode de paiement",
-    "myWishlist.page_title": "Projets",
+    "myWishlist.page_title": "Mes Projets",
     "myWishlist.moveToCartBtn": "Passer tout au panier",
     "myWishlist.noResult_text": "Vous n'avez aucun article enregistré. Parcourez les produits et ajoutez-les à ce projet.",
     "myWishlist.showAccordeon":"En savoir plus sur mes projets",
