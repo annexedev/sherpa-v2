@@ -110,7 +110,7 @@ const MyOrderView = props => {
     }
 
     // console.log('DATA');
-    // console.log(data);
+    console.log(data);
 
     return (
         <div className={defaultClasses.columns}>
@@ -156,8 +156,15 @@ const MyOrderView = props => {
                                                         defaultClasses.base
                                                     }
                                                 >
-                                                    {'Order # ' +
-                                                        data.increment_id}
+                                                    <FormattedMessage
+                                                            id={
+                                                                'myOrderView.Order'
+                                                            }
+                                                            defaultMessage={
+                                                                'Order'
+                                                            }
+                                                    />
+                                                    {' ' + '#' + ' ' + data.increment_id}
                                                 </span>
                                             </h1>
                                             <span
@@ -165,7 +172,14 @@ const MyOrderView = props => {
                                                     defaultClasses.order_status
                                                 }
                                             >
-                                                {data.status}
+                                                {data.status === 'Pending' ? <FormattedMessage
+                                                            id={
+                                                                'myOrderView.Pending'
+                                                            }
+                                                            defaultMessage={
+                                                                'Pending'
+                                                            }
+                                                    /> : data.status}
                                             </span>
                                         </div>
                                         <div

@@ -418,6 +418,8 @@
     "home.add_to_cart_btn": "Add to Cart",
     "ProductFullDetail.addToCart": "Add to Cart",
     "myOrderView.ReOrder":"Reorder",
+    "myOrderView.Order": "Order ",
+    "myOrderView.Pending": "Pending ",
     "checkoutPage.guestCheckoutProhibited":"Please SignIn to continue to your checkout page",
      "contact.Description":"Contact Us Description",
     "priceRange.from":"From",

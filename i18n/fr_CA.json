@@ -460,6 +460,8 @@
     "home.add_to_cart_btn": "Ajouter au panier",
     "ProductFullDetail.addToCart": "Ajouter au panier",
     "myOrderView.ReOrder": "Répéter la commande",
+    "myOrderView.Order": "Commande ",
+    "myOrderView.Pending": "En attente ",
     "checkoutPage.guestCheckoutProhibited": "Veuillez vous connecter pour continuer vers votre page de paiement",
     "contact.Description": "Contactez-nous Description",
     "priceRange.from": "Depuis",
