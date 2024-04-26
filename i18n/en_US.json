@@ -291,6 +291,7 @@
     "myOrderView.BackToOrders":"Back to My Orders",
     "myOrderView.ProductName":"Description",
     "myOrderView.SKU":"Part #",
+    "myOrderView.Associated": "Associated with project",
     "myOrderView.Price":"Price",
     "myOrderView.Qty":"Qty",
     "myOrderView.Subtotal":"Subtotal",

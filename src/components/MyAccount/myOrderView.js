@@ -582,7 +582,7 @@ const MyOrderView = props => {
                                                     >
                                                         <FormattedMessage
                                                             id={
-                                                                'myOrderView.associated'
+                                                                'myOrderView.Associated'
                                                             }
                                                             defaultMessage={
                                                                 'Associated with project'
