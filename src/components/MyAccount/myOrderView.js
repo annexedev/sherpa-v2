@@ -157,12 +157,12 @@ const MyOrderView = props => {
                                                     }
                                                 >
                                                     <FormattedMessage
-                                                            id={
-                                                                'myOrderView.Order'
-                                                            }
-                                                            defaultMessage={
-                                                                'Order'
-                                                            }
+                                                        id={
+                                                            'myOrderView.Order'
+                                                        }
+                                                        defaultMessage={
+                                                            'Order'
+                                                        }
                                                     />
                                                     {' ' + '#' + ' ' + data.increment_id}
                                                 </span>
@@ -172,14 +172,65 @@ const MyOrderView = props => {
                                                     defaultClasses.order_status
                                                 }
                                             >
-                                                {data.status === 'Pending' ? <FormattedMessage
+                                                {data.status === 'Pending' || data.status === 'pending' ?
+                                                    <FormattedMessage
+                                                        id={
+                                                            'myOrderView.Pending'
+                                                        }
+                                                        defaultMessage={
+                                                            'Pending'
+                                                        }
+                                                    />
+                                                    :
+                                                    data.status === 'Complete' || data.status === 'complete' || data.status === 'completed' ?
+                                                        <FormattedMessage
                                                             id={
-                                                                'myOrderView.Pending'
+                                                                'myOrderView.Completed'
                                                             }
                                                             defaultMessage={
-                                                                'Pending'
+                                                                'Complete'
                                                             }
-                                                    /> : data.status}
+                                                        />
+                                                        :
+                                                        data.status === 'Processing' || data.status === 'processing' ?
+                                                            <FormattedMessage
+                                                                id={
+                                                                    'myOrderView.Processing'
+                                                                }
+                                                                defaultMessage={
+                                                                    'Processing'
+                                                                }
+                                                            />
+                                                            :
+                                                            data.status === 'Canceled' || data.status === 'canceled' ?
+                                                                <FormattedMessage
+                                                                    id={
+                                                                        'myOrderView.Canceled'
+                                                                    }
+                                                                    defaultMessage={
+                                                                        'Canceled'
+                                                                    }
+                                                                />
+                                                                :
+                                                                data.status === 'new' || e.status === 'New' ?
+                                                                    <FormattedMessage
+                                                                        id={
+                                                                            'myOrderView.New'
+                                                                        }
+                                                                        defaultMessage={
+                                                                            'New'
+                                                                        } />
+                                                                    :
+                                                                    data.status === 'closed' || e.status === 'Closed' ?
+                                                                        <FormattedMessage
+                                                                            id={
+                                                                                'myOrderView.Closed'
+                                                                            }
+                                                                            defaultMessage={
+                                                                                'Closed'
+                                                                            } />
+                                                                        :
+                                                                        data.status}
                                             </span>
                                         </div>
                                         <div
@@ -225,7 +276,7 @@ const MyOrderView = props => {
                                                             }
                                                         />
                                                     </span>
-                                                </button> }
+                                                </button>}
                                                 <span
                                                     className={
                                                         defaultClasses.action
@@ -855,7 +906,7 @@ const MyOrderView = props => {
                                                                         <ProjectOrder item_id={val.id} order_id={orderId} />
 
                                                                     </li>
-                                                                
+
                                                                 </ul>
                                                             );
                                                         }

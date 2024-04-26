@@ -836,7 +836,7 @@ console.log(e.status);
                                                                                         }
                                                                                     >
                                                                                         {
-                                                                                            e.status === 'pending' ?
+                                                                                            e.status === 'pending' || e.status === 'Pending' ?
                                                                                             <FormattedMessage
                                                                                             id={
                                                                                                 'myOrderView.Pending'
@@ -845,7 +845,7 @@ console.log(e.status);
                                                                                                 'Pending'
                                                                                             } />
                                                                                         :
-                                                                                            e.status === 'canceled' ? 
+                                                                                            e.status === 'canceled' || e.status === 'Canceled' ? 
                                                                                             <FormattedMessage
                                                                                             id={
                                                                                                 'myOrderView.Canceled'
@@ -854,7 +854,7 @@ console.log(e.status);
                                                                                                 'Canceled'
                                                                                             } />
                                                                                         :
-                                                                                            e.status === 'completed' ? 
+                                                                                            e.status === 'complete' || e.status === 'completed' || e.status === 'Complete' ? 
                                                                                             <FormattedMessage
                                                                                             id={
                                                                                                 'myOrderView.Completed'
@@ -862,7 +862,35 @@ console.log(e.status);
                                                                                             defaultMessage={
                                                                                                 'Completed'
                                                                                             } />
-                                                                                            : e.status
+                                                                                            : 
+                                                                                            e.status === 'processing' || e.status === 'Processing' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Processing'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Processing'
+                                                                                            } />
+                                                                                            :
+                                                                                            e.status === 'new' || e.status === 'New' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.New'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'New'
+                                                                                            } />
+                                                                                            :
+                                                                                            e.status === 'closed' || e.status === 'Closed' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Closed'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Closed'
+                                                                                            } />
+                                                                                            :
+                                                                                            e.status
                                                                                         }
 
                                                                                     </li>
