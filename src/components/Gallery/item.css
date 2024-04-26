@@ -104,6 +104,9 @@ button[class='quantity-modifier modifier-right']:hover {
     margin-bottom: 5px;
     border: 2px solid #e1e1e1;
 }
+.bold{
+    font-weight: bold;
+}
 
 .project_input {
     width: 80%;

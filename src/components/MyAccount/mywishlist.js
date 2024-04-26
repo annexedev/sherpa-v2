@@ -227,8 +227,6 @@ class ProjectName extends Component {
     }
 }
 
-
-
 class ToggleAccess extends Component {
 
     constructor() {
@@ -564,7 +562,6 @@ class SoldIn extends Component {
     }
 }
 
-
 class AlreadyPurchased extends Component {
     constructor() {
         super();
@@ -609,93 +606,6 @@ class AlreadyPurchased extends Component {
 
     }
 }
-
-// class SwitchButton extends Component {
-//     constructor() {
-//         super();
-//         this.state = {
-//             pageDataAcces: []
-//         };
-//     }
-
-
-//     componentDidMount() {
-//         // let cid = this.props.cid;
-//         const { email } = useDashboard();
-
-//         let dataURL =
-//         'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
-//         fetch(dataURL)
-//             .then(res => res.json())
-//             .then(res => {
-//                 this.setState({
-//                     pageDataAcces: res
-//                 });
-//             });
-
-//     }
-
-//     handleSwitch = async () => {
-//         if (checked === true) {
-//             console.log('truuuuuue *************');
-//             await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
-//                 .then(res => res.json())
-//                 .then(res => {
-//                     setChecked(false)
-//                     if(res){
-//                         window.location.reload();
-//                     }
-//                 });
-//         } else if (checked === false) {
-//             console.log('faaaaaalse *************');
-//             await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
-//                 .then(res => res.json())
-//                 .then(res => {
-//                     setChecked(true)
-//                     console.log(checked + ' reeeeeeeeees0');
-//                     if(res){
-//                         window.location.reload();
-//                     }
-//                 });
-//         }
-//     }
-
-
-//     render() {
-
-//         return (
-//             <React.Fragment>
-//                 <div className={wishlistClasses.wrapperSwitchBtn}>
-//                     <h4>
-//                         <FormattedMessage
-//                             id={
-//                                 'myWishlist.labelSwitchActivate'
-//                             }
-//                             defaultMessage={
-//                                 'Activate'
-//                             }
-//                         />
-//                     </h4>
-//                     <div className={wishlistClasses.switch} onClick={handleSwitch} >
-//                         {checked ? <input type="checkbox" id="switchBTN" checked ></input> : <input type="checkbox" id="switchBTN" ></input>}
-//                         <span className={[wishlistClasses.slider, classes.round].join(' ')}></span>
-//                     </div>
-//                     <h4>
-//                         <FormattedMessage
-//                             id={
-//                                 'myWishlist.labelSwitchDeactivate'
-//                             }
-//                             defaultMessage={
-//                                 'Deactivate'
-//                             }
-//                         />
-//                     </h4>
-//                 </div>
-//             </React.Fragment>
-//         );
-//     }
-// }
-
 
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
@@ -826,44 +736,8 @@ const MyWishList = props => {
         //await handleRemoveItem({ product_id: id });
         setRemoveMsg(true);
     };
-    /* ---------- Pour avoir acces aux projets ---------- */
 
     const [cacheAccordeon, setCacheAccordeon] = useState(false);
-    /* const [pageDataAccess, setPageDataAccess] = useState();
-    console.log(pageDataAccess + '**************************');
-    const [checked, setChecked] = useState(pageDataAccess == 1 ? false : pageDataAccess == 0 ? false : true)
-
-
-    const accesProjets = async () => {
-        let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
-
-        if(email) {
-            fetch(grantAccess)
-            .then(res => res.json())
-            .then(res => {
-                setPageDataAccess(res["access"]);
-                console.log(res["access"]);
-
-                setChecked(res["access"] == 1 ? false : res["access"] == 0 ? false : true )
-                // console.log(pageDataAccess);
-                // if (pageDataAccess && pageDataAccess != null) {
-                //     console.log(checked + '****************');
-                    // if (checked) {
-                        // console.log('erreur ici?**********');
-                        // document.getElementById("switchBTN").checked = checked
-                        // setChecked(false)
-                    // } else if (pageDataAccess["access"] === "0") {
-                        // console.log('peut etre ici?===============');
-                        // document.getElementById("switchBTN").checked = checked
-                        // setChecked(true)
-                    // }
-                // }
-                console.log(res["access"] + ' checkkkeeeeed');
-                //console.log(pageDataAccess + ' pageDataAccess');
-            });
-        }
-        
-    }
 
     useEffect(() => {
         if (
@@ -881,59 +755,7 @@ const MyWishList = props => {
             window.location.reload(false);
             //refetch();
         }
-        accesProjets()
     }, [addToast, removeMsg, removeResponse, refetch]);
-
-    const SwitchButton = () => {
-
-        const handleSwitch = async () => {
-            console.log("CHECKED +++");
-
-            //document.getElementById('switchBTN')
-            var checkedStatus = document.getElementById('switchBTN');
-            if(checkedStatus.checked == true) {
-                console.log("Shit is checked"+checkedStatus.checked);
-            } else {
-                console.log("Shit is NOT checked"+checkedStatus.checked+" "+pageDataAccess);
-            }
-
-            console.log(checked);
-            if (checkedStatus.checked == false) {
-                console.log('truuuuuue *************');
-                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
-                    .then(res => res.json())
-                    .then(res => {
-                        console.log(res.result+" DISABLE");
-                        //setChecked(false)
-                        document.getElementById('switchBTN').checked = true;
-                        if(res){
-                            //window.location.reload();
-                        }
-                    });
-            } else if (checkedStatus.checked == true) {
-                console.log('faaaaaalse *************');
-                await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
-                    .then(res => res.json())
-                    .then(res => {
-                        //setChecked(false)
-                        document.getElementById('switchBTN').checked = false;
-                        console.log(checked + ' reeeeeeeeees');
-                        console.log(res.result+" ENABLE");
-                        if(res){
-                            //window.location.reload();
-                        }
-                    });
-            }
-        }
-
-        console.log('CHECKED STATUS :: '+pageDataAccess);
-
-        return (
-            <ToggleAccess email={email} />
-        )
-
-    }
-    */
 
     // removed product_id
 
@@ -2647,35 +2469,7 @@ const MyWishList = props => {
                                                             showCategoryBanners
                                                         }
                                                     />
-                                                    {/* <div>Ici le switch button</div> */}
-                                                    {/* <SwitchButton /> */}
                                                     <ToggleAccess email={email} />
-                                                    {/* <div className={classes.wrapperSwitchBtn}>
-                                                        <h4>
-                                                            <FormattedMessage
-                                                                id={
-                                                                    'myWishlist.labelSwitchActivate'
-                                                                }
-                                                                defaultMessage={
-                                                                    'Activate'
-                                                                }
-                                                            />
-                                                        </h4>
-                                                        <div className={classes.switch} onClick={handleSwitch} >
-                                                            <input type="checkbox" id="switchBTN" ></input>
-                                                            <span className={[classes.slider, classes.round].join(' ')}></span>
-                                                        </div>
-                                                        <h4>
-                                                            <FormattedMessage
-                                                                id={
-                                                                    'myWishlist.labelSwitchDeactivate'
-                                                                }
-                                                                defaultMessage={
-                                                                    'Deactivate'
-                                                                }
-                                                            />
-                                                        </h4>
-                                                    </div> */}
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
@@ -2690,7 +2484,7 @@ const MyWishList = props => {
                                                         {!cacheAccordeon ? <FontAwesomeIcon icon={faChevronDown} /> : <FontAwesomeIcon icon={faChevronUp} />}
                                                     </div>
 
-                                                    {/* ----- CACHÉ AVEC LE SWITCH BUTTON ------ */}
+                                                    {/* ----- HIDE WITH LINK  ------ */}
                                                     {cacheAccordeon &&
                                                         <>
                                                             <p>&nbsp;</p>

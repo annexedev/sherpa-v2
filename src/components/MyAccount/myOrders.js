@@ -782,7 +782,7 @@ const MyOrders = props => {
                                                                     >
 
                                                                         {this.state.pageData && this.state.pageData.map(e => {
-
+console.log(e.status);
                                                                             return (
 
 
@@ -858,8 +858,63 @@ const MyOrders = props => {
                                                                                         }
                                                                                     >
                                                                                         {
+                                                                                            e.status === 'pending' || e.status === 'Pending' ?
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Pending'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Pending'
+                                                                                            } />
+                                                                                        :
+                                                                                            e.status === 'canceled' || e.status === 'Canceled' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Canceled'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Canceled'
+                                                                                            } />
+                                                                                        :
+                                                                                            e.status === 'complete' || e.status === 'completed' || e.status === 'Complete' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Completed'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Completed'
+                                                                                            } />
+                                                                                            : 
+                                                                                            e.status === 'processing' || e.status === 'Processing' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Processing'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Processing'
+                                                                                            } />
+                                                                                            :
+                                                                                            e.status === 'new' || e.status === 'New' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.New'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'New'
+                                                                                            } />
+                                                                                            :
+                                                                                            e.status === 'closed' || e.status === 'Closed' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Closed'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Closed'
+                                                                                            } />
+                                                                                            :
                                                                                             e.status
                                                                                         }
+
                                                                                     </li>
                                                                                     {/* Products linked */}
                                                                                     <li
