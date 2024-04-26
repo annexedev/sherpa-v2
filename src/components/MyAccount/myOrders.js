@@ -762,7 +762,7 @@ const MyOrders = props => {
                                                                     >
 
                                                                         {this.state.pageData && this.state.pageData.map(e => {
-
+console.log(e.status);
                                                                             return (
                                                                                 <ul
                                                                                     className={
@@ -836,8 +836,35 @@ const MyOrders = props => {
                                                                                         }
                                                                                     >
                                                                                         {
-                                                                                            e.status
+                                                                                            e.status === 'pending' ?
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Pending'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Pending'
+                                                                                            } />
+                                                                                        :
+                                                                                            e.status === 'canceled' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Canceled'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Canceled'
+                                                                                            } />
+                                                                                        :
+                                                                                            e.status === 'completed' ? 
+                                                                                            <FormattedMessage
+                                                                                            id={
+                                                                                                'myOrderView.Completed'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Completed'
+                                                                                            } />
+                                                                                            : e.status
                                                                                         }
+
                                                                                     </li>
                                                                                     {/* Products linked */}
                                                                                     <li

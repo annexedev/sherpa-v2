@@ -463,6 +463,8 @@
     "myOrderView.ReOrder": "Répéter la commande",
     "myOrderView.Order": "Commande ",
     "myOrderView.Pending": "En attente ",
+    "myOrderView.Canceled": "Annulée ",
+    "myOrderView.Completed": "Completée ",
     "checkoutPage.guestCheckoutProhibited": "Veuillez vous connecter pour continuer vers votre page de paiement",
     "contact.Description": "Contactez-nous Description",
     "priceRange.from": "Depuis",

@@ -439,6 +439,8 @@
     "myOrderView.ReOrder":"Reorder",
     "myOrderView.Order": "Order ",
     "myOrderView.Pending": "Pending ",
+    "myOrderView.Canceled": "Canceled ",
+    "myOrderView.Completed": "Completed ",
     "checkoutPage.guestCheckoutProhibited":"Please SignIn to continue to your checkout page",
      "contact.Description":"Contact Us Description",
     "priceRange.from":"From",
