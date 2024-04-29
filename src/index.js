@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery/dist/jquery.slim.min';
 import 'popper.js/dist/umd/popper';
 import 'bootstrap/dist/js/bootstrap.min';
+import ReactGA from 'react-ga';
+
 // server rendering differs from browser rendering
 const isServer = !globalThis.document;
 
@@ -22,12 +24,20 @@ const styles = new Set();
 
 const tree = <Adapter origin={origin} store={store} styles={styles} />;
 
+
+
 if (isServer) {
     // TODO: ensure this actually renders correctly
     import('react-dom/server').then(({ default: ReactDOMServer }) => {
         console.log(ReactDOMServer.renderToString(tree));
     });
 } else {
+
+    ReactGA.initialize('G-TKS9KKG4X1', { debug: true }); 
+
+    ReactGA.pageview(window.location.pathname + window.location.search);
+
+
     render(tree, document.getElementById('root'));
     registerSW();
 

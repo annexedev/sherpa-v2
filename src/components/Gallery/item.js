@@ -1368,10 +1368,7 @@ const GalleryItem = props => {
                             <div>
                                 <div>
                                     <Select />
-                                    <ServiceDetailsEmployeurs
-                                        pid={email}
-                                        item_id={item.id}
-                                    />
+                                    
                                 </div>
                                 <BWL />
                             </div>

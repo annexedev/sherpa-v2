@@ -516,7 +516,7 @@ const MyOrders = props => {
 
                                     return (
 
-                                        <p className={defaultClasses.stripe}>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                        <p className={defaultClasses.stripe}>{parseInt(e.qty_invoiced)} x {e.sku}</p>
 
                                     );
                                 } else {
@@ -526,8 +526,8 @@ const MyOrders = props => {
                                     
                                     return (
                                         <>
-                                        <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
-                                        {/* <p>{e.sku}</p> */}
+                                       
+                                        {/* <p>{parseInt(e.qty_invoiced)} x {e.sku}</p> <p>{e.sku}</p> */}
                                         </>
 
                                     );
@@ -538,8 +538,8 @@ const MyOrders = props => {
                                 //document.getElementById(orderId).style.display = 'initial';
                                 
                                 return (
-
-                                    <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                    <></>
+                                    //<p>{parseInt(e.qty_invoiced)} x {e.name}</p>
                                     // <p>{e.sku}</p>
 
                                 );
