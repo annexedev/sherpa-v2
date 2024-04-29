@@ -33,9 +33,9 @@ if (isServer) {
     });
 } else {
 
-    ReactGA.initialize('G-TKS9KKG4X1', { debug: true }); 
+    /*ReactGA.initialize('G-TKS9KKG4X1', { debug: true }); 
 
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    ReactGA.pageview(window.location.pathname + window.location.search);*/
 
 
     render(tree, document.getElementById('root'));
