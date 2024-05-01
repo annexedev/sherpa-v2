@@ -262,7 +262,7 @@ const MyOrders = props => {
                                                                                     index
                                                                                 }
                                                                                 className={
-                                                                                    defaultClasses.orders_row
+                                                                                    defaultClasses.orders_row + ' ' + defaultClasses.orders_row_global
                                                                                 }
                                                                             >
                                                                                 <li
@@ -496,7 +496,6 @@ const MyOrders = props => {
 
                 return (
                     <React.Fragment>
-
                         {this.state.pageData && this.state.pageData.map(e => {
 
                             /*if(this.state.pageData && this.state.pageData.length < 1) {
@@ -522,7 +521,7 @@ const MyOrders = props => {
                                 } else {
 
                                     
-                                    document.getElementById(orderId).style.display = 'flex';
+                                    document.getElementById(orderId).style.display = 'none';
                                     
                                     return (
                                         <>
@@ -535,7 +534,7 @@ const MyOrders = props => {
 
                             } else {
 
-                                //document.getElementById(orderId).style.display = 'initial';
+                                document.getElementById(orderId).style.display = 'flex';
                                 
                                 return (
                                     <></>
@@ -782,7 +781,6 @@ const MyOrders = props => {
                                                                     >
 
                                                                         {this.state.pageData && this.state.pageData.map(e => {
-console.log(e.status);
                                                                             return (
 
 

@@ -334,6 +334,20 @@
     margin-bottom: 0;
 }
 
+.wrapperSwitchBtn h4 span {
+    color: #646464;
+}
+
+.wrapperSwitchBtnMessage {
+    text-align: center;
+    display: none;
+}
+
+.wrapperSwitchBtnMessage span {
+    color: #646464;
+}
+
+
 .linkAccordeon{
     margin: 40px 0 0 0;
     display: flex;
@@ -501,6 +515,13 @@
 
 }
 @media screen and (min-width: 320px) and (max-width: 767px) {
+    .wrapperSwitchBtnMessage {
+        text-align: center;
+        display: block !important;
+    }
+    .wrapperSwitchBtn h4 span {
+        display: none;
+    }
     .move_confirm { 
         top: unset;
         left: unset;

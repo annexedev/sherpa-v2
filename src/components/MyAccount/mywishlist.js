@@ -287,6 +287,7 @@ class ToggleAccess extends Component {
 
         if (result==1) {
             return (
+                <>                
                 <div className={classes.wrapperSwitchBtn}>
                     <h4>
                         <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'}/>
@@ -297,11 +298,24 @@ class ToggleAccess extends Component {
                     </div>
                     <h4>
                         <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'}/>
+                        <span>
+                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
+                        </span>
                     </h4>
+                    
                 </div>
+                <div>
+                    <p className={classes.wrapperSwitchBtnMessage}>
+                        <span>
+                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
+                        </span>
+                    </p>
+                </div>
+                </>
             )
         } else if(result==0){
             return (
+                <>
                 <div className={classes.wrapperSwitchBtn}>
                     <h4>
                         <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'}/>
@@ -312,8 +326,19 @@ class ToggleAccess extends Component {
                     </div>
                     <h4>
                         <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'}/>
+                        <span>
+                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
+                        </span>
                     </h4>
                 </div>
+                <div>
+                <p className={classes.wrapperSwitchBtnMessage}>
+                    <span>
+                        &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
+                    </span>
+                </p>
+            </div>
+            </>
             );
         } else {
             return(<></>);

@@ -581,8 +581,12 @@ form.root input:focus {
     display: flex;
 }
 
+.orders_row_global {
+    display: flex; 
+}
+
 .orders_row {
-    /* display: flex; */
+    /*display: flex;*/
     margin-bottom: 0px;
     border-bottom: 1px solid var(--primary-border-color);
     padding: 10px 0px;
