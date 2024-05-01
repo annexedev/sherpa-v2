@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery/dist/jquery.slim.min';
 import 'popper.js/dist/umd/popper';
 import 'bootstrap/dist/js/bootstrap.min';
-import ReactGA from 'react-ga';
+//import ReactGA from 'react-ga';
 
 // server rendering differs from browser rendering
 const isServer = !globalThis.document;
