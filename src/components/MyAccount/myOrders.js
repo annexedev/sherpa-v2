@@ -357,15 +357,7 @@ const MyOrders = props => {
                                                                                         defaultClasses.body_item
                                                                                     }
                                                                                 >
-                                                                                    {storeview === 'fr' && val.status === 'Pending' || val.status === 'pending' ? 'En attente' : val.status}
-                                                                                    {storeview === 'fr' && val.status === 'Processing' || val.status === 'processing' ? 'En traitement' : val.status}
-                                                                                    {storeview === 'fr' && val.status === 'Complete'  || val.status === 'complete' ? 'Complétée' : val.status}
-                                                                                    {storeview === 'fr' && val.status === 'Canceled' || val.status === 'canceled' ? 'Annulée' : val.status}
-                                                                                    {storeview === 'fr' && val.status === 'New' || val.status === 'new' ? 'Nouveau' : val.status}
-                                                                                    {storeview === 'fr' && val.status === 'Closed' || val.status === 'closed' ? 'Fermée' : val.status}
-
-
-                                                                                    
+                                                                                    {storeview === 'fr' && val.status === 'Pending' || val.status === 'pending' ? 'En attente' : val.status === 'Processing' || val.status === 'processing' ? 'En traitement' : val.status === 'Complete'  || val.status === 'complete' ? 'Complétée' : val.status === 'Canceled' || val.status === 'canceled' ? 'Annulée' : val.status === 'New' || val.status === 'new' ? 'Nouveau' : val.status === 'Closed' || val.status === 'closed' ? 'Fermée' : val.status}                                                                                    
                                                                                 </li>
                                                                                 <li
                                                                                     mobilelabel="Action"
