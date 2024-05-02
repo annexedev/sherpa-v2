@@ -13,6 +13,8 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@magento/venia-ui/lib/components/Head';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 import { Price } from '@magento/peregrine';
+import BrowserPersistence from '@magento/peregrine/lib/util/simplePersistence';
+
 
 
 const MyOrders = props => {
@@ -75,6 +77,24 @@ const MyOrders = props => {
     const isProject = urlParams.get('project');
     const isId = urlParams.get('id');
     //console.log('doudou'+isProject);
+
+
+    /* Get store view for language */
+
+    const storage = new BrowserPersistence();
+    function getStoreview() {
+        var storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        } else {
+            storeview = storeview;
+        }
+        return storeview;
+    }
+
+    var storeview = getStoreview();
+
+    console.log(storeview);
 
     if (!loading && isProject == null) {
         return (
@@ -256,6 +276,7 @@ const MyOrders = props => {
                                                                         val,
                                                                         index
                                                                     ) => {
+                                                                        console.log(val.status);
                                                                         return (
                                                                             <ul
                                                                                 key={
@@ -336,9 +357,15 @@ const MyOrders = props => {
                                                                                         defaultClasses.body_item
                                                                                     }
                                                                                 >
-                                                                                    {
-                                                                                        val.status
-                                                                                    }
+                                                                                    {storeview === 'fr' && val.status === 'Pending' || val.status === 'pending' ? 'En attente' : val.status}
+                                                                                    {storeview === 'fr' && val.status === 'Processing' || val.status === 'processing' ? 'En traitement' : val.status}
+                                                                                    {storeview === 'fr' && val.status === 'Complete'  || val.status === 'complete' ? 'Complétée' : val.status}
+                                                                                    {storeview === 'fr' && val.status === 'Canceled' || val.status === 'canceled' ? 'Annulée' : val.status}
+                                                                                    {storeview === 'fr' && val.status === 'New' || val.status === 'new' ? 'Nouveau' : val.status}
+                                                                                    {storeview === 'fr' && val.status === 'Closed' || val.status === 'closed' ? 'Fermée' : val.status}
+
+
+                                                                                    
                                                                                 </li>
                                                                                 <li
                                                                                     mobilelabel="Action"
