@@ -609,16 +609,19 @@ form.root input:focus {
 }
 .table_wrapper_inner .item {
     flex: 0 0 14%;
-    text-overflow: ellipsis;
+    /*text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap;*/
 }
 .table_wrapper_inner .item:last-child {
-    flex: 0 0 25%;
+    flex: 0 0 35%;
 }
 .body_item {
     font-size: 14px;
     color: var(--primary-text-color);
+}
+.order_project .body_item p {
+    margin-bottom: 0px;
 }
 .body_item_link {
     display: inline-block;

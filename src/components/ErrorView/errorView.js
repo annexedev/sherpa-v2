@@ -10,11 +10,23 @@ const ErrorView = () => {
 
     const currentUrl = window.location.href;
     let newurl = '';
+    let newurlAruba = '';
 
     if (window.location.href.indexOf("/brands/") != -1) {
         newurl = currentUrl.replace('/brands','');
         window.location.href = newurl;
     }
+
+    if (window.location.href.indexOf("/brands-sherpa/brands-sherpa") != -1) {
+        newurlAruba = currentUrl.replace('/brands-sherpa','');
+        window.location.assign(newurlAruba);
+        console.log(newurlAruba);
+    }
+
+    /*if (window.location.href.indexOf("/aruba-instant-on") != -1) {
+        newurlAruba = currentUrl.replace('/hewlett-packard-enterprise','');
+        window.location.href = newurlAruba;
+    }*/
 
     return (
         <div className={defaultClasses.page_not_find}>
