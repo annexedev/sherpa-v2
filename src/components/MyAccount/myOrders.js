@@ -542,7 +542,7 @@ const MyOrders = props => {
 
                                         
                                         <>
-                                            <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.name}</a></p>
+                                            <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.sku}</a></p>
                                         </>
 
                                     );
@@ -553,7 +553,7 @@ const MyOrders = props => {
                                         
                                         return (
                                             <>
-                                                <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.name}</a></p>
+                                                <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.sku}</a></p>
                                             </>
 
                                         );
@@ -573,7 +573,7 @@ const MyOrders = props => {
                                 
                                 return (
                                     <>
-                                        <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                        <p>{parseInt(e.qty_invoiced)} x {e.sku}</p>
                                     </>
 
                                 );
@@ -585,7 +585,7 @@ const MyOrders = props => {
                                 
                                 return (
                                     <>
-                                        <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.name}</a></p>
+                                        <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.sku}</a></p>
                                     </>
 
                                 );
