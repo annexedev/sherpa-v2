@@ -356,9 +356,9 @@ class ServiceDetailsEmployeurs extends Component {
             const { BrowserPersistence } = Util;
             const storage = new BrowserPersistence();
             let storeview = storage.getItem('store_view_code');
-            if (!storeview) {
-                storeview = '';
-            }
+            // if (!storeview) {
+            //     storeview = '';
+            // }
 
             return (
                 <div>
@@ -1368,7 +1368,10 @@ const GalleryItem = props => {
                             <div>
                                 <div>
                                     <Select />
-                                    
+                                    <ServiceDetailsEmployeurs
+                                        pid={email}
+                                        item_id={item.id}
+                                    />
                                 </div>
                                 <BWL />
                             </div>
