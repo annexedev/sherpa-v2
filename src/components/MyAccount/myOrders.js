@@ -491,7 +491,7 @@ const MyOrders = props => {
                 let storeId = this.props.storeId;
                 let dataURL =
                     'https://data.sherpagroupav.com/get_order_projects_lines.php?category_id=' + category_id + '&orderId=' + orderNumber + '&storeId=' + storeId;
-
+                console.log(dataURL);
                 fetch(dataURL)
                     .then(res => res.json())
                     .then(res => {

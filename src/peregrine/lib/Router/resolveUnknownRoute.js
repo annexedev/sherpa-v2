@@ -143,9 +143,9 @@ function fetchRoute(opts) {
             }
 
             const routes =
-                persistence.getItem(getRouteCacheKey(opts.store)) || {};
+            //persistence.getItem(getRouteCacheKey(opts.store)) || {};
             routes[opts.route] = res;
-            persistence.setItem(getRouteCacheKey(opts.store), routes, 86400);
+            //persistence.setItem(getRouteCacheKey(opts.store), routes, 86400);
             // entire route cache has a TTL of one day
 
             return res.data.urlResolver;
