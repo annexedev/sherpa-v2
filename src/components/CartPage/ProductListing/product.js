@@ -5,6 +5,7 @@ import { useProduct } from 'src/peregrine/lib/talons/CartPage/ProductListing/use
 import { Price } from '@magento/peregrine';
 import CustomProductOptions from './productOptions';
 import BundleProductOptions from './bundleOptions';
+import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '../../../classify';
 import Kebab from '../../LegacyMiniCart/kebab';
@@ -241,10 +242,33 @@ const Product = props => {
                             }}
                         />
                     )}
-                    <span><strong>Part #</strong> {product.sku}</span>
-                    <span><strong>Brand:</strong> <BrandName pid={item.product.id} /></span>
+                    <span>
+                        <strong>
+                            <FormattedMessage
+                                id={'myOrderView.SKU'}
+                                defaultMessage={'Part #'}
+                            />
+                        </strong>
+                        {product.sku}
+                    </span>
+                    <span>
+                        <strong>
+                        <FormattedMessage
+                                id={'item.brand'}
+                                defaultMessage={'Brand'}
+                            />                        </strong>
+                        <BrandName pid={item.product.id} />
+                    </span>
 
-                    <span><strong>Sold in:</strong> <SoldIn pid={item.product.id} /></span>
+                    <span>
+                        <strong>
+                        <FormattedMessage
+                                id={'item.soldIn'}
+                                defaultMessage={'Sold in'}
+                            /> 
+                        </strong>
+                        <SoldIn pid={item.product.id} />
+                    </span>
                     {/* <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />
                     </span> */}
