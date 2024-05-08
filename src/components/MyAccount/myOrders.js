@@ -1005,7 +1005,12 @@ const MyOrders = props => {
                                                 <Link
                                                     className={defaultClasses.btnPurchase}
                                                     to={resourceUrl('/myprojects?id=' + isProject)}
-                                                >Return to project</Link>
+                                                >
+                                                    <FormattedMessage
+                                                    id={'myOrders.ReturnProject'}
+                                                    defaultMessage={'Return to project'}
+                                                />
+                                                </Link>
                                                 <br /><br />
                                             </div>
 
