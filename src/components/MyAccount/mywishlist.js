@@ -597,7 +597,7 @@ class AlreadyPurchased extends Component {
                     to={resourceUrl('/orders?project=' + wId + '&id=' + sku)}
                 >
                     {purchased}
-                    <FormattedMessage id={'labelPurchased'} defaultMessage={' purchased'}/>
+                    <FormattedMessage id={'myWishlist.labelPurchased'} defaultMessage={' purchased'}/>
                 </Link>
             );
         } else {
