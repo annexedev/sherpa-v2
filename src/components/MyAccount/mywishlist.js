@@ -892,6 +892,86 @@ const MyWishList = props => {
         }
     `;
 
+    function AddTodo(uid) {
+        let input;
+        let selectId = uid;
+
+        const TOGGLE_LIKED_PHOTO = gql`
+            mutation($category_name: String!) {
+                MpBetterWishlistCreateCategory(
+                    input: { category_name: $category_name }
+                ) {
+                    category_id
+                    category_name
+                    is_default
+                    items {
+                        added_at
+                        description
+                        qty
+                        store_id
+                        wishlist_item_id
+                    }
+                }
+            }
+        `;
+
+        const [addTodo, { data, loading, error }] = useMutation(
+            TOGGLE_LIKED_PHOTO
+        );
+        const [selectValue, setSelectValue] = React.useState('');
+
+        const { BrowserPersistence } = Util;
+        const storage = new BrowserPersistence();
+        let storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        }
+
+        if (data) {
+        }
+        if (loading) return 'Submitting...';
+        if (error) return `Submission error! ${error.message}`;
+        /*if (1) {
+            return (<>s</>);
+        } else { */
+            return (<>
+
+                <div className={classes.new_project}>
+                    <input
+                        className={classes.input_rename}
+                        type="text"
+                        ref={node => {
+                            input = node;
+                        }}
+                        placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                    />
+                    <input type="hidden" value={selectId} />
+                    <button
+                        className={classes.rename_project}
+                        onClick={e => {
+                            e.preventDefault();
+                            addTodo({ variables: { category_name: input.value } });
+                            input.value = '';
+
+                            if (storeview === 'fr') {
+                                window.alert('New project created.');
+                            }
+                            else {
+                                window.alert('New project created.');
+                            }
+                            window.alert('New project created.');
+                            setSelectValue(999);
+                            window.location.reload();
+                        }}
+                    >
+                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                    </button>
+                </div>
+
+            </>);
+        //}
+    }
+
     function MoveToCart(uid) {
 
         const talonProps = useCartPage({
