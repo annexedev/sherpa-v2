@@ -1491,7 +1491,6 @@ const MyWishList = props => {
                         placeholder={'New name'}
                     />
                     <button type="submit" className={classes.rename_project}>
-                        Rename project
                         {storeview === 'fr' ? 'Renommer le projet' : 'Rename project'}
                     </button>
                 </form>
