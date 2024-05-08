@@ -224,6 +224,10 @@ class ProjectList extends Component {
                                     // ------------ MY PROJECTS --------------
 
                                     const active = projectId == e.category_id ? true : false;
+                                    const queryString = window.location.search;
+                                    const urlParams = new URLSearchParams(queryString);
+                                    const isProject = urlParams.get('project');
+
                                     if (
                                         !e.category_name.startsWith('ARCHIVE') &&
                                         !this.props.archive &&
@@ -261,9 +265,21 @@ class ProjectList extends Component {
                                             !this.props.archive && purchasedPage
                                         ) {
                                             // bloc a faire le hide/show au click
+                                            console.log('isProject '+ isProject);
+
+                                            let displayClass = true;
+
+                                            if(active) {
+                                                displayClass = true;
+                                            } else if(isProject == e.category_id) {
+                                                displayClass = true;
+                                            } else {
+                                                displayClass = false;
+                                            }
+
                                             return (
                                                 <>
-                                                    <li className={!active ? classes.projectlist : classes.projectlist + ' ' + classes.projectlistactive}>
+                                                    <li className={displayClass ? classes.projectlist + ' ' + classes.projectlistactive : classes.projectlist }>
                                                         <a
                                                             href={
                                                                 '/myprojects?id=' +

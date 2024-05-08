@@ -695,7 +695,7 @@ const MyAccount = props => {
                                                                                 index
                                                                             }
                                                                             className={
-                                                                                defaultClasses.orders_row
+                                                                                defaultClasses.orders_row + ' ' + defaultClasses.orders_row_global
                                                                             }
                                                                         >
                                                                             <li

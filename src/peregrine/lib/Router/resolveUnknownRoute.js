@@ -82,7 +82,8 @@ function remotelyResolveRoute(opts) {
     // If it exists in localStorage, use that value
     // TODO: This can be handled by workbox once this issue is resolved in the
     // graphql repo: https://github.com/magento/graphql-ce/issues/229
-    if ((urlResolve && urlResolve[opts.route]) || !navigator.onLine) {
+    //localStorage.clear();
+    /* if ((urlResolve && urlResolve[opts.route]) || !navigator.onLine) {
         if (urlResolve && urlResolve[opts.route]) {
             return Promise.resolve(urlResolve[opts.route].data.urlResolver);
         } else {
@@ -93,7 +94,9 @@ function remotelyResolveRoute(opts) {
         }
     } else {
         return fetchRoute(opts);
-    }
+    } */
+
+    return fetchRoute(opts);
 }
 
 /**
@@ -143,9 +146,9 @@ function fetchRoute(opts) {
             }
 
             const routes =
-                persistence.getItem(getRouteCacheKey(opts.store)) || {};
+            //persistence.getItem(getRouteCacheKey(opts.store)) || {};
             routes[opts.route] = res;
-            persistence.setItem(getRouteCacheKey(opts.store), routes, 86400);
+            //persistence.setItem(getRouteCacheKey(opts.store), routes, 86400);
             // entire route cache has a TTL of one day
 
             return res.data.urlResolver;

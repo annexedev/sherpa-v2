@@ -283,7 +283,7 @@ const MyOrders = props => {
                                                                                     index
                                                                                 }
                                                                                 className={
-                                                                                    defaultClasses.orders_row
+                                                                                    defaultClasses.orders_row + ' ' + defaultClasses.orders_row_global
                                                                                 }
                                                                             >
                                                                                 <li
@@ -488,9 +488,10 @@ const MyOrders = props => {
             componentDidMount() {
                 let orderNumber = this.props.orderNumber;
                 let category_id = this.props.category_id;
+                let storeId = this.props.storeId;
                 let dataURL =
-                    'https://data.sherpagroupav.com/get_order_projects_lines.php?category_id=' + category_id + '&orderId=' + orderNumber;
-
+                    'https://data.sherpagroupav.com/get_order_projects_lines.php?category_id=' + category_id + '&orderId=' + orderNumber + '&storeId=' + storeId;
+                console.log(dataURL);
                 fetch(dataURL)
                     .then(res => res.json())
                     .then(res => {
@@ -505,9 +506,19 @@ const MyOrders = props => {
                 let productReference = this.props.productReference;
                 let orderId = this.props.orderId;
 
+                if(document.getElementById(orderId)) {
+                    //document.getElementById(orderId).style.display = 'none';
+                }
+                ///window.alert(this.state.pageData.length);
+                if(this.state.pageData.length == 0 && document.getElementById(orderId)) {
+                    document.getElementById(orderId).style.display = 'none';
+                }
+
+                const urlParams = new URLSearchParams(queryString);
+                const isProject = urlParams.get('id');
+
                 return (
                     <React.Fragment>
-
                         {this.state.pageData && this.state.pageData.map(e => {
 
                             /*if(this.state.pageData && this.state.pageData.length < 1) {
@@ -516,35 +527,70 @@ const MyOrders = props => {
                                 
                             else */
 
+                            console.log("productReference " + productReference);
+
+                            if(isProject) {
+
                             if (productReference != '') {
-                                console.log(e);
+                                
 
                                 if (productReference == e.sku) {
+
+                                    document.getElementById(orderId).style.display = 'flex';
+
                                     return (
 
-                                        <p className={defaultClasses.stripe}>{parseInt(e.qty_invoiced)} x {e.name}</p>
+                                        
+                                        <>
+                                            <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.sku}</a></p>
+                                        </>
 
                                     );
                                 } else {
-                                    return (
+                                    
+                                    //document.getElementById(orderId).style.display = 'flex';
+                                    if(!isProject) {
+                                        
+                                        return (
+                                            <>
+                                                <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.sku}</a></p>
+                                            </>
 
-                                        // <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
-                                        <p>{e.sku}</p>
+                                        );
+                                    } else {
+                                        
+                                        return (<></>)
+                                    }
 
-
-                                    );
+                                    
                                 }
 
-                            } else {
-                                return (
+                            
 
-                                    <p>{parseInt(e.qty_invoiced)} x {e.name}</p>
-                                    // <p>{e.sku}</p>
+                            } else {
+
+                                document.getElementById(orderId).style.display = 'flex';
+                                
+                                return (
+                                    <>
+                                        <p>{parseInt(e.qty_invoiced)} x {e.sku}</p>
+                                    </>
 
                                 );
                             }
 
+                            } else {
 
+                                document.getElementById(orderId).style.display = 'flex';
+                                
+                                return (
+                                    <>
+                                        <p>{parseInt(e.qty_invoiced)} x <a href={e.finalUrl} className={defaultClasses.body_item_link}>{e.sku}</a></p>
+                                    </>
+
+                                );
+
+                            }
 
 
                         }
@@ -618,6 +664,21 @@ const MyOrders = props => {
             }
 
             render() {
+
+                let lng = '';
+                if (document.getElementById('currentLng') != null) {
+                    lng = document.getElementById('currentLng').innerHTML;
+                }
+                let activeLng = '';
+                let storeid = '';
+                if (lng == 'Français') {
+                    activeLng = '-fr';
+                    storeid = 2;
+                } else {
+                    activeLng = '';
+                    storeid = 1;
+                }
+
                 return (
                     <div className={defaultClasses.columns}>
 
@@ -781,11 +842,12 @@ const MyOrders = props => {
                                                                     >
 
                                                                         {this.state.pageData && this.state.pageData.map(e => {
-console.log(e.status);
                                                                             return (
+
+
                                                                                 <ul
                                                                                     className={
-                                                                                        defaultClasses.orders_row
+                                                                                        defaultClasses.orders_row + " " + (isId ? defaultClasses.order_project : defaultClasses.order_project)
                                                                                     }
 
                                                                                     id={e.order_id}
@@ -923,7 +985,7 @@ console.log(e.status);
                                                                                         }
                                                                                     >
 
-                                                                                        <OrderLines orderId={e.order_id} productReference={isId} orderNumber={e.order_id} category_id={isProject} />
+                                                                                        <OrderLines storeId={storeid} orderId={e.order_id} productReference={isId} orderNumber={e.order_id} category_id={isProject} />
 
 
                                                                                     </li>
