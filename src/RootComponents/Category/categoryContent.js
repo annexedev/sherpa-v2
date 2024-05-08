@@ -238,7 +238,7 @@ const CategoryContent = props => {
     const banner =
         data && data.category && data.category.image && data.category.id !== 349 ? (
             <img
-                alt="categoryBanner"
+                alt={"categoryBanner"+data.category.id}
                 src={data.category.image}
                 className={'img-fluid' + ' ' + classes.categoyrpage_banner}
             />

@@ -42,6 +42,7 @@ class ServiceDetailsEmployeurs extends Component {
         super();
         this.state = {
             pageData: [],
+            pageDataAccess: [],
             name: 'React Component reload sample',
             reload: false
         };
@@ -71,6 +72,18 @@ class ServiceDetailsEmployeurs extends Component {
                     pageData: res
                 });
             });
+
+        let grantAccess =
+            'https://data.sherpagroupav.com/get_projectaccess.php?email=' +
+            pid;
+        fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageDataAccess: res
+                });
+            });
+
     }
 
     render() {
@@ -356,10 +369,10 @@ class ServiceDetailsEmployeurs extends Component {
             const { BrowserPersistence } = Util;
             const storage = new BrowserPersistence();
             let storeview = storage.getItem('store_view_code');
-            if (!storeview) {
-                storeview = '';
-            }
-
+            // if (!storeview) {
+            //     storeview = '';
+            // }
+            if (this.state.pageDataAccess['access'] == 1) {
             return (
                 <div>
                     <AddToProject item_id={this.props.item_id} uid={uniqueId} />
@@ -401,6 +414,9 @@ class ServiceDetailsEmployeurs extends Component {
                     )}
                 </div>
             );
+            } else {
+                return(<></>);
+            }
         };
 
         const classes = useStyle(defaultClasses);
@@ -709,9 +725,9 @@ const GalleryItem = props => {
         });
 
         if (loading) {
-            return <p>Loading ...</p>;
+            return <p></p>;
         }
-
+ 
         return <div />;
     };
 

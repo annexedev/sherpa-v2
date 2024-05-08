@@ -276,9 +276,7 @@ const MegaMenu = () => {
                                                         )}
                                                     >
                                                         {
-                                                            v1[
-                                                                'sub_category_name'
-                                                            ]
+                                                            v1['sub_category_name']
                                                         }
                                                         {showsubchild && (
                                                             <FontAwesomeIcon

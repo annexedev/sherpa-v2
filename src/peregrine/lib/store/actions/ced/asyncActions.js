@@ -10,10 +10,10 @@ export const getNavigationDetails = () => {
         const [dispatch] = args;
         var storeview = getStoreview();
         try {
-            if (storage.getItem('nav_details')) {
+            /*if (storage.getItem('nav_details')) {
                 const navDetails = storage.getItem('nav_details');
                 dispatch(actions.getHomenavigationDetails.receive(navDetails));
-            } else {
+            } else { */
                 const navDetails = await request(
                     '/rest/' + storeview + 'V1/getNavigation',
                     {
@@ -22,7 +22,7 @@ export const getNavigationDetails = () => {
                 );
                 setNavDetails(navDetails);
                 dispatch(actions.getHomenavigationDetails.receive(navDetails));
-            }
+            /* } */
         } catch (error) {
             dispatch(actions.getHomenavigationDetails.receive(error));
         }

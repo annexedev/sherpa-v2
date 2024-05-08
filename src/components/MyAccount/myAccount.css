@@ -573,9 +573,20 @@ form.root input:focus {
     flex: 0 0 12%;
 }
 
+.order_project {
+    display: none;
+}
+
+.order_flex {
+    display: flex;
+}
+
+.orders_row_global {
+    display: flex; 
+}
 
 .orders_row {
-    display: flex;
+    /*display: flex;*/
     margin-bottom: 0px;
     border-bottom: 1px solid var(--primary-border-color);
     padding: 10px 0px;
@@ -598,9 +609,9 @@ form.root input:focus {
 }
 .table_wrapper_inner .item {
     flex: 0 0 14%;
-    text-overflow: ellipsis;
+    /*text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap;*/
 }
 .table_wrapper_inner .item:last-child {
     flex: 0 0 25%;
@@ -608,6 +619,9 @@ form.root input:focus {
 .body_item {
     font-size: 14px;
     color: var(--primary-text-color);
+}
+.order_project .body_item p {
+    margin-bottom: 0px;
 }
 .body_item_link {
     display: inline-block;

@@ -349,7 +349,7 @@ const PrintOrder = () => {
                                                                     className={
                                                                         Classes.orders_row +
                                                                         ' ' +
-                                                                        defaultClasses.order_view
+                                                                        defaultClasses.order_view + ' ' + defaultClasses.orders_row_global
                                                                     }
                                                                     index={
                                                                         index
