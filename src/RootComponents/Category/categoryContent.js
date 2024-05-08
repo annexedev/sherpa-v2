@@ -234,8 +234,9 @@ const CategoryContent = props => {
     ]);
 
     const categoryTitle = categoryName ? categoryName : <Shimmer width={5} />;
+    // console.log(data.category);
     const banner =
-        data && data.category && data.category.image ? (
+        data && data.category && data.category.image && data.category.id !== 349 ? (
             <img
                 alt="categoryBanner"
                 src={data.category.image}
