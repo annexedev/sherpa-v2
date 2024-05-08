@@ -595,7 +595,10 @@ class AlreadyPurchased extends Component {
                 <Link
                     className={defaultClasses.linkPurchase}
                     to={resourceUrl('/orders?project=' + wId + '&id=' + sku)}
-                >{purchased} purchased</Link>
+                >
+                    {purchased}
+                    <FormattedMessage id={'labelPurchased'} defaultMessage={' purchased'}/>
+                </Link>
             );
         } else {
             return (

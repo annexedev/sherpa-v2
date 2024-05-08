@@ -329,6 +329,7 @@
     "myWishlist.noResult_text":"You have no items saved. Browse products and add them to this project",
     "myWishlist.showAccordeon":"Learn more about my projects",
     "myWishlist.labelSwitchDeactivate":"Deactivate",
+    "myWishlist.labelPurchased":" purchased",
     "myWishlist.labelSwitchActivate":"Activate",
     "newAddress.page_title":"Edit Account Information",
     "newAddress.firstName":"First Name",
