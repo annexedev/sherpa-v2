@@ -282,6 +282,7 @@
     "myOrders.ViewOrder":"View Order",
     "myOrders.noOrderMessage":"You have no orders.",
     "myOrders.MyOrder":"My Order",
+    "myOrders.ReturnProject":"Return to project",
     "myOrderView.PrintOrder":"Print Order",
     "myOrderView.ItemOrdered":"Item ordered",
     "myOrderView.Invoice":"Invoice",

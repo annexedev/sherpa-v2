@@ -323,6 +323,7 @@
     "myOrders.ViewOrder": "Voir la commande",
     "myOrders.noOrderMessage": "Vous n'avez aucune commande.",
     "myOrders.MyOrder": "Mes commandes",
+    "myOrders.ReturnProject":"Retourner au projet",
     "myOrderView.PrintOrder": "Imprimer la commande",
     "myOrderView.ItemOrdered": "Article commandé",
     "myOrderView.Invoice": "Facture",
