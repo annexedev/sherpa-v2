@@ -1130,7 +1130,7 @@ const MyWishList = props => {
                 >
                     <button type="submit" className={classes.add_to_project}>
                         {' '}
-                        {storeview === 'fr' ? "Projet d'archives" : "Archive project"}
+                        {storeview === 'fr' ? "Archiver le projet" : "Archive project"}
                     </button>
                 </form>
             </div>
