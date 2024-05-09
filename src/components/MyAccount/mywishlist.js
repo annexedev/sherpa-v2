@@ -1054,7 +1054,7 @@ const MyWishList = props => {
                     ref={node => {
                         input = node;
                     }}
-                    placeholder={'New project name'}
+                    placeholder={storeview === 'fr' ? 'Nom du projet' : 'New project name'}
                 />
                 <input type="hidden" value={selectId} />
                 <button
@@ -1373,10 +1373,10 @@ const MyWishList = props => {
                         type="text"
                         id={'wid' + wId}
                         className={classes.input_rename}
-                        placeholder={'New name'}
+                        placeholder={storeview === 'fr' ? 'Nouveau nom' : 'New name'}
                     />
                     <button type="submit" className={classes.rename_project}>
-                        Rename project
+                        {/* Rename project */}
                         {storeview === 'fr' ? 'Renommer le projet' : 'Rename project'}
                     </button>
                 </form>
