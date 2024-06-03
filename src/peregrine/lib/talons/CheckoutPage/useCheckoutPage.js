@@ -167,13 +167,12 @@ export const useCheckoutPage = props => {
         async function placeOrderAndCleanup() {
             try {
                 var value = document.getElementById('cardMessage').value;
-                // console.log('VALEUR :::: ' + cartId);
 
                 let grantAccess =
                     'https://data.sherpagroupav.com/add_comment.php?cartId=' +
                     cartId +
                     '&comment=' +
-                    value;
+                    encodeURIComponent(value);
                 fetch(grantAccess)
                     .then(res => res.json())
                     .then(res => {});

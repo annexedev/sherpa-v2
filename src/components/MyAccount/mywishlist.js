@@ -133,6 +133,8 @@ class RealQuantity extends Component {
         return (
             <>
                 <Quantity
+                    initialValue={1}
+                    min={1}
                     wid={cid}
                     productId={wid}
                     initialValue={qty}
@@ -1951,7 +1953,7 @@ const MyWishList = props => {
                                                             return 1;
                                                         }
                                                         // verifier si il y a des enfants
-                                                        let wrapperProjects = document.getElementById("productsWrapper")
+                                                        //let wrapperProjects = document.getElementById("productsWrapper")
                                                         // console.log(belongToProject(
                                                         //     val.product.id,
                                                         //     wId
@@ -2413,8 +2415,6 @@ const MyWishList = props => {
                                                                                                                 tempProps.categoryId = wId;
                                                                                                                 tempProps.categoryName = projectname;
                                                                                                                 tempProps.qtyCategory = currentQty;
-
-                                                                                                                console.log('coucoucoucou');
 
                                                                                                                 handleAddToCart(
                                                                                                                     tempProps
