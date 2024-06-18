@@ -93,6 +93,14 @@
     min-height: 30px;
     align-items: center;
 }
+.blocNomProjects{
+    right: 4px;
+    position: absolute;
+    top: 46px;
+    padding: 20px;
+    width: 140px;
+    background-color: white;
+}
 .wishlist_image,
 .user_icon_image {
     position: relative;

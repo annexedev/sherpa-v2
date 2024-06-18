@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, Component } from 'react';
+import React, { Fragment, Suspense, Component, useState } from 'react';
 import { shape, string } from 'prop-types';
 import Logo from '../Logo';
 import { Link, resourceUrl, Route } from 'src/drivers';
@@ -15,6 +15,9 @@ import SCOPE_CONFIG_DATA from '../../queries/getScopeConfigData.graphql';
 import { useScopeData } from '../../peregrine/lib/talons/Home/useHome';
 import { Util } from '@magento/peregrine';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import { useSlider } from '../../peregrine/lib/talons/Slider/useSlider';
 import GET_SLIDER_DATA from '../../queries/getSliderDetails.graphql';
@@ -41,6 +44,7 @@ class ProjectLink extends Component {
         super();
         this.state = {
             pageDataAccess: [],
+            pageProjectData : [],
             name: 'React Component reload sample',
             reload: false
         };
@@ -51,7 +55,7 @@ class ProjectLink extends Component {
 
         let grantAccess =
             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
-        
+
         fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
@@ -59,21 +63,42 @@ class ProjectLink extends Component {
                     pageDataAccess: res
                 });
             });
+
+        // const { email } = useDashboard();
+
+        // let pid = this.props.pid;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_projects.php?email=' + pid;
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageProjectData: res
+                });
+            });
+
     }
 
     render() {
         const classes = mergeClasses(defaultClasses);
 
         const ProjectItems = props => {
+
+            const [projectsOpen, setProjectsOpen] = useState();
+
+
+            console.log(this.state.pageProjectData);
+
             if (this.state.pageDataAccess['access'] == 1) {
-                return (
-                    <Link
+                return (<>
+                    <div
                         className={
                             classes.wishlist_image +
                             ' ' +
                             classes.header_Actions_image
                         }
-                        to="/myprojects"
+                        // to="/myprojects"
+                        onClick={() => setProjectsOpen(!projectsOpen)}
                     >
                         <span aria-hidden="true">
                             <FormattedMessage
@@ -82,7 +107,22 @@ class ProjectLink extends Component {
                             />
                         </span>
                         <span title="MyProjects">{heartIcon}</span>
-                    </Link>
+                        <FontAwesomeIcon icon={faAngleDown} />
+                    </div>
+                    {projectsOpen &&
+                        <div className={defaultClasses.blocNomProjects}>
+                            <ul>
+                                {/* mapping pour le nom des projects */}
+                                {this.state.pageProjectData.map((project) => (
+
+                                    <li><Link to=''>{project.category_name}</Link></li>
+                                ))
+                            }
+                                <li><Link to="/myprojects">Voir tout</Link></li>
+                            </ul>
+                        </div>
+                    }
+                </>
                 );
             } else {
                 return <></>;
@@ -112,7 +152,7 @@ class ProjectLinkTopBar extends Component {
 
         let grantAccess =
             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + pid;
-        
+
         fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
@@ -277,7 +317,7 @@ const Header = props => {
     }
 
     var storeview = getStoreview();
-    console.log(storeview+email)
+    console.log(storeview + email)
     return (
         <Fragment>
             <header className={rootClass}>
@@ -420,7 +460,7 @@ const Header = props => {
                                     <div
                                         className={
                                             defaultClasses[
-                                                `auto-complete-container`
+                                            `auto-complete-container`
                                             ]
                                         }
                                     >
@@ -428,7 +468,7 @@ const Header = props => {
                                             id="auto-complete"
                                             className={
                                                 defaultClasses[
-                                                    `auto-complete-input`
+                                                `auto-complete-input`
                                                 ] +
                                                 ' ' +
                                                 classes.autocomplete_wrap
@@ -473,16 +513,16 @@ const Header = props => {
                                                                         <Fragment>
                                                                             {activeLng ==
                                                                                 '-fr' && (
-                                                                                <span className="aa-SourceHeaderTitle">
-                                                                                    Produits
-                                                                                </span>
-                                                                            )}
+                                                                                    <span className="aa-SourceHeaderTitle">
+                                                                                        Produits
+                                                                                    </span>
+                                                                                )}
                                                                             {activeLng ==
                                                                                 '' && (
-                                                                                <span className="aa-SourceHeaderTitle">
-                                                                                    Products
-                                                                                </span>
-                                                                            )}
+                                                                                    <span className="aa-SourceHeaderTitle">
+                                                                                        Products
+                                                                                    </span>
+                                                                                )}
 
                                                                             <div className="aa-SourceHeaderLine" />
                                                                         </Fragment>
