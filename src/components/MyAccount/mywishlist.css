@@ -410,9 +410,10 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
+
   
   input:checked + .slider {
-    background-color: var(--primary-base-color);
+    background-color: #96989A;
   }
   
   input:focus + .slider {
