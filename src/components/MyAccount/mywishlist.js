@@ -1507,7 +1507,7 @@ const MyWishList = props => {
         );
     }
 
-    const Select = ({ cid }) => {
+    const Select = ({ cid, archived }) => {
         const [selectValue, setSelectValue] = React.useState('');
         const onChange = event => {
             const value = event.target.value;
@@ -1517,18 +1517,34 @@ const MyWishList = props => {
 
         return (
             <div className={defaultClasses.wrapper_project_dropdown} id={'actions' + cid}>
-                <select
-                    onChange={onChange}
-                    className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
-                >
-                    {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
+                {archived ?
+                    <select
+                        onChange={onChange}
+                        className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
+                    >
+                        {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
 
-                    {/* <option value="1">Create a new project</option> */}
-                    {storeview === 'fr' ? <option value="5">Dupliquer le projet</option> : <option value="5">Duplicate project</option>}
-                    {storeview === 'fr' ? <option value="2">Renommer le projet actuel</option> : <option value="2">Rename current project</option>}
-                    {storeview === 'fr' ? <option value="3">Archiver le projet actuel</option> : <option value="3">Archive current project</option>}
-                    {storeview === 'fr' ? <option value="4">Supprimer le projet actuel</option> : <option value="4">Delete current project</option>}
-                </select>
+                        {/* <option value="1">Create a new project</option> */}
+
+                        {storeview === 'fr' ? <option value="5">Dupliquer le projet</option> : <option value="5">Duplicate project</option>}
+                        {storeview === 'fr' ? <option value="4">Supprimer le projet actuel</option> : <option value="4">Delete current project</option>}
+                    </select>
+                    :
+                    <select
+                        onChange={onChange}
+                        className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
+                    >
+                        {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
+
+                        {/* <option value="1">Create a new project</option> */}
+
+                        {storeview === 'fr' ? <option value="5">Dupliquer le projet</option> : <option value="5">Duplicate project</option>}
+                        {storeview === 'fr' ? <option value="2">Renommer le projet actuel</option> : <option value="2">Rename current project</option>}
+                        {storeview === 'fr' ? <option value="3">Archiver le projet actuel</option> : <option value="3">Archive current project</option>}
+                        {storeview === 'fr' ? <option value="4">Supprimer le projet actuel</option> : <option value="4">Delete current project</option>}
+                    </select>
+
+                }
                 {/* {selectValue && selectValue == 1 && (
                     <div id={'hidden_div'}>
                         <AddTodo uid={wId} />
@@ -1842,6 +1858,7 @@ const MyWishList = props => {
                                                         to={resourceUrl('/orders?project=' + wId)}
                                                     ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'} /></Link>
                                                     <RestoreProject cid={wId} />
+                                                   {isArchive && <Select cid={wId} archived={true} />}
                                                 </div>
                                                 <MoveToCart uid={wId} />
                                             </div>
