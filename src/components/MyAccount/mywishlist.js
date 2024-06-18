@@ -133,7 +133,6 @@ class RealQuantity extends Component {
         return (
             <>
                 <Quantity
-                    initialValue={1}
                     min={1}
                     wid={cid}
                     productId={wid}
