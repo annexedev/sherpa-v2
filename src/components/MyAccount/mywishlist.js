@@ -838,6 +838,7 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
+    console.log(data);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
@@ -1135,9 +1136,6 @@ const MyWishList = props => {
             );
         }
     }
-
-
-
 
     function AddTodoDuplicate(uid) {
         let input;
@@ -1574,6 +1572,57 @@ const MyWishList = props => {
         );
     };
 
+    const Table = () => {
+
+        const { email } = useDashboard();
+
+        // let pid = this.props.pid;
+        const [projectData, setProjectData] = useState()
+        let dataURL =
+            'https://data.sherpagroupav.com/get_projects.php?email=' + email;
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                setProjectData(res);
+            });
+
+        return (
+            <div className={wishlistClasses.tableWrap}>
+                <table className={wishlistClasses.sortable}>
+                    <thead>
+                        <tr>
+                            <th>
+                                <button>
+                                    Project name
+                                    <span aria-hidden="true"></span>
+                                </button>
+                            </th>
+                            <th className={wishlistClasses.noSort}>Date creation</th>
+                            <th className={wishlistClasses.noSort}>N. Produits</th>
+                            <th className={wishlistClasses.noSort}>Total estimé</th>
+                            <th className={wishlistClasses.noSort}>Lien vers le projet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* {projectData?.map((project) => {
+                            return (
+                                <tr>
+                                    <td>{project.category_name}</td>
+                                    <td>{project.created_at}</td>
+                                    <td>10</td>
+                                    <td className={wishlistClasses.num}>$1555</td>
+                                    <td className={wishlistClasses.num}><a href=''>{project.category_name}</a></td>
+                                </tr>
+
+                            )
+                        })} */}
+                    </tbody>
+                </table>
+            </div>
+
+        )
+    }
+
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
@@ -1858,7 +1907,7 @@ const MyWishList = props => {
                                                         to={resourceUrl('/orders?project=' + wId)}
                                                     ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'} /></Link>
                                                     <RestoreProject cid={wId} />
-                                                   {isArchive && <Select cid={wId} archived={true} />}
+                                                    {isArchive && <Select cid={wId} archived={true} />}
                                                 </div>
                                                 <MoveToCart uid={wId} />
                                             </div>
@@ -2636,6 +2685,7 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     <ToggleAccess email={email} wid={wId} />
+                                                    <Table />
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
