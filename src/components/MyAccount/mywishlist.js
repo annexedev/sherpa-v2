@@ -238,7 +238,7 @@ class ToggleAccess extends Component {
         };
     }
 
-    
+
 
     componentDidMount() {
         let email = this.props.email;
@@ -259,7 +259,7 @@ class ToggleAccess extends Component {
         function AddTodo(uid) {
             let input;
             let selectId = uid;
-    
+
             const TOGGLE_LIKED_PHOTO = gql`
                 mutation($category_name: String!) {
                     MpBetterWishlistCreateCategory(
@@ -282,6 +282,8 @@ class ToggleAccess extends Component {
             const [addTodo, { data, loading, error }] = useMutation(
                 TOGGLE_LIKED_PHOTO
             );
+
+            console.log(data);
             const [selectValue, setSelectValue] = React.useState('');
 
             const { BrowserPersistence } = Util;
@@ -292,49 +294,51 @@ class ToggleAccess extends Component {
             }
 
             if (data) {
+                const category_id = data.MpBetterWishlistCreateCategory.category_id;
+                /* ici a la place do reload mettre une redirection vers le id de projet crée  --- /myprojects?id=1712842224_452 */
+                window.location.href = `/myprojects?id=${category_id}`;
             }
             if (loading) return 'Submitting...';
             if (error) return `Submission error! ${error.message}`;
             /*if (1) {
                 return (<>s</>);
             } else { */
-                return (<>
-    
-                    <div className={classes.new_project}>
-                        <input
-                            className={classes.input_rename}
-                            type="text"
-                            ref={node => {
-                                input = node;
-                            }}
-                            placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
-                        />
-                        <input type="hidden" value={selectId} />
-                        <button
-                            className={classes.rename_project}
-                            onClick={e => {
-                                e.preventDefault();
-                                addTodo({ variables: { category_name: input.value } });
-                                input.value = '';
-    
-                                if (storeview === 'fr') {
-                                    window.alert('Nouveau projet créé.');
-                                    window.location.href = `/myprojects?id=${selectId}`;
-                                }
-                                else {
-                                    window.alert('New project created.');
-                                    window.location.href = `/myprojects?id=${selectId}`;
-                                }
-                                // window.alert('New project created.');
-                                setSelectValue(999);
-                                /* ici a la place do reload mettre une redirection vers le id de projet crée  --- /myprojects?id=1712842224_452 */
-                            }}
-                        >
-                            {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
-                        </button>
-                    </div>
-    
-                </>);
+            return (<>
+
+                <div className={classes.new_project}>
+                    <input
+                        className={classes.input_rename}
+                        type="text"
+                        ref={node => {
+                            input = node;
+                        }}
+                        placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
+                    />
+                    <input type="hidden" value={selectId} />
+                    <button
+                        className={classes.rename_project}
+                        onClick={e => {
+                            e.preventDefault();
+                            addTodo({ variables: { category_name: input.value } });
+                            input.value = '';
+                            console.log(data);
+
+                            if (storeview === 'fr') {
+                                window.alert('Nouveau projet créé.');
+                            }
+                            else {
+                                window.alert('New project created.');
+                                // window.location.href = `/myprojects?id=${selectId}`;
+                            }
+                            // window.alert('New project created.');
+                            setSelectValue(999);
+                        }}
+                    >
+                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                    </button>
+                </div>
+
+            </>);
             //}
         }
 
@@ -354,7 +358,7 @@ class ToggleAccess extends Component {
                     .then(res => res.json())
                     .then(res => {
                         document.getElementById('switchBTN').checked = false;
-                        if(res){
+                        if (res) {
                             window.location.reload();
                         }
                     });
@@ -364,74 +368,74 @@ class ToggleAccess extends Component {
                     .then(res => res.json())
                     .then(res => {
                         document.getElementById('switchBTN').checked = true;
-                        if(res){
+                        if (res) {
                             window.location.reload();
                         }
                     });
             }
         }
-        
+
         let result = this.state.pageData.access && this.state.pageData.access;
 
-        if (result==1) {
-            return (
-                <>                
-                <div className={classes.wrapperSwitchBtn}>
-                    <h4>
-                        <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'}/>
-                    </h4>
-                    <div className={classes.switch} onClick={handleSwitch} >
-                        <input type="checkbox" id="switchBTN" ></input>
-                        <span className={[classes.slider, classes.round].join(' ')}></span>
-                    </div>
-                    <h4>
-                        <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'}/>
-                        <span>
-                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
-                        </span>
-                    </h4>
-                    
-                </div>
-                <div>
-                    <p className={classes.wrapperSwitchBtnMessage}>
-                        <span>
-                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
-                        </span>
-                    </p>
-                </div>
-                <AddTodo wid={wid} />
-                </>
-            )
-        } else if(result==0){
+        if (result == 1) {
             return (
                 <>
-                <div className={classes.wrapperSwitchBtn}>
-                    <h4>
-                        <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'}/>
-                    </h4>
-                    <div className={classes.switch} onClick={handleSwitch} >
-                        <input type="checkbox" id="switchBTN" checked></input>
-                        <span className={[classes.slider, classes.round].join(' ')}></span>
+                    <div className={classes.wrapperSwitchBtn}>
+                        <h4>
+                            <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'} />
+                        </h4>
+                        <div className={classes.switch} onClick={handleSwitch} >
+                            <input type="checkbox" id="switchBTN" ></input>
+                            <span className={[classes.slider, classes.round].join(' ')}></span>
+                        </div>
+                        <h4>
+                            <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'} />
+                            <span>
+                                &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
+                            </span>
+                        </h4>
+
                     </div>
-                    <h4>
-                        <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'}/>
-                        <span>
-                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
-                        </span>
-                    </h4>
-                </div>
-                <div>
-                <p className={classes.wrapperSwitchBtnMessage}>
-                    <span>
-                        &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
-                    </span>
-                </p>
-                
-            </div>
-            </>
+                    <div>
+                        <p className={classes.wrapperSwitchBtnMessage}>
+                            <span>
+                                &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
+                            </span>
+                        </p>
+                    </div>
+                    <AddTodo wid={wid} />
+                </>
+            )
+        } else if (result == 0) {
+            return (
+                <>
+                    <div className={classes.wrapperSwitchBtn}>
+                        <h4>
+                            <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'} />
+                        </h4>
+                        <div className={classes.switch} onClick={handleSwitch} >
+                            <input type="checkbox" id="switchBTN" checked></input>
+                            <span className={[classes.slider, classes.round].join(' ')}></span>
+                        </div>
+                        <h4>
+                            <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'} />
+                            <span>
+                                &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
+                            </span>
+                        </h4>
+                    </div>
+                    <div>
+                        <p className={classes.wrapperSwitchBtnMessage}>
+                            <span>
+                                &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
+                            </span>
+                        </p>
+
+                    </div>
+                </>
             );
         } else {
-            return(<></>);
+            return (<></>);
         }
     }
 
@@ -713,7 +717,7 @@ class AlreadyPurchased extends Component {
                     to={resourceUrl('/orders?project=' + wId + '&id=' + sku)}
                 >
                     {purchased}
-                    <FormattedMessage id={'myWishlist.labelPurchased'} defaultMessage={' purchased'}/>
+                    <FormattedMessage id={'myWishlist.labelPurchased'} defaultMessage={' purchased'} />
                 </Link>
             );
         } else {
@@ -938,41 +942,41 @@ const MyWishList = props => {
         /*if (1) {
             return (<>s</>);
         } else { */
-            return (<>
+        return (<>
 
-                <div className={classes.new_project}>
-                    <input
-                        className={classes.input_rename}
-                        type="text"
-                        ref={node => {
-                            input = node;
-                        }}
-                        placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
-                    />
-                    <input type="hidden" value={selectId} />
-                    <button
-                        className={classes.rename_project}
-                        onClick={e => {
-                            e.preventDefault();
-                            addTodo({ variables: { category_name: input.value } });
-                            input.value = '';
+            <div className={classes.new_project}>
+                <input
+                    className={classes.input_rename}
+                    type="text"
+                    ref={node => {
+                        input = node;
+                    }}
+                    placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
+                />
+                <input type="hidden" value={selectId} />
+                <button
+                    className={classes.rename_project}
+                    onClick={e => {
+                        e.preventDefault();
+                        addTodo({ variables: { category_name: input.value } });
+                        input.value = '';
 
-                            if (storeview === 'fr') {
-                                window.alert('New project created.');
-                            }
-                            else {
-                                window.alert('New project created.');
-                            }
+                        if (storeview === 'fr') {
                             window.alert('New project created.');
-                            setSelectValue(999);
-                            window.location.reload();
-                        }}
-                    >
-                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
-                    </button>
-                </div>
+                        }
+                        else {
+                            window.alert('New project created.');
+                        }
+                        window.alert('New project created.');
+                        setSelectValue(999);
+                        window.location.reload();
+                    }}
+                >
+                    {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                </button>
+            </div>
 
-            </>);
+        </>);
         //}
     }
 
@@ -1133,7 +1137,7 @@ const MyWishList = props => {
     }
 
 
-    
+
 
     function AddTodoDuplicate(uid) {
         let input;
