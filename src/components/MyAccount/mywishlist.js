@@ -133,7 +133,7 @@ class RealQuantity extends Component {
         return (
             <>
                 <Quantity
-                    initialValue={1}
+                    // initialValue={1}
                     min={1}
                     wid={cid}
                     productId={wid}
@@ -318,14 +318,16 @@ class ToggleAccess extends Component {
                                 input.value = '';
     
                                 if (storeview === 'fr') {
-                                    window.alert('New project created.');
+                                    window.alert('Nouveau projet créé.');
+                                    window.location.href = `/myprojects?id=${selectId}`;
                                 }
                                 else {
                                     window.alert('New project created.');
+                                    window.location.href = `/myprojects?id=${selectId}`;
                                 }
-                                window.alert('New project created.');
+                                // window.alert('New project created.');
                                 setSelectValue(999);
-                                window.location.reload();
+                                /* ici a la place do reload mettre une redirection vers le id de projet crée  --- /myprojects?id=1712842224_452 */
                             }}
                         >
                             {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
