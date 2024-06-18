@@ -328,6 +328,7 @@ class ServiceDetailsEmployeurs extends Component {
                             ref={node => {
                                 input = node;
                             }}
+                            placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
                         />
                         <input type="hidden" value={selectId} />
                         <button

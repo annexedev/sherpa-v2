@@ -307,7 +307,7 @@ class ToggleAccess extends Component {
                             ref={node => {
                                 input = node;
                             }}
-                            placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                            placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
                         />
                         <input type="hidden" value={selectId} />
                         <button
@@ -945,7 +945,7 @@ const MyWishList = props => {
                         ref={node => {
                             input = node;
                         }}
-                        placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                        placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
                     />
                     <input type="hidden" value={selectId} />
                     <button
