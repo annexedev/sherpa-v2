@@ -133,6 +133,8 @@ class RealQuantity extends Component {
         return (
             <>
                 <Quantity
+                    initialValue={1}
+                    min={1}
                     wid={cid}
                     productId={wid}
                     initialValue={qty}
@@ -236,6 +238,8 @@ class ToggleAccess extends Component {
         };
     }
 
+    
+
     componentDidMount() {
         let email = this.props.email;
         let dataURL =
@@ -251,7 +255,89 @@ class ToggleAccess extends Component {
     }
 
     render() {
+
+        function AddTodo(uid) {
+            let input;
+            let selectId = uid;
+    
+            const TOGGLE_LIKED_PHOTO = gql`
+                mutation($category_name: String!) {
+                    MpBetterWishlistCreateCategory(
+                        input: { category_name: $category_name }
+                    ) {
+                        category_id
+                        category_name
+                        is_default
+                        items {
+                            added_at
+                            description
+                            qty
+                            store_id
+                            wishlist_item_id
+                        }
+                    }
+                }
+            `;
+
+            const [addTodo, { data, loading, error }] = useMutation(
+                TOGGLE_LIKED_PHOTO
+            );
+            const [selectValue, setSelectValue] = React.useState('');
+
+            const { BrowserPersistence } = Util;
+            const storage = new BrowserPersistence();
+            let storeview = storage.getItem('store_view_code');
+            if (!storeview) {
+                storeview = '';
+            }
+
+            if (data) {
+            }
+            if (loading) return 'Submitting...';
+            if (error) return `Submission error! ${error.message}`;
+            /*if (1) {
+                return (<>s</>);
+            } else { */
+                return (<>
+    
+                    <div className={classes.new_project}>
+                        <input
+                            className={classes.input_rename}
+                            type="text"
+                            ref={node => {
+                                input = node;
+                            }}
+                            placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                        />
+                        <input type="hidden" value={selectId} />
+                        <button
+                            className={classes.rename_project}
+                            onClick={e => {
+                                e.preventDefault();
+                                addTodo({ variables: { category_name: input.value } });
+                                input.value = '';
+    
+                                if (storeview === 'fr') {
+                                    window.alert('New project created.');
+                                }
+                                else {
+                                    window.alert('New project created.');
+                                }
+                                window.alert('New project created.');
+                                setSelectValue(999);
+                                window.location.reload();
+                            }}
+                        >
+                            {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                        </button>
+                    </div>
+    
+                </>);
+            //}
+        }
+
         let email = this.props.email;
+        let wid = this.props.wid;
 
         const classes = mergeClasses(
             defaultClasses, wishlistClasses
@@ -311,6 +397,7 @@ class ToggleAccess extends Component {
                         </span>
                     </p>
                 </div>
+                <AddTodo wid={wid} />
                 </>
             )
         } else if(result==0){
@@ -337,6 +424,7 @@ class ToggleAccess extends Component {
                         &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
                     </span>
                 </p>
+                
             </div>
             </>
             );
@@ -806,6 +894,86 @@ const MyWishList = props => {
         }
     `;
 
+    function AddTodo(uid) {
+        let input;
+        let selectId = uid;
+
+        const TOGGLE_LIKED_PHOTO = gql`
+            mutation($category_name: String!) {
+                MpBetterWishlistCreateCategory(
+                    input: { category_name: $category_name }
+                ) {
+                    category_id
+                    category_name
+                    is_default
+                    items {
+                        added_at
+                        description
+                        qty
+                        store_id
+                        wishlist_item_id
+                    }
+                }
+            }
+        `;
+
+        const [addTodo, { data, loading, error }] = useMutation(
+            TOGGLE_LIKED_PHOTO
+        );
+        const [selectValue, setSelectValue] = React.useState('');
+
+        const { BrowserPersistence } = Util;
+        const storage = new BrowserPersistence();
+        let storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        }
+
+        if (data) {
+        }
+        if (loading) return 'Submitting...';
+        if (error) return `Submission error! ${error.message}`;
+        /*if (1) {
+            return (<>s</>);
+        } else { */
+            return (<>
+
+                <div className={classes.new_project}>
+                    <input
+                        className={classes.input_rename}
+                        type="text"
+                        ref={node => {
+                            input = node;
+                        }}
+                        placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                    />
+                    <input type="hidden" value={selectId} />
+                    <button
+                        className={classes.rename_project}
+                        onClick={e => {
+                            e.preventDefault();
+                            addTodo({ variables: { category_name: input.value } });
+                            input.value = '';
+
+                            if (storeview === 'fr') {
+                                window.alert('New project created.');
+                            }
+                            else {
+                                window.alert('New project created.');
+                            }
+                            window.alert('New project created.');
+                            setSelectValue(999);
+                            window.location.reload();
+                        }}
+                    >
+                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                    </button>
+                </div>
+
+            </>);
+        //}
+    }
+
     function MoveToCart(uid) {
 
         const talonProps = useCartPage({
@@ -963,58 +1131,7 @@ const MyWishList = props => {
     }
 
 
-    function AddTodo(uid) {
-        let input;
-        let selectId = uid;
-
-        const [addTodo, { data, loading, error }] = useMutation(
-            TOGGLE_LIKED_PHOTO
-        );
-        const [selectValue, setSelectValue] = React.useState('');
-        if (data) {
-        }
-        if (loading) return 'Submitting...';
-        if (error) return `Submission error! ${error.message}`;
-        if (wId) {
-            return (<> </>);
-        } else {
-            return (<>
-
-                <div>
-                    <input
-                        className={classes.input_rename}
-                        type="text"
-                        ref={node => {
-                            input = node;
-                        }}
-                        placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
-                    />
-                    <input type="hidden" value={selectId} />
-                    <button
-                        className={classes.rename_project}
-                        onClick={e => {
-                            e.preventDefault();
-                            addTodo({ variables: { category_name: input.value } });
-                            input.value = '';
-
-                            if (storeview === 'fr') {
-                                window.alert('New project created.');
-                            }
-                            else {
-                                window.alert('New project created.');
-                            }
-                            window.alert('New project created.');
-                            setSelectValue(999);
-                            window.location.reload();
-                        }}
-                    >
-                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
-                    </button>
-                </div>
-
-            </>);
-        }
-    }
+    
 
     function AddTodoDuplicate(uid) {
         let input;
@@ -1837,7 +1954,7 @@ const MyWishList = props => {
                                                             return 1;
                                                         }
                                                         // verifier si il y a des enfants
-                                                        let wrapperProjects = document.getElementById("productsWrapper")
+                                                        //let wrapperProjects = document.getElementById("productsWrapper")
                                                         // console.log(belongToProject(
                                                         //     val.product.id,
                                                         //     wId
@@ -2300,8 +2417,6 @@ const MyWishList = props => {
                                                                                                                 tempProps.categoryName = projectname;
                                                                                                                 tempProps.qtyCategory = currentQty;
 
-                                                                                                                console.log('coucoucoucou');
-
                                                                                                                 handleAddToCart(
                                                                                                                     tempProps
                                                                                                                 );
@@ -2497,7 +2612,7 @@ const MyWishList = props => {
                                                             showCategoryBanners
                                                         }
                                                     />
-                                                    <ToggleAccess email={email} />
+                                                    <ToggleAccess email={email} wid={wId} />
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
@@ -2515,8 +2630,6 @@ const MyWishList = props => {
                                                     {/* ----- HIDE WITH LINK  ------ */}
                                                     {cacheAccordeon &&
                                                         <>
-                                                            <p>&nbsp;</p>
-                                                            <AddTodo uid={wId} />
                                                             <p>&nbsp;</p>
                                                             <Banner
                                                                 identifier={

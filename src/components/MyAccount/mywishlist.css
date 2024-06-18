@@ -138,6 +138,10 @@
     margin-right: 10px;
     height: 39px;
 }
+.new_project {
+    margin-top: 25px;
+    text-align: center;
+}
 .rename_project {
     background: #007637;
     border-radius: 5px;

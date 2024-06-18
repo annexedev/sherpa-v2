@@ -5,6 +5,7 @@ import { useCartTrigger } from 'src/peregrine/lib/talons/Header/useCartTrigger';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartTrigger.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
+import { Link } from 'react-router-dom'
 
 import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 import Icon from '@magento/venia-ui/lib/components/Icon';
@@ -53,23 +54,27 @@ const CartTrigger = props => {
         // and control which one displays via CSS.
         <Fragment>
             <div className={triggerClassName}>
+                <Link to={'/cart'}>
+                    <button
+                        aria-label={buttonAriaLabel}
+                        className={classes.trigger}
+                        /*onClick={handleTriggerClick}*/
+                    >
+                        {cartIcon}
+                        {maybeItemCounter}
+                    </button>
+                </Link>
+            </div>
+            <Link to={'/cart'}>
                 <button
                     aria-label={buttonAriaLabel}
-                    className={classes.trigger}
-                    onClick={handleTriggerClick}
+                    className={classes.link}
+                    /*onClick={handleLinkClick}*/
                 >
                     {cartIcon}
                     {maybeItemCounter}
                 </button>
-            </div>
-            <button
-                aria-label={buttonAriaLabel}
-                className={classes.link}
-                onClick={handleLinkClick}
-            >
-                {cartIcon}
-                {maybeItemCounter}
-            </button>
+            </Link>
             <Suspense fallback={null}>
                 <MiniCart
                     isOpen={miniCartIsOpen}

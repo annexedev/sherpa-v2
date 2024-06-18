@@ -94,6 +94,7 @@ const FilterSidebar = React.lazy(() =>
 const SliderProduct = React.lazy(() => import('./sliderProduct'));
 
 const CategoryContent = props => {
+    
     const { mobileView } = useMobile();
     const {
         categoryId,

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment , Component } from 'react';
 import { useProduct } from 'src/peregrine/lib/talons/RootComponents/Product/useProduct';
 import { Title, Meta, Link } from '../../components/Head';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -14,6 +14,8 @@ import {
     Review,
     Generic
 } from 'react-structured-data';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 /*
  * As of this writing, there is no single Product query type in the M2.3 schema.
  * The recommended solution is to use filter criteria on a Products query.
@@ -22,6 +24,45 @@ import {
  * TODO: Replace with a single product query when possible.
  */
 import { GET_PRODUCT_DETAIL_QUERY } from './product.gql';
+
+class CheckPermissionProduct extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+
+    componentDidMount() {
+        let pid = this.props.productId;
+        let email = this.props.email;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_permissions_product.php?email=' +
+            email +
+            '&pid=' +
+            pid;
+        // console.log('DATA URL');
+        // console.log(dataURL);
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+    }
+
+    render() {
+        let projectname = this.state.pageData.pname && this.state.pageData.pname;
+
+        if (this.props.email && projectname == 0) {
+            window.location.href = '/brand-access';
+            return <>Exiting</>;
+        } else {
+            return <></>;
+        }
+    }
+}
 
 const ProductRoot = () => {
     const talonProps = useProduct({
@@ -32,6 +73,9 @@ const ProductRoot = () => {
         urlKey: getUrlKey()
     });
     const { error, loading, product } = talonProps;
+
+    const [{ isSignedIn }] = useUserContext();
+    const { email } = useDashboard();
 
     if (loading && !product) return fullPageLoadingIndicator;
     if (error && !product) return <div>Data Fetch Error</div>;
@@ -122,6 +166,7 @@ const ProductRoot = () => {
     // Note: STORE_NAME is injected by Webpack at build time.
     return (
         <Fragment>
+            {isSignedIn ? <CheckPermissionProduct productId={product.id} email={email} /> : <></>}
             <Title>{title}</Title>
             <Meta name="robots" content={'INDEX,FOLLOW'} />
             <Meta name="title" content={title} />

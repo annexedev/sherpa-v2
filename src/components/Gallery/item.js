@@ -1169,7 +1169,7 @@ const GalleryItem = props => {
                                             classes.qty_selector
                                         }
                                     >
-                                        <QuantityPicker />
+                                        <QuantityPicker value={1} min={1}/>
 
                                     </div>
                                     <div className={classes.add_to_cart_btn}>
