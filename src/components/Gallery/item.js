@@ -296,6 +296,10 @@ class ServiceDetailsEmployeurs extends Component {
             if (loading) return 'Submitting...';
             if (error) return `Submission error! ${error.message}`;
 
+            const { BrowserPersistence } = Util;
+            const storage = new BrowserPersistence();
+            let storeview = storage.getItem('store_view_code');
+
             return (
                 <div>
                     <form
@@ -328,7 +332,7 @@ class ServiceDetailsEmployeurs extends Component {
                             ref={node => {
                                 input = node;
                             }}
-                            placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                            placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
                         />
                         <input type="hidden" value={selectId} />
                         <button
@@ -376,7 +380,6 @@ class ServiceDetailsEmployeurs extends Component {
             if (this.state.pageDataAccess['access'] == 1) {
             return (
                 <div>
-                    <AddToProject item_id={this.props.item_id} uid={uniqueId} />
                     <select
                         onChange={onChange}
                         className={classes.project_dropdown}
@@ -413,6 +416,7 @@ class ServiceDetailsEmployeurs extends Component {
                             <AddTodo uid={uniqueId} item_id={this.props.item_id} />
                         </div>
                     )}
+                    <AddToProject item_id={this.props.item_id} uid={uniqueId} />
                 </div>
             );
             } else {
