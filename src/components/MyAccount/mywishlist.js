@@ -1592,15 +1592,35 @@ const MyWishList = props => {
                     <thead>
                         <tr>
                             <th>
-                                <button>
-                                    Project name
-                                    <span aria-hidden="true"></span>
-                                </button>
+                                <FormattedMessage
+                                    id={'myWishlist.project_name'}
+                                    defaultMessage={'Project name'}
+                                />
                             </th>
-                            <th className={wishlistClasses.noSort}>Date creation</th>
-                            <th className={wishlistClasses.noSort}>N. Produits</th>
-                            <th className={wishlistClasses.noSort}>Total estimé</th>
-                            <th className={wishlistClasses.noSort}>Lien vers le projet</th>
+                            <th className={wishlistClasses.noSort}>
+                                <FormattedMessage
+                                    id={'myWishlist.project_date_creation'}
+                                    defaultMessage={'Creation date'}
+                                />
+                            </th>
+                            <th className={wishlistClasses.noSort}>
+                                <FormattedMessage
+                                    id={'myWishlist.project_n_produits'}
+                                    defaultMessage={'N. produits'}
+                                />
+                            </th>
+                            <th className={wishlistClasses.noSort}>
+                                <FormattedMessage
+                                    id={'myWishlist.project_total'}
+                                    defaultMessage={'Total estimé'}
+                                />
+                            </th>
+                            <th className={wishlistClasses.noSort}>
+                                <FormattedMessage
+                                    id={'myWishlist.project_link'}
+                                    defaultMessage={'Link to the project'}
+                                />
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
