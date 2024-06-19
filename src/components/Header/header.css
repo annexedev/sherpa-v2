@@ -98,8 +98,19 @@
     position: absolute;
     top: 46px;
     padding: 20px;
-    width: 140px;
+    width: 160px;
+    height: auto;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.blocNomProjects a {
+    color: black;
+}
+.blocNomProjects :last-child{
+    font-weight: 700;
+    color: #8DC74C;
 }
 .wishlist_image,
 .user_icon_image {

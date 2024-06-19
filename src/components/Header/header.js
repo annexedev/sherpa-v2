@@ -44,7 +44,7 @@ class ProjectLink extends Component {
         super();
         this.state = {
             pageDataAccess: [],
-            pageProjectData : [],
+            pageProjectData: [],
             name: 'React Component reload sample',
             reload: false
         };
@@ -86,7 +86,6 @@ class ProjectLink extends Component {
 
             const [projectsOpen, setProjectsOpen] = useState();
 
-
             console.log(this.state.pageProjectData);
 
             if (this.state.pageDataAccess['access'] == 1) {
@@ -111,15 +110,19 @@ class ProjectLink extends Component {
                     </div>
                     {projectsOpen &&
                         <div className={defaultClasses.blocNomProjects}>
-                            <ul>
-                                {/* mapping pour le nom des projects */}
-                                {this.state.pageProjectData.map((project) => (
 
-                                    <li><Link to=''>{project.category_name}</Link></li>
-                                ))
+                            {/* mapping pour le nom des projects */}
+                            {this.state.pageProjectData.map((project) => (
+
+                                !project.category_name.startsWith('ARCHIVE') && <a href={`/myprojects?id=${project.category_id}`}>{project.category_name}</a>
+                            ))
                             }
-                                <li><Link to="/myprojects">Voir tout</Link></li>
-                            </ul>
+                            <Link to="/myprojects">
+                                <FormattedMessage
+                                    id={'header.seeAll'}
+                                    defaultMessage={'See all'}
+                                /></Link>
+
                         </div>
                     }
                 </>
