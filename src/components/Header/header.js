@@ -86,7 +86,7 @@ class ProjectLink extends Component {
 
             const [projectsOpen, setProjectsOpen] = useState();
 
-            console.log(this.state.pageProjectData);
+            // console.log(this.state.pageProjectData);
 
             if (this.state.pageDataAccess['access'] == 1) {
                 return (<>

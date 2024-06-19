@@ -99,7 +99,6 @@ class SpecialPriceTo extends Component {
         }
     }
 }
-
 class RealQuantity extends Component {
     constructor() {
         super();
@@ -144,7 +143,6 @@ class RealQuantity extends Component {
         );
     }
 }
-
 class TotalProjet extends Component {
     constructor() {
         super();
@@ -194,7 +192,6 @@ class TotalProjet extends Component {
 
     }
 }
-
 class ProjectName extends Component {
     constructor() {
         super();
@@ -228,7 +225,6 @@ class ProjectName extends Component {
         );
     }
 }
-
 class ToggleAccess extends Component {
 
     constructor() {
@@ -440,7 +436,6 @@ class ToggleAccess extends Component {
     }
 
 }
-
 class BrandName extends Component {
     constructor() {
         super();
@@ -475,7 +470,6 @@ class BrandName extends Component {
         }
     }
 }
-
 class IsInCart extends Component {
     constructor() {
         super();
@@ -538,7 +532,6 @@ class IsInCart extends Component {
         }
     }
 }
-
 class SpecialPrice extends Component {
     constructor() {
         super();
@@ -626,7 +619,6 @@ class SpecialPrice extends Component {
         }
     }
 }
-
 class SoldIn extends Component {
     constructor() {
         super();
@@ -680,7 +672,6 @@ class SoldIn extends Component {
         }
     }
 }
-
 class AlreadyPurchased extends Component {
     constructor() {
         super();
@@ -720,6 +711,96 @@ class AlreadyPurchased extends Component {
                     <FormattedMessage id={'myWishlist.labelPurchased'} defaultMessage={' purchased'} />
                 </Link>
             );
+        } else {
+            return (
+                <div></div>
+            );
+        }
+
+    }
+}
+class TableProjects extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: []
+        };
+    }
+
+    componentDidMount() {
+        // const { email } = useDashboard();
+        let email = this.props.email;
+        let dataURL =
+            'https://data.sherpagroupav.com/get_projects.php?email=' + email;
+        console.log(dataURL);
+
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+                console.log(this.state.pageData);
+            });
+    }
+
+    render() {
+
+        if (this.state.pageData && this.state.pageData.length > 0) {
+            return (
+                <div className={wishlistClasses.tableWrap}>
+                    <table className={wishlistClasses.sortable}>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <FormattedMessage
+                                        id={'myWishlist.project_name'}
+                                        defaultMessage={'Project name'}
+                                    />
+                                </th>
+                                <th className={wishlistClasses.noSort}>
+                                    <FormattedMessage
+                                        id={'myWishlist.project_date_creation'}
+                                        defaultMessage={'Creation date'}
+                                    />
+                                </th>
+                                <th className={wishlistClasses.noSort}>
+                                    <FormattedMessage
+                                        id={'myWishlist.project_n_produits'}
+                                        defaultMessage={'N. produits'}
+                                    />
+                                </th>
+                                <th className={wishlistClasses.noSort}>
+                                    <FormattedMessage
+                                        id={'myWishlist.project_total'}
+                                        defaultMessage={'Total estimé'}
+                                    />
+                                </th>
+                                <th className={wishlistClasses.noSort}>
+                                    <FormattedMessage
+                                        id={'myWishlist.project_link'}
+                                        defaultMessage={'Link to the project'}
+                                    />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* {projectData?.map((project) => {
+                    return (
+                        <tr>
+                            <td>{project.category_name}</td>
+                            <td>{project.created_at}</td>
+                            <td>10</td>
+                            <td className={wishlistClasses.num}>$1555</td>
+                            <td className={wishlistClasses.num}><a href=''>{project.category_name}</a></td>
+                        </tr>
+
+                    )
+                })} */}
+                        </tbody>
+                    </table>
+                </div>
+            )
         } else {
             return (
                 <div></div>
@@ -838,7 +919,7 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
-    console.log(data);
+    // console.log(data);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
@@ -1287,8 +1368,6 @@ const MyWishList = props => {
         );
     }
 
-
-
     {/* class RestoreProject extends Component {
         constructor() {
             super();
@@ -1572,81 +1651,9 @@ const MyWishList = props => {
         );
     };
 
-    const Table = () => {
-
-        const { email } = useDashboard();
-
-        // let pid = this.props.pid;
-        const [projectData, setProjectData] = useState()
-        let dataURL =
-            'https://data.sherpagroupav.com/get_projects.php?email=' + email;
-        fetch(dataURL)
-            .then(res => res.json())
-            .then(res => {
-                setProjectData(res);
-            });
-
-        return (
-            <div className={wishlistClasses.tableWrap}>
-                <table className={wishlistClasses.sortable}>
-                    <thead>
-                        <tr>
-                            <th>
-                                <FormattedMessage
-                                    id={'myWishlist.project_name'}
-                                    defaultMessage={'Project name'}
-                                />
-                            </th>
-                            <th className={wishlistClasses.noSort}>
-                                <FormattedMessage
-                                    id={'myWishlist.project_date_creation'}
-                                    defaultMessage={'Creation date'}
-                                />
-                            </th>
-                            <th className={wishlistClasses.noSort}>
-                                <FormattedMessage
-                                    id={'myWishlist.project_n_produits'}
-                                    defaultMessage={'N. produits'}
-                                />
-                            </th>
-                            <th className={wishlistClasses.noSort}>
-                                <FormattedMessage
-                                    id={'myWishlist.project_total'}
-                                    defaultMessage={'Total estimé'}
-                                />
-                            </th>
-                            <th className={wishlistClasses.noSort}>
-                                <FormattedMessage
-                                    id={'myWishlist.project_link'}
-                                    defaultMessage={'Link to the project'}
-                                />
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* {projectData?.map((project) => {
-                            return (
-                                <tr>
-                                    <td>{project.category_name}</td>
-                                    <td>{project.created_at}</td>
-                                    <td>10</td>
-                                    <td className={wishlistClasses.num}>$1555</td>
-                                    <td className={wishlistClasses.num}><a href=''>{project.category_name}</a></td>
-                                </tr>
-
-                            )
-                        })} */}
-                    </tbody>
-                </table>
-            </div>
-
-        )
-    }
-
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
-
 
 
     if (!loading) {
@@ -2705,7 +2712,7 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     <ToggleAccess email={email} wid={wId} />
-                                                    <Table />
+                                                    <TableProjects email={email} />
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
