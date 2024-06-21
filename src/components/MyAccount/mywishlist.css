@@ -618,8 +618,9 @@
 
 /* TABLE PROJECTS */
 .tableWrap{
-    width: 100%;
-    margin: 30px 17%;
+    width: 50%;
+    margin: 30px auto;
+    text-align: center;
 }
 
 table.sortable td,
@@ -665,17 +666,22 @@ table.sortable th button span {
   right: 4px;
 }
 
-table.sortable th[aria-sort="descending"] span::after {
+.descending{
   content: "▼";
   color: currentcolor;
   font-size: 100%;
   top: 0;
 }
 
-table.sortable th[aria-sort="ascending"] span::after {
+.iconDescending{
+    transform: rotate(180deg);
+}
+
+.ascending {
   content: "▲";
   color: currentcolor;
   font-size: 100%;
+  margin-left: 3px;
   top: 0;
 }
 

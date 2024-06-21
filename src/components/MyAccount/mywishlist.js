@@ -723,7 +723,8 @@ class TableProjects extends Component {
     constructor() {
         super();
         this.state = {
-            pageData: []
+            pageData: [], 
+            ordreFleche: 'ascending'
         };
     }
 
@@ -731,8 +732,7 @@ class TableProjects extends Component {
         // const { email } = useDashboard();
         let email = this.props.email;
         let dataURL =
-            'https://data.sherpagroupav.com/get_projects.php?email=' + email;
-        console.log(dataURL);
+            'https://data.sherpagroupav.com/get_projects_details.php?email=' + email;
 
         fetch(dataURL)
             .then(res => res.json())
@@ -745,6 +745,7 @@ class TableProjects extends Component {
     }
 
     render() {
+        const projectsData = this.state.pageData;
 
         if (this.state.pageData && this.state.pageData.length > 0) {
             return (
@@ -752,11 +753,12 @@ class TableProjects extends Component {
                     <table className={wishlistClasses.sortable}>
                         <thead>
                             <tr>
-                                <th>
+                                <th aria-sort="ascending">
                                     <FormattedMessage
                                         id={'myWishlist.project_name'}
                                         defaultMessage={'Project name'}
                                     />
+                                    <span className={wishlistClasses[this.state.ordreFleche]}></span>
                                 </th>
                                 <th className={wishlistClasses.noSort}>
                                     <FormattedMessage
@@ -785,18 +787,15 @@ class TableProjects extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {projectData?.map((project) => {
-                    return (
-                        <tr>
-                            <td>{project.category_name}</td>
-                            <td>{project.created_at}</td>
-                            <td>10</td>
-                            <td className={wishlistClasses.num}>$1555</td>
-                            <td className={wishlistClasses.num}><a href=''>{project.category_name}</a></td>
-                        </tr>
-
-                    )
-                })} */}
+                            {projectsData.map((project) => (
+                                <tr>
+                                    <td>{project.projectName}</td>
+                                    <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
+                                    <td>{project.numberProducts}</td>
+                                    <td className={wishlistClasses.num}>${project.total}</td>
+                                    <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
