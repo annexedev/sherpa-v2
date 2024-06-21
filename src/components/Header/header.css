@@ -108,6 +108,10 @@
 .blocNomProjects a {
     color: black;
 }
+.blocNomProjects a:hover{
+    color: black;
+    font-weight: 700;
+}
 .blocNomProjects :last-child{
     font-weight: 700;
     color: #8DC74C;
