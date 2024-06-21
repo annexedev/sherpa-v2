@@ -171,6 +171,10 @@ class TotalProjet extends Component {
     render() {
         let itemCount = this.state.pageData.itemCount;
         let priceTotal = this.state.pageData.priceTotal;
+
+
+
+
         if (itemCount && itemCount > 0) {
             return (
                 <>
@@ -719,76 +723,185 @@ class AlreadyPurchased extends Component {
 
     }
 }
+// class TableProjects extends Component {
+//     constructor() {
+//         super();
+//         this.state = {
+//             pageData: [], 
+//             ordreFleche: 'iconDescending'
+//         };
+//     }
+
+//     componentDidMount() {
+//         // const { email } = useDashboard();
+//         let email = this.props.email;
+//         let dataURL =
+//             'https://data.sherpagroupav.com/get_projects_details.php?email=' + email;
+
+//         fetch(dataURL)
+//             .then(res => res.json())
+//             .then(res => {
+//                 this.setState({
+//                     pageData: res
+//                 });
+//                 console.log(this.state.pageData);
+//             });
+//     }
+
+//     render() {
+//         const projectsData = this.state.pageData;
+
+//         const sortAlfabethical = () => {
+//             console.log(this.state.ordreFleche);
+
+
+
+//         }
+
+//         if (this.state.pageData && this.state.pageData.length > 0) {
+//             return (
+//                 <div className={wishlistClasses.tableWrap}>
+//                     <table className={wishlistClasses.sortable}>
+//                         <thead>
+//                             <tr>
+//                                 <th className={wishlistClasses.ascending}>
+//                                     <FormattedMessage
+//                                         id={'myWishlist.project_name'}
+//                                         defaultMessage={'Project name'}
+//                                     />
+//                                     <span className={wishlistClasses[this.state.ordreFleche]} onClick={() => sortAlfabethical()}></span>
+//                                 </th>
+//                                 <th className={wishlistClasses.noSort}>
+//                                     <FormattedMessage
+//                                         id={'myWishlist.project_date_creation'}
+//                                         defaultMessage={'Creation date'}
+//                                     />
+//                                 </th>
+//                                 <th className={wishlistClasses.noSort}>
+//                                     <FormattedMessage
+//                                         id={'myWishlist.project_n_produits'}
+//                                         defaultMessage={'N. produits'}
+//                                     />
+//                                 </th>
+//                                 <th className={wishlistClasses.noSort}>
+//                                     <FormattedMessage
+//                                         id={'myWishlist.project_total'}
+//                                         defaultMessage={'Total estimé'}
+//                                     />
+//                                 </th>
+//                                 <th className={wishlistClasses.noSort}>
+//                                     <FormattedMessage
+//                                         id={'myWishlist.project_link'}
+//                                         defaultMessage={'Link to the project'}
+//                                     />
+//                                 </th>
+//                             </tr>
+//                         </thead>
+//                         <tbody>
+//                             {projectsData.map((project) => (
+//                                 <tr>
+//                                     <td>{project.projectName}</td>
+//                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
+//                                     <td>{project.numberProducts}</td>
+//                                     <td className={wishlistClasses.num}>${project.total}</td>
+//                                     <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
+//                                 </tr>
+//                             ))}
+//                         </tbody>
+//                     </table>
+//                 </div>
+//             )
+//         } else {
+//             return (
+//                 <div></div>
+//             );
+//         }
+
+//     }
+// }
+
+
+/* teste sort gpt */
+
 class TableProjects extends Component {
     constructor() {
         super();
         this.state = {
-            pageData: [], 
-            ordreFleche: 'ascending'
+            pageData: [],
+            sortColumn: '',
+            sortDirection: 'asc' // 'asc' para ascendente, 'desc' para descendente
         };
     }
 
     componentDidMount() {
-        // const { email } = useDashboard();
         let email = this.props.email;
-        let dataURL =
-            'https://data.sherpagroupav.com/get_projects_details.php?email=' + email;
+        let dataURL = 'https://data.sherpagroupav.com/get_projects_details.php?email=' + email;
 
         fetch(dataURL)
             .then(res => res.json())
             .then(res => {
-                this.setState({
-                    pageData: res
-                });
-                console.log(this.state.pageData);
+                this.setState({ pageData: res });
             });
     }
 
-    render() {
-        const projectsData = this.state.pageData;
+    handleSort = (column) => {
+        const { sortColumn, sortDirection, pageData } = this.state;
+        let newDirection = 'asc';
 
-        if (this.state.pageData && this.state.pageData.length > 0) {
+        if (sortColumn === column && sortDirection === 'asc') {
+            newDirection = 'desc';
+        }
+
+        const sortedData = [...pageData].sort((a, b) => {
+            const aValue = a[column] ? a[column].toString().toLowerCase() : '';
+            const bValue = b[column] ? b[column].toString().toLowerCase() : '';
+
+            if (aValue < bValue) return newDirection === 'asc' ? -1 : newDirection === 'desc' && 1;
+            if (aValue > bValue) return newDirection === 'asc' ? 1 :  newDirection === 'desc' && -1;
+            return 0;
+        });
+
+
+        this.setState({
+            pageData: sortedData,
+            sortColumn: column,
+            sortDirection: newDirection
+        });
+    };
+
+    render() {
+        const { pageData, sortColumn, sortDirection } = this.state;
+
+        if (pageData && pageData.length > 0) {
             return (
                 <div className={wishlistClasses.tableWrap}>
                     <table className={wishlistClasses.sortable}>
                         <thead>
                             <tr>
-                                <th aria-sort="ascending">
-                                    <FormattedMessage
-                                        id={'myWishlist.project_name'}
-                                        defaultMessage={'Project name'}
-                                    />
-                                    <span className={wishlistClasses[this.state.ordreFleche]}></span>
+                                <th onClick={() => this.handleSort('projectName')}>
+                                    <FormattedMessage id={'myWishlist.project_name'} defaultMessage={'Project name'} />
+                                    <span className={wishlistClasses[sortColumn === 'projectName' ? sortDirection : '']}></span>
+                                </th>
+                                <th onClick={() => this.handleSort('dateCreation')}>
+                                    <FormattedMessage id={'myWishlist.project_date_creation'} defaultMessage={'Creation date'} />
+                                    <span className={wishlistClasses[sortColumn === 'dateCreation' ? sortDirection : '']}></span>
+                                </th>
+                                <th onClick={() => this.handleSort('numberProducts')}>
+                                    <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
+                                    <span className={wishlistClasses[sortColumn === 'numberProducts' ? sortDirection : '']}></span>
+                                </th>
+                                <th onClick={() => this.handleSort('total')}>
+                                    <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Total estimé'} />
+                                    <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
                                 </th>
                                 <th className={wishlistClasses.noSort}>
-                                    <FormattedMessage
-                                        id={'myWishlist.project_date_creation'}
-                                        defaultMessage={'Creation date'}
-                                    />
-                                </th>
-                                <th className={wishlistClasses.noSort}>
-                                    <FormattedMessage
-                                        id={'myWishlist.project_n_produits'}
-                                        defaultMessage={'N. produits'}
-                                    />
-                                </th>
-                                <th className={wishlistClasses.noSort}>
-                                    <FormattedMessage
-                                        id={'myWishlist.project_total'}
-                                        defaultMessage={'Total estimé'}
-                                    />
-                                </th>
-                                <th className={wishlistClasses.noSort}>
-                                    <FormattedMessage
-                                        id={'myWishlist.project_link'}
-                                        defaultMessage={'Link to the project'}
-                                    />
+                                    <FormattedMessage id={'myWishlist.project_link'} defaultMessage={'Link to the project'} />
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {projectsData.map((project) => (
-                                <tr>
+                            {pageData.map((project) => (
+                                <tr key={project.id}>
                                     <td>{project.projectName}</td>
                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
                                     <td>{project.numberProducts}</td>
@@ -799,15 +912,16 @@ class TableProjects extends Component {
                         </tbody>
                     </table>
                 </div>
-            )
-        } else {
-            return (
-                <div></div>
             );
+        } else {
+            return <div></div>;
         }
-
     }
 }
+
+
+
+/* ------------------- */
 
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
