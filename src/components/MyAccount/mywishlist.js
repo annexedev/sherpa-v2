@@ -2193,15 +2193,15 @@ const MyWishList = props => {
                                                         ) {
 
                                                             let qtyCart = 0;
-                                                            let filterCatergory = [];
                                                             cartItems.forEach( c => {
+                                                                let filterCatergory = [];
                                                                 const cartJSON = JSON.parse(c.category);
-                                                                const filterCatergory = cartJSON.filter( c => c.product_id === val.product.id && c.category_id === wId );
-                                                                if(filterCatergory.length){
-                                                                    qtyCart = filterCatergory[0].qty;
+                                                                if(cartJSON){
+                                                                    filterCatergory = cartJSON.filter( c => c.product_id === val.product.id && c.category_id === wId );
+                                                                    if(filterCatergory.length){
+                                                                        qtyCart = filterCatergory[0].qty;
+                                                                  }
                                                                 }
-                                                                
-                                                               
                                                             });
 
                                                             return (
@@ -2335,7 +2335,7 @@ const MyWishList = props => {
                                                                                     }
                                                                                 >
 
-                                                                                    <RealQuantity cid={wId} pid={val.product.id} wid={val.id} />
+                                                                                    {qtyCart}<RealQuantity  cid={wId} pid={val.product.id} wid={val.id} />
 
                                                                                     <span
                                                                                         className={
@@ -2417,9 +2417,12 @@ const MyWishList = props => {
                                                                                                             // console.log('coucoucoucou');
                                                                                                             // console.log(tempProps);
 
-                                                                                                            handleAddToCart(
-                                                                                                                tempProps
-                                                                                                            );
+                                                                                                            if(tempProps.qty != 0 ){
+                                                                                                                handleAddToCart(
+                                                                                                                    tempProps
+                                                                                                                );
+                                                                                                            }
+                                                                                                           
 
                                                                                                             addToast({
                                                                                                                 type: 'info',
