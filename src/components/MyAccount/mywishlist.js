@@ -51,6 +51,7 @@ let categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
 let showCategoryBanners = true;
 let projectname = '';
 let purchasedProduct = 0;
+let realQty = 0
 
 class SpecialPriceTo extends Component {
     constructor() {
@@ -130,6 +131,7 @@ class RealQuantity extends Component {
         let wid = this.props.wid;
         let pid = this.props.pid;
         let cid = this.props.cid;
+        realQty = qty;
         return (
             <>
                 <Quantity
@@ -2378,7 +2380,19 @@ const MyWishList = props => {
 
                                                                                 </div>
                                                                             )}
-                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
+                                                                            <div className={classes.wrapperPurchased}>
+                                                                                <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
+                                                                                <div className={defaultClasses.linkPurchase}>
+                                                                                    {realQty - purchasedProduct}
+                                                                                    <FormattedMessage
+                                                                                        id={
+                                                                                            'myWishlist.remainToPurchase'
+                                                                                        }
+                                                                                        defaultMessage={
+                                                                                            'remainin(s) to purchase'
+                                                                                        }
+                                                                                    /> </div>
+                                                                            </div>
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
@@ -2414,7 +2428,7 @@ const MyWishList = props => {
                                                                                                                 .value;
 
                                                                                                             const tempProps = { ...val.product };
-                                                                                                            tempProps.qty = currentQty - qtyCart;
+                                                                                                            tempProps.qty = currentQty - qtyCart - purchasedProduct;
                                                                                                             tempProps.qtyCategory = currentQty - purchasedProduct;
                                                                                                             tempProps.categoryId = wId;
                                                                                                             tempProps.categoryName = projectname;
@@ -2654,7 +2668,7 @@ const MyWishList = props => {
                                                                                                                     tempProps.qty = currentQtyPartial;
                                                                                                                 }
                                                                                                                 else {
-                                                                                                                    tempProps.qty = currentQty - qtyCart;
+                                                                                                                    tempProps.qty = currentQty - qtyCart - purchasedProduct;
                                                                                                                 }
 
                                                                                                                 tempProps.categoryId = wId;

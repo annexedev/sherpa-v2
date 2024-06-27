@@ -175,7 +175,7 @@
     color: white;
 }
 .wrapperTooltip{
-    width: 300px;
+    width: 320px;
     height: 79px;
 }
 .wrapperTooltip .tooltip{
@@ -190,6 +190,12 @@
 
 .wrapperTooltip:hover .tooltip {
     visibility: visible;
+}
+
+.wrapperPurchased{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .button_move_project_yes {
