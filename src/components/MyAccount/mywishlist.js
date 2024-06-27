@@ -51,7 +51,7 @@ let categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
 let showCategoryBanners = true;
 let projectname = '';
 let purchasedProduct = 0;
-let realQty = 0
+let realQty = 0;
 
 class SpecialPriceTo extends Component {
     constructor() {
@@ -99,51 +99,6 @@ class SpecialPriceTo extends Component {
         } else {
             return (<></>);
         }
-    }
-}
-class RealQuantity extends Component {
-    constructor() {
-        super();
-        this.state = {
-            pageData: []
-        };
-    }
-
-
-    componentDidMount() {
-        let cid = this.props.cid;
-        let pid = this.props.pid;
-        let dataURL = 'https://data.sherpagroupav.com/get_belongs.php?pid=' + pid + '&cid=' + cid;
-        console.log(dataURL);
-
-        fetch(dataURL)
-            .then(res => res.json())
-            .then(res => {
-                this.setState({
-                    pageData: res
-                });
-            });
-
-    }
-
-    render() {
-        let qty = this.state.pageData.qty && this.state.pageData.qty;
-        let wid = this.props.wid;
-        let pid = this.props.pid;
-        let cid = this.props.cid;
-        realQty = qty;
-        return (
-            <>
-                <Quantity
-                    // initialValue={1}
-                    min={1}
-                    wid={cid}
-                    productId={wid}
-                    initialValue={qty}
-                />
-            </>
-
-        );
     }
 }
 class TotalProjet extends Component {
@@ -466,7 +421,7 @@ class BrandName extends Component {
     }
 
     render() {
-        console.log('UPDATED');
+        // console.log('UPDATED');
         let brandname = this.state.pageData.brandname && this.state.pageData.brandname;
         if (brandname) {
             return (
@@ -679,11 +634,58 @@ class SoldIn extends Component {
         }
     }
 }
-class AlreadyPurchased extends Component {
+class RealQuantity extends Component {
+
     constructor() {
         super();
         this.state = {
             pageData: []
+        };
+    }
+
+
+    componentDidMount() {
+        let cid = this.props.cid;
+        let pid = this.props.pid;
+        let dataURL = 'https://data.sherpagroupav.com/get_belongs.php?pid=' + pid + '&cid=' + cid;
+        // console.log(dataURL);
+
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+
+    }
+
+    render() {
+        let qty = this.state.pageData.qty && this.state.pageData.qty;
+        let wid = this.props.wid;
+        let pid = this.props.pid;
+        let cid = this.props.cid;
+        realQty = qty;
+        return (
+            <>
+                <Quantity
+                    // initialValue={1}
+                    min={1}
+                    wid={cid}
+                    productId={wid}
+                    initialValue={qty}
+                />
+            </>
+
+        );
+    }
+}
+class AlreadyPurchased extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: [],
+            pageData2: []
         };
     }
 
@@ -693,7 +695,7 @@ class AlreadyPurchased extends Component {
         let projectId = this.props.wId;
         let dataURL =
             'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid + '&projectId=' + projectId;
-        console.log(dataURL);
+        // console.log(dataURL);
 
         fetch(dataURL)
             .then(res => res.json())
@@ -727,6 +729,74 @@ class AlreadyPurchased extends Component {
 
     }
 }
+
+class RemainProject extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: [],
+            pageData2: []
+        };
+    }
+
+    componentDidMount() {
+        let pid = this.props.pid;
+        let wId = this.props.wId;
+        let email = this.props.email;
+        let projectId = this.props.wId;
+        let dataURL = 'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid + '&projectId=' + projectId;
+        // console.log(dataURL);
+
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+
+        let dataURL2 = 'https://data.sherpagroupav.com/get_belongs.php?pid=' + pid + '&cid=' + wId;
+
+        fetch(dataURL2)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData2: res
+                });
+            });
+    }
+
+    render() {
+
+        let qty = this.state.pageData2.qty && this.state.pageData2.qty;
+        if (this.state.pageData.purchased && this.state.pageData2.qty > 0) {
+            purchasedProduct = this.state.pageData.purchased;
+            return (
+                <div className={defaultClasses.linkPurchase}>
+                    {qty - purchasedProduct } 
+                    <FormattedMessage
+                        id={
+                            'myWishlist.remainToPurchase'
+                        }
+                        defaultMessage={
+                            ' remain(s) to purchase'
+                        }
+                    />
+                </div>
+
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
+
+    }
+}
+
+
+
+
 // class TableProjects extends Component {
 //     constructor() {
 //         super();
@@ -2382,16 +2452,7 @@ const MyWishList = props => {
                                                                             )}
                                                                             <div className={classes.wrapperPurchased}>
                                                                                 <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
-                                                                                <div className={defaultClasses.linkPurchase}>
-                                                                                    {realQty - purchasedProduct}
-                                                                                    <FormattedMessage
-                                                                                        id={
-                                                                                            'myWishlist.remainToPurchase'
-                                                                                        }
-                                                                                        defaultMessage={
-                                                                                            'remainin(s) to purchase'
-                                                                                        }
-                                                                                    /> </div>
+                                                                                <RemainProject wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
                                                                             </div>
                                                                             <div
                                                                                 className={
