@@ -2412,7 +2412,7 @@ const MyWishList = props => {
                                                                                     }
                                                                                 >
 
-                                                                                    {qtyCart}<RealQuantity cid={wId} pid={val.product.id} wid={val.id} />
+                                                                                    <RealQuantity cid={wId} pid={val.product.id} wid={val.id} />
 
                                                                                     <span
                                                                                         className={
