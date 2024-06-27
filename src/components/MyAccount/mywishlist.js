@@ -859,7 +859,7 @@ class TableProjects extends Component {
             const bValue = b[column] ? b[column].toString().toLowerCase() : '';
 
             if (aValue < bValue) return newDirection === 'asc' ? -1 : newDirection === 'desc' && 1;
-            if (aValue > bValue) return newDirection === 'asc' ? 1 :  newDirection === 'desc' && -1;
+            if (aValue > bValue) return newDirection === 'asc' ? 1 : newDirection === 'desc' && -1;
             return 0;
         });
 
@@ -1214,7 +1214,11 @@ const MyWishList = props => {
             } else {
                 return (
                     <div className={classes.wrapperMoveToCart}>
-                        <button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /></button>
+                        <div className={classes.wrapperTooltip}>
+                            <span className={classes.tooltip}><FormattedMessage id={'project.tooltipMovetocart'} defaultMessage={'Moves the balance of unpurchased product for this project to cart'} /></span>
+                            <button className={classes.button_move_project}><FormattedMessage id={'project.movetocart'} defaultMessage={'Move Unpurchased to Cart'} />
+                            </button>
+                        </div>
                         <Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}>
                             <FormattedMessage id={'project.backtocart'} defaultMessage={'Go to Cart'} />
                         </Link>
@@ -2193,14 +2197,14 @@ const MyWishList = props => {
                                                         ) {
 
                                                             let qtyCart = 0;
-                                                            cartItems.forEach( c => {
+                                                            cartItems.forEach(c => {
                                                                 let filterCatergory = [];
                                                                 const cartJSON = JSON.parse(c.category);
-                                                                if(cartJSON){
-                                                                    filterCatergory = cartJSON.filter( c => c.product_id === val.product.id && c.category_id === wId );
-                                                                    if(filterCatergory.length){
+                                                                if (cartJSON) {
+                                                                    filterCatergory = cartJSON.filter(c => c.product_id === val.product.id && c.category_id === wId);
+                                                                    if (filterCatergory.length) {
                                                                         qtyCart = filterCatergory[0].qty;
-                                                                  }
+                                                                    }
                                                                 }
                                                             });
 
@@ -2303,6 +2307,7 @@ const MyWishList = props => {
                                                                                     }
                                                                                     <p>
                                                                                         {/* <SoldIn pid={val.product.id} /> */}
+                                                                                        Quantity remaining: {qtyCart}
                                                                                     </p>
 
                                                                                 </div>
@@ -2335,7 +2340,7 @@ const MyWishList = props => {
                                                                                     }
                                                                                 >
 
-                                                                                    {qtyCart}<RealQuantity  cid={wId} pid={val.product.id} wid={val.id} />
+                                                                                    {qtyCart}<RealQuantity cid={wId} pid={val.product.id} wid={val.id} />
 
                                                                                     <span
                                                                                         className={
@@ -2409,20 +2414,20 @@ const MyWishList = props => {
                                                                                                                 .value;
 
                                                                                                             const tempProps = { ...val.product };
-                                                                                                            tempProps.qty = currentQty - qtyCart ;
-                                                                                                            tempProps.qtyCategory = currentQty - purchasedProduct ;
+                                                                                                            tempProps.qty = currentQty - qtyCart;
+                                                                                                            tempProps.qtyCategory = currentQty - purchasedProduct;
                                                                                                             tempProps.categoryId = wId;
                                                                                                             tempProps.categoryName = projectname;
 
                                                                                                             // console.log('coucoucoucou');
                                                                                                             // console.log(tempProps);
 
-                                                                                                            if(tempProps.qty != 0 ){
+                                                                                                            if (tempProps.qty != 0) {
                                                                                                                 handleAddToCart(
                                                                                                                     tempProps
                                                                                                                 );
                                                                                                             }
-                                                                                                           
+
 
                                                                                                             addToast({
                                                                                                                 type: 'info',
@@ -2649,12 +2654,12 @@ const MyWishList = props => {
                                                                                                                     tempProps.qty = currentQtyPartial;
                                                                                                                 }
                                                                                                                 else {
-                                                                                                                    tempProps.qty = currentQty - qtyCart ;
+                                                                                                                    tempProps.qty = currentQty - qtyCart;
                                                                                                                 }
 
                                                                                                                 tempProps.categoryId = wId;
                                                                                                                 tempProps.categoryName = projectname;
-                                                                                                                tempProps.qtyCategory = currentQty - purchasedProduct ;
+                                                                                                                tempProps.qtyCategory = currentQty - purchasedProduct;
 
                                                                                                                 handleAddToCart(
                                                                                                                     tempProps
