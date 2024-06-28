@@ -34,7 +34,7 @@ let data_value = 'A';
 
 function updateDataValue(valeur) {
     data_value = valeur;
-    // console.log('UPDATE: ' + data_value);
+    console.log('UPDATE: ' + data_value);
 }
 
 class ServiceDetailsEmployeurs extends Component {
@@ -262,11 +262,19 @@ class ServiceDetailsEmployeurs extends Component {
 
                 var inputs, index;
 
+                // console.log(index);
+                
+                
                 inputs = document.getElementsByTagName('select');
+                // console.log(inputs);
                 for (index = 0; index < inputs.length; ++index) {
-                    //console.log(inputs[index].id);
+                    // console.log(inputs[index].id);
 
                     var daySelect = document.getElementById(inputs[index].id);
+
+                    // console.log(daySelect);
+                    // console.log(daySelect.options);
+
 
                     if (inputs[index].id == inputs[index].id) {
                         daySelect.options[
@@ -288,7 +296,7 @@ class ServiceDetailsEmployeurs extends Component {
                         );
                     }
 
-                    //sortOptions(inputs[index].id);
+                    // sortOptions(inputs[index].id);
                 }
 
                 //console.log(data.MpBetterWishlistCreateCategory.category_id)
@@ -313,6 +321,7 @@ class ServiceDetailsEmployeurs extends Component {
                                 .getElementsByClassName('c' + item_id)[0]
                                 .querySelector('input').value;
 
+
                             for (let i = 0; i < loopProject; i++) {
                                 addTodoUpdate({
                                     variables: {
@@ -322,7 +331,7 @@ class ServiceDetailsEmployeurs extends Component {
                                 });
 
                             }
-                            window.alert('New category created.');
+                            window.alert('New project created..');
                             setSelectValue(999);
                         }}
                     >
