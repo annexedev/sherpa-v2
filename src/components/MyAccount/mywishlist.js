@@ -1246,7 +1246,6 @@ const MyWishList = props => {
                         else {
                             window.alert('New project created.');
                         }
-                        window.alert('New project created.');
                         setSelectValue(999);
                         window.location.reload();
                     }}
