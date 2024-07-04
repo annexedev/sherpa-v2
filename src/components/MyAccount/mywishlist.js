@@ -52,6 +52,7 @@ let showCategoryBanners = true;
 let projectname = '';
 let purchasedProduct = 0;
 let realQty = 0;
+let checkedSwitchButton;
 
 class SpecialPriceTo extends Component {
     constructor() {
@@ -241,7 +242,7 @@ class ToggleAccess extends Component {
                 TOGGLE_LIKED_PHOTO
             );
 
-            console.log(data);
+            // console.log(data);
             const [selectValue, setSelectValue] = React.useState('');
 
             const { BrowserPersistence } = Util;
@@ -310,22 +311,25 @@ class ToggleAccess extends Component {
         const handleSwitch = async () => {
 
             var checkedStatus = document.getElementById('switchBTN');
+            checkedSwitchButton = document.getElementById('switchBTN');
 
-            if (checkedStatus.checked == true) {
+            if (checkedStatus.checked === true) {
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
                     .then(res => res.json())
                     .then(res => {
                         document.getElementById('switchBTN').checked = false;
+
                         if (res) {
                             window.location.reload();
                         }
                     });
 
-            } else if (checkedStatus.checked == false) {
+            } else if (checkedStatus.checked === false) {
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
                     .then(res => res.json())
                     .then(res => {
                         document.getElementById('switchBTN').checked = true;
+
                         if (res) {
                             window.location.reload();
                         }
@@ -334,6 +338,7 @@ class ToggleAccess extends Component {
         }
 
         let result = this.state.pageData.access && this.state.pageData.access;
+        // access = this.state.pageData.access && this.state.pageData.access;
 
         if (result == 1) {
             return (
@@ -388,7 +393,6 @@ class ToggleAccess extends Component {
                                 &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
                             </span>
                         </p>
-
                     </div>
                 </>
             );
@@ -729,7 +733,6 @@ class AlreadyPurchased extends Component {
 
     }
 }
-
 class RemainProject extends Component {
     constructor() {
         super();
@@ -773,7 +776,7 @@ class RemainProject extends Component {
             purchasedProduct = this.state.pageData.purchased;
             return (
                 <div className={defaultClasses.linkPurchase}>
-                    {qty - purchasedProduct } 
+                    {qty - purchasedProduct}
                     <FormattedMessage
                         id={
                             'myWishlist.remainToPurchase'
@@ -793,116 +796,13 @@ class RemainProject extends Component {
 
     }
 }
-
-
-
-
-// class TableProjects extends Component {
-//     constructor() {
-//         super();
-//         this.state = {
-//             pageData: [], 
-//             ordreFleche: 'iconDescending'
-//         };
-//     }
-
-//     componentDidMount() {
-//         // const { email } = useDashboard();
-//         let email = this.props.email;
-//         let dataURL =
-//             'https://data.sherpagroupav.com/get_projects_details.php?email=' + email;
-
-//         fetch(dataURL)
-//             .then(res => res.json())
-//             .then(res => {
-//                 this.setState({
-//                     pageData: res
-//                 });
-//                 console.log(this.state.pageData);
-//             });
-//     }
-
-//     render() {
-//         const projectsData = this.state.pageData;
-
-//         const sortAlfabethical = () => {
-//             console.log(this.state.ordreFleche);
-
-
-
-//         }
-
-//         if (this.state.pageData && this.state.pageData.length > 0) {
-//             return (
-//                 <div className={wishlistClasses.tableWrap}>
-//                     <table className={wishlistClasses.sortable}>
-//                         <thead>
-//                             <tr>
-//                                 <th className={wishlistClasses.ascending}>
-//                                     <FormattedMessage
-//                                         id={'myWishlist.project_name'}
-//                                         defaultMessage={'Project name'}
-//                                     />
-//                                     <span className={wishlistClasses[this.state.ordreFleche]} onClick={() => sortAlfabethical()}></span>
-//                                 </th>
-//                                 <th className={wishlistClasses.noSort}>
-//                                     <FormattedMessage
-//                                         id={'myWishlist.project_date_creation'}
-//                                         defaultMessage={'Creation date'}
-//                                     />
-//                                 </th>
-//                                 <th className={wishlistClasses.noSort}>
-//                                     <FormattedMessage
-//                                         id={'myWishlist.project_n_produits'}
-//                                         defaultMessage={'N. produits'}
-//                                     />
-//                                 </th>
-//                                 <th className={wishlistClasses.noSort}>
-//                                     <FormattedMessage
-//                                         id={'myWishlist.project_total'}
-//                                         defaultMessage={'Total estimé'}
-//                                     />
-//                                 </th>
-//                                 <th className={wishlistClasses.noSort}>
-//                                     <FormattedMessage
-//                                         id={'myWishlist.project_link'}
-//                                         defaultMessage={'Link to the project'}
-//                                     />
-//                                 </th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>
-//                             {projectsData.map((project) => (
-//                                 <tr>
-//                                     <td>{project.projectName}</td>
-//                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
-//                                     <td>{project.numberProducts}</td>
-//                                     <td className={wishlistClasses.num}>${project.total}</td>
-//                                     <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
-//                                 </tr>
-//                             ))}
-//                         </tbody>
-//                     </table>
-//                 </div>
-//             )
-//         } else {
-//             return (
-//                 <div></div>
-//             );
-//         }
-
-//     }
-// }
-
-
-/* teste sort gpt */
-
 class TableProjects extends Component {
     constructor() {
         super();
         this.state = {
             pageData: [],
             sortColumn: '',
+            pageDataAccess:[],
             sortDirection: 'asc' // 'asc' para ascendente, 'desc' para descendente
         };
     }
@@ -916,6 +816,18 @@ class TableProjects extends Component {
             .then(res => {
                 this.setState({ pageData: res });
             });
+
+        let grantAccess =
+            'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+        fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageDataAccess: res
+                });
+            });
+
+
     }
 
     handleSort = (column) => {
@@ -943,10 +855,14 @@ class TableProjects extends Component {
         });
     };
 
+
+
     render() {
         const { pageData, sortColumn, sortDirection } = this.state;
 
-        if (pageData && pageData.length > 0) {
+        console.log(this.state.pageDataAccess["access"]);
+
+        if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
             return (
                 <div className={wishlistClasses.tableWrap}>
                     <table className={wishlistClasses.sortable}>
@@ -992,8 +908,6 @@ class TableProjects extends Component {
         }
     }
 }
-
-
 
 /* ------------------- */
 
@@ -1287,7 +1201,7 @@ const MyWishList = props => {
                     <div className={classes.wrapperMoveToCart}>
                         <div className={classes.wrapperTooltip}>
                             <span className={classes.tooltip}><FormattedMessage id={'project.tooltipMovetocart'} defaultMessage={'Moves the balance of unpurchased product for this project to cart'} /></span>
-                            <button className={classes.button_move_project}><FormattedMessage id={'project.movetocart'} defaultMessage={'Move Unpurchased to Cart'} />
+                            <button className={classes.button_move_project}><FormattedMessage id={'project.movetocart'} defaultMessage={'Move Remaining to Cart'} />
                             </button>
                         </div>
                         <Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}>
@@ -2931,7 +2845,7 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     <ToggleAccess email={email} wid={wId} />
-                                                    <TableProjects email={email} />
+                                                   <TableProjects email={email} />
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
