@@ -50,7 +50,7 @@ let categoryBannerIdentifierHome = 'projects_instructions';
 let categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
 let showCategoryBanners = true;
 let projectname = '';
-let purchasedProduct = 0;
+let purchasedProduct = [];
 let realQty = 0;
 
 class SpecialPriceTo extends Component {
@@ -711,7 +711,7 @@ class AlreadyPurchased extends Component {
         let sku = this.props.sku;
         let wId = this.props.wId;
         if (this.state.pageData.purchased && this.state.pageData.purchased > 0) {
-            purchasedProduct = this.state.pageData.purchased;
+            //purchasedProduct = this.state.pageData.purchased;
             return (
                 <Link
                     className={defaultClasses.linkPurchase}
@@ -770,16 +770,20 @@ class RemainProject extends Component {
 
         let qty = this.state.pageData2.qty && this.state.pageData2.qty;
         if (this.state.pageData.purchased && this.state.pageData2.qty > 0) {
-            purchasedProduct = this.state.pageData.purchased;
+            const purchased = {
+                pid : this.props.pid,
+                qty : this.state.pageData.purchased
+            };
+            purchasedProduct.push(purchased);
             return (
                 <div className={defaultClasses.linkPurchase}>
-                    {qty - purchasedProduct } 
+                    {qty - purchased.qty } 
                     <FormattedMessage
                         id={
                             'myWishlist.remainToPurchase'
                         }
                         defaultMessage={
-                            ' remain(s) to purchase'
+                            'remain(s) to purchase'
                         }
                     />
                 </div>
@@ -793,8 +797,6 @@ class RemainProject extends Component {
 
     }
 }
-
-
 
 
 // class TableProjects extends Component {
@@ -2476,7 +2478,6 @@ const MyWishList = props => {
                                                                                                             wId
                                                                                                         }
                                                                                                         onClick={() => {
-
                                                                                                             var currentQty = document
                                                                                                                 .querySelector(
                                                                                                                     '#q' +
@@ -2487,9 +2488,16 @@ const MyWishList = props => {
                                                                                                                 )
                                                                                                                 .value;
 
+                                                                                                            const filterpurchasedProduct = purchasedProduct.filter( p => p.pid === val.product.id );
+                                                                                                            let qtyPurchasedProduct = 0;
+
+                                                                                                            if(filterpurchasedProduct.length > 0){
+                                                                                                                qtyPurchasedProduct = filterpurchasedProduct[0].qty;
+                                                                                                            }
+
                                                                                                             const tempProps = { ...val.product };
-                                                                                                            tempProps.qty = currentQty - qtyCart - purchasedProduct;
-                                                                                                            tempProps.qtyCategory = currentQty - purchasedProduct;
+                                                                                                            tempProps.qty = currentQty - qtyCart - qtyPurchasedProduct;
+                                                                                                            tempProps.qtyCategory = currentQty - qtyPurchasedProduct;
                                                                                                             tempProps.categoryId = wId;
                                                                                                             tempProps.categoryName = projectname;
 
@@ -2721,6 +2729,11 @@ const MyWishList = props => {
                                                                                                                     .value;
 
                                                                                                                 console.log(isPartialQuantity);
+                                                                                                                const filterpurchasedProduct = purchasedProduct.filter( p => p.pid === val.product.id );
+
+                                                                                                                 if(filterpurchasedProduct.length > 0){
+                                                                                                                    qtyPurchasedProduct = filterpurchasedProduct[0].qty;
+                                                                                                                }
 
                                                                                                                 const tempProps = { ...val.product };
 
@@ -2728,12 +2741,12 @@ const MyWishList = props => {
                                                                                                                     tempProps.qty = currentQtyPartial;
                                                                                                                 }
                                                                                                                 else {
-                                                                                                                    tempProps.qty = currentQty - qtyCart - purchasedProduct;
+                                                                                                                    tempProps.qty = currentQty - qtyCart - qtyPurchasedProduct;
                                                                                                                 }
 
                                                                                                                 tempProps.categoryId = wId;
                                                                                                                 tempProps.categoryName = projectname;
-                                                                                                                tempProps.qtyCategory = currentQty - purchasedProduct;
+                                                                                                                tempProps.qtyCategory = currentQty - qtyPurchasedProduct;
 
                                                                                                                 handleAddToCart(
                                                                                                                     tempProps

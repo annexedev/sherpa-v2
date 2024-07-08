@@ -31,6 +31,7 @@ import Iframe from 'react-iframe';
 import Quantity from './quantity';
 
 let data_value = 'A';
+let check = true ;
 
 function updateDataValue(valeur) {
     data_value = valeur;
@@ -263,6 +264,7 @@ class ServiceDetailsEmployeurs extends Component {
                 var inputs, index;
 
                 inputs = document.getElementsByTagName('select');
+                if(check){
                 for (index = 0; index < inputs.length; ++index) {
                     //console.log(inputs[index].id);
 
@@ -289,8 +291,9 @@ class ServiceDetailsEmployeurs extends Component {
                     }
 
                     //sortOptions(inputs[index].id);
+                    }
                 }
-
+            check = false;
                 //console.log(data.MpBetterWishlistCreateCategory.category_id)
             }
             if (loading) return 'Submitting...';
