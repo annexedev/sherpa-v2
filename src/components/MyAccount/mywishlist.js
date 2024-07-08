@@ -2730,6 +2730,7 @@ const MyWishList = props => {
 
                                                                                                                 console.log(isPartialQuantity);
                                                                                                                 const filterpurchasedProduct = purchasedProduct.filter( p => p.pid === val.product.id );
+                                                                                                                let qtyPurchasedProduct = 0;
 
                                                                                                                  if(filterpurchasedProduct.length > 0){
                                                                                                                     qtyPurchasedProduct = filterpurchasedProduct[0].qty;
