@@ -837,21 +837,33 @@ class TableProjects extends Component {
     handleSort = (column) => {
         const { sortColumn, sortDirection, pageData } = this.state;
         let newDirection = 'desc';
-
+    
         if (sortColumn === column && sortDirection === 'desc') {
             newDirection = 'asc';
         }
-
+    
         const sortedData = [...pageData].sort((a, b) => {
-            const aValue = a[column] ? a[column].toString().toLowerCase() : '';
-            const bValue = b[column] ? b[column].toString().toLowerCase() : '';
-
-            if (aValue < bValue) return newDirection === 'asc' ? -1 : newDirection === 'desc' && 1;
-            if (aValue > bValue) return newDirection === 'asc' ? 1 : newDirection === 'desc' && -1;
-            return 0;
+            const aValue = a[column];
+            const bValue = b[column];
+    
+            // Verifica se os valores são números
+            const isANumber = !isNaN(aValue);
+            const isBNumber = !isNaN(bValue);
+    
+            if (isANumber && isBNumber) {
+                // Comparação numérica
+                return newDirection === 'asc' ? aValue - bValue : bValue - aValue;
+            } else {
+                // Comparação alfabética
+                const aStr = aValue ? aValue.toString().toLowerCase() : '';
+                const bStr = bValue ? bValue.toString().toLowerCase() : '';
+    
+                if (aStr < bStr) return newDirection === 'asc' ? -1 : 1;
+                if (aStr > bStr) return newDirection === 'asc' ? 1 : -1;
+                return 0;
+            }
         });
-
-
+    
         this.setState({
             pageData: sortedData,
             sortColumn: column,
@@ -860,11 +872,11 @@ class TableProjects extends Component {
     };
 
 
-
     render() {
         const { pageData, sortColumn, sortDirection } = this.state;
 
         // console.log(this.state.pageDataAccess["access"]);
+        // console.log(typeof this.state.pageData[0]?.numberProducts);
 
         if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
             return (
@@ -920,6 +932,18 @@ class TableProjects extends Component {
                                     </span>
                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
                                 </th>
+                                <th onClick={() => this.handleSort('total')}>
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_still_purchase'} defaultMessage={'Still to purchase'} />
+                                        <FontAwesomeIcon
+                                            icon={
+                                                faChevronDown
+                                            }
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
+                                    <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -929,6 +953,7 @@ class TableProjects extends Component {
                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
                                     <td>{project.numberProducts}</td>
                                     <td className={wishlistClasses.num}>${project.total}</td>
+                                    <td className={wishlistClasses.num}>$still</td>
                                 </tr>
                             ))}
                         </tbody>
