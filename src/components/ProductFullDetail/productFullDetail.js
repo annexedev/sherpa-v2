@@ -94,6 +94,7 @@ import InStockAlert from '../InStockAlert/inStockAlert';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 
 let data_value = 'A';
+let check = true ;
 
 function updateDataValue(valeur) {
     data_value = valeur;
@@ -272,6 +273,7 @@ const ProductFullDetail = props => {
                 const [addTodoUpdate] = useMutation(
                     ADD_TO_CUSTOM_PROJECT
                 );
+
                 const [selectValue, setSelectValue] = React.useState('');
                 if (data) {
                     /*const newOption = document.createElement('option');
@@ -296,35 +298,39 @@ const ProductFullDetail = props => {
                     var inputs, index;
 
                     inputs = document.getElementsByTagName('select');
-                    for (index = 0; index < inputs.length; ++index) {
-                        console.log(inputs[index].id);
 
-                        var daySelect = document.getElementById(
-                            inputs[index].id
-                        );
-
-                        if (inputs[index].id == inputs[index].id) {
-                            daySelect.options[
-                                daySelect.options.length
-                            ] = new Option(
-                                data.MpBetterWishlistCreateCategory.category_name,
-                                data.MpBetterWishlistCreateCategory.category_id,
-                                true,
-                                true
+                    if(check){
+                        for (index = 0; index < inputs.length; ++index) {
+    
+                            var daySelect = document.getElementById(
+                                inputs[index].id
                             );
-                        } else {
-                            daySelect.options[
-                                daySelect.options.length
-                            ] = new Option(
-                                data.MpBetterWishlistCreateCategory.category_name,
-                                data.MpBetterWishlistCreateCategory.category_id,
-                                false,
-                                false
-                            );
+    
+                            if (inputs[index].id == inputs[index].id) {
+                                daySelect.options[
+                                    daySelect.options.length
+                                ] = new Option(
+                                    data.MpBetterWishlistCreateCategory.category_name,
+                                    data.MpBetterWishlistCreateCategory.category_id,
+                                    true,
+                                    true
+                                );
+                            } else {
+                                daySelect.options[
+                                    daySelect.options.length
+                                ] = new Option(
+                                    data.MpBetterWishlistCreateCategory.category_name,
+                                    data.MpBetterWishlistCreateCategory.category_id,
+                                    false,
+                                    false
+                                );
+                            }
+    
+                            //sortOptions(inputs[index].id);
                         }
-
-                        //sortOptions(inputs[index].id);
                     }
+
+                    check = false;
 
                     //console.log(data.MpBetterWishlistCreateCategory.category_id)
                 }
@@ -345,6 +351,7 @@ const ProductFullDetail = props => {
                             className={classes.project_button}
                             onClick={ async e => {
                                 e.preventDefault();
+
                                 var response = await addTodo({
                                     variables: { category_name: input.value }
                                 });
@@ -362,6 +369,7 @@ const ProductFullDetail = props => {
                                 }
                                 window.alert('New category created.');
                                 setSelectValue(999);
+
                             }}
                         >
                             OK
