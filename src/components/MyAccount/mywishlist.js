@@ -846,15 +846,12 @@ class TableProjects extends Component {
             const aValue = a[column];
             const bValue = b[column];
     
-            // Verifica se os valores são números
             const isANumber = !isNaN(aValue);
             const isBNumber = !isNaN(bValue);
     
             if (isANumber && isBNumber) {
-                // Comparação numérica
                 return newDirection === 'asc' ? aValue - bValue : bValue - aValue;
             } else {
-                // Comparação alfabética
                 const aStr = aValue ? aValue.toString().toLowerCase() : '';
                 const bStr = bValue ? bValue.toString().toLowerCase() : '';
     
@@ -874,9 +871,6 @@ class TableProjects extends Component {
 
     render() {
         const { pageData, sortColumn, sortDirection } = this.state;
-
-        // console.log(this.state.pageDataAccess["access"]);
-        // console.log(typeof this.state.pageData[0]?.numberProducts);
 
         if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
             return (
