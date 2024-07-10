@@ -926,7 +926,7 @@ class TableProjects extends Component {
                                     </span>
                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
                                 </th>
-                                <th onClick={() => this.handleSort('total')}>
+                                {/* <th onClick={() => this.handleSort('total')}>
                                     <span>
                                         <FormattedMessage id={'myWishlist.project_still_purchase'} defaultMessage={'Still to purchase'} />
                                         <FontAwesomeIcon
@@ -937,7 +937,7 @@ class TableProjects extends Component {
                                         />
                                     </span>
                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
-                                </th>
+                                </th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -947,7 +947,7 @@ class TableProjects extends Component {
                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
                                     <td>{project.numberProducts}</td>
                                     <td className={wishlistClasses.num}>${project.total}</td>
-                                    <td className={wishlistClasses.num}>$still</td>
+                                    {/* <td className={wishlistClasses.num}>$still</td> */}
                                 </tr>
                             ))}
                         </tbody>
