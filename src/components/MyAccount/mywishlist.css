@@ -647,6 +647,8 @@
     margin: 30px auto;
     padding: 30px 60px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 table.sortable{
     width: 100%;
@@ -687,6 +689,30 @@ table.sortable th span {
     gap: 6px;
     font-weight: 700;
 }
+.loadMoreButton{
+    color: #8dc74c;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.loadMoreButton span{
+    color: #8dc74c;
+}
+.loadLessButton{
+    color: #8dc74c;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+}
+.loadLessButton span{
+    color: #8dc74c;
+}
+
 
 table.sortable th button {
   padding: 4px;

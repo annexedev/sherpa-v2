@@ -800,6 +800,167 @@ class RemainProject extends Component {
 
     }
 }
+// class TableProjects extends Component {
+//     constructor() {
+//         super();
+//         this.state = {
+//             pageData: [],
+//             sortColumn: '',
+//             pageDataAccess: [],
+//             sortDirection: 'asc' // 'asc' para ascendente, 'desc' para descendente
+//         };
+//     }
+
+//     componentDidMount() {
+//         let email = this.props.email;
+//         let dataURL = 'https://data.sherpagroupav.com/get_projects_details.php?email=' + email;
+
+//         fetch(dataURL)
+//             .then(res => res.json())
+//             .then(res => {
+//                 this.setState({ pageData: res });
+//             });
+
+//         let grantAccess =
+//             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+//         fetch(grantAccess)
+//             .then(res => res.json())
+//             .then(res => {
+//                 this.setState({
+//                     pageDataAccess: res
+//                 });
+//             });
+
+
+//     }
+
+//     handleSort = (column) => {
+//         const { sortColumn, sortDirection, pageData } = this.state;
+//         let newDirection = 'desc';
+
+//         if (sortColumn === column && sortDirection === 'desc') {
+//             newDirection = 'asc';
+//         }
+
+//         const sortedData = [...pageData].sort((a, b) => {
+//             const aValue = a[column];
+//             const bValue = b[column];
+
+//             const isANumber = !isNaN(aValue);
+//             const isBNumber = !isNaN(bValue);
+
+//             if (isANumber && isBNumber) {
+//                 return newDirection === 'asc' ? aValue - bValue : bValue - aValue;
+//             } else {
+//                 const aStr = aValue ? aValue.toString().toLowerCase() : '';
+//                 const bStr = bValue ? bValue.toString().toLowerCase() : '';
+
+//                 if (aStr < bStr) return newDirection === 'asc' ? -1 : 1;
+//                 if (aStr > bStr) return newDirection === 'asc' ? 1 : -1;
+//                 return 0;
+//             }
+//         });
+
+//         this.setState({
+//             pageData: sortedData,
+//             sortColumn: column,
+//             sortDirection: newDirection
+//         });
+//     };
+
+
+//     render() {
+//         const { pageData, sortColumn, sortDirection } = this.state;
+
+//         console.log(this.state.pageData);
+
+//         if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
+//             return (
+//                 <div className={wishlistClasses.tableWrap}>
+//                     <table className={wishlistClasses.sortable}>
+//                         <thead>
+//                             <tr>
+//                                 <th onClick={() => this.handleSort('projectName')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_name'} defaultMessage={'Project name'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'projectName' ? sortDirection : '']}></span>
+//                                 </th>
+//                                 <th onClick={() => this.handleSort('dateCreation')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_date_creation'} defaultMessage={'Creation date'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'dateCreation' ? sortDirection : '']}></span>
+//                                 </th>
+//                                 <th onClick={() => this.handleSort('numberProducts')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'numberProducts' ? sortDirection : '']}></span>
+//                                 </th>
+//                                 <th onClick={() => this.handleSort('total')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Total estimé'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+//                                 </th>
+//                                 {/* <th onClick={() => this.handleSort('total')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_still_purchase'} defaultMessage={'Still to purchase'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+//                                 </th> */}
+//                             </tr>
+//                         </thead>
+//                         <tbody>
+//                             {pageData.map((project) => (
+//                                 <tr key={project.id}>
+//                                     <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
+//                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
+//                                     <td>{project.numberProducts}</td>
+//                                     <td className={wishlistClasses.num}>${project.total}</td>
+//                                     {/* <td className={wishlistClasses.num}>$still</td> */}
+//                                 </tr>
+//                             ))}
+//                         </tbody>
+//                     </table>
+//                 </div>
+//             );
+//         } else {
+//             return <div></div>;
+//         }
+//     }
+// }
 class TableProjects extends Component {
     constructor() {
         super();
@@ -807,7 +968,8 @@ class TableProjects extends Component {
             pageData: [],
             sortColumn: '',
             pageDataAccess: [],
-            sortDirection: 'asc' // 'asc' para ascendente, 'desc' para descendente
+            sortDirection: 'asc', // 'asc' para ascendente, 'desc' para descendente
+            visibleRows: 6 // Número inicial de linhas visíveis
         };
     }
 
@@ -821,8 +983,7 @@ class TableProjects extends Component {
                 this.setState({ pageData: res });
             });
 
-        let grantAccess =
-            'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+        let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
         fetch(grantAccess)
             .then(res => res.json())
             .then(res => {
@@ -830,37 +991,35 @@ class TableProjects extends Component {
                     pageDataAccess: res
                 });
             });
-
-
     }
 
     handleSort = (column) => {
         const { sortColumn, sortDirection, pageData } = this.state;
         let newDirection = 'desc';
-    
+
         if (sortColumn === column && sortDirection === 'desc') {
             newDirection = 'asc';
         }
-    
+
         const sortedData = [...pageData].sort((a, b) => {
             const aValue = a[column];
             const bValue = b[column];
-    
+
             const isANumber = !isNaN(aValue);
             const isBNumber = !isNaN(bValue);
-    
+
             if (isANumber && isBNumber) {
                 return newDirection === 'asc' ? aValue - bValue : bValue - aValue;
             } else {
                 const aStr = aValue ? aValue.toString().toLowerCase() : '';
                 const bStr = bValue ? bValue.toString().toLowerCase() : '';
-    
+
                 if (aStr < bStr) return newDirection === 'asc' ? -1 : 1;
                 if (aStr > bStr) return newDirection === 'asc' ? 1 : -1;
                 return 0;
             }
         });
-    
+
         this.setState({
             pageData: sortedData,
             sortColumn: column,
@@ -868,9 +1027,22 @@ class TableProjects extends Component {
         });
     };
 
+    loadMore = () => {
+        this.setState((prevState) => ({
+            visibleRows: prevState.visibleRows + 6
+        }));
+    };
+
+    loadLess = () => {
+        this.setState({
+            visibleRows: 6
+        });
+    };
 
     render() {
-        const { pageData, sortColumn, sortDirection } = this.state;
+        const { pageData, sortColumn, sortDirection, visibleRows } = this.state;
+
+        console.log(this.state.pageData);
 
         if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
             return (
@@ -882,9 +1054,7 @@ class TableProjects extends Component {
                                     <span>
                                         <FormattedMessage id={'myWishlist.project_name'} defaultMessage={'Project name'} />
                                         <FontAwesomeIcon
-                                            icon={
-                                                faChevronDown
-                                            }
+                                            icon={faChevronDown}
                                             className={wishlistClasses.chevronDown}
                                         />
                                     </span>
@@ -894,9 +1064,7 @@ class TableProjects extends Component {
                                     <span>
                                         <FormattedMessage id={'myWishlist.project_date_creation'} defaultMessage={'Creation date'} />
                                         <FontAwesomeIcon
-                                            icon={
-                                                faChevronDown
-                                            }
+                                            icon={faChevronDown}
                                             className={wishlistClasses.chevronDown}
                                         />
                                     </span>
@@ -906,9 +1074,7 @@ class TableProjects extends Component {
                                     <span>
                                         <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
                                         <FontAwesomeIcon
-                                            icon={
-                                                faChevronDown
-                                            }
+                                            icon={faChevronDown}
                                             className={wishlistClasses.chevronDown}
                                         />
                                     </span>
@@ -918,40 +1084,43 @@ class TableProjects extends Component {
                                     <span>
                                         <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Total estimé'} />
                                         <FontAwesomeIcon
-                                            icon={
-                                                faChevronDown
-                                            }
+                                            icon={faChevronDown}
                                             className={wishlistClasses.chevronDown}
                                         />
                                     </span>
                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
                                 </th>
-                                {/* <th onClick={() => this.handleSort('total')}>
-                                    <span>
-                                        <FormattedMessage id={'myWishlist.project_still_purchase'} defaultMessage={'Still to purchase'} />
-                                        <FontAwesomeIcon
-                                            icon={
-                                                faChevronDown
-                                            }
-                                            className={wishlistClasses.chevronDown}
-                                        />
-                                    </span>
-                                    <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
-                                </th> */}
                             </tr>
                         </thead>
                         <tbody>
-                            {pageData.map((project) => (
+                            {pageData.slice(0, visibleRows).map((project) => (
                                 <tr key={project.id}>
                                     <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
                                     <td>{project.numberProducts}</td>
                                     <td className={wishlistClasses.num}>${project.total}</td>
-                                    {/* <td className={wishlistClasses.num}>$still</td> */}
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    {pageData.length > visibleRows && (
+                        <button onClick={this.loadMore} className={wishlistClasses.loadMoreButton}>
+                            <span>Load More</span>
+                            <FontAwesomeIcon
+                                icon={faChevronDown}
+                                className={wishlistClasses.chevronDown}
+                            />
+                        </button>
+                    )}
+                    {/* {visibleRows > 6 && (
+                        <button onClick={this.loadLess} className={wishlistClasses.loadLessButton}>
+                            <span>Load Less</span>
+                            <FontAwesomeIcon
+                                icon={faChevronUp}
+                                className={wishlistClasses.chevronDown}
+                            />
+                        </button>
+                    )} */}
                 </div>
             );
         } else {
