@@ -643,14 +643,19 @@
 
 /* TABLE PROJECTS */
 .tableWrap{
-    width: 50%;
+    width: 100%;
     margin: 30px auto;
+    padding: 30px 60px;
     text-align: center;
+}
+table.sortable{
+    width: 100%;
 }
 
 table.sortable td,
 table.sortable th {
-  padding: 0.125em 0.25em;
+  padding: 12px;
+  text-align: start;
   width: 8em;
   cursor: pointer;
 }
@@ -667,6 +672,20 @@ table.sortable th.noSort {
 
 table.sortable th:nth-child(5) {
   width: 10em;
+}
+table.sortable td a{
+    color: #8dc74c;
+    font-weight: 700;
+}
+table.sortable .chevronDown{
+    color: #8dc74c;
+    margin-top: 5px;
+
+}
+table.sortable th span {
+    display: flex;
+    gap: 6px;
+    font-weight: 700;
 }
 
 table.sortable th button {
@@ -724,12 +743,12 @@ table.show-unsorted-icon th:not([aria-sort]) button span::after {
   left: -4px;
 }
 
-table.sortable td.num {
+/* table.sortable td.num {
   text-align: center;
-}
+} */
 
 table.sortable tbody tr:nth-child(odd) {
-  background-color: #ddd;
+  background-color: #f5f5f5;
 }
 
 /* Focus and hover styling */

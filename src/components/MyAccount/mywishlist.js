@@ -774,13 +774,13 @@ class RemainProject extends Component {
         let qty = this.state.pageData2.qty && this.state.pageData2.qty;
         if (this.state.pageData.purchased && this.state.pageData2.qty > 0) {
             const purchased = {
-                pid : this.props.pid,
-                qty : this.state.pageData.purchased
+                pid: this.props.pid,
+                qty: this.state.pageData.purchased
             };
             purchasedProduct.push(purchased);
             return (
                 <div className={defaultClasses.linkPurchase}>
-                    {qty - purchased.qty } 
+                    {qty - purchased.qty}
                     <FormattedMessage
                         id={
                             'myWishlist.remainToPurchase'
@@ -806,7 +806,7 @@ class TableProjects extends Component {
         this.state = {
             pageData: [],
             sortColumn: '',
-            pageDataAccess:[],
+            pageDataAccess: [],
             sortDirection: 'asc' // 'asc' para ascendente, 'desc' para descendente
         };
     }
@@ -836,10 +836,10 @@ class TableProjects extends Component {
 
     handleSort = (column) => {
         const { sortColumn, sortDirection, pageData } = this.state;
-        let newDirection = 'asc';
+        let newDirection = 'desc';
 
-        if (sortColumn === column && sortDirection === 'asc') {
-            newDirection = 'desc';
+        if (sortColumn === column && sortDirection === 'desc') {
+            newDirection = 'asc';
         }
 
         const sortedData = [...pageData].sort((a, b) => {
@@ -864,7 +864,7 @@ class TableProjects extends Component {
     render() {
         const { pageData, sortColumn, sortDirection } = this.state;
 
-        console.log(this.state.pageDataAccess["access"]);
+        // console.log(this.state.pageDataAccess["access"]);
 
         if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
             return (
@@ -873,34 +873,62 @@ class TableProjects extends Component {
                         <thead>
                             <tr>
                                 <th onClick={() => this.handleSort('projectName')}>
-                                    <FormattedMessage id={'myWishlist.project_name'} defaultMessage={'Project name'} />
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_name'} defaultMessage={'Project name'} />
+                                        <FontAwesomeIcon
+                                            icon={
+                                                faChevronDown
+                                            }
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
                                     <span className={wishlistClasses[sortColumn === 'projectName' ? sortDirection : '']}></span>
                                 </th>
                                 <th onClick={() => this.handleSort('dateCreation')}>
-                                    <FormattedMessage id={'myWishlist.project_date_creation'} defaultMessage={'Creation date'} />
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_date_creation'} defaultMessage={'Creation date'} />
+                                        <FontAwesomeIcon
+                                            icon={
+                                                faChevronDown
+                                            }
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
                                     <span className={wishlistClasses[sortColumn === 'dateCreation' ? sortDirection : '']}></span>
                                 </th>
                                 <th onClick={() => this.handleSort('numberProducts')}>
-                                    <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
+                                        <FontAwesomeIcon
+                                            icon={
+                                                faChevronDown
+                                            }
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
                                     <span className={wishlistClasses[sortColumn === 'numberProducts' ? sortDirection : '']}></span>
                                 </th>
                                 <th onClick={() => this.handleSort('total')}>
-                                    <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Total estimé'} />
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Total estimé'} />
+                                        <FontAwesomeIcon
+                                            icon={
+                                                faChevronDown
+                                            }
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
-                                </th>
-                                <th className={wishlistClasses.noSort}>
-                                    <FormattedMessage id={'myWishlist.project_link'} defaultMessage={'Link to the project'} />
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             {pageData.map((project) => (
                                 <tr key={project.id}>
-                                    <td>{project.projectName}</td>
+                                    <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
                                     <td>{project.numberProducts}</td>
                                     <td className={wishlistClasses.num}>${project.total}</td>
-                                    <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -2404,10 +2432,10 @@ const MyWishList = props => {
                                                                                                                 )
                                                                                                                 .value;
 
-                                                                                                            const filterpurchasedProduct = purchasedProduct.filter( p => p.pid === val.product.id );
+                                                                                                            const filterpurchasedProduct = purchasedProduct.filter(p => p.pid === val.product.id);
                                                                                                             let qtyPurchasedProduct = 0;
 
-                                                                                                            if(filterpurchasedProduct.length > 0){
+                                                                                                            if (filterpurchasedProduct.length > 0) {
                                                                                                                 qtyPurchasedProduct = filterpurchasedProduct[0].qty;
                                                                                                             }
 
@@ -2645,10 +2673,10 @@ const MyWishList = props => {
                                                                                                                     .value;
 
                                                                                                                 console.log(isPartialQuantity);
-                                                                                                                const filterpurchasedProduct = purchasedProduct.filter( p => p.pid === val.product.id );
+                                                                                                                const filterpurchasedProduct = purchasedProduct.filter(p => p.pid === val.product.id);
                                                                                                                 let qtyPurchasedProduct = 0;
 
-                                                                                                                 if(filterpurchasedProduct.length > 0){
+                                                                                                                if (filterpurchasedProduct.length > 0) {
                                                                                                                     qtyPurchasedProduct = filterpurchasedProduct[0].qty;
                                                                                                                 }
 
@@ -2861,7 +2889,7 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     <ToggleAccess email={email} wid={wId} />
-                                                   <TableProjects email={email} />
+                                                    <TableProjects email={email} />
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
