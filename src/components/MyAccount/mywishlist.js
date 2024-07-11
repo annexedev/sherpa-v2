@@ -1082,7 +1082,7 @@ class TableProjects extends Component {
                                 </th>
                                 <th onClick={() => this.handleSort('total')}>
                                     <span>
-                                        <FormattedMessage id={'project_still_purchase'} defaultMessage={'Still to purchase'} />
+                                        <FormattedMessage id={'myWishlist.project_still_purchase'} defaultMessage={'Still to purchase'} />
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
                                             className={wishlistClasses.chevronDown}
