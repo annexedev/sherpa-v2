@@ -1090,6 +1090,16 @@ class TableProjects extends Component {
                                     </span>
                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
                                 </th>
+                                <th onClick={() => this.handleSort('total')}>
+                                    <span>
+                                        <FormattedMessage id={'project_still_purchase'} defaultMessage={'Still to purchase'} />
+                                        <FontAwesomeIcon
+                                            icon={faChevronDown}
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
+                                    <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1099,6 +1109,7 @@ class TableProjects extends Component {
                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
                                     <td>{project.numberProducts}</td>
                                     <td className={wishlistClasses.num}>${project.total}</td>
+                                    <td className={wishlistClasses.num}>${project.estimateTotal}</td>
                                 </tr>
                             ))}
                         </tbody>
