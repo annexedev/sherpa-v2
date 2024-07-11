@@ -350,7 +350,7 @@
     "myWishlist.project_name":"Nom du projet",
     "myWishlist.project_date_creation":"Date de création",
     "myWishlist.project_n_produits":"Qté des produits",
-    "myWishlist.project_total":"Valeur estimée du projet",
+    "myWishlist.project_total":"Valeur estimée",
     "myWishlist.project_still_purchase":"Achats restants",
     "myWishlist.project_link":"Lien vers le projet",
     "myWishlist.moveToCartBtn": "Passer tout au panier",

@@ -672,8 +672,8 @@ table.sortable th.noSort {
   padding-top: 0.35em;
 }
 
-table.sortable th:nth-child(5) {
-  width: 10em;
+table.sortable th:nth-child(1) {
+  width: 15em;
 }
 table.sortable td a{
     color: #8dc74c;

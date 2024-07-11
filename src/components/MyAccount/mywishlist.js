@@ -1070,19 +1070,9 @@ class TableProjects extends Component {
                                     </span>
                                     <span className={wishlistClasses[sortColumn === 'dateCreation' ? sortDirection : '']}></span>
                                 </th>
-                                <th onClick={() => this.handleSort('numberProducts')}>
-                                    <span>
-                                        <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
-                                        <FontAwesomeIcon
-                                            icon={faChevronDown}
-                                            className={wishlistClasses.chevronDown}
-                                        />
-                                    </span>
-                                    <span className={wishlistClasses[sortColumn === 'numberProducts' ? sortDirection : '']}></span>
-                                </th>
                                 <th onClick={() => this.handleSort('total')}>
                                     <span>
-                                        <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Total estimé'} />
+                                        <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Estimated value'} />
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
                                             className={wishlistClasses.chevronDown}
@@ -1099,6 +1089,16 @@ class TableProjects extends Component {
                                         />
                                     </span>
                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+                                </th>
+                                <th onClick={() => this.handleSort('numberProducts')}>
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
+                                        <FontAwesomeIcon
+                                            icon={faChevronDown}
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
+                                    <span className={wishlistClasses[sortColumn === 'numberProducts' ? sortDirection : '']}></span>
                                 </th>
                             </tr>
                         </thead>
