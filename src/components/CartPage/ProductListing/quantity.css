@@ -89,20 +89,24 @@
 
 .wrapperPrice{
     display: flex;
-    gap: 8px;
-    width: 195px;
+    gap: 6px;
+    width: 208px;
     /* margin-left: 5px; */
     align-items: center;
 }
 .wrapperPrice p{
-    font-size: 12.8px;
+    font-size: 11.8px;
     font-style: normal;
     font-weight: 700;
     margin-bottom: 0;
 }
 .wrapperPrice .priceWithDiscount {
     color: #8DC74C;
-    font-size: 13.3px !important;
+}
+.priceWithDiscount span{
+    color: #8DC74C;
+    font-weight: 700;
+    font-size: 12.1px;
 }
 
 .price{
@@ -114,7 +118,12 @@
     position: relative;
     text-decoration: line-through;
     color: #BF363C;
-    font-size: 13.3px !important;
+}
+.initialPrice span{
+    color: #BF363C;
+    font-weight: 700 !important; 
+    letter-spacing: -1px;
+    font-size: 12.1px !important;
 }
 
 .priceWithDiscount{
