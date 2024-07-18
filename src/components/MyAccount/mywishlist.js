@@ -1107,9 +1107,9 @@ class TableProjects extends Component {
                                 <tr key={project.id}>
                                     <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
-                                    <td>{project.numberProducts}</td>
-                                    <td className={wishlistClasses.num}>${project.total}</td>
                                     <td className={wishlistClasses.num}>${project.estimateTotal}</td>
+                                    <td className={wishlistClasses.num}>${project.total}</td>
+                                    <td className={wishlistClasses.centre}>{project.numberProducts}</td>
                                 </tr>
                             ))}
                         </tbody>

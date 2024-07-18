@@ -661,6 +661,9 @@ table.sortable th {
   width: 8em;
   cursor: pointer;
 }
+table.sortable td.centre{
+    text-align: center !important;
+}
 
 table.sortable th {
   font-weight: bold;
