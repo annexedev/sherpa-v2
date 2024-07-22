@@ -1039,10 +1039,38 @@ class TableProjects extends Component {
         });
     };
 
+
+    formatDate = (dateString) => {
+        const date = new Date(dateString.trim());
+
+        
+        const monthsFrench = [
+            "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+            "Juil", "Août", "Sept", "Oct", "Nov", "Déc"
+        ];
+        
+        const monthsEnglish = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+        ];
+        
+        const { BrowserPersistence } = Util;
+        const storage = new BrowserPersistence();
+        let storeview = storage.getItem('store_view_code');
+
+        const day = date.getDate();
+        const month = storeview === 'fr' ? monthsFrench[date.getMonth()] :  monthsEnglish[date.getMonth()] ;
+        const year = date.getFullYear();
+        
+        return `${month} ${day}, ${year}`;
+
+    }
+
+    
     render() {
         const { pageData, sortColumn, sortDirection, visibleRows } = this.state;
 
-        console.log(this.state.pageData);
+        // console.log(this.state.pageData);
 
         if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
             return (
@@ -1106,10 +1134,10 @@ class TableProjects extends Component {
                             {pageData.slice(0, visibleRows).map((project) => (
                                 <tr key={project.id}>
                                     <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
-                                    <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
-                                    <td className={wishlistClasses.num}>${project.estimateTotal}</td>
-                                    <td className={wishlistClasses.num}>${project.total}</td>
-                                    <td className={wishlistClasses.centre}>{project.numberProducts}</td>
+                                    <td>{project.dateCreation === null ? 'N/A' : this.formatDate(project.dateCreation)}</td>
+                                    <td>${project.estimateTotal}</td>
+                                    <td>${project.total}</td>
+                                    <td>{project.numberProducts}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -1123,15 +1151,6 @@ class TableProjects extends Component {
                             />
                         </button>
                     )}
-                    {/* {visibleRows > 6 && (
-                        <button onClick={this.loadLess} className={wishlistClasses.loadLessButton}>
-                            <span>Load Less</span>
-                            <FontAwesomeIcon
-                                icon={faChevronUp}
-                                className={wishlistClasses.chevronDown}
-                            />
-                        </button>
-                    )} */}
                 </div>
             );
         } else {
