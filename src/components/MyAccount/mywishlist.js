@@ -1062,7 +1062,7 @@ class TableProjects extends Component {
         const month = storeview === 'fr' ? monthsFrench[date.getMonth()] :  monthsEnglish[date.getMonth()] ;
         const year = date.getFullYear();
         
-        return `${month} ${day}, ${year}`;
+        return storeview === 'fr' ? `${day} ${month} ${year}` : `${month} ${day}, ${year}`;
 
     }
 
