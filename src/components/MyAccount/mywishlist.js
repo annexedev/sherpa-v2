@@ -2540,10 +2540,22 @@ const MyWishList = props => {
                                                                                     {
                                                                                         val.product.sku
                                                                                     }
+                                                                                    {qtyCart > 0 ?
                                                                                     <p>
                                                                                         {/* <SoldIn pid={val.product.id} /> */}
-                                                                                        Quantity remaining: {qtyCart}
+                                                                                        {/* Quantity remaining: {qtyCart} */}
+                                                                                        <FormattedMessage
+                                                                                            id={
+                                                                                                'item.qtyRemaining'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Quantity Remaining'
+                                                                                            }
+                                                                                        /> : {qtyCart}
                                                                                     </p>
+                                                                                    : 
+                                                                                    <p></p>
+                                                                                    }
 
                                                                                 </div>
                                                                                 {isArchive != 1 && (

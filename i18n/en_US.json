@@ -139,6 +139,7 @@
     "forgotPasswordForm.ResetPassword":"Click here to reset password",
     "item.brand": "Brand ",
     "item.partNo": "Part # ",
+    "item.qtyRemaining": "Quantity Remaining",
     "item.soldIn": "Sold in ",
     "item.extra_colors":"+3",
     "item.colors_inner":"color name",
