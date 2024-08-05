@@ -14,8 +14,9 @@ import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import AccountMenuItems from '../AccountMenu/accountMenuItems';
 import { useAccountMenu } from '../../peregrine/lib/talons/Header/useAccountMenu';
 import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
-
+import MegaMenuMobile from '../MegaMenu/megaMenuMobile';
 const AuthModal = React.lazy(() => import('../AuthModal'));
+// const MegaMenuMobile = React.lazy(() => import('../MegaMenuMobile'));
 
 const Navigation = props => {
     const {
@@ -103,6 +104,7 @@ const Navigation = props => {
                     setCategoryId={setCategoryId}
                     updateCategories={catalogActions.updateCategories}
                 />
+                <MegaMenuMobile />
                 <AccountMenuItems onSignOut={handleSignOut} />
             </div>
 

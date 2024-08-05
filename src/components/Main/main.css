@@ -98,7 +98,8 @@ body[class='rtl_view'] .bottom_tool_inner .toolbar_items::after {
 }
 @media screen and (min-width: 320px) and (max-width: 767px) {
     .page {
-        padding-top: 116px;
+        /* padding-top: 116px; */
+        padding: 176px 20px 0 20px;
     }
     .bottom_toolbar {
         display: block;
