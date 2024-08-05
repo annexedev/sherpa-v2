@@ -15,7 +15,9 @@
     vertical-align: middle;
     position: relative;
 }
-.haschild {
+.haschild p {
+    margin-top: 0;
+    margin-bottom: 0 !important;
 }
 .item.haschild > a,p {
     padding: 15px 15px;
