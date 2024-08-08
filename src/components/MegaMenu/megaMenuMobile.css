@@ -30,9 +30,9 @@
     -webkit-transition: 0.3s all;
     -moz-transition: 0.3s all;
 }
-.item.haschild > a:hover, p:hover {
+/* .item.haschild > a:hover, p:hover {
     border-bottom: 3px solid var(--primary-base-color);
-}
+} */
 .item.haschild a svg {
     width: 8px;
     margin: -3px 8px;

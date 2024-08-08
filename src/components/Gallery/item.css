@@ -138,9 +138,13 @@ button[class='quantity-modifier modifier-right']:hover {
     color: white;
     font-weight: 600;
     max-width: 150px;
+    margin-left: 15px;
 }
 .total_available_b {
     font-size: 10px;
+}
+.p15{
+    padding: 0 15px;
 }
 .greenprice span {
     color: #8cc650;

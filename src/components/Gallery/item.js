@@ -1035,7 +1035,7 @@ const GalleryItem = props => {
 
                                     {final_minimum_price !=
                                         final_regular_price && (
-                                            <>
+                                            <div className={classes.p15}>
                                                 {/*<p><b>Special price</b></p>
                                     {item.special_from_date && (
                                         <p>From: {item.special_from_date.slice(0, -8)}</p>
@@ -1093,11 +1093,11 @@ const GalleryItem = props => {
                                                         value={final_regular_price}
                                                     />
                                                 </span>
-                                            </>
+                                            </div>
                                         )}
                                     {final_minimum_price ==
                                         final_regular_price && (
-                                            <>
+                                            <div className={classes.p15}>
                                                 <b
                                                     className={
                                                         classes.total_available_b
@@ -1120,7 +1120,7 @@ const GalleryItem = props => {
                                                             .regular_price.currency
                                                     }
                                                 />
-                                            </>
+                                            </div>
                                         )}
 
                                     <p>
