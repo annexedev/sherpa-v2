@@ -2446,6 +2446,7 @@ const MyWishList = props => {
                                                         ) {
 
                                                             let qtyCart = 0;
+                                                            let realQty = 0;
                                                             cartItems.forEach(c => {
                                                                 let filterCatergory = [];
                                                                 const cartJSON = JSON.parse(c.category);
@@ -2453,6 +2454,7 @@ const MyWishList = props => {
                                                                     filterCatergory = cartJSON.filter(c => c.product_id === val.product.id && c.category_id === wId);
                                                                     if (filterCatergory.length) {
                                                                         qtyCart = filterCatergory[0].qty;
+                                                                        realQty = filterCatergory[0].qtyCategory;
                                                                     }
                                                                 }
                                                             });
@@ -2565,7 +2567,7 @@ const MyWishList = props => {
                                                                                             defaultMessage={
                                                                                                 'Quantity Remaining'
                                                                                             }
-                                                                                        /> : {qtyCart}
+                                                                                        /> : { realQty - qtyCart}
                                                                                     </p>
                                                                                     : 
                                                                                     <p></p>
