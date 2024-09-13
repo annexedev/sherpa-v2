@@ -123,7 +123,7 @@ class ProjectList extends Component {
                                         height="20"
                                     />
                                 </span>
-                                <Link to="/myprojects" onClick={onClose}>
+                                <Link to="/myprojects?archive=false" onClick={onClose}>
                                     <FormattedMessage
                                         id={'sidebar.MyWishlist'}
                                         defaultMessage={'MyProjects (active)'}
@@ -152,9 +152,10 @@ class ProjectList extends Component {
                                         alt="wishlist"
                                         width="20"
                                         height="20"
+                                        
                                     />
                                 </span>
-                                <Link to="/myprojects" onClick={onClose}>
+                                <Link to="/myprojects?archive=true" onClick={onClose}>
                                     <FormattedMessage
                                         id={'sidebar.MyWishlistArchive'}
                                         defaultMessage={'MyProjects Archives'}

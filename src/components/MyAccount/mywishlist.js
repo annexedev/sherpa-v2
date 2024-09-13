@@ -1070,6 +1070,8 @@ class TableProjects extends Component {
     render() {
         const { pageData, sortColumn, sortDirection, visibleRows } = this.state;
 
+        const isArchive = this.props.isArchive;
+
         // console.log(this.state.pageData);
 
         if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
@@ -1131,13 +1133,25 @@ class TableProjects extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {pageData.slice(0, visibleRows).map((project) => (
+                            {isArchive == 'true'
+                                ? pageData.filter((project) => project.projectName.toLowerCase().includes('archive')).map((project) => (
                                 <tr key={project.id}>
-                                    <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
-                                    <td>{project.dateCreation === null ? 'N/A' : this.formatDate(project.dateCreation)}</td>
-                                    <td>${project.total}</td>
-                                    <td>${project.estimateTotal}</td>
-                                    <td>{project.numberProducts}</td>
+                                <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
+                                <td>{project.dateCreation === null ? 'N/A' : this.formatDate(project.dateCreation)}</td>
+                                <td>${project.total}</td>
+                                <td>${project.estimateTotal}</td>
+                                <td>{project.numberProducts}</td>
+                                </tr>
+                                ))
+                                
+                                : pageData.filter((project) => !project.projectName.toLowerCase().includes('archive')).map((project) => (
+                                
+                                <tr key={project.id}>
+                                <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
+                                <td>{project.dateCreation === null ? 'N/A' : this.formatDate(project.dateCreation)}</td>
+                                <td>${project.total}</td>
+                                <td>${project.estimateTotal}</td>
+                                <td>{project.numberProducts}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -3119,7 +3133,7 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     <ToggleAccess email={email} wid={wId} />
-                                                    <TableProjects email={email} />
+                                                    <TableProjects email={email} isArchive={isArchive} />
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
