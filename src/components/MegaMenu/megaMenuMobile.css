@@ -30,6 +30,12 @@
     -webkit-transition: 0.3s all;
     -moz-transition: 0.3s all;
 }
+
+.ced_megamenu a, .ced_megamenu p {
+    padding: 15px 15px;
+    display: inline-block;
+}
+
 /* .item.haschild > a:hover, p:hover {
     border-bottom: 3px solid var(--primary-base-color);
 } */
