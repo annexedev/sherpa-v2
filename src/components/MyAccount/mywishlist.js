@@ -2765,7 +2765,10 @@ const MyWishList = props => {
                                                                                                                     tempProps
                                                                                                                 );
                                                                                                                 setLoaderName(val.product.name);
-                                                                                                                setShowAlertMsg(true);
+                                                                                                                setTimeout(function(){
+                                                                                                                    setShowAlertMsg(true);
+                                                                                                                }, 1000);
+                                                                                                                
                                                                                                             }
                                                                                                             /*window.alert(errorMessage);
                                                                                                             if (errorMessage) {
@@ -3023,7 +3026,10 @@ const MyWishList = props => {
                                                                                                                 
                                                                                                                 handleAddToCart(tempProps);
                                                                                                                 setLoaderName(val.product.name);
-                                                                                                                setShowAlertMsg(true);
+                                                                                                                setTimeout(function(){
+                                                                                                                    setShowAlertMsg(true);
+                                                                                                                }, 1000);
+                                                                                                               // setShowAlertMsg(true);
                                                                                                                  // Fill a map with field/section -> error.
                                                                                                                 // const { handleAddToCart, isAddingItem, success, errorMessage } = catProps;
                                                                                                                 //window.alert(errorMessage);
