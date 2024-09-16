@@ -1185,6 +1185,7 @@ class TableProjects extends Component {
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
+    const [loaderName, setLoaderName] = useState('');
     const [showAlertMsg, setShowAlertMsg] = useState(false);
     const [seed, setSeed] = useState(1);
     const [hasProduct, setHasProduct] = useState(false);
@@ -1278,11 +1279,15 @@ const MyWishList = props => {
     const { formatMessage } = useIntl();
 
     const responseToast = useCallback(() => {
-        if (success && showAlertMsg && !isAddingItem) {
+
+        console.log(errorMessage);
+        console.log('stuff:' + success + ' x ' + showAlertMsg + ' x ' + isAddingItem)
+
+        /*if (success && showAlertMsg && !isAddingItem) {
             addToast({
                 type: 'info',
                 message:
-                    value.name +
+                    loaderName +
                     formatMessage({
                         id: 'cart.message',
                         defaultMessage: ' added to the cart.'
@@ -1290,15 +1295,32 @@ const MyWishList = props => {
                 dismissable: true,
                 timeout: 2000
             });
+            //errorMessage = '';
             setShowAlertMsg(false);
-        }
-        if (errorMessage && showAlertMsg && !isAddingItem) {
+        }*/
+        if (errorMessage && showAlertMsg) {
             addToast({
                 type: 'error',
-                message: errorMessage ? errorMessage : 'error',
+                //message: errorMessage ? errorMessage : 'error',
+                message: loaderName + ' the requested qty is not available.',
                 dismissable: true,
                 timeout: 2000
             });
+            //errorMessage = '';
+            setShowAlertMsg(false);
+        } else {
+            addToast({
+                type: 'info',
+                message:
+                    loaderName +
+                    formatMessage({
+                        id: 'cart.message',
+                        defaultMessage: ' added to the cart.'
+                    }),
+                dismissable: true,
+                timeout: 2000
+            });
+            //errorMessage = '';
             setShowAlertMsg(false);
         }
     }, [
@@ -2742,6 +2764,7 @@ const MyWishList = props => {
                                                                                                                 handleAddToCart(
                                                                                                                     tempProps
                                                                                                                 );
+                                                                                                                setLoaderName(val.product.name);
                                                                                                                 setShowAlertMsg(true);
                                                                                                             }
                                                                                                             /*window.alert(errorMessage);
@@ -2999,6 +3022,7 @@ const MyWishList = props => {
                                                                                                                 tempProps.qtyCategory = currentQty - qtyPurchasedProduct;
                                                                                                                 
                                                                                                                 handleAddToCart(tempProps);
+                                                                                                                setLoaderName(val.product.name);
                                                                                                                 setShowAlertMsg(true);
                                                                                                                  // Fill a map with field/section -> error.
                                                                                                                 // const { handleAddToCart, isAddingItem, success, errorMessage } = catProps;
