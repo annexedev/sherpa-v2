@@ -2964,7 +2964,7 @@ const MyWishList = props => {
                                                                                                                 console.log('beubeu');
                                                                                                                  // Fill a map with field/section -> error.
                                                                                                                 // const { handleAddToCart, isAddingItem, success, errorMessage } = catProps;
-                                                                                                                //window.alert(errorMessage);
+                                                                                                                window.alert(errorMessage);
                                                                                                                 if (errorMessage) {
                                                                                                                     addToast({
                                                                                                                         type: 'error',
