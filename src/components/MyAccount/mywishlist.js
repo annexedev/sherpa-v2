@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect, Component } from 'react';
+import React, { Suspense, useState, useEffect, Component, useCallback } from 'react';
 import { shape, string } from 'prop-types';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -29,7 +29,7 @@ import { useCartPage } from '../../peregrine/lib/talons/CartPage/useCartPage.js'
 import WishlistSkelton from './WishlistSkeleton.js';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { useToasts } from '@magento/peregrine';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useGetScopeCache } from '../../peregrine/lib/talons/Home/useHome';
 import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
@@ -1185,7 +1185,7 @@ class TableProjects extends Component {
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
 const MyWishList = props => {
-
+    const [showAlertMsg, setShowAlertMsg] = useState(false);
     const [seed, setSeed] = useState(1);
     const [hasProduct, setHasProduct] = useState(false);
     const [chevronOpen, setChevronOpen] = useState(false);
@@ -1275,7 +1275,44 @@ const MyWishList = props => {
         getCartDetailsQuery: GET_CART_DETAILS_QUERY
     });
     const { handleAddToCart, isAddingItem, success, errorMessage } = catProps;
-    //const { handleAddToCart } = catProps;
+    const { formatMessage } = useIntl();
+
+    const responseToast = useCallback(() => {
+        if (success && showAlertMsg && !isAddingItem) {
+            addToast({
+                type: 'info',
+                message:
+                    value.name +
+                    formatMessage({
+                        id: 'cart.message',
+                        defaultMessage: ' added to the cart.'
+                    }),
+                dismissable: true,
+                timeout: 2000
+            });
+            setShowAlertMsg(false);
+        }
+        if (errorMessage && showAlertMsg && !isAddingItem) {
+            addToast({
+                type: 'error',
+                message: errorMessage ? errorMessage : 'error',
+                dismissable: true,
+                timeout: 2000
+            });
+            setShowAlertMsg(false);
+        }
+    }, [
+        success,
+        showAlertMsg,
+        isAddingItem,
+        errorMessage,
+        addToast,
+        //value.name,
+        formatMessage
+    ]);
+    if (showAlertMsg) {
+        responseToast();
+    }
     let productUrlSuffix = '';
 
     const { config } = useGetScopeCache();
@@ -2705,8 +2742,9 @@ const MyWishList = props => {
                                                                                                                 handleAddToCart(
                                                                                                                     tempProps
                                                                                                                 );
+                                                                                                                setShowAlertMsg(true);
                                                                                                             }
-                                                                                                            //window.alert(errorMessage);
+                                                                                                            /*window.alert(errorMessage);
                                                                                                             if (errorMessage) {
                                                                                                                 addToast({
                                                                                                                     type: 'error',
@@ -2721,7 +2759,7 @@ const MyWishList = props => {
                                                                                                                     dismissable: true,
                                                                                                                     timeout: 4000
                                                                                                                 });
-                                                                                                            }
+                                                                                                            }*/
                                                                                                             /*addToast({
                                                                                                                 type: 'info',
                                                                                                                 message: val.product.name + ' added to the cart.',
@@ -2959,13 +2997,13 @@ const MyWishList = props => {
                                                                                                                 tempProps.categoryId = wId;
                                                                                                                 tempProps.categoryName = projectname;
                                                                                                                 tempProps.qtyCategory = currentQty - qtyPurchasedProduct;
-                                                                                                                console.log('beubeu');
-                                                                                                                console.log(handleAddToCart(tempProps));
-                                                                                                                console.log('beubeu');
+                                                                                                                
+                                                                                                                handleAddToCart(tempProps);
+                                                                                                                setShowAlertMsg(true);
                                                                                                                  // Fill a map with field/section -> error.
                                                                                                                 // const { handleAddToCart, isAddingItem, success, errorMessage } = catProps;
-                                                                                                                window.alert(errorMessage);
-                                                                                                                if (errorMessage) {
+                                                                                                                //window.alert(errorMessage);
+                                                                                                                /*if (errorMessage) {
                                                                                                                     addToast({
                                                                                                                         type: 'error',
                                                                                                                         message: val.product.name + ' the requested qty is not available.',
@@ -2979,7 +3017,7 @@ const MyWishList = props => {
                                                                                                                         dismissable: true,
                                                                                                                         timeout: 4000
                                                                                                                     });
-                                                                                                                }
+                                                                                                                }*/
                                                                                                                 
                                                                                                                 /*addToast({
                                                                                                                     type: 'info',
