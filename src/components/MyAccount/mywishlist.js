@@ -45,6 +45,13 @@ import 'reactjs-popup/dist/index.css';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 import { Price } from '@magento/peregrine';
 import { useMobile } from '../../peregrine/lib/talons/Mobile/useMobile';
+
+const ERROR_MESSAGE_TO_FIELD_MAPPING = {
+    'The requested qty is not available': 'quantity',
+    'Product that you are trying to add is not available.': 'quantity',
+    "The product that was requested doesn't exist.": 'quantity'
+};
+
 const Banner = React.lazy(() => import('../CedHome/banner'));
 let categoryBannerIdentifierHome = 'projects_instructions';
 let categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
@@ -1267,8 +1274,8 @@ const MyWishList = props => {
         createCartMutation: CREATE_CART_MUTATION,
         getCartDetailsQuery: GET_CART_DETAILS_QUERY
     });
-
-    const { handleAddToCart } = catProps;
+    const { handleAddToCart, isAddingItem, success, errorMessage } = catProps;
+    //const { handleAddToCart } = catProps;
     let productUrlSuffix = '';
 
     const { config } = useGetScopeCache();
@@ -2700,13 +2707,27 @@ const MyWishList = props => {
                                                                                                                 );
                                                                                                             }
 
-
-                                                                                                            addToast({
+                                                                                                            if (errorMessage) {
+                                                                                                                addToast({
+                                                                                                                    type: 'error',
+                                                                                                                    message: val.product.name + ' the requested qty is not available.',
+                                                                                                                    dismissable: true,
+                                                                                                                    timeout: 4000
+                                                                                                                });
+                                                                                                            } else {
+                                                                                                                addToast({
+                                                                                                                    type: 'info',
+                                                                                                                    message: val.product.name + ' added to the cart.',
+                                                                                                                    dismissable: true,
+                                                                                                                    timeout: 4000
+                                                                                                                });
+                                                                                                            }
+                                                                                                            /*addToast({
                                                                                                                 type: 'info',
                                                                                                                 message: val.product.name + ' added to the cart.',
                                                                                                                 dismissable: true,
                                                                                                                 timeout: 4000
-                                                                                                            });
+                                                                                                            });*/
 
                                                                                                             setTimeout(function () { reset(); }, 2000);
 
@@ -2938,17 +2959,34 @@ const MyWishList = props => {
                                                                                                                 tempProps.categoryId = wId;
                                                                                                                 tempProps.categoryName = projectname;
                                                                                                                 tempProps.qtyCategory = currentQty - qtyPurchasedProduct;
-
-                                                                                                                handleAddToCart(
-                                                                                                                    tempProps
-                                                                                                                );
-
-                                                                                                                addToast({
+                                                                                                                console.log('beubeu');
+                                                                                                                console.log(handleAddToCart(tempProps));
+                                                                                                                console.log('beubeu');
+                                                                                                                 // Fill a map with field/section -> error.
+                                                                                                                // const { handleAddToCart, isAddingItem, success, errorMessage } = catProps;
+                                                                                                                
+                                                                                                                if (errorMessage) {
+                                                                                                                    addToast({
+                                                                                                                        type: 'error',
+                                                                                                                        message: val.product.name + ' the requested qty is not available.',
+                                                                                                                        dismissable: true,
+                                                                                                                        timeout: 4000
+                                                                                                                    });
+                                                                                                                } else {
+                                                                                                                    addToast({
+                                                                                                                        type: 'info',
+                                                                                                                        message: val.product.name + ' added to the cart.',
+                                                                                                                        dismissable: true,
+                                                                                                                        timeout: 4000
+                                                                                                                    });
+                                                                                                                }
+                                                                                                                
+                                                                                                                /*addToast({
                                                                                                                     type: 'info',
                                                                                                                     message: val.product.name + ' added to the cart.',
                                                                                                                     dismissable: true,
                                                                                                                     timeout: 4000
-                                                                                                                });
+                                                                                                                });*/
 
                                                                                                             }}
                                                                                                         >
