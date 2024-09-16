@@ -330,7 +330,7 @@ const Header = props => {
                 <Suspense fallback={''}>
                     <Banner
                         identifier={
-                            'hellobar' + activeLng
+                            'hellobar'
                         }
                         showBanner={showCategoryBanners}
                     />
