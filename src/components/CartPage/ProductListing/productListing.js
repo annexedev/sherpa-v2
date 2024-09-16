@@ -109,26 +109,26 @@ const ProductListing = props => {
 /* AFFICHAGE QUAND JE RECEVOIS LE CATEGORY PAS VIDE */
                 products.forEach(function (entry) {
                     var entryCategory = entry.category;
-                    let qtyProduitsSansProject = '';
+                    let qtyProduitsSansProject = 0;
                     let categoryLenght = entry.category === null ? 0 : entry.category.length; 
                     if (categoryLenght >= 1) {
                         entryCategory.forEach(function (entryCat) {
-                            qtyProduitsSansProject = entry.quantity - entryCat.qty;
-                            productComponents.push(
-                                <>
-                                    <Product
-                                        item={entry}
-                                        key={entry.id}
-                                        setActiveEditItem={setActiveEditItem}
-                                        setIsCartUpdating={setIsCartUpdating}
-                                        projectQty={qtyProduitsSansProject}
-                                        wid={''}
-                                        disableQuantity={0}
-                                    />
-                                </>
-                            )
-
+                            //qtyProduitsSansProject = entry.quantity - entryCat.qty;
+                            qtyProduitsSansProject =  qtyProduitsSansProject + entryCat.qty;
                         });
+                        productComponents.push(
+                            <>
+                                <Product
+                                    item={entry}
+                                    key={entry.id}
+                                    setActiveEditItem={setActiveEditItem}
+                                    setIsCartUpdating={setIsCartUpdating}
+                                    projectQty={entry.quantity - qtyProduitsSansProject }
+                                    wid={''}
+                                    disableQuantity={0}
+                                />
+                            </>
+                        )
                 /* AFFICHAGE QUAND JE RECEVOIS LE CATEGORY VIDE */
                     } else if(categoryLenght == 0) {
                         let qtyProduitsSansProject = entry.quantity;

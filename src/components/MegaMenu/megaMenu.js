@@ -43,6 +43,8 @@ const MegaMenu = () => {
 
         const elements = JSON.parse(navdetails).categories;
 
+        // console.log(elements);
+
         if (elements) {
 
             if (isSignedIn) {

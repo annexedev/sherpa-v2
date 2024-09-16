@@ -94,6 +94,7 @@ import InStockAlert from '../InStockAlert/inStockAlert';
 import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 
 let data_value = 'A';
+let check = true;
 
 function updateDataValue(valeur) {
     data_value = valeur;
@@ -198,7 +199,7 @@ const ProductFullDetail = props => {
 
 
                 // console.log(storeview);
-            
+
 
                 return (
                     <div>
@@ -234,9 +235,9 @@ const ProductFullDetail = props => {
                         >
                             {/* Add to project */}
                             <FormattedMessage
-                                            id={'ProductFullDetail.addToProjectBTN'}
-                                            defaultMessage={'Add to project'}
-                                        />
+                                id={'ProductFullDetail.addToProjectBTN'}
+                                defaultMessage={'Add to project'}
+                            />
                         </button>
                     </div>
                 );
@@ -272,6 +273,7 @@ const ProductFullDetail = props => {
                 const [addTodoUpdate] = useMutation(
                     ADD_TO_CUSTOM_PROJECT
                 );
+
                 const [selectValue, setSelectValue] = React.useState('');
                 if (data) {
                     /*const newOption = document.createElement('option');
@@ -296,35 +298,39 @@ const ProductFullDetail = props => {
                     var inputs, index;
 
                     inputs = document.getElementsByTagName('select');
-                    for (index = 0; index < inputs.length; ++index) {
-                        console.log(inputs[index].id);
 
-                        var daySelect = document.getElementById(
-                            inputs[index].id
-                        );
+                    if (check) {
+                        for (index = 0; index < inputs.length; ++index) {
 
-                        if (inputs[index].id == inputs[index].id) {
-                            daySelect.options[
-                                daySelect.options.length
-                            ] = new Option(
-                                data.MpBetterWishlistCreateCategory.category_name,
-                                data.MpBetterWishlistCreateCategory.category_id,
-                                true,
-                                true
+                            var daySelect = document.getElementById(
+                                inputs[index].id
                             );
-                        } else {
-                            daySelect.options[
-                                daySelect.options.length
-                            ] = new Option(
-                                data.MpBetterWishlistCreateCategory.category_name,
-                                data.MpBetterWishlistCreateCategory.category_id,
-                                false,
-                                false
-                            );
+
+                            if (inputs[index].id == inputs[index].id) {
+                                daySelect.options[
+                                    daySelect.options.length
+                                ] = new Option(
+                                    data.MpBetterWishlistCreateCategory.category_name,
+                                    data.MpBetterWishlistCreateCategory.category_id,
+                                    true,
+                                    true
+                                );
+                            } else {
+                                daySelect.options[
+                                    daySelect.options.length
+                                ] = new Option(
+                                    data.MpBetterWishlistCreateCategory.category_name,
+                                    data.MpBetterWishlistCreateCategory.category_id,
+                                    false,
+                                    false
+                                );
+                            }
+
+                            //sortOptions(inputs[index].id);
                         }
-
-                        //sortOptions(inputs[index].id);
                     }
+
+                    check = false;
 
                     //console.log(data.MpBetterWishlistCreateCategory.category_id)
                 }
@@ -343,8 +349,9 @@ const ProductFullDetail = props => {
                         <input type="hidden" value={selectId} />
                         <button
                             className={classes.project_button}
-                            onClick={ async e => {
+                            onClick={async e => {
                                 e.preventDefault();
+
                                 var response = await addTodo({
                                     variables: { category_name: input.value }
                                 });
@@ -358,10 +365,11 @@ const ProductFullDetail = props => {
                                             product_id: item_id,
                                         }
                                     });
-                                
+
                                 }
                                 window.alert('New category created.');
                                 setSelectValue(999);
+
                             }}
                         >
                             OK
@@ -405,39 +413,41 @@ const ProductFullDetail = props => {
                 var uniqueId = makeid(15);
                 if (this.state.pageDataAccess['access'] == 1) {
                     return (
-                        <div>
+                        <>
+                            <div>
+                                <select
+                                    onChange={onChange}
+                                    className={classes.project_dropdown}
+                                    id={uniqueId}
+                                >
+                                    {storeview === 'fr' ? <option defaultValue value="0">Choisir un projet.</option> : <option defaultValue value="0">Choose a project.</option>}
+                                    {this.state.pageData &&
+                                        this.state.pageData.map(e => {
+                                            if (
+                                                !e.category_name.startsWith(
+                                                    'ARCHIVE'
+                                                )
+                                            ) {
+                                                return (
+                                                    <option value={e.category_id}>
+                                                        {e.category_name}
+                                                    </option>
+                                                );
+                                            }
+                                        })}
+                                    {storeview === 'fr' ? <option value="1">Créer un nouveau projet</option> : <option value="1">Create a new project</option>}
+                                </select>
+                                {selectValue && selectValue == 1 && (
+                                    <div id={'hidden_div'}>
+                                        <AddTodo uid={uniqueId} item_id={this.props.item_id} />
+                                    </div>
+                                )}
+                            </div>
                             <AddToProject
                                 item_id={this.props.item_id}
                                 uid={uniqueId}
                             />
-                            <select
-                                onChange={onChange}
-                                className={classes.project_dropdown}
-                                id={uniqueId}
-                            >
-                               {storeview === 'fr' ? <option defaultValue value="0">Choisir un projet.</option> : <option defaultValue value="0">Choose a project.</option>}
-                                {this.state.pageData &&
-                                    this.state.pageData.map(e => {
-                                        if (
-                                            !e.category_name.startsWith(
-                                                'ARCHIVE'
-                                            )
-                                        ) {
-                                            return (
-                                                <option value={e.category_id}>
-                                                    {e.category_name}
-                                                </option>
-                                            );
-                                        }
-                                    })}
-                               {storeview === 'fr' ? <option value="1">Créer un nouveau projet</option> : <option value="1">Create a new project</option> } 
-                            </select>
-                            {selectValue && selectValue == 1 && (
-                                <div id={'hidden_div'}>
-                                    <AddTodo uid={uniqueId} item_id={this.props.item_id} />
-                                </div>
-                            )}
-                        </div>
+                        </>
                     );
                 } else {
                     return <></>;
@@ -494,7 +504,7 @@ const ProductFullDetail = props => {
     const { data, refetch } = wishlistProps;
     let addedToWishlist = false;
     if (typeof data != 'undefined') {
-        data.forEach(function(value) {
+        data.forEach(function (value) {
             if (value.product.id == product.id) {
                 addedToWishlist = true;
             }
@@ -819,12 +829,12 @@ const ProductFullDetail = props => {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
             let productId = this.props.pid;
             let storeid = this.props.storeid;
             let email = this.props.email;
-            let dataURL ='https://data.sherpagroupav.com/get_amastylabel.php?pid=' + productId + '&storeid=' + storeid + '&email=' + email;
+            let dataURL = 'https://data.sherpagroupav.com/get_amastylabel.php?pid=' + productId + '&storeid=' + storeid + '&email=' + email;
             //console.log(dataURL);
             fetch(dataURL)
                 .then(res => res.json())
@@ -834,19 +844,20 @@ const ProductFullDetail = props => {
                     });
                 });
         }
-    
+
         render() {
             let label_path = this.state.pageData.label_path && this.state.pageData.label_path;
             let url_path = this.state.pageData.url_path && this.state.pageData.url_path;
             console.log(url_path);
-            if(label_path!= '' && this.state.pageData.label_path) {
-            return (
-                <a href={url_path}><img src={"https://data.sherpagroupav.com"+label_path} className={classes.amastyLabel} /></a>
-            ) } else {
-                return(<></>);
+            if (label_path != '' && this.state.pageData.label_path) {
+                return (
+                    <a href={url_path}><img src={"https://data.sherpagroupav.com" + label_path} className={classes.amastyLabel} /></a>
+                )
+            } else {
+                return (<></>);
             }
         }
-    }  
+    }
 
     class DisplayRibbon extends Component {
         constructor() {
@@ -855,12 +866,12 @@ const ProductFullDetail = props => {
                 pageData: []
             };
         }
-    
+
         componentDidMount() {
             let productId = this.props.pid;
             let dataURL =
                 'https://data.sherpagroupav.com/get_newfromandto.php?pid=' + productId;
-            
+
             fetch(dataURL)
                 .then(res => res.json())
                 .then(res => {
@@ -869,23 +880,24 @@ const ProductFullDetail = props => {
                     });
                 });
         }
-    
+
         render() {
             let display = this.state.pageData.display && this.state.pageData.display;
-            if(display>=2) {
-            return (
-                <React.Fragment>
-                   <div className="ribbon ribbon-top-left ribbon-top-left-product">
-                        <span>
-                            <FormattedMessage id={'item.ribbon'} defaultMessage={'New'} />
-                        </span>
-                    </div>
-                </React.Fragment>
-            ) } else {
-                return(<></>);
+            if (display >= 2) {
+                return (
+                    <React.Fragment>
+                        <div className="ribbon ribbon-top-left ribbon-top-left-product">
+                            <span>
+                                <FormattedMessage id={'item.ribbon'} defaultMessage={'New'} />
+                            </span>
+                        </div>
+                    </React.Fragment>
+                )
+            } else {
+                return (<></>);
             }
         }
-    }  
+    }
     console.log(productDetails);
 
     //const customPrice = 0;
@@ -905,20 +917,20 @@ const ProductFullDetail = props => {
         1;
 
     const final_maximum_price =
-    productDetails.price.maximum_price.final_price.value +
+        productDetails.price.maximum_price.final_price.value +
         customPrice +
         customPricePercent * productDetails.price.maximum_price.final_price.value;
 
     const final_regular_price_max =
-    productDetails.price.maximum_price.regular_price.value +
+        productDetails.price.maximum_price.regular_price.value +
         customPrice +
         customPricePercent * productDetails.price.maximum_price.regular_price.value;
 
     const discount_percent =
         Math.round(
             (1 - final_minimum_price / final_regular_price).toFixed(2) *
-                100 *
-                100
+            100 *
+            100
         ) / 100;
 
     let discount_date = new Date(productDetails.special_to_date);
@@ -933,35 +945,35 @@ const ProductFullDetail = props => {
                         defaultMessage={'Return to previous page'}
                     />
                 </a>
-                
-                <div className={classes.noo_product_image}>
-                        {discount_percent > 0 && email && (
-                            <div className={classes.priceTag}>
-                                <b>
-                                    {discount_percent}%{' '}
-                                    <FormattedMessage
-                                        id={'item.rebate'}
-                                        defaultMessage={'Off'}
-                                    />
-                                    {productDetails.special_to_date && (
-                                        <>
-                                            {' '}
-                                            <FormattedMessage
-                                                id={'item.until'}
-                                                defaultMessage={'until'}
-                                            />{' '}
-                                            {discount_date
-                                                .toDateString()
-                                                .split(' ')
-                                                .slice(1)
-                                                .join(' ')}
-                                        </>
-                                    )}
-                                </b>
-                            </div>
-                        )}
 
-                       {/* <Link
+                <div className={classes.noo_product_image}>
+                    {discount_percent > 0 && email && (
+                        <div className={classes.priceTag}>
+                            <b>
+                                {discount_percent}%{' '}
+                                <FormattedMessage
+                                    id={'item.rebate'}
+                                    defaultMessage={'Off'}
+                                />
+                                {productDetails.special_to_date && (
+                                    <>
+                                        {' '}
+                                        <FormattedMessage
+                                            id={'item.until'}
+                                            defaultMessage={'until'}
+                                        />{' '}
+                                        {discount_date
+                                            .toDateString()
+                                            .split(' ')
+                                            .slice(1)
+                                            .join(' ')}
+                                    </>
+                                )}
+                            </b>
+                        </div>
+                    )}
+
+                    {/* <Link
                             onClick={handleLinkClick}
                             to={productLink}
                             className={classes.images}
@@ -995,24 +1007,24 @@ const ProductFullDetail = props => {
                                 />
                             )}
                                 </Link> */}
-                    </div>
+                </div>
 
                 <Form className={classes.root} id="ribbonPosition">
                     <Suspense fallback={null}>
                         <DisplayRibbon pid={productDetails.id} />
                     </Suspense>
-                   
+
                     {/* product image carousel section */}
                     <section
                         className={
                             classes.imageCarousel + ' ' + classes.shadow_section
                         }
                     >
-                         <Suspense fallback={null}>
+                        <Suspense fallback={null}>
                             <AmastyLabel pid={productDetails.id} storeid={storeid} email={email} />
                         </Suspense>
                         <div className={classes.imageCarousel_inner}>
-                            
+
                             <Carousel images={mediaGalleryEntries} />
                         </div>
                     </section>
@@ -1077,7 +1089,7 @@ const ProductFullDetail = props => {
                                                         value={(
                                                             Math.round(
                                                                 product.msrp_sherpa2 *
-                                                                    100
+                                                                100
                                                             ) / 100
                                                         ).toFixed(2)}
                                                         currencyCode={
@@ -1359,7 +1371,7 @@ const ProductFullDetail = props => {
                                         />
                                         {product &&
                                             product.stock_status ==
-                                                'IN_STOCK' && (
+                                            'IN_STOCK' && (
                                                 <>
                                                     <Button
                                                         priority="high"
@@ -1401,7 +1413,7 @@ const ProductFullDetail = props => {
 
                                         {product &&
                                             product.stock_status !=
-                                                'IN_STOCK' && (
+                                            'IN_STOCK' && (
                                                 <div
                                                     className={
                                                         classes.out_of_stock

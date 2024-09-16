@@ -93,6 +93,29 @@
     min-height: 30px;
     align-items: center;
 }
+.blocNomProjects{
+    right: 4px;
+    position: absolute;
+    top: 46px;
+    padding: 20px;
+    width: 160px;
+    height: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.blocNomProjects a {
+    color: black;
+}
+.blocNomProjects a:hover{
+    color: black;
+    font-weight: 700;
+}
+.blocNomProjects :last-child{
+    font-weight: 700;
+    color: #8DC74C;
+}
 .wishlist_image,
 .user_icon_image {
     position: relative;

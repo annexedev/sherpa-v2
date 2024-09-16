@@ -167,12 +167,36 @@
     height: 40px;
     line-height: 20px;
     color: black;
+    width: 300px;
     /* margin-left: auto; */
 }
 .button_move_project:hover {
     background: black;
     color: white;
 }
+.wrapperTooltip{
+    width: 320px;
+    height: 79px;
+}
+.wrapperTooltip .tooltip{
+    visibility: hidden;
+    position: relative;
+    top: -11px;
+    font-size: 11px;
+    border: 1px solid black;
+    padding: 6px;
+}
+
+.wrapperTooltip:hover .tooltip {
+    visibility: visible;
+}
+
+.wrapperPurchased{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
 .button_move_project_yes {
     background: #007637;
     border-radius: 5px;
@@ -410,9 +434,10 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
+
   
   input:checked + .slider {
-    background-color: var(--primary-base-color);
+    background-color: #96989A;
   }
   
   input:focus + .slider {
@@ -537,6 +562,7 @@
     .products_wrapper {
         justify-content: space-between;
         margin-top: 15px;
+        gap: 40px;
     }
     .product_tiles {
         flex: 0 0 48%;
@@ -594,16 +620,26 @@
         display: contents;
         text-align: center;
     }
+    .new_project {
+        display: flex;
+        gap: 10px;
+    }
+    .tableWrap{
+        padding: 30px 0 !important;
+        overflow: scroll;
+    }
+    
 }
 @media screen and (min-width: 320px) and (max-width: 991px) {
     .product_tiles {
-        flex: 0 0 50%;
-        min-width: 50%;
+        flex: 0 0 100%;
+        min-width: 100%;
     }
     .wrapperMoveToCart{
         margin-left: 0%;
         width: 100%;
         align-items: flex-start;
+        flex-wrap: wrap;
         /* justify-content: space-between; */
     }
 }
@@ -613,5 +649,168 @@
     display: none;
 }
 }
+
+
+/* TABLE PROJECTS */
+.tableWrap{
+    width: 100%;
+    margin: 30px auto;
+    padding: 30px 60px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+table.sortable{
+    width: 100%;
+}
+
+table.sortable td,
+table.sortable th {
+  padding: 12px;
+  text-align: start;
+  width: 8em;
+  cursor: pointer;
+}
+table.sortable td.centre{
+    text-align: center !important;
+}
+
+table.sortable th {
+  font-weight: bold;
+  border-bottom: thin solid #888;
+  position: relative;
+}
+
+table.sortable th.noSort {
+  padding-top: 0.35em;
+}
+
+table.sortable th:nth-child(1) {
+  width: 15em;
+}
+table.sortable td a{
+    color: #8dc74c;
+    font-weight: 700;
+}
+table.sortable .chevronDown{
+    color: #8dc74c;
+    margin-top: 5px;
+
+}
+table.sortable th span {
+    display: flex;
+    gap: 6px;
+    font-weight: 700;
+}
+.loadMoreButton{
+    color: #8dc74c;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.loadMoreButton span{
+    color: #8dc74c;
+}
+.loadLessButton{
+    color: #8dc74c;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+}
+.loadLessButton span{
+    color: #8dc74c;
+}
+
+
+table.sortable th button {
+  padding: 4px;
+  margin: 1px;
+  font-size: 100%;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  display: inline;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: left;
+  outline: none;
+  cursor: pointer;
+}
+
+table.sortable th button span {
+  position: absolute;
+  right: 4px;
+}
+
+.descending span::after{
+  content: "▼";
+  color: currentcolor;
+  font-size: 100%;
+  top: 0;
+}
+
+.iconDescending{
+
+}
+.iconAscending::after{
+    transform: rotate(90deg);
+}
+
+.ascending span::after {
+  content: "▲";
+  color: currentcolor;
+  font-size: 100%;
+  margin-left: 3px;
+  top: 0;
+  cursor: pointer;
+}
+
+table.show-unsorted-icon th:not([aria-sort]) button span::after {
+  content: "♢";
+  color: currentcolor;
+  font-size: 100%;
+  position: relative;
+  top: -3px;
+  left: -4px;
+}
+
+/* table.sortable td.num {
+  text-align: center;
+} */
+
+table.sortable tbody tr:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+/* Focus and hover styling */
+
+table.sortable th button:focus,
+table.sortable th button:hover {
+  padding: 2px;
+  border: 2px solid currentcolor;
+  background-color: #e5f4ff;
+}
+
+table.sortable th button:focus span,
+table.sortable th button:hover span {
+  right: 2px;
+}
+
+table.sortable th:not([aria-sort]) button:focus span::after,
+table.sortable th:not([aria-sort]) button:hover span::after {
+  content: "▼";
+  color: currentcolor;
+  font-size: 100%;
+  top: 0;
+}
+
 
 

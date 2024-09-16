@@ -477,6 +477,7 @@ div[class='mid-banner_image_Wrap'] img {
     overflow: hidden;
     line-height: 23px;
     width: calc(100% - 30px);
+    word-break: break-all;
 }
 .noo_product_inner:hover .product_name > a {
     color: var(--primary-base-color);

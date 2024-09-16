@@ -50,6 +50,9 @@ let categoryBannerIdentifierHome = 'projects_instructions';
 let categoryBannerIdentifierHomeBanner = 'projects_instructions_banner';
 let showCategoryBanners = true;
 let projectname = '';
+let purchasedProduct = [];
+let realQty = 0;
+let checkedSwitchButton;
 
 class SpecialPriceTo extends Component {
     constructor() {
@@ -99,50 +102,6 @@ class SpecialPriceTo extends Component {
         }
     }
 }
-
-class RealQuantity extends Component {
-    constructor() {
-        super();
-        this.state = {
-            pageData: []
-        };
-    }
-
-
-    componentDidMount() {
-        let cid = this.props.cid;
-        let pid = this.props.pid;
-        let dataURL = 'https://data.sherpagroupav.com/get_belongs.php?pid=' + pid + '&cid=' + cid;
-        console.log(dataURL);
-
-        fetch(dataURL)
-            .then(res => res.json())
-            .then(res => {
-                this.setState({
-                    pageData: res
-                });
-            });
-
-    }
-
-    render() {
-        let qty = this.state.pageData.qty && this.state.pageData.qty;
-        let wid = this.props.wid;
-        let pid = this.props.pid;
-        let cid = this.props.cid;
-        return (
-            <>
-                <Quantity
-                    wid={cid}
-                    productId={wid}
-                    initialValue={qty}
-                />
-            </>
-
-        );
-    }
-}
-
 class TotalProjet extends Component {
     constructor() {
         super();
@@ -171,6 +130,10 @@ class TotalProjet extends Component {
     render() {
         let itemCount = this.state.pageData.itemCount;
         let priceTotal = this.state.pageData.priceTotal;
+
+
+
+
         if (itemCount && itemCount > 0) {
             return (
                 <>
@@ -192,7 +155,6 @@ class TotalProjet extends Component {
 
     }
 }
-
 class ProjectName extends Component {
     constructor() {
         super();
@@ -226,7 +188,6 @@ class ProjectName extends Component {
         );
     }
 }
-
 class ToggleAccess extends Component {
 
     constructor() {
@@ -236,7 +197,7 @@ class ToggleAccess extends Component {
         };
     }
 
-    
+
 
     componentDidMount() {
         let email = this.props.email;
@@ -257,7 +218,7 @@ class ToggleAccess extends Component {
         function AddTodo(uid) {
             let input;
             let selectId = uid;
-    
+
             const TOGGLE_LIKED_PHOTO = gql`
                 mutation($category_name: String!) {
                     MpBetterWishlistCreateCategory(
@@ -280,6 +241,8 @@ class ToggleAccess extends Component {
             const [addTodo, { data, loading, error }] = useMutation(
                 TOGGLE_LIKED_PHOTO
             );
+
+            // console.log(data);
             const [selectValue, setSelectValue] = React.useState('');
 
             const { BrowserPersistence } = Util;
@@ -290,47 +253,51 @@ class ToggleAccess extends Component {
             }
 
             if (data) {
+                const category_id = data.MpBetterWishlistCreateCategory.category_id;
+                /* ici a la place do reload mettre une redirection vers le id de projet crée  --- /myprojects?id=1712842224_452 */
+                window.location.href = `/myprojects?id=${category_id}`;
             }
             if (loading) return 'Submitting...';
             if (error) return `Submission error! ${error.message}`;
             /*if (1) {
                 return (<>s</>);
             } else { */
-                return (<>
-    
-                    <div className={classes.new_project}>
-                        <input
-                            className={classes.input_rename}
-                            type="text"
-                            ref={node => {
-                                input = node;
-                            }}
-                            placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
-                        />
-                        <input type="hidden" value={selectId} />
-                        <button
-                            className={classes.rename_project}
-                            onClick={e => {
-                                e.preventDefault();
-                                addTodo({ variables: { category_name: input.value } });
-                                input.value = '';
-    
-                                if (storeview === 'fr') {
-                                    window.alert('New project created.');
-                                }
-                                else {
-                                    window.alert('New project created.');
-                                }
+            return (<>
+
+                <div className={classes.new_project}>
+                    <input
+                        className={classes.input_rename}
+                        type="text"
+                        ref={node => {
+                            input = node;
+                        }}
+                        placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
+                    />
+                    <input type="hidden" value={selectId} />
+                    <button
+                        className={classes.rename_project}
+                        onClick={e => {
+                            e.preventDefault();
+                            addTodo({ variables: { category_name: input.value } });
+                            input.value = '';
+                            console.log(data);
+
+                            if (storeview === 'fr') {
+                                window.alert('Nouveau projet créé.');
+                            }
+                            else {
                                 window.alert('New project created.');
-                                setSelectValue(999);
-                                window.location.reload();
-                            }}
-                        >
-                            {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
-                        </button>
-                    </div>
-    
-                </>);
+                                // window.location.href = `/myprojects?id=${selectId}`;
+                            }
+                            // window.alert('New project created.');
+                            setSelectValue(999);
+                        }}
+                    >
+                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                    </button>
+                </div>
+
+            </>);
             //}
         }
 
@@ -344,95 +311,97 @@ class ToggleAccess extends Component {
         const handleSwitch = async () => {
 
             var checkedStatus = document.getElementById('switchBTN');
+            checkedSwitchButton = document.getElementById('switchBTN');
 
-            if (checkedStatus.checked == true) {
+            if (checkedStatus.checked === true) {
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=1`)
                     .then(res => res.json())
                     .then(res => {
                         document.getElementById('switchBTN').checked = false;
-                        if(res){
+
+                        if (res) {
                             window.location.reload();
                         }
                     });
 
-            } else if (checkedStatus.checked == false) {
+            } else if (checkedStatus.checked === false) {
                 await fetch(`https://data.sherpagroupav.com/set_projectaccess.php?email=${email}&status=0`)
                     .then(res => res.json())
                     .then(res => {
                         document.getElementById('switchBTN').checked = true;
-                        if(res){
+
+                        if (res) {
                             window.location.reload();
                         }
                     });
             }
         }
-        
-        let result = this.state.pageData.access && this.state.pageData.access;
 
-        if (result==1) {
-            return (
-                <>                
-                <div className={classes.wrapperSwitchBtn}>
-                    <h4>
-                        <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'}/>
-                    </h4>
-                    <div className={classes.switch} onClick={handleSwitch} >
-                        <input type="checkbox" id="switchBTN" ></input>
-                        <span className={[classes.slider, classes.round].join(' ')}></span>
-                    </div>
-                    <h4>
-                        <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'}/>
-                        <span>
-                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
-                        </span>
-                    </h4>
-                    
-                </div>
-                <div>
-                    <p className={classes.wrapperSwitchBtnMessage}>
-                        <span>
-                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
-                        </span>
-                    </p>
-                </div>
-                <AddTodo wid={wid} />
-                </>
-            )
-        } else if(result==0){
+        let result = this.state.pageData.access && this.state.pageData.access;
+        // access = this.state.pageData.access && this.state.pageData.access;
+
+        if (result == 1) {
             return (
                 <>
-                <div className={classes.wrapperSwitchBtn}>
-                    <h4>
-                        <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'}/>
-                    </h4>
-                    <div className={classes.switch} onClick={handleSwitch} >
-                        <input type="checkbox" id="switchBTN" checked></input>
-                        <span className={[classes.slider, classes.round].join(' ')}></span>
+                    <div className={classes.wrapperSwitchBtn}>
+                        <h4>
+                            <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'} />
+                        </h4>
+                        <div className={classes.switch} onClick={handleSwitch} >
+                            <input type="checkbox" id="switchBTN" ></input>
+                            <span className={[classes.slider, classes.round].join(' ')}></span>
+                        </div>
+                        <h4>
+                            <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'} />
+                            <span>
+                                &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
+                            </span>
+                        </h4>
+
                     </div>
-                    <h4>
-                        <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'}/>
-                        <span>
-                            &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
-                        </span>
-                    </h4>
-                </div>
-                <div>
-                <p className={classes.wrapperSwitchBtnMessage}>
-                    <span>
-                        &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'}/>
-                    </span>
-                </p>
-                
-            </div>
-            </>
+                    <div>
+                        <p className={classes.wrapperSwitchBtnMessage}>
+                            <span>
+                                &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
+                            </span>
+                        </p>
+                    </div>
+                    <AddTodo wid={wid} />
+                </>
+            )
+        } else if (result == 0) {
+            return (
+                <>
+                    <div className={classes.wrapperSwitchBtn}>
+                        <h4>
+                            <FormattedMessage id={'myWishlist.labelSwitchActivate'} defaultMessage={'Activate'} />
+                        </h4>
+                        <div className={classes.switch} onClick={handleSwitch} >
+                            <input type="checkbox" id="switchBTN" checked></input>
+                            <span className={[classes.slider, classes.round].join(' ')}></span>
+                        </div>
+                        <h4>
+                            <FormattedMessage id={'myWishlist.labelSwitchDeactivate'} defaultMessage={'Deactivate'} />
+                            <span>
+                                &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
+                            </span>
+                        </h4>
+                    </div>
+                    <div>
+                        <p className={classes.wrapperSwitchBtnMessage}>
+                            <span>
+                                &nbsp;<FormattedMessage id={'myWishlist.labelSwitchDeactivateMessage'} defaultMessage={'(project contents are preserved, not deleted)'} />
+                            </span>
+                        </p>
+                    </div>
+                </>
             );
         } else {
-            return(<></>);
+            return (<></>);
         }
     }
 
 }
-
 class BrandName extends Component {
     constructor() {
         super();
@@ -456,7 +425,7 @@ class BrandName extends Component {
     }
 
     render() {
-        console.log('UPDATED');
+        // console.log('UPDATED');
         let brandname = this.state.pageData.brandname && this.state.pageData.brandname;
         if (brandname) {
             return (
@@ -467,7 +436,6 @@ class BrandName extends Component {
         }
     }
 }
-
 class IsInCart extends Component {
     constructor() {
         super();
@@ -530,7 +498,6 @@ class IsInCart extends Component {
         }
     }
 }
-
 class SpecialPrice extends Component {
     constructor() {
         super();
@@ -618,7 +585,6 @@ class SpecialPrice extends Component {
         }
     }
 }
-
 class SoldIn extends Component {
     constructor() {
         super();
@@ -672,12 +638,58 @@ class SoldIn extends Component {
         }
     }
 }
+class RealQuantity extends Component {
 
-class AlreadyPurchased extends Component {
     constructor() {
         super();
         this.state = {
             pageData: []
+        };
+    }
+
+
+    componentDidMount() {
+        let cid = this.props.cid;
+        let pid = this.props.pid;
+        let dataURL = 'https://data.sherpagroupav.com/get_belongs.php?pid=' + pid + '&cid=' + cid;
+        // console.log(dataURL);
+
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+
+    }
+
+    render() {
+        let qty = this.state.pageData.qty && this.state.pageData.qty;
+        let wid = this.props.wid;
+        let pid = this.props.pid;
+        let cid = this.props.cid;
+        realQty = qty;
+        return (
+            <>
+                <Quantity
+                    // initialValue={1}
+                    min={1}
+                    wid={cid}
+                    productId={wid}
+                    initialValue={qty}
+                />
+            </>
+
+        );
+    }
+}
+class AlreadyPurchased extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: [],
+            pageData2: []
         };
     }
 
@@ -687,7 +699,7 @@ class AlreadyPurchased extends Component {
         let projectId = this.props.wId;
         let dataURL =
             'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid + '&projectId=' + projectId;
-        console.log(dataURL);
+        // console.log(dataURL);
 
         fetch(dataURL)
             .then(res => res.json())
@@ -703,13 +715,14 @@ class AlreadyPurchased extends Component {
         let sku = this.props.sku;
         let wId = this.props.wId;
         if (this.state.pageData.purchased && this.state.pageData.purchased > 0) {
+            //purchasedProduct = this.state.pageData.purchased;
             return (
                 <Link
                     className={defaultClasses.linkPurchase}
                     to={resourceUrl('/orders?project=' + wId + '&id=' + sku)}
                 >
                     {purchased}
-                    <FormattedMessage id={'myWishlist.labelPurchased'} defaultMessage={' purchased'}/>
+                    <FormattedMessage id={'myWishlist.labelPurchased'} defaultMessage={' purchased'} />
                 </Link>
             );
         } else {
@@ -720,6 +733,447 @@ class AlreadyPurchased extends Component {
 
     }
 }
+class RemainProject extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: [],
+            pageData2: []
+        };
+    }
+
+    componentDidMount() {
+        let pid = this.props.pid;
+        let wId = this.props.wId;
+        let email = this.props.email;
+        let projectId = this.props.wId;
+        let dataURL = 'https://data.sherpagroupav.com/get_already_purchased.php?email=' + email + '&productId=' + pid + '&projectId=' + projectId;
+        // console.log(dataURL);
+
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData: res
+                });
+            });
+
+        let dataURL2 = 'https://data.sherpagroupav.com/get_belongs.php?pid=' + pid + '&cid=' + wId;
+
+        fetch(dataURL2)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageData2: res
+                });
+            });
+    }
+
+    render() {
+
+        let qty = this.state.pageData2.qty && this.state.pageData2.qty;
+        if (this.state.pageData.purchased && this.state.pageData2.qty > 0) {
+            const purchased = {
+                pid: this.props.pid,
+                qty: this.state.pageData.purchased
+            };
+            purchasedProduct.push(purchased);
+            return (
+                <div className={defaultClasses.linkPurchase}>
+                    {qty - purchased.qty}
+                    <FormattedMessage
+                        id={
+                            'myWishlist.remainToPurchase'
+                        }
+                        defaultMessage={
+                            'remain(s) to purchase'
+                        }
+                    />
+                </div>
+
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
+
+    }
+}
+// class TableProjects extends Component {
+//     constructor() {
+//         super();
+//         this.state = {
+//             pageData: [],
+//             sortColumn: '',
+//             pageDataAccess: [],
+//             sortDirection: 'asc' // 'asc' para ascendente, 'desc' para descendente
+//         };
+//     }
+
+//     componentDidMount() {
+//         let email = this.props.email;
+//         let dataURL = 'https://data.sherpagroupav.com/get_projects_details.php?email=' + email;
+
+//         fetch(dataURL)
+//             .then(res => res.json())
+//             .then(res => {
+//                 this.setState({ pageData: res });
+//             });
+
+//         let grantAccess =
+//             'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+//         fetch(grantAccess)
+//             .then(res => res.json())
+//             .then(res => {
+//                 this.setState({
+//                     pageDataAccess: res
+//                 });
+//             });
+
+
+//     }
+
+//     handleSort = (column) => {
+//         const { sortColumn, sortDirection, pageData } = this.state;
+//         let newDirection = 'desc';
+
+//         if (sortColumn === column && sortDirection === 'desc') {
+//             newDirection = 'asc';
+//         }
+
+//         const sortedData = [...pageData].sort((a, b) => {
+//             const aValue = a[column];
+//             const bValue = b[column];
+
+//             const isANumber = !isNaN(aValue);
+//             const isBNumber = !isNaN(bValue);
+
+//             if (isANumber && isBNumber) {
+//                 return newDirection === 'asc' ? aValue - bValue : bValue - aValue;
+//             } else {
+//                 const aStr = aValue ? aValue.toString().toLowerCase() : '';
+//                 const bStr = bValue ? bValue.toString().toLowerCase() : '';
+
+//                 if (aStr < bStr) return newDirection === 'asc' ? -1 : 1;
+//                 if (aStr > bStr) return newDirection === 'asc' ? 1 : -1;
+//                 return 0;
+//             }
+//         });
+
+//         this.setState({
+//             pageData: sortedData,
+//             sortColumn: column,
+//             sortDirection: newDirection
+//         });
+//     };
+
+
+//     render() {
+//         const { pageData, sortColumn, sortDirection } = this.state;
+
+//         console.log(this.state.pageData);
+
+//         if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
+//             return (
+//                 <div className={wishlistClasses.tableWrap}>
+//                     <table className={wishlistClasses.sortable}>
+//                         <thead>
+//                             <tr>
+//                                 <th onClick={() => this.handleSort('projectName')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_name'} defaultMessage={'Project name'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'projectName' ? sortDirection : '']}></span>
+//                                 </th>
+//                                 <th onClick={() => this.handleSort('dateCreation')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_date_creation'} defaultMessage={'Creation date'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'dateCreation' ? sortDirection : '']}></span>
+//                                 </th>
+//                                 <th onClick={() => this.handleSort('numberProducts')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'numberProducts' ? sortDirection : '']}></span>
+//                                 </th>
+//                                 <th onClick={() => this.handleSort('total')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Total estimé'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+//                                 </th>
+//                                 {/* <th onClick={() => this.handleSort('total')}>
+//                                     <span>
+//                                         <FormattedMessage id={'myWishlist.project_still_purchase'} defaultMessage={'Still to purchase'} />
+//                                         <FontAwesomeIcon
+//                                             icon={
+//                                                 faChevronDown
+//                                             }
+//                                             className={wishlistClasses.chevronDown}
+//                                         />
+//                                     </span>
+//                                     <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+//                                 </th> */}
+//                             </tr>
+//                         </thead>
+//                         <tbody>
+//                             {pageData.map((project) => (
+//                                 <tr key={project.id}>
+//                                     <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
+//                                     <td>{project.dateCreation === null ? 'N/A' : project.dateCreation}</td>
+//                                     <td>{project.numberProducts}</td>
+//                                     <td className={wishlistClasses.num}>${project.total}</td>
+//                                     {/* <td className={wishlistClasses.num}>$still</td> */}
+//                                 </tr>
+//                             ))}
+//                         </tbody>
+//                     </table>
+//                 </div>
+//             );
+//         } else {
+//             return <div></div>;
+//         }
+//     }
+// }
+class TableProjects extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pageData: [],
+            sortColumn: '',
+            pageDataAccess: [],
+            sortDirection: 'asc', // 'asc' para ascendente, 'desc' para descendente
+            visibleRows: 6 // Número inicial de linhas visíveis
+        };
+    }
+
+    componentDidMount() {
+        let email = this.props.email;
+        let dataURL = 'https://data.sherpagroupav.com/get_projects_details.php?email=' + email;
+
+        fetch(dataURL)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({ pageData: res });
+            });
+
+        let grantAccess = 'https://data.sherpagroupav.com/get_projectaccess.php?email=' + email;
+        fetch(grantAccess)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    pageDataAccess: res
+                });
+            });
+    }
+
+    handleSort = (column) => {
+        const { sortColumn, sortDirection, pageData } = this.state;
+        let newDirection = 'desc';
+
+        if (sortColumn === column && sortDirection === 'desc') {
+            newDirection = 'asc';
+        }
+
+        const sortedData = [...pageData].sort((a, b) => {
+            const aValue = a[column];
+            const bValue = b[column];
+
+            const isANumber = !isNaN(aValue);
+            const isBNumber = !isNaN(bValue);
+
+            if (isANumber && isBNumber) {
+                return newDirection === 'asc' ? aValue - bValue : bValue - aValue;
+            } else {
+                const aStr = aValue ? aValue.toString().toLowerCase() : '';
+                const bStr = bValue ? bValue.toString().toLowerCase() : '';
+
+                if (aStr < bStr) return newDirection === 'asc' ? -1 : 1;
+                if (aStr > bStr) return newDirection === 'asc' ? 1 : -1;
+                return 0;
+            }
+        });
+
+        this.setState({
+            pageData: sortedData,
+            sortColumn: column,
+            sortDirection: newDirection
+        });
+    };
+
+    loadMore = () => {
+        this.setState((prevState) => ({
+            visibleRows: prevState.visibleRows + 6
+        }));
+    };
+
+    loadLess = () => {
+        this.setState({
+            visibleRows: 6
+        });
+    };
+
+
+    formatDate = (dateString) => {
+        const date = new Date(dateString.trim());
+
+        
+        const monthsFrench = [
+            "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+            "Juil", "Août", "Sept", "Oct", "Nov", "Déc"
+        ];
+        
+        const monthsEnglish = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+        ];
+        
+        const { BrowserPersistence } = Util;
+        const storage = new BrowserPersistence();
+        let storeview = storage.getItem('store_view_code');
+
+        const day = date.getDate();
+        const month = storeview === 'fr' ? monthsFrench[date.getMonth()] :  monthsEnglish[date.getMonth()] ;
+        const year = date.getFullYear();
+        
+        return storeview === 'fr' ? `${day} ${month} ${year}` : `${month} ${day}, ${year}`;
+
+    }
+
+    
+    render() {
+        const { pageData, sortColumn, sortDirection, visibleRows } = this.state;
+
+        const isArchive = this.props.isArchive;
+
+        // console.log(this.state.pageData);
+
+        if (pageData && pageData.length > 0 && this.state.pageDataAccess['access'] == 1) {
+            return (
+                <div className={wishlistClasses.tableWrap}>
+                    <table className={wishlistClasses.sortable}>
+                        <thead>
+                            <tr>
+                                <th onClick={() => this.handleSort('projectName')}>
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_name'} defaultMessage={'Project name'} />
+                                        <FontAwesomeIcon
+                                            icon={faChevronDown}
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
+                                    <span className={wishlistClasses[sortColumn === 'projectName' ? sortDirection : '']}></span>
+                                </th>
+                                <th onClick={() => this.handleSort('dateCreation')}>
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_date_creation'} defaultMessage={'Creation date'} />
+                                        <FontAwesomeIcon
+                                            icon={faChevronDown}
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
+                                    <span className={wishlistClasses[sortColumn === 'dateCreation' ? sortDirection : '']}></span>
+                                </th>
+                                <th onClick={() => this.handleSort('total')}>
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_total'} defaultMessage={'Estimated value'} />
+                                        <FontAwesomeIcon
+                                            icon={faChevronDown}
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
+                                    <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+                                </th>
+                                <th onClick={() => this.handleSort('total')}>
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_still_purchase'} defaultMessage={'Still to purchase'} />
+                                        <FontAwesomeIcon
+                                            icon={faChevronDown}
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
+                                    <span className={wishlistClasses[sortColumn === 'total' ? sortDirection : '']}></span>
+                                </th>
+                                <th onClick={() => this.handleSort('numberProducts')}>
+                                    <span>
+                                        <FormattedMessage id={'myWishlist.project_n_produits'} defaultMessage={'N. produits'} />
+                                        <FontAwesomeIcon
+                                            icon={faChevronDown}
+                                            className={wishlistClasses.chevronDown}
+                                        />
+                                    </span>
+                                    <span className={wishlistClasses[sortColumn === 'numberProducts' ? sortDirection : '']}></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {isArchive == 'true'
+                                ? pageData.filter((project) => project.projectName.toLowerCase().includes('archive')).map((project) => (
+                                <tr key={project.id}>
+                                <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
+                                <td>{project.dateCreation === null ? 'N/A' : this.formatDate(project.dateCreation)}</td>
+                                <td>${project.total}</td>
+                                <td>${project.estimateTotal}</td>
+                                <td>{project.numberProducts}</td>
+                                </tr>
+                                ))
+                                
+                                : pageData.filter((project) => !project.projectName.toLowerCase().includes('archive')).map((project) => (
+                                
+                                <tr key={project.id}>
+                                <td><a href={'myprojects?id=' + project.id}>{project.projectName}</a></td>
+                                <td>{project.dateCreation === null ? 'N/A' : this.formatDate(project.dateCreation)}</td>
+                                <td>${project.total}</td>
+                                <td>${project.estimateTotal}</td>
+                                <td>{project.numberProducts}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {pageData.length > visibleRows && (
+                        <button onClick={this.loadMore} className={wishlistClasses.loadMoreButton}>
+                            <span>Load More</span>
+                            <FontAwesomeIcon
+                                icon={faChevronDown}
+                                className={wishlistClasses.chevronDown}
+                            />
+                        </button>
+                    )}
+                </div>
+            );
+        } else {
+            return <div></div>;
+        }
+    }
+}
+
+/* ------------------- */
 
 const titleIcon = <Icon src={ArrowUp} size={24} />;
 
@@ -830,6 +1284,17 @@ const MyWishList = props => {
         refetch
     } = wishlistProps;
 
+    const talonProps = useCartPage({
+        queries: {
+            getCartDetails: GET_CART_DETAILS
+        }
+    });
+
+    const {
+        cartItems
+    } = talonProps;
+
+    // console.log(data);
     const queryParameters = new URLSearchParams(window.location.search);
 
     const wId = queryParameters.get('id');
@@ -934,41 +1399,40 @@ const MyWishList = props => {
         /*if (1) {
             return (<>s</>);
         } else { */
-            return (<>
+        return (<>
 
-                <div className={classes.new_project}>
-                    <input
-                        className={classes.input_rename}
-                        type="text"
-                        ref={node => {
-                            input = node;
-                        }}
-                        placeholder={storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
-                    />
-                    <input type="hidden" value={selectId} />
-                    <button
-                        className={classes.rename_project}
-                        onClick={e => {
-                            e.preventDefault();
-                            addTodo({ variables: { category_name: input.value } });
-                            input.value = '';
+            <div className={classes.new_project}>
+                <input
+                    className={classes.input_rename}
+                    type="text"
+                    ref={node => {
+                        input = node;
+                    }}
+                    placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
+                />
+                <input type="hidden" value={selectId} />
+                <button
+                    className={classes.rename_project}
+                    onClick={e => {
+                        e.preventDefault();
+                        addTodo({ variables: { category_name: input.value } });
+                        input.value = '';
 
-                            if (storeview === 'fr') {
-                                window.alert('New project created.');
-                            }
-                            else {
-                                window.alert('New project created.');
-                            }
+                        if (storeview === 'fr') {
                             window.alert('New project created.');
-                            setSelectValue(999);
-                            window.location.reload();
-                        }}
-                    >
-                        {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
-                    </button>
-                </div>
+                        }
+                        else {
+                            window.alert('New project created.');
+                        }
+                        setSelectValue(999);
+                        window.location.reload();
+                    }}
+                >
+                    {storeview === 'fr' ? 'Créer un nouveau projet' : 'Create new project'}
+                </button>
+            </div>
 
-            </>);
+        </>);
         //}
     }
 
@@ -999,7 +1463,11 @@ const MyWishList = props => {
             } else {
                 return (
                     <div className={classes.wrapperMoveToCart}>
-                        <button className={classes.button_move_project}> <FormattedMessage id={'project.movetocart'} defaultMessage={'Move project to Cart'} /></button>
+                        <div className={classes.wrapperTooltip}>
+                            <span className={classes.tooltip}><FormattedMessage id={'project.tooltipMovetocart'} defaultMessage={'Moves the balance of unpurchased product for this project to cart'} /></span>
+                            <button className={classes.button_move_project}><FormattedMessage id={'project.movetocart'} defaultMessage={'Move Remaining to Cart'} />
+                            </button>
+                        </div>
                         <Link className={defaultClasses.btnPurchase} to={resourceUrl('/cart')}>
                             <FormattedMessage id={'project.backtocart'} defaultMessage={'Go to Cart'} />
                         </Link>
@@ -1128,9 +1596,6 @@ const MyWishList = props => {
         }
     }
 
-
-    
-
     function AddTodoDuplicate(uid) {
         let input;
 
@@ -1169,7 +1634,7 @@ const MyWishList = props => {
                     ref={node => {
                         input = node;
                     }}
-                    placeholder={'New project name'}
+                    placeholder={storeview === 'fr' ? 'Nom du projet' : 'New project name'}
                 />
                 <input type="hidden" value={selectId} />
                 <button
@@ -1280,8 +1745,6 @@ const MyWishList = props => {
             </div>
         );
     }
-
-
 
     {/* class RestoreProject extends Component {
         constructor() {
@@ -1488,9 +1951,10 @@ const MyWishList = props => {
                         type="text"
                         id={'wid' + wId}
                         className={classes.input_rename}
-                        placeholder={'New name'}
+                        placeholder={storeview === 'fr' ? 'Nouveau nom' : 'New name'}
                     />
                     <button type="submit" className={classes.rename_project}>
+                        {/* Rename project */}
                         {storeview === 'fr' ? 'Renommer le projet' : 'Rename project'}
                     </button>
                 </form>
@@ -1498,7 +1962,7 @@ const MyWishList = props => {
         );
     }
 
-    const Select = ({ cid }) => {
+    const Select = ({ cid, archived }) => {
         const [selectValue, setSelectValue] = React.useState('');
         const onChange = event => {
             const value = event.target.value;
@@ -1508,18 +1972,34 @@ const MyWishList = props => {
 
         return (
             <div className={defaultClasses.wrapper_project_dropdown} id={'actions' + cid}>
-                <select
-                    onChange={onChange}
-                    className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
-                >
-                    {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
+                {archived ?
+                    <select
+                        onChange={onChange}
+                        className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
+                    >
+                        {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
 
-                    {/* <option value="1">Create a new project</option> */}
-                    {storeview === 'fr' ? <option value="5">Dupliquer le projet</option> : <option value="5">Duplicate project</option>}
-                    {storeview === 'fr' ? <option value="2">Renommer le projet actuel</option> : <option value="2">Rename current project</option>}
-                    {storeview === 'fr' ? <option value="3">Archiver le projet actuel</option> : <option value="3">Archive current project</option>}
-                    {storeview === 'fr' ? <option value="4">Supprimer le projet actuel</option> : <option value="4">Delete current project</option>}
-                </select>
+                        {/* <option value="1">Create a new project</option> */}
+
+                        {storeview === 'fr' ? <option value="5">Dupliquer le projet</option> : <option value="5">Duplicate project</option>}
+                        {storeview === 'fr' ? <option value="4">Supprimer le projet actuel</option> : <option value="4">Delete current project</option>}
+                    </select>
+                    :
+                    <select
+                        onChange={onChange}
+                        className={[classes.project_dropdown, defaultClasses.project_dropdown].join(' ')}
+                    >
+                        {storeview === 'fr' ? <option value="" disabled selected hidden>Options du projet</option> : <option value="" disabled selected hidden>Project Options</option>}
+
+                        {/* <option value="1">Create a new project</option> */}
+
+                        {storeview === 'fr' ? <option value="5">Dupliquer le projet</option> : <option value="5">Duplicate project</option>}
+                        {storeview === 'fr' ? <option value="2">Renommer le projet actuel</option> : <option value="2">Rename current project</option>}
+                        {storeview === 'fr' ? <option value="3">Archiver le projet actuel</option> : <option value="3">Archive current project</option>}
+                        {storeview === 'fr' ? <option value="4">Supprimer le projet actuel</option> : <option value="4">Delete current project</option>}
+                    </select>
+
+                }
                 {/* {selectValue && selectValue == 1 && (
                     <div id={'hidden_div'}>
                         <AddTodo uid={wId} />
@@ -1552,7 +2032,6 @@ const MyWishList = props => {
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
-
 
 
     if (!loading) {
@@ -1833,6 +2312,7 @@ const MyWishList = props => {
                                                         to={resourceUrl('/orders?project=' + wId)}
                                                     ><FormattedMessage id={'project.history'} defaultMessage={'Project Purchase History'} /></Link>
                                                     <RestoreProject cid={wId} />
+                                                    {isArchive && <Select cid={wId} archived={true} />}
                                                 </div>
                                                 <MoveToCart uid={wId} />
                                             </div>
@@ -1951,7 +2431,7 @@ const MyWishList = props => {
                                                             return 1;
                                                         }
                                                         // verifier si il y a des enfants
-                                                        let wrapperProjects = document.getElementById("productsWrapper")
+                                                        //let wrapperProjects = document.getElementById("productsWrapper")
                                                         // console.log(belongToProject(
                                                         //     val.product.id,
                                                         //     wId
@@ -1964,6 +2444,20 @@ const MyWishList = props => {
                                                                 wId
                                                             )
                                                         ) {
+
+                                                            let qtyCart = 0;
+                                                            let realQty = 0;
+                                                            cartItems.forEach(c => {
+                                                                let filterCatergory = [];
+                                                                const cartJSON = JSON.parse(c.category);
+                                                                if (cartJSON) {
+                                                                    filterCatergory = cartJSON.filter(c => c.product_id === val.product.id && c.category_id === wId);
+                                                                    if (filterCatergory.length) {
+                                                                        qtyCart = filterCatergory[0].qty;
+                                                                        realQty = filterCatergory[0].qtyCategory;
+                                                                    }
+                                                                }
+                                                            });
 
                                                             return (
                                                                 <>
@@ -2062,9 +2556,22 @@ const MyWishList = props => {
                                                                                     {
                                                                                         val.product.sku
                                                                                     }
+                                                                                    {qtyCart > 0 ?
                                                                                     <p>
                                                                                         {/* <SoldIn pid={val.product.id} /> */}
+                                                                                        {/* Quantity remaining: {qtyCart} */}
+                                                                                        <FormattedMessage
+                                                                                            id={
+                                                                                                'item.qtyRemaining'
+                                                                                            }
+                                                                                            defaultMessage={
+                                                                                                'Quantity Remaining'
+                                                                                            }
+                                                                                        /> : { realQty - qtyCart}
                                                                                     </p>
+                                                                                    : 
+                                                                                    <p></p>
+                                                                                    }
 
                                                                                 </div>
                                                                                 {isArchive != 1 && (
@@ -2134,7 +2641,10 @@ const MyWishList = props => {
 
                                                                                 </div>
                                                                             )}
-                                                                            <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
+                                                                            <div className={classes.wrapperPurchased}>
+                                                                                <AlreadyPurchased wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
+                                                                                <RemainProject wId={wId} sku={val.product.sku} pid={val.product.id} email={email} />
+                                                                            </div>
                                                                             <div
                                                                                 className={
                                                                                     classes.actions_wrapper
@@ -2158,7 +2668,6 @@ const MyWishList = props => {
                                                                                                             wId
                                                                                                         }
                                                                                                         onClick={() => {
-
                                                                                                             var currentQty = document
                                                                                                                 .querySelector(
                                                                                                                     '#q' +
@@ -2169,18 +2678,28 @@ const MyWishList = props => {
                                                                                                                 )
                                                                                                                 .value;
 
+                                                                                                            const filterpurchasedProduct = purchasedProduct.filter(p => p.pid === val.product.id);
+                                                                                                            let qtyPurchasedProduct = 0;
+
+                                                                                                            if (filterpurchasedProduct.length > 0) {
+                                                                                                                qtyPurchasedProduct = filterpurchasedProduct[0].qty;
+                                                                                                            }
+
                                                                                                             const tempProps = { ...val.product };
-                                                                                                            tempProps.qty = currentQty;
-                                                                                                            tempProps.qtyCategory = currentQty;
+                                                                                                            tempProps.qty = currentQty - qtyCart - qtyPurchasedProduct;
+                                                                                                            tempProps.qtyCategory = currentQty - qtyPurchasedProduct;
                                                                                                             tempProps.categoryId = wId;
                                                                                                             tempProps.categoryName = projectname;
 
                                                                                                             // console.log('coucoucoucou');
                                                                                                             // console.log(tempProps);
 
-                                                                                                            handleAddToCart(
-                                                                                                                tempProps
-                                                                                                            );
+                                                                                                            if (tempProps.qty != 0) {
+                                                                                                                handleAddToCart(
+                                                                                                                    tempProps
+                                                                                                                );
+                                                                                                            }
+
 
                                                                                                             addToast({
                                                                                                                 type: 'info',
@@ -2400,6 +2919,12 @@ const MyWishList = props => {
                                                                                                                     .value;
 
                                                                                                                 console.log(isPartialQuantity);
+                                                                                                                const filterpurchasedProduct = purchasedProduct.filter(p => p.pid === val.product.id);
+                                                                                                                let qtyPurchasedProduct = 0;
+
+                                                                                                                if (filterpurchasedProduct.length > 0) {
+                                                                                                                    qtyPurchasedProduct = filterpurchasedProduct[0].qty;
+                                                                                                                }
 
                                                                                                                 const tempProps = { ...val.product };
 
@@ -2407,14 +2932,12 @@ const MyWishList = props => {
                                                                                                                     tempProps.qty = currentQtyPartial;
                                                                                                                 }
                                                                                                                 else {
-                                                                                                                    tempProps.qty = currentQty;
+                                                                                                                    tempProps.qty = currentQty - qtyCart - qtyPurchasedProduct;
                                                                                                                 }
 
                                                                                                                 tempProps.categoryId = wId;
                                                                                                                 tempProps.categoryName = projectname;
-                                                                                                                tempProps.qtyCategory = currentQty;
-
-                                                                                                                console.log('coucoucoucou');
+                                                                                                                tempProps.qtyCategory = currentQty - qtyPurchasedProduct;
 
                                                                                                                 handleAddToCart(
                                                                                                                     tempProps
@@ -2612,6 +3135,7 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     <ToggleAccess email={email} wid={wId} />
+                                                    <TableProjects email={email} isArchive={isArchive} />
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage

@@ -327,6 +327,7 @@ form.root input:focus {
 }
 .linkPurchase{
     color: #8dc74c;
+    max-width: 76px;
 }
 .linkPurchase:hover{
     color: #000;

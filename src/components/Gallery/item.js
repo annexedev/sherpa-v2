@@ -31,10 +31,11 @@ import Iframe from 'react-iframe';
 import Quantity from './quantity';
 
 let data_value = 'A';
+let check = true ;
 
 function updateDataValue(valeur) {
     data_value = valeur;
-    // console.log('UPDATE: ' + data_value);
+    console.log('UPDATE: ' + data_value);
 }
 
 class ServiceDetailsEmployeurs extends Component {
@@ -262,11 +263,19 @@ class ServiceDetailsEmployeurs extends Component {
 
                 var inputs, index;
 
+                // console.log(index);
+                
+                
                 inputs = document.getElementsByTagName('select');
+                if(check){
                 for (index = 0; index < inputs.length; ++index) {
-                    //console.log(inputs[index].id);
+                    // console.log(inputs[index].id);
 
                     var daySelect = document.getElementById(inputs[index].id);
+
+                    // console.log(daySelect);
+                    // console.log(daySelect.options);
+
 
                     if (inputs[index].id == inputs[index].id) {
                         daySelect.options[
@@ -289,12 +298,17 @@ class ServiceDetailsEmployeurs extends Component {
                     }
 
                     //sortOptions(inputs[index].id);
+                    }
                 }
-
+            check = false;
                 //console.log(data.MpBetterWishlistCreateCategory.category_id)
             }
             if (loading) return 'Submitting...';
             if (error) return `Submission error! ${error.message}`;
+
+            const { BrowserPersistence } = Util;
+            const storage = new BrowserPersistence();
+            let storeview = storage.getItem('store_view_code');
 
             return (
                 <div>
@@ -309,6 +323,7 @@ class ServiceDetailsEmployeurs extends Component {
                                 .getElementsByClassName('c' + item_id)[0]
                                 .querySelector('input').value;
 
+
                             for (let i = 0; i < loopProject; i++) {
                                 addTodoUpdate({
                                     variables: {
@@ -318,7 +333,7 @@ class ServiceDetailsEmployeurs extends Component {
                                 });
 
                             }
-                            window.alert('New category created.');
+                            window.alert('New project created..');
                             setSelectValue(999);
                         }}
                     >
@@ -328,6 +343,7 @@ class ServiceDetailsEmployeurs extends Component {
                             ref={node => {
                                 input = node;
                             }}
+                            placeholder={storeview === 'fr' ? 'Entrez le nom du projet' : 'Enter project name'}
                         />
                         <input type="hidden" value={selectId} />
                         <button
@@ -375,7 +391,6 @@ class ServiceDetailsEmployeurs extends Component {
             if (this.state.pageDataAccess['access'] == 1) {
             return (
                 <div>
-                    <AddToProject item_id={this.props.item_id} uid={uniqueId} />
                     <select
                         onChange={onChange}
                         className={classes.project_dropdown}
@@ -412,6 +427,7 @@ class ServiceDetailsEmployeurs extends Component {
                             <AddTodo uid={uniqueId} item_id={this.props.item_id} />
                         </div>
                     )}
+                    <AddToProject item_id={this.props.item_id} uid={uniqueId} />
                 </div>
             );
             } else {
@@ -1040,7 +1056,7 @@ const GalleryItem = props => {
 
                                     {final_minimum_price !=
                                         final_regular_price && (
-                                            <>
+                                            <div className={classes.p15}>
                                                 {/*<p><b>Special price</b></p>
                                     {item.special_from_date && (
                                         <p>From: {item.special_from_date.slice(0, -8)}</p>
@@ -1098,11 +1114,11 @@ const GalleryItem = props => {
                                                         value={final_regular_price}
                                                     />
                                                 </span>
-                                            </>
+                                            </div>
                                         )}
                                     {final_minimum_price ==
                                         final_regular_price && (
-                                            <>
+                                            <div className={classes.p15}>
                                                 <b
                                                     className={
                                                         classes.total_available_b
@@ -1125,7 +1141,7 @@ const GalleryItem = props => {
                                                             .regular_price.currency
                                                     }
                                                 />
-                                            </>
+                                            </div>
                                         )}
 
                                     <p>
@@ -1190,7 +1206,7 @@ const GalleryItem = props => {
                                             classes.qty_selector
                                         }
                                     >
-                                        <QuantityPicker />
+                                        <QuantityPicker value={1} min={1}/>
 
                                     </div>
                                     <div className={classes.add_to_cart_btn}>

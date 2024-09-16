@@ -159,15 +159,18 @@ export const QuantityFields = props => {
                             /> 
                         </p>
                         {storeview === 'en' 
-                        ?  <p className={classes.priceWithDiscount}>${price} </p> 
-                        : <p className={classes.priceWithDiscount}>{price} $</p>}
+                        ?  
+                        <p className={classes.priceWithDiscount}><Price value={price} currencyCode={'CAD'} /></p> 
+                        : 
+                        <p className={classes.priceWithDiscount}><Price value={price} currencyCode={'CAD'} /></p>}
                         {/* <p className={classes.priceWithDiscount}><Price value={price} currencyCode={'CAD'} /></p> */}
 
                         {initialPrice !== finalPrice ?
                             ProduitDiscount && storeview === 'en'
-                            ? <p className={classes.initialPrice}>${initialPrice} </p>
-                            : <p className={classes.initialPrice}>{initialPrice} $</p> 
-                                // <Price value={initialPrice} currencyCode={'CAD'} className={classes.initialPrice} />
+                            ? 
+                            <p className={classes.initialPrice}><Price value={initialPrice} currencyCode={'CAD'} /></p>
+                            : 
+                            <p className={classes.initialPrice}><Price value={initialPrice} currencyCode={'CAD'} /></p>
                                 :
                             <p></p>
                         }
