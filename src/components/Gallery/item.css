@@ -282,6 +282,8 @@ button[class='quantity-modifier modifier-right']:hover {
     composes: product_name from '../CedHome/home.css';
     margin: 0;
     min-height: 50px;
+    width: 100%;
+    padding: 0px;
 }
 .product_brand_name {
     margin: 0;
@@ -289,6 +291,7 @@ button[class='quantity-modifier modifier-right']:hover {
     text-align: center;
     font-weight: 600;
     margin-bottom: 15px;
+    width: 100%;
 }
 .root:hover .noo_details_wrapper {
     bottom: 0;
