@@ -82,7 +82,21 @@ export const useStoreSwitcher = props => {
         );
     }, [storeConfigData, availableStoresData]);
 
+    async function getJSON() {
+
+        let dataURL ='https://data.sherpagroupav.com/get_url.php?storeid=2&path=cable-non-plenum-noir-et-antenne-station-de-base-rb5000';
+
+        return fetch(dataURL)
+            .then((response)=>response.json())
+            .then((responseJson)=>{
+                window.alert(responseJson.requestedPath);
+                window.alert("HELLO");
+                //return responseJson.requestedPath;
+            });
+    }
+
     const handleSwitchStore = useCallback(
+        
         // Change store view code and currency to be used in Apollo link request headers
         storeCode => {
             // Do nothing when store view is not present in available stores
@@ -100,6 +114,10 @@ export const useStoreSwitcher = props => {
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
                 const pathName = window.location.pathname;
                 const params = window.location.search || '';
+
+                //window.alert(JSON.parse(getJSON()));
+
+                getJSON();
 
                 // Check to see if we're on a page outside of the homepage
                 if (pathName !== '' && pathName !== '/') {

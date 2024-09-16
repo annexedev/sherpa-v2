@@ -11,7 +11,7 @@ export const useGallery = (props = {}) => {
     useCustomerWishlistSkus();
 
     const { data: storeConfigData } = useQuery(operations.getStoreConfigQuery, {
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'network-only'
     });
 
     const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;

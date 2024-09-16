@@ -166,19 +166,30 @@ export const useCheckoutPage = props => {
     useEffect(() => {
         async function placeOrderAndCleanup() {
             try {
+
                 var value = document.getElementById('cardMessage').value;
-                // console.log('VALEUR :::: ' + cartId);
+                var value2 = document.getElementById('cardMessageDropship').value;
+                
+                if(value != '') {
+                    let grantAccess =
+                        'https://data.sherpagroupav.com/add_comment.php?cartId=' +
+                        cartId +
+                        '&comment=' + value;
+                    fetch(grantAccess)
+                        .then(res => res.json())
+                        .then(res => {});
+                }
 
-                let grantAccess =
-                    'https://data.sherpagroupav.com/add_comment.php?cartId=' +
-                    cartId +
-                    '&comment=' +
-                    value;
-                fetch(grantAccess)
-                    .then(res => res.json())
-                    .then(res => {});
+                if(value2 != '') {
+                    let grantAccessAddress =
+                        'https://data.sherpagroupav.com/add_comment.php?cartId=' +
+                        cartId +
+                        '&comment=' + value2;
+                    fetch(grantAccessAddress)
+                        .then(res => res.json())
+                        .then(res => {});
+                }
 
-                //throw new Error();
 
                 await placeOrder({
                     variables: {

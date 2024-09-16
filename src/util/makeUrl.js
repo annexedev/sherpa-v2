@@ -61,7 +61,7 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     if (!type || !type.startsWith('image-')) {
         return path;
     }
-
+    console.log('EW EW EW');
     const { origin } = window.location;
     const isAbsolute = absoluteUrl.test(path);
     const magentoBackendURL = process.env.MAGENTO_BACKEND_URL;
@@ -82,16 +82,16 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
 
     // Append image optimization parameters
     const params = new URLSearchParams(baseURL.search);
-    params.set('auto', 'webp'); // Use the webp format if available
+    //params.set('auto', 'webp'); // Use the webp format if available
 
     const imageFileType = getFileType(baseURL);
-    if (imageFileType === 'png') {
-        params.set('format', 'png'); // use png if webp is not available
-    } else {
-        params.set('format', 'pjpg'); // Use progressive JPG if webp is not available
-    }
+    //if (imageFileType === 'png') {
+    //    params.set('format', 'png'); // use png if webp is not available
+    //} else {
+    //    params.set('format', 'pjpg'); // Use progressive JPG if webp is not available
+    //}
 
-    Object.entries(opts).forEach(([key, value]) => {
+    /*Object.entries(opts).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
             params.set(key, value);
         }
@@ -99,7 +99,7 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     baseURL.search = params.toString();
     if (baseURL.origin === origin) {
         return baseURL.href.slice(baseURL.origin.length);
-    }
+    }*/
     return baseURL.href;
 };
 

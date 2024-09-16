@@ -36,6 +36,9 @@ import { act } from 'react-test-renderer';
 
 import BrowserPersistence from '@magento/peregrine/lib/util/simplePersistence';
 
+const Banner = React.lazy(() => import('/src/components/CedHome/banner'));
+let showCategoryBanners = true;
+
 class ProjectLink extends Component {
     constructor() {
         super();
@@ -277,10 +280,21 @@ const Header = props => {
     }
 
     var storeview = getStoreview();
-    console.log(storeview+email)
+    console.log(storeview+email);
+
+    const desktopsliderIdentifier1 = 'hellobar';
+
     return (
         <Fragment>
             <header className={rootClass}>
+                <Suspense fallback={''}>
+                    <Banner
+                        identifier={
+                            desktopsliderIdentifier1
+                        }
+                        showBanner={showCategoryBanners}
+                    />
+                </Suspense>
                 <div className={classes.top_header_wrap}>
                     <div className={'container'}>
                         <div className={classes.switcher_offer_Wrap}>

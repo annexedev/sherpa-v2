@@ -510,6 +510,7 @@ const GalleryItem = props => {
         name,
         price_range,
         small_image,
+        thumbnail,
         url_key,
         id,
         stock_status,
@@ -519,6 +520,8 @@ const GalleryItem = props => {
         meta_title
     } = item;
     const { url: smallImageURL } = small_image;
+    console.log('small_image: '+thumbnail);
+    console.log(small_image);
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
     let colorSwatchLength = 0;
     let itemElements;
@@ -548,6 +551,21 @@ const GalleryItem = props => {
         fileName +
         '-fr.' +
         ext;
+
+        var finalEnPath =
+        'https://data.sherpagroupav.com/' +
+        pathArray[3] +
+        '/' +
+        pathArray[4] +
+        '/' +
+        pathArray[5] +
+        '/' +
+        pathArray[8] +
+        '/' +
+        pathArray[9] +
+        '/' +
+        fileName + '.' +
+        ext;    
 
     if (item.configurable_options) {
         item.configurable_options.forEach(configOptions => {
@@ -878,7 +896,7 @@ const GalleryItem = props => {
     if (item.sku.endsWith('-PROMO') && email == '') {
         return <></>;
     } else {
-
+        console.log(thumbnail)
         return (
             <>
                 <div
@@ -942,6 +960,8 @@ const GalleryItem = props => {
                                     widths={IMAGE_WIDTHS}
                                 />
                             ) : (
+                                <>
+                                
                                 <Image
                                     alt={name}
                                     classes={{
@@ -951,9 +971,10 @@ const GalleryItem = props => {
                                         root: classes.imageContainer
                                     }}
                                     height={IMAGE_HEIGHT}
-                                    resource={smallImageURL}
+                                    resource={finalEnPath}
                                     widths={IMAGE_WIDTHS}
                                 />
+                                </>
                             )}
                         </Link>
                     </div>

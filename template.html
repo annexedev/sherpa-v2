@@ -475,6 +475,99 @@ section.team-page-section .w-100{
   .content-align {
     text-align: center;
   }
+ 
+  .hellobar {
+  background-color: #8dc74c;
+/*  box-shadow: 0 3px 0 #c13832; */
+/*  position: absolute; */
+  top: 0;
+  left: 0;
+  right: 0;
+  color: #fff;
+/*  text-shadow: 0 1px rgba(0,0,0, .3); */
+  font-size: 14px; letter-spacing: 1px;
+}
+.hellobar a { color: rgba(255, 255, 255, 0.7); text-decoration: underline; font-size: 16px; font-family: 'Karla-Regular', sans-serif; }
+.hellobar a:hover { text-decoration: underline; color: rgba(255, 255, 255, 1);}
+.hellobar-wrap {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+}
+.hellobar-content {
+  overflow: hidden;
+  padding: 7px 0;
+  transition: 0.1s ease;
+  font-size: 16px !important;
+}
+
+.hellobar-content a {
+  font-size: 16px !important;
+}
+.hellobar-toggle {
+  position: absolute;
+  top: 0px;
+  right: 22px;
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+  min-width: 30px;
+  min-height: 30px;
+  opacity: 0;
+
+  cursor: pointer;
+}
+.hellobar-toggle:checked { top: 0; right: 22px; width: 30px; height: 30px; min-width: 30px; min-height: 30px; }
+.hellobar-toggle:checked ~ .hellobar-content { padding: 0; height: 0; }
+.hellobar-toggle:checked ~ .hellobar-arrow:after { top: 7px; left: 16px; box-shadow: none; }
+.hellobar-toggle:checked ~ .hellobar-arrow:before {
+  position: absolute;
+  top: 15px;
+  left: 11px;
+  border-color: #fff transparent transparent transparent;
+  border-width: 8px 8px 0 8px; 
+  box-shadow: none;
+}
+.hellobar-toggle:checked ~ .hellobar-arrow {
+  top: 0;
+  right: 19px;
+  width: 38px;
+  height: 30px;
+/*  border: 3px solid #c2332c; */
+  border-top: 0;
+  border-radius: 0 0 3px 3px;
+}
+.hellobar-arrow {
+  position: absolute;
+  top: 7px;
+  right: 30px;
+  background-color: #8dc74c;
+}
+.hellobar-arrow:before {
+  display: block;
+  width: 0px;
+  height: 0px;
+  border-color: transparent transparent #fff transparent;
+  border-style: solid;
+  border-width: 0 8px 8px 8px;
+/*  box-shadow: 0 1px 0 rgba(255,255,255,0.2); */
+  content: '';
+}
+.hellobar-arrow:after {
+  position: absolute;
+  left: 5px;
+  display: block;
+  width: 6px;
+  height: 8px;
+  background-color: #fff;
+/*  box-shadow: 0 1px 0 rgba(255,255,255,0.2); */
+  content: '';
+}
+.hellobar-toggle:hover ~ .hellobar-arrow:after { background-color: #333; }
+.hellobar-toggle:hover ~ .hellobar-arrow:before { border-bottom-color: #333; border-top-color: #333; }
   </style>
    
 </head>
