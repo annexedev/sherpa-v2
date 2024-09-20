@@ -12,6 +12,7 @@ import 'reactjs-popup/dist/index.css';
 import { useCmsBlock } from '../../peregrine/lib/talons/Home/useHome';
 import GET_CMSBLOCK_QUERY from '../../queries/getCmsBlocks.graphql';
 import AccountTriggerResetPassword from '../Header/accountTriggerResetPassword';
+import { Redirect } from 'src/drivers';
 /*
 
 <div id="order" value="4"></div>
@@ -578,7 +579,8 @@ const Main = props => {
                     if (displayRma) {
                         if (activeLng == '-fr') {
                             return (
-                                <JotformEmbed src="https://form.jotform.com/241705130015238" />
+                                <Redirect to="/" />
+                                // <JotformEmbed src="https://form.jotform.com/241705130015238" />
                             );
                         } else {
                             return (
