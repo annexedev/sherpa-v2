@@ -168,16 +168,17 @@ export const useCheckoutPage = props => {
             try {
 
                 var value = document.getElementById('cardMessage').value;
+                var value2 = document.getElementById('cardMessageDropship').value;
                 // console.log('VALEUR :::: ' + cartId);
 
-                /*let grantAccess =
+                let grantAccess =
                     'https://data.sherpagroupav.com/add_comment.php?cartId=' +
                     cartId +
                     '&comment=' +
-                    value;
+                    value.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;") + ' ' + value2.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
                 fetch(grantAccess)
                     .then(res => res.json())
-                    .then(res => {});*/
+                    .then(res => {});
 
                 //throw new Error();
 

@@ -404,6 +404,7 @@ const Main = props => {
     let showCategoryBanners = true;
 
     var displayLogin = false;
+    var displayRma = false;
     var displayRegister = false;
     var displayTeam = false;
     var displayEducation = false;
@@ -455,6 +456,10 @@ const Main = props => {
 
     if (window.location.href.indexOf('/sherpa-our-team') != -1) {
         displayTeam = true;
+    }
+
+    if (window.location.href.indexOf('/rma') != -1) {
+        displayRma = true;
     }
 
     if (window.location.href.indexOf('/12-days-of-sherpa') != -1) {
@@ -569,6 +574,19 @@ const Main = props => {
                             </>
                         );
                     }
+
+                    if (displayRma) {
+                        if (activeLng == '-fr') {
+                            return (
+                                <JotformEmbed src="https://form.jotform.com/241705130015238" />
+                            );
+                        } else {
+                            return (
+                                <JotformEmbed src="https://form.jotform.com/232713239951256" />
+                            );
+                        }
+                    }
+
 
                     if (!isSignedIn && displayLogin) {
                         return (
