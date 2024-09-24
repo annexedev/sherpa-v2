@@ -232,17 +232,24 @@ class ProjectList extends Component {
                                     if (
                                         !e.category_name.startsWith('ARCHIVE') &&
                                         !this.props.archive &&
-                                        projectId == e.category_id && !purchasedPage
+                                        // projectId == e.category_id && 
+                                        !purchasedPage
                                     ) {
+
+                                        let displayClass = true;
+
+                                            if(active) {
+                                                displayClass = true;
+                                            } else if(isProject == e.category_id) {
+                                                displayClass = true;
+                                            } else {
+                                                displayClass = false;
+                                            }
                                         return (
                                             <>
                                                 {/* {this.state.myProjectsVisible( */}
                                                 <li
-                                                    className={
-                                                        classes.projectlist +
-                                                        ' ' +
-                                                        classes.projectlistactive
-                                                    }
+                                                    className={displayClass ? classes.projectlist + ' ' + classes.projectlistactive : classes.projectlist }
                                                 >
                                                     <a
                                                         href={
@@ -266,7 +273,7 @@ class ProjectList extends Component {
                                             !this.props.archive && purchasedPage
                                         ) {
                                             // bloc a faire le hide/show au click
-                                            console.log('isProject '+ isProject);
+                                            // console.log('isProject '+ isProject);
 
                                             let displayClass = true;
 
