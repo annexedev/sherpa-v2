@@ -334,7 +334,9 @@ class ServiceDetailsEmployeurs extends Component {
 
                             }
                             window.alert('New project created..');
+                            window.location.reload();
                             setSelectValue(999);
+                            
                         }}
                     >
                         <input
