@@ -351,7 +351,7 @@ class ServiceDetailsEmployeurs extends Component {
 
                             
 
-                            //window.location.reload();
+                            window.location.reload();
                             setSelectValue(999);
                             
                         }}
