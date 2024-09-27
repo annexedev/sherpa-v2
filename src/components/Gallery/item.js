@@ -334,7 +334,24 @@ class ServiceDetailsEmployeurs extends Component {
 
                             }
                             window.alert('New project created..');
-                            window.location.reload();
+
+
+                            //document.getElementById('projectList').append();
+
+                           /* if(document.getElementById("projectList")) {
+
+                                var newNode = document.createElement('div');
+                                newNode.innerHTML = data;
+                                theDiv.appendChild(newNode);
+
+                                var theDiv = document.getElementById("projectList");
+                                var content = document.createTextNode("<a href='/myprojects?id=1727193391_742'>Alana test 123</a>");
+                                theDiv.appendChild(content);
+                            }*/
+
+                            
+
+                            //window.location.reload();
                             setSelectValue(999);
                             
                         }}

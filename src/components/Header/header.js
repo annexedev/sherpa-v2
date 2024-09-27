@@ -112,7 +112,7 @@ class ProjectLink extends Component {
                         <FontAwesomeIcon icon={faAngleDown} />
                     </div>
                     {projectsOpen &&
-                        <div className={defaultClasses.blocNomProjects}>
+                        <div className={defaultClasses.blocNomProjects} id='projectList'>
 
                             {/* mapping pour le nom des projects */}
                             {this.state.pageProjectData.map((project) => (
@@ -125,7 +125,7 @@ class ProjectLink extends Component {
                                     id={'header.seeAll'}
                                     defaultMessage={'See all'}
                                 /></Link>
-
+                            
                         </div>
                     }
                 </>
