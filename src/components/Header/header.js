@@ -307,7 +307,7 @@ const Header = props => {
         indexname = 'magento2_prod_fr_products';
     } else {
         activeLng = '';
-        indexname = 'magento2_prod_default_products';
+        indexname = 'magento2_prod_en_products';
     }
 
     /* Get store view for language */
