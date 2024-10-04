@@ -117,8 +117,10 @@ autocomplete({
 
 // Add template for Product items
 function ProductItem({ hit, components }) {
+    var ret = hit.url.replace('data.',''); 
+    console.log("RET :: ". ret);
     return (
-        <Link to={resourceUrl(hit.url)} className={aa-ItemLink}>
+        <Link to={resourceUrl(ret)} className={aa-ItemLink}>
         {/* <a href={hit.url} className="aa-ItemLink"> */}
             <div className="aa-ItemContent">
                 <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
