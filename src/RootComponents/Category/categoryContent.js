@@ -43,7 +43,8 @@ class OrderTotal extends Component {
     componentDidMount() {
         let orderNumber = this.props.cid;
         let email = this.props.email;
-        let dataURL =
+        if(orderNumber && email ){
+            let dataURL =
             'https://data.sherpagroupav.com/get_permissions.php?email=' +
             email +
             '&cid=' +
@@ -57,13 +58,13 @@ class OrderTotal extends Component {
                     pageData: res
                 });
             });
+        }
     }
 
     render() {
-        let projectname =
-            this.state.pageData.pname && this.state.pageData.pname;
+        let projectname = this.state.pageData.pname;
 
-        if (this.props.email && projectname == 0) {
+        if (this.props.email != '' && projectname == 0) {
             window.location.href = '/brand-access';
             return <>Exiting</>;
         } else {

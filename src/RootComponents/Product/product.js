@@ -36,7 +36,8 @@ class CheckPermissionProduct extends Component {
     componentDidMount() {
         let pid = this.props.productId;
         let email = this.props.email;
-        let dataURL =
+        if (email && pid ){
+            let dataURL =
             'https://data.sherpagroupav.com/get_permissions_product.php?email=' +
             email +
             '&pid=' +
@@ -50,12 +51,13 @@ class CheckPermissionProduct extends Component {
                     pageData: res
                 });
             });
+        }
     }
 
     render() {
-        let projectname = this.state.pageData.pname && this.state.pageData.pname;
+        let projectname = this.state.pageData.pname;
 
-        if (this.props.email && projectname == 0) {
+        if (this.props.email != '' && projectname == 0) {
             window.location.href = '/brand-access';
             return <>Exiting</>;
         } else {
