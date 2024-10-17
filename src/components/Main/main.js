@@ -352,6 +352,30 @@ function ServiceDetailsEmployeurs(props) {
                                     {phone} Ext: {extension}
                                 </a>
                             </span>
+                            {cell != '' && (
+                            <>
+                                <br />
+                                <span class="phone-number">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="10.818"
+                                        height="10.817"
+                                        viewBox="0 0 10.818 10.817"
+                                    >
+                                        <path
+                                            id="Icon_awesome-phone-alt"
+                                            data-name="Icon awesome-phone-alt"
+                                            d="M10.509,7.644,8.143,6.63a.507.507,0,0,0-.592.146L6.5,8.056A7.831,7.831,0,0,1,2.759,4.313L4.04,3.265a.506.506,0,0,0,.146-.592L3.171.307A.51.51,0,0,0,2.59.013L.393.52A.507.507,0,0,0,0,1.014a9.8,9.8,0,0,0,9.8,9.8.507.507,0,0,0,.494-.393l.507-2.2a.513.513,0,0,0-.3-.583Z"
+                                            transform="translate(0 0)"
+                                            fill="#7ab13d"
+                                        />
+                                    </svg>
+                                    <a class="fill" href={'tel:' + cell}>
+                                        {cell}
+                                    </a>
+                                </span>
+                            </>
+                            )}
                         </div>
                         <div class="linkedin">
                             <a href={linkedin} target="_blank">
