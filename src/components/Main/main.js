@@ -603,8 +603,7 @@ const Main = props => {
                     if (displayRma) {
                         if (activeLng == '-fr') {
                             return (
-                                <Redirect to="/" />
-                                // <JotformEmbed src="https://form.jotform.com/241705130015238" />
+                                <JotformEmbed src="https://form.jotform.com/241705130015238" />
                             );
                         } else {
                             return (

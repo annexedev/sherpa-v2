@@ -42,8 +42,8 @@ class CheckPermissionProduct extends Component {
             email +
             '&pid=' +
             pid;
-        // console.log('DATA URL');
-        // console.log(dataURL);
+        console.log('DATA URL');
+        console.log(dataURL);
         fetch(dataURL)
             .then(res => res.json())
             .then(res => {
@@ -57,7 +57,12 @@ class CheckPermissionProduct extends Component {
     render() {
         let projectname = this.state.pageData.pname;
 
+        
+
         if (this.props.email != '' && projectname == 0) {
+            /*setTimeout(function() {
+                $('.message').hide();
+            }, 5000);*/
             window.location.href = '/brand-access';
             return <>Exiting</>;
         } else {
