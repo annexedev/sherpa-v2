@@ -273,6 +273,7 @@ const Home = props => {
                 {/* top category section end */}
 
                 {/* Latest product section */}
+                {/*
                 {showLatestProducts && scrollFlag && (
                     <Suspense fallback={''}>
                         <SliderProduct
@@ -286,7 +287,7 @@ const Home = props => {
                         />
                     </Suspense>
                 )}
-
+                */}
                 {/* Latest product section end */}
 
                 {/* mid banner section start */}
