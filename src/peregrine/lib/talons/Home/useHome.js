@@ -113,6 +113,7 @@ export const useCountries = props => {
 export const useFooterData = props => {
     const { footerQuery, footerIdentifiers } = props;
     const { error, data } = useQuery(footerQuery, {
+        fetchPolicy: 'network-only',
         variables: {
             identifiers: footerIdentifiers
         }
