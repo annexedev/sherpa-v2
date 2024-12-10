@@ -175,7 +175,7 @@ export const useCheckoutPage = props => {
                     'https://data.sherpagroupav.com/add_comment.php?cartId=' +
                     cartId +
                     '&comment=' +
-                    value.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;") + ' ' + value2.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+                    encodeURIComponent(value);
                 fetch(grantAccess)
                     .then(res => res.json())
                     .then(res => {});
