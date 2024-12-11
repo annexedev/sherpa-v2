@@ -316,8 +316,6 @@ const Header = props => {
         var storeview = storage.getItem('store_view_code');
         if (!storeview) {
             storeview = '';
-        } else {
-            storeview = storeview;
         }
         return storeview;
     }
@@ -329,8 +327,7 @@ const Header = props => {
             <header className={rootClass}>
                 <Suspense fallback={''}>
                     <Banner
-                        identifier={
-                            'hellobar'
+                        identifier={ storeview == 'fr' ? 'hellobar-fr' : 'hellobar'
                         }
                         showBanner={showCategoryBanners}
                     />
