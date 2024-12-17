@@ -3254,10 +3254,9 @@ const MyWishList = props => {
                                                         </p>
                                                         {!cacheAccordeon ? <FontAwesomeIcon icon={faChevronDown} /> : <FontAwesomeIcon icon={faChevronUp} />}
                                                     </div>
-                                                    <TableProjects email={email} isArchive={isArchive} />
 
-                                                    {/* ----- HIDE WITH LINK  ------ */}
-                                                    {cacheAccordeon &&
+                                                     {/* ----- HIDE WITH LINK  ------ */}
+                                                     {cacheAccordeon &&
                                                         <>
                                                             <p>&nbsp;</p>
                                                             <Banner
@@ -3271,6 +3270,8 @@ const MyWishList = props => {
                                                         </>
                                                     }
                                                     {/* ----------------------------------------- */}
+                                                    <TableProjects email={email} isArchive={isArchive} />
+
                                                 </Suspense>
 
                                             </>
