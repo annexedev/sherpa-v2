@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '../../peregrine/lib/talons/MegaMenu/useMegaMenu';
 import { useMobile } from '../../peregrine/lib/talons/Mobile/useMobile';
 import { Link, resourceUrl } from 'src/drivers';
@@ -8,6 +8,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import $ from 'jquery';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import BrowserPersistence from '@magento/peregrine/lib/util/simplePersistence';
+import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard';
 
 function hideNav() {
     //document.getElementById("id-main").style.opacity = "0";
@@ -19,6 +20,9 @@ const MegaMenu = () => {
     const navItems = [];
     const [{ isSignedIn }] = useUserContext();
     const { navdetails } = talonsProps;
+    const [pageProjectData, setPageProjectData] = useState([]);
+    const [pageAccessData, setPageAccessData] = useState([]);
+    const { email } = useDashboard();
 
     /* Get store view for language */
 
@@ -27,11 +31,28 @@ const MegaMenu = () => {
         var storeview = storage.getItem('store_view_code');
         if (!storeview) {
             storeview = '';
-        } else {
-            storeview = storeview;
         }
         return storeview;
     }
+
+    useEffect(() => {
+        const  fetchDataAccess = async () => {
+            fetch('https://data.sherpagroupav.com/get_projectaccess.php?email=' + email)
+            .then(res => res.json())
+            .then(res => {
+                setPageAccessData(res);
+            });
+        }
+        const  fetchDataProject = async () => {
+            fetch('https://data.sherpagroupav.com/get_projects.php?email=' + email)
+            .then(res => res.json())
+            .then(res => {
+                setPageProjectData(res);
+            });
+        }
+        fetchDataAccess();
+        fetchDataProject();
+    },[email]);
 
     var storeview = getStoreview();
 
@@ -47,36 +68,79 @@ const MegaMenu = () => {
 
         if (elements) {
 
-            if (isSignedIn) {
+            //if (isSignedIn) {
 
             navItems.push(
-                <>
-                    <li
-                        className={
-                            defaultClasses.item + ' ' + defaultClasses.haschild
-                        }
-                    >
-                        {storeview == 'fr' ? (
-                            <>
-                            <Link to={resourceUrl('/about')}>
-                                À propos
-                                <svg
-                                        aria-hidden="true"
-                                        focusable="false"
-                                        data-prefix="fas"
-                                        data-icon="chevron-down"
-                                        className="svg-inline--fa fa-chevron-down fa-w-14 "
-                                        role="img"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512"
-                                    >
-                                        <path
-                                            fill="currentColor"
-                                            d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
-                                        />
-                                    </svg>
-                            </Link>
-                            <ul
+                    <>
+                        <li
+                            className={
+                                defaultClasses.item + ' ' + defaultClasses.haschild
+                            }
+                        >
+                            {storeview == 'fr' ? (
+                                <>
+                                    <Link to={resourceUrl('/about')}>
+                                        À propos
+                                        <svg
+                                                aria-hidden="true"
+                                                focusable="false"
+                                                data-prefix="fas"
+                                                data-icon="chevron-down"
+                                                className="svg-inline--fa fa-chevron-down fa-w-14 "
+                                                role="img"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 448 512"
+                                            >
+                                                <path
+                                                    fill="currentColor"
+                                                    d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+                                                />
+                                            </svg>
+                                    </Link>
+                                    <ul
+                                            id="id-main"
+                                            className={
+                                                defaultClasses.sub_menu +
+                                                ' ' +
+                                                defaultClasses.lavel_1 +
+                                                ' ' +
+                                                defaultClasses.col1
+                                            }
+                                        >
+                                            <li className="megaMenu-has_child-1b6">
+                                                <a href="/sherpa-our-team">
+                                                    Notre équipe
+                                                </a>
+                                            </li>
+                                            {isSignedIn &&
+                                                (<li className="megaMenu-has_child-1b6">
+                                                    <a href="/fr/politique-expedition">
+                                                        Politique d'expédition
+                                                    </a>
+                                                </li>)} 
+                                    </ul>
+                                </>
+                            ) : (
+                                <>
+                                <Link to={resourceUrl('/about')}>
+                                    About us
+                                    <svg
+                                            aria-hidden="true"
+                                            focusable="false"
+                                            data-prefix="fas"
+                                            data-icon="chevron-down"
+                                            className="svg-inline--fa fa-chevron-down fa-w-14 "
+                                            role="img"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 448 512"
+                                        >
+                                            <path
+                                                fill="currentColor"
+                                                d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+                                            />
+                                        </svg>
+                                </Link>
+                                <ul
                                     id="id-main"
                                     className={
                                         defaultClasses.sub_menu +
@@ -87,90 +151,21 @@ const MegaMenu = () => {
                                     }
                                 >
                                     <li className="megaMenu-has_child-1b6">
-                                        <a href="/fr/politique-expedition">
-                                            Politique d'expédition
+                                        <a href="/sherpa-our-team">
+                                            Our team
                                         </a>
                                     </li>
+                                    {isSignedIn &&
+                                        (<li className="megaMenu-has_child-1b6">
+                                            <a href="/en/shipping-policy">
+                                                Shipping policy
+                                            </a>
+                                        </li>)} 
                                 </ul>
-                            </>
-                        ) : (
-                            <>
-                            <Link to={resourceUrl('/about')}>
-                                About us
-                                <svg
-                                        aria-hidden="true"
-                                        focusable="false"
-                                        data-prefix="fas"
-                                        data-icon="chevron-down"
-                                        className="svg-inline--fa fa-chevron-down fa-w-14 "
-                                        role="img"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512"
-                                    >
-                                        <path
-                                            fill="currentColor"
-                                            d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
-                                        />
-                                    </svg>
-                            </Link>
-                            <ul
-                                id="id-main"
-                                className={
-                                    defaultClasses.sub_menu +
-                                    ' ' +
-                                    defaultClasses.lavel_1 +
-                                    ' ' +
-                                    defaultClasses.col1
-                                }
-                            >
-                                <li className="megaMenu-has_child-1b6">
-                                    <a href="/en/shipping-policy">
-                                        Shipping policy
-                                    </a>
-                                </li>
-                            </ul>
-                            </>
-                        )}
-                    </li>
-                    <li
-                        className={
-                            defaultClasses.item + ' ' + defaultClasses.haschild
-                        }
-                    >
-                        {storeview == 'fr' ? (
-                            <Link to={resourceUrl('/sherpa-our-team')}>
-                                Notre équipe
-                            </Link>
-                        ) : (
-                            <Link to={resourceUrl('/sherpa-our-team')}>
-                                Our team
-                            </Link>
-                        )}
-                    </li>
-                </>
-            );
-
-            } else {
-
-                navItems.push(
-                    <> 
-                        <li
-                            className={
-                                defaultClasses.item + ' ' + defaultClasses.haschild
-                            }
-                        >
-                            {storeview == 'fr' ? (
-                                <Link to={resourceUrl('/about')}>
-                                    À propos
-                                </Link>
-                                
-                            ) : (
-                                <Link to={resourceUrl('/about')}>
-                                    About us
-                                </Link>
+                                </>
                             )}
                         </li>
-                        <li
+                        {/* <li
                             className={
                                 defaultClasses.item + ' ' + defaultClasses.haschild
                             }
@@ -184,12 +179,49 @@ const MegaMenu = () => {
                                     Our team
                                 </Link>
                             )}
-                        </li>
+                        </li> */}
                     </>
-                );
-    
+            );
 
-            }
+            //} 
+            // else {
+
+            //     navItems.push(
+            //         <> 
+            //             <li
+            //                 className={
+            //                     defaultClasses.item + ' ' + defaultClasses.haschild
+            //                 }
+            //             >
+            //                 {storeview == 'fr' ? (
+            //                     <Link to={resourceUrl('/about')}>
+            //                         À propos
+            //                     </Link>
+                                
+            //                 ) : (
+            //                     <Link to={resourceUrl('/about')}>
+            //                         About us
+            //                     </Link>
+            //                 )}
+            //             </li>
+            //             <li
+            //                 className={
+            //                     defaultClasses.item + ' ' + defaultClasses.haschild
+            //                 }
+            //             >
+            //                 {storeview == 'fr' ? (
+            //                     <Link to={resourceUrl('/sherpa-our-team')}>
+            //                         Notre équipe
+            //                     </Link>
+            //                 ) : (
+            //                     <Link to={resourceUrl('/sherpa-our-team')}>
+            //                         Our team
+            //                     </Link>
+            //                 )}
+            //             </li>
+            //         </>
+            //     );
+            // }
 
             $.each(elements, function(i, v) {
                 if (v['main_category_id']) {
@@ -353,20 +385,20 @@ const MegaMenu = () => {
                     </li>
                 );
 
-                {
-                    /*navItems.push(
+                // {
+                /*navItems.push(
                 <li
-                    
+                        
                     className={
-                        defaultClasses.item +
-                        ' ' +
-                        defaultClasses.haschild
-                    }
-                >
+                            defaultClasses.item +
+                            ' ' +
+                            defaultClasses.haschild
+                        }
+                    >
                     <a href="/brands">Price lists</a>
                 </li>
-            ); */
-                }
+                ); */
+                // }
 
                 navItems.push(
                     <li
@@ -514,6 +546,57 @@ const MegaMenu = () => {
                                 Education
                             </Link>
                         )}
+                    </li>
+                );
+            }
+
+            if (isSignedIn) {
+                navItems.push(
+                    <li
+                        className={
+                            defaultClasses.item + ' ' + defaultClasses.haschild
+                        }
+                    >
+                        <Link to={resourceUrl('/myprojects?archive=false')}>
+                            { storeview == 'fr' ? 'Mes projets' : 'MyProjects' }
+                            { pageAccessData.access != '' && pageProjectData && (<svg
+                                aria-hidden="true"
+                                focusable="false"
+                                data-prefix="fas"
+                                data-icon="chevron-down"
+                                className="svg-inline--fa fa-chevron-down fa-w-14 "
+                                role="img"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                             >
+                                <path
+                                    fill="currentColor"
+                                    d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+                                    />
+                                </svg>
+                            )}
+                        </Link>
+                        { pageAccessData.access != '' && <ul
+                                id="id-main"
+                                className={
+                                defaultClasses.sub_menu +
+                                ' ' +
+                                defaultClasses.lavel_1 +
+                                ' ' +
+                                defaultClasses.col1
+                                }
+                        >
+                            { pageProjectData && pageProjectData.map((project) => (
+                                !project.category_name.startsWith('ARCHIVE') && 
+                                        <li className="megaMenu-has_child-1b6">
+                                            <a href={`/myprojects?id=${project.category_id}`} >
+                                                {project.category_name}
+                                            </a>
+                                        </li>
+                                ))
+                            }
+                        </ul>
+                        }
                     </li>
                 );
             }

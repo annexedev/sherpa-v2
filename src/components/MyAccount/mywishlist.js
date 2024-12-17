@@ -3241,7 +3241,6 @@ const MyWishList = props => {
                                                         }
                                                     />
                                                     <ToggleAccess email={email} wid={wId} />
-                                                    <TableProjects email={email} isArchive={isArchive} />
                                                     <div onClick={() => setCacheAccordeon(!cacheAccordeon)} className={classes.linkAccordeon}>
                                                         <p>
                                                             <FormattedMessage
@@ -3255,6 +3254,7 @@ const MyWishList = props => {
                                                         </p>
                                                         {!cacheAccordeon ? <FontAwesomeIcon icon={faChevronDown} /> : <FontAwesomeIcon icon={faChevronUp} />}
                                                     </div>
+                                                    <TableProjects email={email} isArchive={isArchive} />
 
                                                     {/* ----- HIDE WITH LINK  ------ */}
                                                     {cacheAccordeon &&
