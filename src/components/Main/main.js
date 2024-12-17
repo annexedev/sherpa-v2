@@ -593,7 +593,6 @@ const Main = props => {
                                             <ServiceDetailsEmployeurs id="14" />
                                             <ServiceDetailsEmployeurs id="15" />
                                             <ServiceDetailsEmployeurs id="16" />
-                                            <ServiceDetailsEmployeurs id="17" />
                                         </div>
                                     </div>
                                 </section>
