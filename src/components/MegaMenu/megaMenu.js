@@ -559,7 +559,7 @@ const MegaMenu = () => {
                     >
                         <Link to={resourceUrl('/myprojects?archive=false')}>
                             { storeview == 'fr' ? 'Mes projets' : 'MyProjects' }
-                            { pageAccessData.access != '' && pageProjectData && (<svg
+                            { pageAccessData.access == '1' && pageProjectData && (<svg
                                 aria-hidden="true"
                                 focusable="false"
                                 data-prefix="fas"
@@ -576,7 +576,7 @@ const MegaMenu = () => {
                                 </svg>
                             )}
                         </Link>
-                        { pageAccessData.access != '' && <ul
+                        { pageAccessData.access == '1' && <ul
                                 id="id-main"
                                 className={
                                 defaultClasses.sub_menu +
