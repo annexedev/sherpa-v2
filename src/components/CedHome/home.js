@@ -12,6 +12,9 @@ import BannerSkelton from './bannerSkeleton';
 import ReactDOM from 'react-dom';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useHistory } from 'react-router-dom';
+
 
 const Banner = React.lazy(() => import('./banner'));
 const SliderProduct = React.lazy(() => import('./sliderProduct'));
@@ -19,15 +22,53 @@ const SliderProduct = React.lazy(() => import('./sliderProduct'));
 const Home = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const [scrollFlag, setScrollFlag] = useState(false);
+    const [{ isSignedIn }] = useUserContext();
+    const history = useHistory();
     const handleClick = () => {
         if (!scrollFlag) setScrollFlag(true);
     };
+
     useEffect(() => {
         document.addEventListener('scroll', handleClick);
         return () => {
             document.removeEventListener('scroll', handleClick);
         };
     });
+
+    const handleClickProject = (event) => {
+        event.preventDefault(); 
+        if (isSignedIn) {
+            history.push('/myprojects?archive=false');
+        }
+        else {
+            document.getElementById('user_account').click();
+        }
+    };
+    
+    useEffect(() => {
+        const containerIcon = document.querySelector('.features-section .row .lastItem .features_items .icons_f .projectLink'); 
+        
+        if (containerIcon) {
+            containerIcon.addEventListener('click', handleClickProject);
+           return () => {
+            containerIcon.removeEventListener('click', handleClickProject);
+           };
+        }
+    });
+
+    useEffect(() => {
+        const containerContent = document.querySelector('.features-section .row .lastItem .features_items .content_f .projectLink'); 
+       
+        console.log(containerContent);
+        
+        if (containerContent) {
+            containerContent.addEventListener('click', handleClickProject);
+           return () => {
+            containerContent.removeEventListener('click', handleClickProject);
+           };
+        }
+    });
+
     /*const talonProps = useSlider({
         query: GET_SLIDER_DATA
     });*/
@@ -208,6 +249,7 @@ const Home = props => {
                         </section>
                     </React.Suspense>
                 )}
+
                 {/* features block end */}
 
                 {/* mid banner section start */}
