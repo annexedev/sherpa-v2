@@ -292,35 +292,32 @@ const Header = props => {
         document.getElementById('user_account').click();
     }
 
+    /* Get store view for language */
+     function getStoreview() {
+        let storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        }else {
+            storeview = storeview;
+        }
+        return storeview;
+    }
+
+    var storeview = getStoreview();
+
     const appId = 'EQYYQ1VIVL';
     const apiKey = 'f5171cf0ca4526d103a14ad056e5cef1';
     const searchClient = algoliasearch(appId, apiKey);
 
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
-    }
     let activeLng = 'x';
     let indexname = 'magento2_prod_default_products';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
         indexname = 'magento2_prod_fr_products';
     } else {
         activeLng = '';
         indexname = 'magento2_prod_en_products';
     }
-
-    /* Get store view for language */
-
-    function getStoreview() {
-        var storeview = storage.getItem('store_view_code');
-        if (!storeview) {
-            storeview = '';
-        }
-        return storeview;
-    }
-
-    var storeview = getStoreview();
     
     return (
         <Fragment>

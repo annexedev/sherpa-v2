@@ -37,14 +37,14 @@ const MegaMenu = () => {
 
     useEffect(() => {
         const  fetchDataAccess = async () => {
-            fetch('https://data.sherpagroupav.com/get_projectaccess.php?email=' + email)
+            await fetch('https://data.sherpagroupav.com/get_projectaccess.php?email=' + email)
             .then(res => res.json())
             .then(res => {
                 setPageAccessData(res);
             });
         }
         const  fetchDataProject = async () => {
-            fetch('https://data.sherpagroupav.com/get_projects.php?email=' + email)
+            await fetch('https://data.sherpagroupav.com/get_projects.php?email=' + email)
             .then(res => res.json())
             .then(res => {
                 setPageProjectData(res);
@@ -559,7 +559,7 @@ const MegaMenu = () => {
                     >
                         <Link to={resourceUrl('/myprojects?archive=false')}>
                             { storeview == 'fr' ? 'Mes projets' : 'MyProjects' }
-                            { pageAccessData.access == '1' && pageProjectData && (<svg
+                            { pageAccessData.access === '1' && pageProjectData && (<svg
                                 aria-hidden="true"
                                 focusable="false"
                                 data-prefix="fas"
@@ -576,7 +576,7 @@ const MegaMenu = () => {
                                 </svg>
                             )}
                         </Link>
-                        { pageAccessData.access == '1' && <ul
+                        { pageAccessData.access === '1' && <ul
                                 id="id-main"
                                 className={
                                 defaultClasses.sub_menu +
