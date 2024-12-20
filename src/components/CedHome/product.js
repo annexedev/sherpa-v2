@@ -18,6 +18,7 @@ import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard'
 import { QuantityPicker } from 'react-qty-picker';
 const Wishlist = React.lazy(() => import('../MyWishlist/wishlist'));
 import CompareButton from '../Compare/compareButton';
+import { Util } from '@magento/peregrine';
 
 const Product = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -27,6 +28,10 @@ const Product = props => {
     const { email } = useDashboard();
     const [, { addToast }] = useToasts();
     const [productName, setProductName] = useState('');
+
+    const { BrowserPersistence } = Util;
+    const storage = new BrowserPersistence();
+
     let productUrlSuffix = '';
     var image = resourceUrl(value['image'], {
         type: 'image-product',
@@ -96,12 +101,21 @@ const Product = props => {
         document.getElementById('user_account').click();
     }
 
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
+    /* Get store view for language */
+    function getStoreview() {
+        let storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        }else {
+            storeview = storeview;
+        }
+        return storeview;
     }
+
+    var storeview = getStoreview();
+
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';

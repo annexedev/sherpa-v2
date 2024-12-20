@@ -293,12 +293,10 @@ const Header = props => {
     }
 
     /* Get store view for language */
-     function getStoreview() {
+    function getStoreview() {
         let storeview = storage.getItem('store_view_code');
         if (!storeview) {
             storeview = '';
-        }else {
-            storeview = storeview;
         }
         return storeview;
     }

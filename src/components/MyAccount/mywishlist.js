@@ -60,6 +60,19 @@ let projectname = '';
 let purchasedProduct = [];
 let realQty = 0;
 let checkedSwitchButton;
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+/* Get store view for language */
+function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }else {
+        storeview = storeview;
+    }
+    return storeview;
+}
 
 class SpecialPriceTo extends Component {
     constructor() {
@@ -72,11 +85,10 @@ class SpecialPriceTo extends Component {
     componentDidMount() {
         let pid = this.props.pid;
         let lng = '';
-        if (document.getElementById('currentLng') != null) {
-            lng = document.getElementById('currentLng').innerHTML;
-        }
+        var storeview = getStoreview();
+    
         let activeLng = '';
-        if (lng == 'Français') {
+        if (storeview == 'fr') {
             activeLng = 'fr';
         } else {
             activeLng = 'en';
@@ -252,12 +264,7 @@ class ToggleAccess extends Component {
             // console.log(data);
             const [selectValue, setSelectValue] = React.useState('');
 
-            const { BrowserPersistence } = Util;
-            const storage = new BrowserPersistence();
-            let storeview = storage.getItem('store_view_code');
-            if (!storeview) {
-                storeview = '';
-            }
+            var storeview = getStoreview();
 
             if (data) {
                 const category_id = data.MpBetterWishlistCreateCategory.category_id;
@@ -602,12 +609,9 @@ class SoldIn extends Component {
 
     componentDidMount() {
 
-        let lng = '';
-        if (document.getElementById('currentLng') != null) {
-            lng = document.getElementById('currentLng').innerHTML;
-        }
+        var storeview = getStoreview();
         let activeLng = '';
-        if (lng == 'Français') {
+        if (storeview == 'fr') {
             activeLng = 2;
         } else {
             activeLng = 0;
@@ -1061,9 +1065,7 @@ class TableProjects extends Component {
         "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
         ];
         
-        const { BrowserPersistence } = Util;
-        const storage = new BrowserPersistence();
-        let storeview = storage.getItem('store_view_code');
+        var storeview = getStoreview();
 
         const day = date.getDate();
         const month = storeview === 'fr' ? monthsFrench[date.getMonth()] :  monthsEnglish[date.getMonth()] ;
@@ -1208,12 +1210,7 @@ const MyWishList = props => {
 
     const myprojects = url.includes("?id");
 
-    const { BrowserPersistence } = Util;
-    const storage = new BrowserPersistence();
-    let storeview = storage.getItem('store_view_code');
-    if (!storeview) {
-        storeview = '';
-    }
+    var storeview = getStoreview();
 
     if (storeview === 'fr') {
         categoryBannerIdentifierHomeBanner = 'projects_instructions_banner-fr';
@@ -1451,15 +1448,9 @@ const MyWishList = props => {
         );
         const [selectValue, setSelectValue] = React.useState('');
 
-        const { BrowserPersistence } = Util;
-        const storage = new BrowserPersistence();
-        let storeview = storage.getItem('store_view_code');
-        if (!storeview) {
-            storeview = '';
-        }
+        var storeview = getStoreview();
 
-        if (data) {
-        }
+       
         if (loading) return 'Submitting...';
         if (error) return `Submission error! ${error.message}`;
         /*if (1) {

@@ -14,7 +14,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { Link, Meta, Title } from '../../components/Head';
 import JotformEmbed from 'react-jotform-embed';
+import { Util } from '@magento/peregrine';
 const Banner = React.lazy(() => import('/src/components/CedHome/banner'));
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+ /* Get store view for language */
+ function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }else {
+        storeview = storeview;
+    }
+    return storeview;
+}
+
 const Contact = props => {
     const classes = mergeClasses(contactClasses, props.classes);
     const talonProps = useContactUs();
@@ -26,12 +41,10 @@ const Contact = props => {
     const { formRef, handleSubmit, responseData } = talonProps;
     let errorMessage = '';
     let successMessage = '';
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
-    }
+    var storeview = getStoreview();
+
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';

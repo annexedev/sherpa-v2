@@ -33,13 +33,21 @@ function openJotForm() {
 
 const clearIcon = <Icon src={ClearIcon} size={30} />;
 
+ /* Get store view for language */
+ function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }
+    return storeview;
+}
+
+
 const { BrowserPersistence } = Util;
     const storage = new BrowserPersistence();
     let storeview = storage.getItem('store_view_code');
     if (!storeview) {
         storeview = '';
-    } else {
-        storeview = storeview;
     }
 
 const SignIn = props => {
@@ -51,6 +59,8 @@ const SignIn = props => {
         handleTriggerClick
     } = props;
     const { formatMessage } = useIntl();
+
+    var storeview = getStoreview();
 
     const talonProps = useSignIn({
         createCartMutation: CREATE_CART_MUTATION,
@@ -85,12 +95,8 @@ const SignIn = props => {
         root: classes.forgotPasswordButton
     };
 
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
-    }
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';

@@ -14,6 +14,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useHistory } from 'react-router-dom';
+import { Util } from '@magento/peregrine';
 
 
 const Banner = React.lazy(() => import('./banner'));
@@ -24,6 +25,9 @@ const Home = props => {
     const [scrollFlag, setScrollFlag] = useState(false);
     const [{ isSignedIn }] = useUserContext();
     const history = useHistory();
+    const { BrowserPersistence } = Util;
+    const storage = new BrowserPersistence();
+
     const handleClick = () => {
         if (!scrollFlag) setScrollFlag(true);
     };
@@ -73,12 +77,19 @@ const Home = props => {
         query: GET_SLIDER_DATA
     });*/
 
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
+    /* Get store view for language */
+     function getStoreview() {
+        let storeview = storage.getItem('store_view_code');
+        if (!storeview) {
+            storeview = '';
+        }
+        return storeview;
     }
+
+    var storeview = getStoreview();
+
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';

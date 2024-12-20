@@ -31,6 +31,21 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { gql } from '@apollo/client';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import cart from '@magento/peregrine/lib/context/cart';
+import { Util } from '@magento/peregrine';
+
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+/* Get store view for language */
+function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }else {
+        storeview = storeview;
+    }
+    return storeview;
+}
 
 class OrderTotal extends Component {
     constructor() {
@@ -166,12 +181,11 @@ const CategoryContent = props => {
     //     <SortedByContainerShimmer />
     // ) : null;
 
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
-    }
+    var storeview = getStoreview();
+
+   
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';
@@ -361,18 +375,12 @@ const CategoryContent = props => {
         }
         const { email } = useDashboard();
 
-        let lng = '';
-        if (document.getElementById('currentLng') != null) {
-            lng = document.getElementById('currentLng').innerHTML;
-        }
         let activeLng = '';
-        if (lng == 'Français') {
+        if (storeview == 'fr') {
             activeLng = '-fr';
         } else {
             activeLng = '';
         }
-        // console.log('**********');
-        // console.log(data);
 
         return (
             <div className="App">

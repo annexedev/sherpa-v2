@@ -1,7 +1,21 @@
 import React from 'react';
+import { Util } from '@magento/peregrine';
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+/* Get store view for language */
+function getStoreview() {
+  let storeview = storage.getItem('store_view_code');
+  if (!storeview) {
+      storeview = '';
+  }
+  return storeview;
+}
+
 
 export function ProductItem({ hit, components }) {
   let sherpaurl = hit.url.replace("data.sherpagroupav.com/default", "sherpagroupav.com");
+  var storeview = getStoreview();
 
   let CADDollar = new Intl.NumberFormat('en-CA', {
       style: 'currency',
@@ -9,12 +23,8 @@ export function ProductItem({ hit, components }) {
       currencyDisplay: 'narrowSymbol'
   });
 
-  let lng = '';
-  if(document.getElementById("currentLng") != null){
-      lng = document.getElementById("currentLng").innerHTML;
-  }
   let activeLng = '';
-  if(lng == 'Français') {
+  if(storeview == 'fr') {
       activeLng = '-fr';
       sherpaurl = hit.url.replace("data.sherpagroupav.com", "sherpagroupav.com");
   } else {

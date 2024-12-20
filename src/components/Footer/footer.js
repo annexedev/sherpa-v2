@@ -7,6 +7,7 @@ import defaultClasses from './footer.css';
 import { DEFAULT_LINKS } from './sampleData';
 import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 import NewsLetter from '../NewsLetter';
+import { Util } from '@magento/peregrine';
 
 import {
     useFooterData,
@@ -18,6 +19,17 @@ import GET_HOMEPAGECONFIG_DATA from '../../queries/getHomeConfig.graphql';
 
 const Cookie = React.lazy(() => import('./cookie'));
 import { useLocation } from 'react-router-dom';
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+/* Get store view for language */
+function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }
+    return storeview;
+}
 
 const Footer = props => {
     const { pathname } = useLocation();
@@ -31,12 +43,14 @@ const Footer = props => {
         query: GET_HOMEPAGECONFIG_DATA
     });
 
+    var storeview = getStoreview();
+
     const { HomeConfigData } = homepageData;
     let footerIdentifier = 'ced-pwa-footer-fr';
 
-    const lng = document.getElementById('currentLng').innerHTML;
+    
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';

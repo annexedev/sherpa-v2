@@ -15,7 +15,17 @@ import { useDashboard } from '../../peregrine/lib/talons/MyAccount/useDashboard'
 import { Price } from '@magento/peregrine';
 import BrowserPersistence from '@magento/peregrine/lib/util/simplePersistence';
 
-
+/* Get store view for language */
+function getStoreview() {
+    const storage = new BrowserPersistence();
+    var storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    } else {
+        storeview = storeview;
+    }
+    return storeview;
+}
 
 const MyOrders = props => {
     const orderProps = useCustomerOrder({
@@ -79,22 +89,9 @@ const MyOrders = props => {
     //console.log('doudou'+isProject);
 
 
-    /* Get store view for language */
-
-    const storage = new BrowserPersistence();
-    function getStoreview() {
-        var storeview = storage.getItem('store_view_code');
-        if (!storeview) {
-            storeview = '';
-        } else {
-            storeview = storeview;
-        }
-        return storeview;
-    }
+    
 
     var storeview = getStoreview();
-
-    console.log(storeview);
 
     if (!loading && isProject == null) {
         return (
@@ -664,14 +661,9 @@ const MyOrders = props => {
             }
 
             render() {
-
-                let lng = '';
-                if (document.getElementById('currentLng') != null) {
-                    lng = document.getElementById('currentLng').innerHTML;
-                }
-                let activeLng = '';
+                var storeview = getStoreview();
                 let storeid = '';
-                if (lng == 'Français') {
+                if (storeview == 'fr') {
                     activeLng = '-fr';
                     storeid = 2;
                 } else {

@@ -9,6 +9,21 @@ import SortItem from './sortItem';
 import defaultClasses from './productSort.css';
 import Button from '../Button';
 import Icon from '../Icon';
+import { Util } from '@magento/peregrine';
+
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+/* Get store view for language */
+function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }else {
+        storeview = storeview;
+    }
+    return storeview;
+}
 
 const ProductSort = props => {
     const { mobileView } = useMobile();
@@ -203,12 +218,10 @@ ProductSort.propTypes = {
     sortProps: array
 };
 
-let lng = '';
-if (document.getElementById('currentLng') != null) {
-    lng = document.getElementById('currentLng').innerHTML;
-}
+var storeview = getStoreview();
+
 let activeLng = '';
-if (lng == 'Français') {
+if (storeview == 'fr') {
     activeLng = '-fr';
 } else {
     activeLng = '';

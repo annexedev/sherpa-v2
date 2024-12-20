@@ -406,8 +406,6 @@ const ProductFullDetail = props => {
                 let storeview = storage.getItem('store_view_code');
                 if (!storeview) {
                     storeview = '';
-                } else {
-                    storeview = storeview;
                 }
 
                 var uniqueId = makeid(15);
@@ -808,13 +806,12 @@ const ProductFullDetail = props => {
         setSelectValue(value);
     };
 
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
-    }
     let currencyCde = '';
     let storeid = '';
-    if (lng == 'Français') {
+    const { BrowserPersistence } = Util;
+    const storage = new BrowserPersistence();
+    const storeview = storage.getItem('store_view_code');
+    if (storeview == 'fr') {
         currencyCde = 'CAD';
         storeid = 2;
     } else {

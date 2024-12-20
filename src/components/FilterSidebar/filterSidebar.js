@@ -2,7 +2,7 @@ import React, { useMemo, useCallback, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, number } from 'prop-types';
 import { useFilterSidebar } from '@magento/peregrine/lib/talons/FilterSidebar';
-
+import { Util } from '@magento/peregrine';
 import { useStyle } from '../../classify';
 import LinkButton from '../LinkButton';
 import CurrentFilters from '../FilterModal/CurrentFilters';
@@ -10,6 +10,20 @@ import FilterBlock from '../FilterModal/filterBlock';
 import defaultClasses from './filterSidebar.css';
 
 const SCROLL_OFFSET = 150;
+
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+/* Get store view for language */
+function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }else {
+        storeview = storeview;
+    }
+    return storeview;
+}
 
 /**
  * A view that displays applicable and applied filters.
@@ -30,6 +44,8 @@ const FilterSidebar = props => {
 
     const filterRef = useRef();
     const classes = useStyle(defaultClasses, props.classes);
+
+    var storeview = getStoreview();
 
     const handleApplyFilter = useCallback(
         (...args) => {
@@ -53,15 +69,11 @@ const FilterSidebar = props => {
             Array.from(filterItems, ([group, items], iteration) => {
                 const blockState = filterState.get(group);
                 let groupName = filterNames.get(group);
-                let lng = '';
-                if (document.getElementById('currentLng') != null) {
-                    lng = document.getElementById('currentLng').innerHTML;
-                }
-                let activeLng = '';
-                if (lng == 'Français' && groupName == 'Price') {
+               
+                if (storeview == 'fr' && groupName == 'Price') {
                     groupName = 'Prix';
                 }
-                if (lng == 'Français' && groupName == 'Brands') {
+                if (storeview == 'fr' && groupName == 'Brands') {
                     groupName = 'Marques';
                 }
                 return (

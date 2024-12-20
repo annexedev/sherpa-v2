@@ -13,6 +13,9 @@ import { useCmsBlock } from '../../peregrine/lib/talons/Home/useHome';
 import GET_CMSBLOCK_QUERY from '../../queries/getCmsBlocks.graphql';
 import AccountTriggerResetPassword from '../Header/accountTriggerResetPassword';
 import { Redirect } from 'src/drivers';
+import { Util } from '@magento/peregrine';
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
 /*
 
 <div id="order" value="4"></div>
@@ -63,13 +66,19 @@ class TriggerOpenResetPassword extends Component {
     }
 }
 
-function ServiceDetailsEmployeurs(props) {
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
+/* Get store view for language */
+function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
     }
+    return storeview;
+}
+
+function ServiceDetailsEmployeurs(props) {
+    var storeview = getStoreview();
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';
@@ -498,13 +507,10 @@ const Main = props => {
     function openLoginBox() {
         document.getElementById('user_account').click();
     }
-
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
-    }
+    
+    var storeview = getStoreview();
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';

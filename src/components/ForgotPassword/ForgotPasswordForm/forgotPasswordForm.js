@@ -8,7 +8,6 @@ import Field from '../../Field';
 import TextInput from '../../TextInput';
 import { Util } from '@magento/peregrine';
 
-
 import {
     validateEmail,
     isRequired,
@@ -30,8 +29,6 @@ const ForgotPasswordForm = props => {
     let storeview = storage.getItem('store_view_code');
     if (!storeview) {
         storeview = '';
-    } else {
-        storeview = storeview;
     }
 
     const {
@@ -84,13 +81,9 @@ const ForgotPasswordForm = props => {
         v['email'] = emailData;
         submitResetForm(v);
     };
-
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
-    }
+    
     let activeLng = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
     } else {
         activeLng = '';

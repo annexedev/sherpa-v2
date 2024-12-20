@@ -489,6 +489,9 @@ const GalleryItem = props => {
 
     const { handleLinkClick, item } = useGalleryItem(props);
     const { style } = props;
+    const { BrowserPersistence } = Util;
+    const storage = new BrowserPersistence();
+    let storeview = storage.getItem('store_view_code');
 
     const [productName, setProductName] = useState('');
     let productUrlSuffix = '';
@@ -814,13 +817,9 @@ const GalleryItem = props => {
         );
     };
 
-    let lng = '';
-    if (document.getElementById('currentLng') != null) {
-        lng = document.getElementById('currentLng').innerHTML;
-    }
     let activeLng = '';
     let storeid = '';
-    if (lng == 'Français') {
+    if (storeview == 'fr') {
         activeLng = '-fr';
         storeid = 2;
     } else {

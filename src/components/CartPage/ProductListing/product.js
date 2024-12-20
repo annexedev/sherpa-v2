@@ -21,10 +21,21 @@ import { useIntl } from 'react-intl';
 import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
 import Icon from '../../Icon';
 import { Trash2 as DeleteIcon } from 'react-feather';
+import { Util } from '@magento/peregrine';
 /*import { useCategoryAddToCart  } from '../../../peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import ADD_SIMPLE_MUTATION from '../../../queries/addSimpleProductsToCart.graphql';*/
 
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
 
+ /* Get store view for language */
+ function getStoreview() {
+    let storeview = storage.getItem('store_view_code');
+    if (!storeview) {
+        storeview = '';
+    }
+    return storeview;
+}
 
 const IMAGE_SIZE = 100;
 
@@ -38,7 +49,8 @@ const Product = props => {
 
     const { item, setActiveEditItem, setIsCartUpdating, projectQty, wid, disableQuantity } = props;
     const { formatMessage } = useIntl();
-
+    
+   
     let productUrlSuffix = '';
     const [{ isSignedIn }] = useUserContext();
     const { customizable_options, bundle_options } = item;
@@ -134,7 +146,7 @@ const Product = props => {
                 lng = document.getElementById('currentLng').innerHTML;
             }
             let activeLng = '';
-            if (lng == 'Français') {
+            if (storeview == 'fr') {
                 activeLng = 2;
             } else {
                 activeLng = 0;
