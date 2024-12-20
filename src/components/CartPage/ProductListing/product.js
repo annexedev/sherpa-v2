@@ -49,8 +49,7 @@ const Product = props => {
 
     const { item, setActiveEditItem, setIsCartUpdating, projectQty, wid, disableQuantity } = props;
     const { formatMessage } = useIntl();
-    
-   
+
     let productUrlSuffix = '';
     const [{ isSignedIn }] = useUserContext();
     const { customizable_options, bundle_options } = item;
@@ -140,11 +139,8 @@ const Product = props => {
         }
 
         componentDidMount() {
+            var storeview = getStoreview();
 
-            let lng = '';
-            if (document.getElementById('currentLng') != null) {
-                lng = document.getElementById('currentLng').innerHTML;
-            }
             let activeLng = '';
             if (storeview == 'fr') {
                 activeLng = 2;
